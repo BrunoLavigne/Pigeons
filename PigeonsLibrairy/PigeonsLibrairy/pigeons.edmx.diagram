@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4303f82d756f4c26b19348af13dd79bd" Name="Diagram1">
+        <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.group" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.message" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.person" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.task" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.type" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.following" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="pigeonsModel.FK_event_group" />
+        <AssociationConnector Association="pigeonsModel.FK_event_task" />
+        <AssociationConnector Association="pigeonsModel.FK_event_type" />
+        <AssociationConnector Association="pigeonsModel.FK_following_group" />
+        <AssociationConnector Association="pigeonsModel.FK_message_group" />
+        <AssociationConnector Association="pigeonsModel.FK_task_group" />
+        <AssociationConnector Association="pigeonsModel.FK_message_person" />
+        <AssociationConnector Association="pigeonsModel.FK_following_person" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
