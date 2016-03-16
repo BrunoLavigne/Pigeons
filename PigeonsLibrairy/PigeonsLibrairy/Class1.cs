@@ -9,5 +9,6 @@ namespace PigeonsLibrairy
     public class Class1
     {
         // Bruno pushing test on master
+        // MarcEric Pushing test on MarcEric branch
     }
 }
