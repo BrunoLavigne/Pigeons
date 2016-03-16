@@ -30,6 +30,7 @@ namespace FunctionsTester
                 throw;
             }
             MessageBox.Show("A person have been added to the database");
+            // test de branche
         }
     }
 }
