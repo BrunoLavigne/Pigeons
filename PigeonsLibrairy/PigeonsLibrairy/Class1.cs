@@ -8,6 +8,6 @@ namespace PigeonsLibrairy
 {
     public class Class1
     {
-        // test minim
+        // Bruno pushing test on master
     }
 }

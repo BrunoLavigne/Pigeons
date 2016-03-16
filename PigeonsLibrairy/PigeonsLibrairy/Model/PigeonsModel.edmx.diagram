@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6a4253138f8e4417a4859c45240815bd" Name="Diagram1">
+        <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.group" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.message" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.person" Width="1.5" PointX="3.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.task" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.type" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.following" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="pigeonsModel.FK_event_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_event_task" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_event_type" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_following_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_message_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_task_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_message_person" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_following_person" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
