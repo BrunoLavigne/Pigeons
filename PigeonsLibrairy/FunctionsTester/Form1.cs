@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PigeonsLibrairy;
-using PigeonsLibrairy.DAO;
+using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 
@@ -23,7 +23,8 @@ namespace FunctionsTester
         {
             InitializeComponent();
             controller = new Controller();
-            // super test !
+            MessageDAO messagedao = new MessageDAO();
+            messagedao.delete(1);
         }
 
         private void button1_Click(object sender, EventArgs e)
