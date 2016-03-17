@@ -23,6 +23,7 @@ namespace FunctionsTester
         {
             InitializeComponent();
             controller = new Controller();
+            // super test !
         }
 
         private void button1_Click(object sender, EventArgs e)
