@@ -9,6 +9,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website", "http://lo
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{ef5c1197-f700-4efd-9875-40785785be16}|PigeonsLibrairy.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50038"
 		Debug.AspNetCompiler.PhysicalPath = "\\v-ficahper.ca.intra\mesdocuments\Etudiants\2009\200964945\Visual Studio 2013\WebSites\Pigeon_website\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50038\"
