@@ -10,12 +10,6 @@
     </asp:ContentPlaceHolder>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Resources/css/global.css" rel="stylesheet" />
-    <script src="Scripts/jquery-1.9.1.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-
-    <!-- todo add local in vendors folder -->
-    <script src="Resources/Vendor/TweenMax.min.js"></script>
-    <script src="Resources/Vendor/TimelineLite.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -66,7 +60,16 @@
         </asp:ContentPlaceHolder>
     </div><!-- /page-container -->
     </form>
+    
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
 
+    <!-- todo add local in vendors folder -->
+    <script src="Resources/Vendor/TweenMax.min.js"></script>
+    <script src="Resources/Vendor/TimelineLite.min.js"></script>
+
+    <!-- custom scripts -->
     <script type="text/javascript" src="Resources/js/global.js"></script>
+    
 </body>
 </html>
