@@ -48,3 +48,7 @@
     vertical-align: middle;
     float: none;
 }
+
+.header .menu-icon {
+    margin-right: 10px;
+}
