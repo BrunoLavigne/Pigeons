@@ -68,9 +68,14 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
+    <Compile Include="DAO\Implementation\GroupDAO.cs" />
     <Compile Include="DAO\Implementation\MessageDAO.cs" />
+    <Compile Include="DAO\Implementation\PersonDAO.cs" />
     <Compile Include="DAO\Interface\IDAO.cs" />
-    <Compile Include="DAO\PersonDAO.cs" />
+    <Compile Include="DAO\Interface\IGroupDAO.cs" />
+    <Compile Include="DAO\Interface\IMessageDAO.cs" />
+    <Compile Include="DAO\Interface\IPersonDAO.cs" />
+    <Compile Include="DAO\PersonDAO_toremove.cs" />
     <Compile Include="Model\event.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>

@@ -61,9 +61,9 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="text" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="Inscription_date" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="Inscription_date" Type="datetime" Precision="0" />
           <Property Name="Profile_picture_link" Type="text" Nullable="false" />
-          <Property Name="Birth_date" Type="date" Nullable="false" />
+          <Property Name="Birth_date" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Phone_number" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Organization" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Position" Type="varchar" MaxLength="100" Nullable="false" />
@@ -440,7 +440,7 @@ FROM `following` AS `following`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="pigeonsEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="pigeonsEntities1" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="groups" EntityType="Self.group" />
           <EntitySet Name="messages" EntityType="Self.message" />

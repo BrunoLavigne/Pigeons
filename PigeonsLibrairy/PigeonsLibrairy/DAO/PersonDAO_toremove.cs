@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO
 {
-    public class PersonDAO
+    public class PersonDAO_toremove
     {
         private pigeonsEntities1 pigeonsEntity { get; set; }
 
-        public PersonDAO()
+        public PersonDAO_toremove()
         {
             pigeonsEntity = new pigeonsEntities1();
 
@@ -26,7 +26,7 @@ namespace PigeonsLibrairy.DAO
             thePerson.Description = "Burp";
             thePerson.Password = "1234";
 
-            pigeonsEntity.person.Add(thePerson);
+            pigeonsEntity.people.Add(thePerson);
             pigeonsEntity.SaveChanges();
         }
     }

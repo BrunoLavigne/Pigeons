@@ -22,86 +22,86 @@ namespace FunctionsTester
         public Form1()
         {
             InitializeComponent();
-            controller = new Controller();
-            MessageDAO messagedao = new MessageDAO();
-            messagedao.delete(1);
+
+            controller = new Controller();     
         }
 
+        /// <summary>
+        /// Test personDAO insert
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
-        {            
-            person getPersonById = controller.PersonDAO.GetByID(1);
-
-            MessageBox.Show(getPersonById.Name);                                 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
         {
-            person personAdd = new person();
+            person personToInsert = new person();
 
-            personAdd.Name = "Jimmy";
-            personAdd.Email = "jimmy@gmail.com";
-            personAdd.Profile_picture_link = "http://jimmy.com";
-            personAdd.Birth_date = DateTime.Now.Date;
-            personAdd.Phone_number = "5145224949";
-            personAdd.Organization = "A simple test";
-            personAdd.Position = "The master tester";
-            personAdd.Description = "Burp";
-            personAdd.Password = "1234";
+            string birthDate = "1999-03-02";
+            DateTime birthDateParsed = DateTime.Parse(birthDate);
 
-            controller.PersonDAO.Insert(personAdd);
+            personToInsert.Name = "Bob";
+            personToInsert.Email = "bob@gmail.com";
+            personToInsert.Profile_picture_link = "http://bob.com";
+            personToInsert.Inscription_date = DateTime.Now;
+            personToInsert.Birth_date = birthDateParsed;
+            personToInsert.Phone_number = "5145224949";
+            personToInsert.Organization = "A simple test";
+            personToInsert.Position = "The master tester";
+            personToInsert.Description = "Burp";
+            personToInsert.Password = "1234";
+    
+            // Insertion de la personne
+            controller.PersonDAO.Insert(personToInsert);
+            // Il faut faire le Save sinon l'ajout ne sera pas complété
             controller.Save();
 
-            MessageBox.Show("Jimmy is added to the database");
+            MessageBox.Show("Bob is now added to the database");
+        }
+
+        /// <summary>
+        /// Test message DAO insert
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            group groupToAdd = new group();
+
+            groupToAdd.Creation_date = DateTime.Now;
+            groupToAdd.Description = "Group testing";
+            groupToAdd.Name = "Group no.1";
+            groupToAdd.Is_active = true;
+
+            // Insertion du groupe
+            controller.GroupDAO.Insert(groupToAdd);
+            // Save dans la DB
+            controller.Save();
+
+            MessageBox.Show("Group no.1 is now added to the database");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var persons = controller.PersonDAO.Get();
+            message messageToAdd = new message();
 
-            List<person> lesPersonnes = new List<person>();
-            lesPersonnes = persons.ToList();
+            messageToAdd.Author_Id = 3;
+            messageToAdd.Date_created = DateTime.Now;
+            messageToAdd.Group_Id = 2;
+            messageToAdd.Content = "Message in place";
 
-            string personList = "The person name in the database";
-
-            foreach(person p in lesPersonnes)
-            {
-                personList += p.Name + "\n";                
-            }
-            MessageBox.Show(personList);
+            controller.MessageDAO.Insert(messageToAdd);
+            controller.Save();
         }
 
+        /// <summary>
+        /// Update a person exemple
+        /// </summary>        
         private void button4_Click(object sender, EventArgs e)
         {
-            person getPersonById = controller.PersonDAO.GetByID( 3 );
-            controller.PersonDAO.Delete( 3 );
+            person personToUpdate = controller.PersonDAO.GetByID(3);
+            personToUpdate.Description = "Oh my god my description is updated";
+            controller.PersonDAO.Update(personToUpdate);
             controller.Save();
-
-            MessageBox.Show(getPersonById.Name + " as been deleted id : " + getPersonById.Id);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string message = "";
 
-            person personToUpdate = controller.PersonDAO.GetByID( 1 );
-
-            message += "before : " + personToUpdate.Description + "\n";
-
-            personToUpdate.Description = "OMG I WAS UPDATED";
-
-            controller.PersonDAO.Update(personToUpdate);
-            controller.Save();
-
-            person personUpdated = controller.PersonDAO.GetByID(1);
-
-            message += "after : " + personUpdated.Description;
-
-            MessageBox.Show(message);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Not yet");
         }
     }
 }

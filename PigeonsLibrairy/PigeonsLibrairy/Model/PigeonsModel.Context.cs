@@ -18,6 +18,7 @@ namespace PigeonsLibrairy.Model
         public pigeonsEntities1()
             : base("name=pigeonsEntities1")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,7 +29,7 @@ namespace PigeonsLibrairy.Model
         public virtual DbSet<@event> events { get; set; }
         public virtual DbSet<group> groups { get; set; }
         public virtual DbSet<message> messages { get; set; }
-        public virtual DbSet<person> person { get; set; }
+        public virtual DbSet<person> people { get; set; }
         public virtual DbSet<task> tasks { get; set; }
         public virtual DbSet<type> types { get; set; }
         public virtual DbSet<following> followings { get; set; }
