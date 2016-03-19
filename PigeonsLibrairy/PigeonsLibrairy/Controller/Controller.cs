@@ -1,11 +1,7 @@
-﻿using PigeonsLibrairy.DAO;
-using PigeonsLibrairy.DAO.Implementation;
+﻿using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Model;
+using PigeonsLibrairy.Service.Implementation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Controller
 {
@@ -13,55 +9,55 @@ namespace PigeonsLibrairy.Controller
     {
         private pigeonsEntities1 context = new pigeonsEntities1();
         
-        private PersonDAO personDAO;
-        private MessageDAO messageDAO;
-        private GroupDAO groupDAO;
+        private MessageService messageService;        
+        private PersonService personService;
+        private GroupService groupeService;
 
         /// <summary>
-        /// Création du DAO pour la table Person
+        /// Création du Service pour la table Person
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public PersonDAO PersonDAO
+        public PersonService PersonService
         {
             get
             {
-                if (this.personDAO == null)
+                if(this.personService == null)
                 {
-                    this.personDAO = new PersonDAO(context);
+                    this.personService = new PersonService(context);
                 }
-                return personDAO;
+                return personService;
             }
         }
 
         /// <summary>
-        /// Création du DAO pour la table Message
+        /// Création du Service pour la table Message
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public MessageDAO MessageDAO
+        public MessageService MessageService
         {
             get
             {
-                if (this.messageDAO == null)
+                if (this.messageService == null)
                 {
-                    this.messageDAO = new MessageDAO(context);
+                    this.messageService = new MessageService(context);
                 }
-                return messageDAO;
+                return messageService;
             }
         }
 
         /// <summary>
-        /// Création du DAO pour la table Group
+        /// Création du Service pour la table Group
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public GroupDAO GroupDAO
+        public GroupService GroupService
         {
             get
             {
-                if (this.groupDAO == null)
+                if (this.groupeService == null)
                 {
-                    this.groupDAO = new GroupDAO(context);
+                    this.groupeService = new GroupService(context);
                 }
-                return groupDAO;
+                return groupeService;
             }
         }
 

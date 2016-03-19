@@ -1,12 +1,9 @@
-﻿using PigeonsLibrairy.DAO.Interface;
-using PigeonsLibrairy.Model;
+﻿using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {

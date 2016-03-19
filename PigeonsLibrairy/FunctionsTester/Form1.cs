@@ -46,9 +46,10 @@ namespace FunctionsTester
             personToInsert.Position = "The master tester";
             personToInsert.Description = "Burp";
             personToInsert.Password = "1234";
-    
+
             // Insertion de la personne
-            controller.PersonDAO.Insert(personToInsert);
+            controller.PersonService.Insert(personToInsert);
+
             // Il faut faire le Save sinon l'ajout ne sera pas complété
             controller.Save();
 
@@ -68,7 +69,7 @@ namespace FunctionsTester
             groupToAdd.Is_active = true;
 
             // Insertion du groupe
-            controller.GroupDAO.Insert(groupToAdd);
+            controller.GroupService.Insert(groupToAdd);            
             // Save dans la DB
             controller.Save();
 
@@ -84,8 +85,10 @@ namespace FunctionsTester
             messageToAdd.Group_Id = 2;
             messageToAdd.Content = "Message in place";
 
-            controller.MessageDAO.Insert(messageToAdd);
+            controller.MessageService.Insert(messageToAdd);
             controller.Save();
+
+            MessageBox.Show("Message createrd");
         }
 
         /// <summary>
@@ -93,9 +96,9 @@ namespace FunctionsTester
         /// </summary>        
         private void button4_Click(object sender, EventArgs e)
         {
-            person personToUpdate = controller.PersonDAO.GetByID(3);
+            person personToUpdate = controller.PersonService.GetByID(4);
             personToUpdate.Description = "Oh my god my description is updated";
-            controller.PersonDAO.Update(personToUpdate);
+            controller.PersonService.Update(personToUpdate);
             controller.Save();
         }
 

@@ -113,6 +113,14 @@
     <Compile Include="Model\type.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implementation\GroupService.cs" />
+    <Compile Include="Service\Implementation\MessageService.cs" />
+    <Compile Include="Service\Implementation\PersonService.cs" />
+    <Compile Include="Service\Implementation\Service.cs" />
+    <Compile Include="Service\Interface\IGroupService.cs" />
+    <Compile Include="Service\Interface\IMessageService.cs" />
+    <Compile Include="Service\Interface\IPersonService.cs" />
+    <Compile Include="Service\Interface\IService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

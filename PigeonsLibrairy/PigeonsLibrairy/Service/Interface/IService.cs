@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PigeonsLibrairy.DAO.Interface
+namespace PigeonsLibrairy.Service.Interface
 {
-    public interface IDAO<TEntity> where TEntity : class
+    public interface IService<TEntity> where TEntity : class
     {
         TEntity GetByID(object id);
         void Delete(object id);
