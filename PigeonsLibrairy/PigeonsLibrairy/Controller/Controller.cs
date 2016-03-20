@@ -12,6 +12,10 @@ namespace PigeonsLibrairy.Controller
         private MessageService messageService;        
         private PersonService personService;
         private GroupService groupeService;
+        private FollowingService followingService;
+        private EventService eventService;
+        private TaskService taskService;
+        private TypeService typeService;
 
         /// <summary>
         /// Création du Service pour la table Person
@@ -62,11 +66,83 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
+        /// Création du Service pour la table Following
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public FollowingService FollowingService
+        {
+            get
+            {
+                if (this.followingService == null)
+                {
+                    this.followingService = new FollowingService(context);
+                }
+                return followingService;
+            }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table Events
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public EventService EventService
+        {
+            get
+            {
+                if (this.eventService == null)
+                {
+                    this.eventService = new EventService(context);
+                }
+                return eventService;
+            }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table Task
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public TaskService TaskService
+        {
+            get
+            {
+                if (this.taskService == null)
+                {
+                    this.taskService = new TaskService(context);
+                }
+                return taskService;
+            }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table Type
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public TypeService TypeService
+        {
+            get
+            {
+                if (this.typeService == null)
+                {
+                    this.typeService = new TypeService(context);
+                }
+                return typeService;
+            }
+        }
+
+        /// <summary>
         /// Enregistrement des modifications dans la base de données
         /// </summary>
         public void Save()
         {
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("Cannot save");
+            }
+            
         }
 
         private bool disposed = false;

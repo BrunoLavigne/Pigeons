@@ -85,8 +85,8 @@ namespace FunctionsTester
             messageToAdd.Group_Id = 2;
             messageToAdd.Content = "Message in place";
 
-            controller.MessageService.Insert(messageToAdd);
-            controller.Save();
+            controller.MessageService.Insert(messageToAdd);            
+            controller.Save();            
 
             MessageBox.Show("Message createrd");
         }
@@ -105,6 +105,26 @@ namespace FunctionsTester
         private void button5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            group theGroup = controller.GroupService.GetByID(2);
+            person thePerson = controller.PersonService.GetByID(3);
+
+            following follow = new following();
+            follow.Person_Id = 3;
+            follow.Group_id = 2;
+            follow.Is_active = true;
+            follow.Is_admin = true;
+            follow.Last_checkin = DateTime.Now;
+            follow.group = theGroup;
+            follow.person = thePerson;  
+
+            controller.FollowingService.Insert(follow);
+            controller.Save();
+
+            MessageBox.Show("Person id: 3 is now following groupe id: 2");
         }
     }
 }

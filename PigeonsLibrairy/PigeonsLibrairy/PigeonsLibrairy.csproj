@@ -68,13 +68,21 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
+    <Compile Include="DAO\Implementation\EventDAO.cs" />
+    <Compile Include="DAO\Implementation\FollowingDAO.cs" />
     <Compile Include="DAO\Implementation\GroupDAO.cs" />
     <Compile Include="DAO\Implementation\MessageDAO.cs" />
     <Compile Include="DAO\Implementation\PersonDAO.cs" />
+    <Compile Include="DAO\Implementation\TaskDAO.cs" />
+    <Compile Include="DAO\Implementation\TypeDAO.cs" />
     <Compile Include="DAO\Interface\IDAO.cs" />
+    <Compile Include="DAO\Interface\IEventDAO.cs" />
+    <Compile Include="DAO\Interface\IFollowingDAO.cs" />
     <Compile Include="DAO\Interface\IGroupDAO.cs" />
     <Compile Include="DAO\Interface\IMessageDAO.cs" />
     <Compile Include="DAO\Interface\IPersonDAO.cs" />
+    <Compile Include="DAO\Interface\ITaskDAO.cs" />
+    <Compile Include="DAO\Interface\ITypeDAO.cs" />
     <Compile Include="DAO\PersonDAO_toremove.cs" />
     <Compile Include="Model\event.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
@@ -113,14 +121,22 @@
     <Compile Include="Model\type.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implementation\EventService.cs" />
+    <Compile Include="Service\Implementation\FollowingService.cs" />
     <Compile Include="Service\Implementation\GroupService.cs" />
     <Compile Include="Service\Implementation\MessageService.cs" />
     <Compile Include="Service\Implementation\PersonService.cs" />
     <Compile Include="Service\Implementation\Service.cs" />
+    <Compile Include="Service\Implementation\TaskService.cs" />
+    <Compile Include="Service\Implementation\TypeService.cs" />
+    <Compile Include="Service\Interface\IEventService.cs" />
     <Compile Include="Service\Interface\IGroupService.cs" />
     <Compile Include="Service\Interface\IMessageService.cs" />
+    <Compile Include="Service\Interface\IFollowingService.cs" />
     <Compile Include="Service\Interface\IPersonService.cs" />
     <Compile Include="Service\Interface\IService.cs" />
+    <Compile Include="Service\Interface\ITaskService.cs" />
+    <Compile Include="Service\Interface\ITypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
