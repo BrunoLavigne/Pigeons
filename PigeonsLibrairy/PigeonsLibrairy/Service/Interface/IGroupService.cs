@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PigeonsLibrairy.Model;
 
 namespace PigeonsLibrairy.Service.Interface
 {
     public interface IGroupService
     {
+        void CreateNewGroupAndRegister(group newGroup, int personId);
     }
 }

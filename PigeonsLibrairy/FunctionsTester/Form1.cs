@@ -11,6 +11,7 @@ using PigeonsLibrairy;
 using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
+using PigeonsLibrairy.Exceptions;
 
 namespace FunctionsTester
 {
@@ -33,19 +34,16 @@ namespace FunctionsTester
         {
             person personToInsert = new person();
 
-            string birthDate = "1999-03-02";
-            DateTime birthDateParsed = DateTime.Parse(birthDate);
-
-            personToInsert.Name = "Bob";
-            personToInsert.Email = "bob@gmail.com";
+            personToInsert.Name                 = "Bob";
+            personToInsert.Email                = "bob@gmail.com";
             personToInsert.Profile_picture_link = "http://bob.com";
-            personToInsert.Inscription_date = DateTime.Now;
-            personToInsert.Birth_date = birthDateParsed;
-            personToInsert.Phone_number = "5145224949";
-            personToInsert.Organization = "A simple test";
-            personToInsert.Position = "The master tester";
-            personToInsert.Description = "Burp";
-            personToInsert.Password = "1234";
+            personToInsert.Inscription_date     = DateTime.Now;
+            personToInsert.Birth_date           = DateTime.Parse("1999-03-02");
+            personToInsert.Phone_number         = "5145224949";
+            personToInsert.Organization         = "A simple test";
+            personToInsert.Position             = "The master tester";
+            personToInsert.Description          = "Burp";
+            personToInsert.Password             = "1234";
 
             // Insertion de la personne
             controller.PersonService.Insert(personToInsert);
@@ -63,10 +61,10 @@ namespace FunctionsTester
         {
             group groupToAdd = new group();
 
-            groupToAdd.Creation_date = DateTime.Now;
-            groupToAdd.Description = "Group testing";
-            groupToAdd.Name = "Group no.1";
-            groupToAdd.Is_active = true;
+            groupToAdd.Creation_date    = DateTime.Now;
+            groupToAdd.Description      = "Group testing";
+            groupToAdd.Name             = "Group no.1";
+            groupToAdd.Is_active        = true;
 
             // Insertion du groupe
             controller.GroupService.Insert(groupToAdd);            
@@ -76,19 +74,24 @@ namespace FunctionsTester
             MessageBox.Show("Group no.1 is now added to the database");
         }
 
+        /// <summary>
+        /// Creating a message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             message messageToAdd = new message();
 
-            messageToAdd.Author_Id = 3;
-            messageToAdd.Date_created = DateTime.Now;
-            messageToAdd.Group_Id = 2;
-            messageToAdd.Content = "Message in place";
+            messageToAdd.Author_Id      = 3;
+            messageToAdd.Date_created   = DateTime.Now;
+            messageToAdd.Group_Id       = 2;
+            messageToAdd.Content        = "Message in place";
 
             controller.MessageService.Insert(messageToAdd);            
             controller.Save();            
 
-            MessageBox.Show("Message createrd");
+            MessageBox.Show("Message created");
         }
 
         /// <summary>
@@ -102,29 +105,148 @@ namespace FunctionsTester
             controller.Save();
         }
 
+        /// <summary>
+        /// Person following a group exemple
+        /// </summary>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            following follow    = new following();
+            follow.Person_Id    = 3;
+            follow.Group_id     = 3;
+            follow.Is_active    = true;
+            follow.Is_admin     = true;
+            follow.Last_checkin = DateTime.Now;
+
+            controller.FollowingService.Insert(follow);
+
+            try
+            {
+                controller.Save();
+                MessageBox.Show("Person id: 3 is now following groupe id: 2");
+            }
+            catch(ControllerException controllerException)
+            {
+                MessageBox.Show(controllerException.Message);
+            }                        
+        }
+
+        /// <summary>
+        /// Getting the list of the group a person is following exemple
+        /// </summary>
         private void button5_Click(object sender, EventArgs e)
         {
+            int personId = 3;
+
+            List<following> testList = controller.FollowingService.GetTheFollowingGroupsOfPersonId(personId);
+
+            foreach(following f in testList)
+            {
+                group theGroupIamFollowing = controller.GroupService.GetByID(f.Group_id);
+                MessageBox.Show("The person id 3 is following this groupe id : " + f.Group_id + " named : " + theGroupIamFollowing.Name);
+            }
+        }
+
+        /// <summary>
+        /// Dirty group creating and registering the person as following that new group
+        /// </summary>        
+        private void button8_Click(object sender, EventArgs e)
+        {
+            // User id 11 is creating a group from his dashboard so we are creating the group and adding him to that group
+            int personId = 11;
+
+            // Creating the new group
+            group aNewGroup = new group();
+            aNewGroup.Creation_date = DateTime.Now;
+            aNewGroup.Description = "Creating a group and a following";
+            aNewGroup.Name = "The group of person ID 11";
+            aNewGroup.Is_active = true;
+
+            // Insertion and saving of the group
+            controller.GroupService.Insert(aNewGroup);
+            controller.Save();
+
+            // Creating the following
+            following personIsFollowing = new following();
+            personIsFollowing.Person_Id = personId;
+            personIsFollowing.Group_id = aNewGroup.Id; // The id of the group can be retreived right away without querying the DB
+            personIsFollowing.Is_active = true;
+            personIsFollowing.Is_admin = true;
+            personIsFollowing.Last_checkin = DateTime.Now;
+
+            // Insertion the the following
+            controller.FollowingService.Insert(personIsFollowing);
+            // Saving
+            controller.Save();
 
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Creating a new group and following using the service and a transaction
+        /// </summary>        
+        private void button9_Click(object sender, EventArgs e)
         {
-            group theGroup = controller.GroupService.GetByID(2);
-            person thePerson = controller.PersonService.GetByID(3);
+            // User id 11 is creating a group from his dashboard so we are creating the group and adding him to that group
+            int personId = 11;
 
-            following follow = new following();
-            follow.Person_Id = 3;
-            follow.Group_id = 2;
-            follow.Is_active = true;
-            follow.Is_admin = true;
-            follow.Last_checkin = DateTime.Now;
-            follow.group = theGroup;
-            follow.person = thePerson;  
+            // Creating the new group
+            group aNewGroup = new group();
+            aNewGroup.Creation_date = DateTime.Now;
+            aNewGroup.Description = "Creating a group and a following";
+            aNewGroup.Name = "The group of person ID 11";
+            aNewGroup.Is_active = true;
 
-            controller.FollowingService.Insert(follow);
-            controller.Save();
+            // Insertion and saving of the group
+            controller.GroupService.CreateNewGroupAndRegister(aNewGroup, personId);
 
-            MessageBox.Show("Person id: 3 is now following groupe id: 2");
+            MessageBox.Show("Smooth, the data should be in the DB");
+        }
+
+        /// <summary>
+        /// Adding some persons to join a group
+        /// </summary>
+        private void button10_Click(object sender, EventArgs e)
+        {
+            // Adding some persons to join the group ID 8
+            int groupeId = 8;
+
+            // Ids to be added
+            int[] personToBeAdded = { 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            foreach(int i in personToBeAdded)
+            {
+                // adding them to the group (creating a following)
+                controller.FollowingService.addPersonToGroup(i, groupeId);
+            }
+
+            MessageBox.Show("omg everyone is added to my group !");
+        }
+
+        /// <summary>
+        /// Getting a list of all the followers to a group
+        /// </summary>
+        private void button11_Click(object sender, EventArgs e)
+        {
+            int groupId = 8;
+            // Getting the list
+            List<following> listOfFollowers = controller.FollowingService.GetThePersonsFollowingGroupsId(groupId);
+            
+            int nbOfAdmin = 0;
+            int nbOfFollower = 0;
+
+            // Just going through the list to see the status of each follower
+            foreach(following follower in listOfFollowers)
+            {
+                if (follower.Is_admin)
+                {
+                    nbOfAdmin += 1;
+                }
+                else
+                {
+                    nbOfFollower += 1;
+                }
+            }
+
+            MessageBox.Show("The group no. 8 have " + listOfFollowers.Count + " followers ( Number of admin : " + nbOfAdmin + ", numbers of followers : " + nbOfFollower);
         }
     }
 }

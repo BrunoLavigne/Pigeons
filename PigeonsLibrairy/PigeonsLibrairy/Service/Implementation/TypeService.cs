@@ -1,4 +1,5 @@
-﻿using PigeonsLibrairy.Model;
+﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace PigeonsLibrairy.Service.Implementation
 {
     public class TypeService : Service<type>, ITypeService
     {
-        public TypeService(pigeonsEntities1 context) : base(context) { }
+        private TypeDAO typeDAO { get; set; }
+
+        public TypeService(pigeonsEntities1 context) : base(context)
+        {
+            typeDAO = new TypeDAO(context);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Implementation;
 using System;
@@ -13,7 +14,7 @@ namespace PigeonsLibrairy.Controller
         private PersonService personService;
         private GroupService groupeService;
         private FollowingService followingService;
-        private EventService eventService;
+        private ProjectService projectService;
         private TaskService taskService;
         private TypeService typeService;
 
@@ -85,15 +86,15 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Events
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public EventService EventService
+        public ProjectService ProjectService
         {
             get
             {
-                if (this.eventService == null)
+                if (this.projectService == null)
                 {
-                    this.eventService = new EventService(context);
+                    this.projectService = new ProjectService(context);
                 }
-                return eventService;
+                return projectService;
             }
         }
 
@@ -136,11 +137,11 @@ namespace PigeonsLibrairy.Controller
         {
             try
             {
-                context.SaveChanges();
+                context.SaveChanges();                
             }
             catch
             {
-                throw new Exception("Cannot save");
+                throw new ControllerException("There was an error while saving");
             }
             
         }

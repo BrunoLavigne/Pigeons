@@ -1,6 +1,6 @@
 ﻿namespace PigeonsLibrairy.Service.Interface
 {
-    public interface IEventService
+    public interface IProjectService
     {
     }
 }

@@ -5,32 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pigeonsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Group_id" Type="int" Nullable="false" />
-          <Property Name="Task_id" Type="int" Nullable="false" />
-          <Property Name="Type_id" Type="int" Nullable="false" />
-          <Property Name="Date_start" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Date_end" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'def.pigeons.following' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="following">
           <Key>
             <PropertyRef Name="Person_Id" />
             <PropertyRef Name="Group_id" />
-            <PropertyRef Name="Is_admin" />
-            <PropertyRef Name="Last_checkin" />
-            <PropertyRef Name="Is_active" />
           </Key>
           <Property Name="Person_Id" Type="int" Nullable="false" />
           <Property Name="Group_id" Type="int" Nullable="false" />
           <Property Name="Is_admin" Type="bool" Nullable="false" />
-          <Property Name="Last_checkin" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="Last_checkin" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Is_active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="group">
@@ -39,7 +22,7 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Creation_date" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="Creation_date" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="Is_active" Type="bool" Nullable="false" />
         </EntityType>
@@ -51,7 +34,7 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
           <Property Name="Author_Id" Type="int" Nullable="false" />
           <Property Name="Group_Id" Type="int" Nullable="false" />
           <Property Name="Content" Type="text" Nullable="false" />
-          <Property Name="Date_created" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="Date_created" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="person">
           <Key>
@@ -69,12 +52,23 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
           <Property Name="Position" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
         </EntityType>
-        <EntityType Name="task">
+        <EntityType Name="project">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Group_id" Type="int" Nullable="false" />
+          <Property Name="Type_id" Type="int" Nullable="false" />
+          <Property Name="Date_start" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Date_end" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Project_ID" Type="int" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="Date_due" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Is_completed" Type="bool" Nullable="false" />
@@ -91,36 +85,24 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
           <End Role="group" Type="Self.group" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <End Role="project" Type="Self.project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="event">
+            <Dependent Role="project">
               <PropertyRef Name="Group_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_event_task">
-          <End Role="task" Type="Self.task" Multiplicity="1" />
-          <End Role="event" Type="Self.event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="task">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="Task_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_event_type">
           <End Role="type" Type="Self.type" Multiplicity="1" />
-          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <End Role="project" Type="Self.project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="type">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="event">
+            <Dependent Role="project">
               <PropertyRef Name="Type_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -175,47 +157,33 @@ warning 6002: The table/view 'def.pigeons.following' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_task_group">
-          <End Role="group" Type="Self.group" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK_Project_Task">
+          <End Role="project" Type="Self.project" Multiplicity="1" />
           <End Role="task" Type="Self.task" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="group">
+            <Principal Role="project">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="task">
-              <PropertyRef Name="Group_id" />
+              <PropertyRef Name="Project_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="pigeonsModelStoreContainer">
-          <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="messages" EntityType="Self.messages" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="person" EntityType="Self.person" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="project" EntityType="Self.project" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="type" EntityType="Self.type" Schema="pigeons" store:Type="Tables" />
-          <EntitySet Name="following" EntityType="Self.following" store:Type="Tables" store:Schema="pigeons">
-            <DefiningQuery>SELECT
-`following`.`Person_Id`, 
-`following`.`Group_id`, 
-`following`.`Is_admin`, 
-`following`.`Last_checkin`, 
-`following`.`Is_active`
-FROM `following` AS `following`</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_event_group" Association="Self.FK_event_group">
             <End Role="group" EntitySet="group" />
-            <End Role="event" EntitySet="event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_event_task" Association="Self.FK_event_task">
-            <End Role="task" EntitySet="task" />
-            <End Role="event" EntitySet="event" />
+            <End Role="project" EntitySet="project" />
           </AssociationSet>
           <AssociationSet Name="FK_event_type" Association="Self.FK_event_type">
             <End Role="type" EntitySet="type" />
-            <End Role="event" EntitySet="event" />
+            <End Role="project" EntitySet="project" />
           </AssociationSet>
           <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
             <End Role="group" EntitySet="group" />
@@ -233,8 +201,8 @@ FROM `following` AS `following`</DefiningQuery>
             <End Role="person" EntitySet="person" />
             <End Role="messages" EntitySet="messages" />
           </AssociationSet>
-          <AssociationSet Name="FK_task_group" Association="Self.FK_task_group">
-            <End Role="group" EntitySet="group" />
+          <AssociationSet Name="FK_Project_Task" Association="Self.FK_Project_Task">
+            <End Role="project" EntitySet="project" />
             <End Role="task" EntitySet="task" />
           </AssociationSet>
         </EntityContainer>
@@ -242,21 +210,6 @@ FROM `following` AS `following`</DefiningQuery>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pigeonsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Group_id" Type="Int32" Nullable="false" />
-          <Property Name="Task_id" Type="Int32" Nullable="false" />
-          <Property Name="Type_id" Type="Int32" Nullable="false" />
-          <Property Name="Date_start" Type="DateTime" Nullable="false" />
-          <Property Name="Date_end" Type="DateTime" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="group" Relationship="Self.FK_event_group" FromRole="event" ToRole="group" />
-          <NavigationProperty Name="task" Relationship="Self.FK_event_task" FromRole="event" ToRole="task" />
-          <NavigationProperty Name="type" Relationship="Self.FK_event_type" FromRole="event" ToRole="type" />
-        </EntityType>
         <EntityType Name="group">
           <Key>
             <PropertyRef Name="Id" />
@@ -266,10 +219,9 @@ FROM `following` AS `following`</DefiningQuery>
           <Property Name="Creation_date" Type="DateTime" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Is_active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="events" Relationship="Self.FK_event_group" FromRole="group" ToRole="event" />
           <NavigationProperty Name="followings" Relationship="Self.FK_following_group" FromRole="group" ToRole="following" />
           <NavigationProperty Name="messages" Relationship="Self.FK_message_group" FromRole="group" ToRole="messages" />
-          <NavigationProperty Name="tasks" Relationship="Self.FK_task_group" FromRole="group" ToRole="task" />
+          <NavigationProperty Name="projects" Relationship="pigeonsModel.FK_event_group1" FromRole="group" ToRole="project" />
         </EntityType>
         <EntityType Name="message">
           <Key>
@@ -306,12 +258,11 @@ FROM `following` AS `following`</DefiningQuery>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Group_id" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date_due" Type="DateTime" Nullable="false" />
           <Property Name="Is_completed" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="events" Relationship="Self.FK_event_task" FromRole="task" ToRole="event" />
-          <NavigationProperty Name="group" Relationship="Self.FK_task_group" FromRole="task" ToRole="group" />
+          <Property Name="Project_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="project" Relationship="pigeonsModel.FK_Project_Task" FromRole="task" ToRole="project" />
         </EntityType>
         <EntityType Name="type">
           <Key>
@@ -320,15 +271,12 @@ FROM `following` AS `following`</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="events" Relationship="Self.FK_event_type" FromRole="type" ToRole="event" />
+          <NavigationProperty Name="projects" Relationship="pigeonsModel.FK_event_type1" FromRole="type" ToRole="project" />
         </EntityType>
         <EntityType Name="following">
           <Key>
             <PropertyRef Name="Person_Id" />
             <PropertyRef Name="Group_id" />
-            <PropertyRef Name="Is_admin" />
-            <PropertyRef Name="Last_checkin" />
-            <PropertyRef Name="Is_active" />
           </Key>
           <Property Name="Person_Id" Type="Int32" Nullable="false" />
           <Property Name="Group_id" Type="Int32" Nullable="false" />
@@ -338,44 +286,6 @@ FROM `following` AS `following`</DefiningQuery>
           <NavigationProperty Name="group" Relationship="Self.FK_following_group" FromRole="following" ToRole="group" />
           <NavigationProperty Name="person" Relationship="Self.FK_following_person" FromRole="following" ToRole="person" />
         </EntityType>
-        <Association Name="FK_event_group">
-          <End Role="group" Type="Self.group" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="event" Type="Self.event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="group">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="Group_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_event_task">
-          <End Role="task" Type="Self.task" Multiplicity="1" />
-          <End Role="event" Type="Self.event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="task">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="Task_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_event_type">
-          <End Role="type" Type="Self.type" Multiplicity="1" />
-          <End Role="event" Type="Self.event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="type">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="Type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_following_group">
           <End Role="group" Type="Self.group" Multiplicity="1" />
           <End Role="following" Type="Self.following" Multiplicity="*" />
@@ -399,20 +309,6 @@ FROM `following` AS `following`</DefiningQuery>
             </Principal>
             <Dependent Role="messages">
               <PropertyRef Name="Group_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_task_group">
-          <End Role="group" Type="Self.group" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="task" Type="Self.task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="group">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="task">
-              <PropertyRef Name="Group_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -441,25 +337,12 @@ FROM `following` AS `following`</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="pigeonsEntities1" annotation:LazyLoadingEnabled="false">
-          <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="groups" EntityType="Self.group" />
           <EntitySet Name="messages" EntityType="Self.message" />
           <EntitySet Name="people" EntityType="Self.person" />
           <EntitySet Name="tasks" EntityType="Self.task" />
           <EntitySet Name="types" EntityType="Self.type" />
           <EntitySet Name="followings" EntityType="Self.following" />
-          <AssociationSet Name="FK_event_group" Association="Self.FK_event_group">
-            <End Role="group" EntitySet="groups" />
-            <End Role="event" EntitySet="events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_event_task" Association="Self.FK_event_task">
-            <End Role="task" EntitySet="tasks" />
-            <End Role="event" EntitySet="events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_event_type" Association="Self.FK_event_type">
-            <End Role="type" EntitySet="types" />
-            <End Role="event" EntitySet="events" />
-          </AssociationSet>
           <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
             <End Role="group" EntitySet="groups" />
             <End Role="following" EntitySet="followings" />
@@ -467,10 +350,6 @@ FROM `following` AS `following`</DefiningQuery>
           <AssociationSet Name="FK_message_group" Association="Self.FK_message_group">
             <End Role="group" EntitySet="groups" />
             <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_task_group" Association="Self.FK_task_group">
-            <End Role="group" EntitySet="groups" />
-            <End Role="task" EntitySet="tasks" />
           </AssociationSet>
           <AssociationSet Name="FK_message_person" Association="Self.FK_message_person">
             <End Role="person" EntitySet="people" />
@@ -480,26 +359,78 @@ FROM `following` AS `following`</DefiningQuery>
             <End Role="person" EntitySet="people" />
             <End Role="following" EntitySet="followings" />
           </AssociationSet>
+          <EntitySet Name="projects" EntityType="pigeonsModel.project" />
+          <AssociationSet Name="FK_event_group1" Association="pigeonsModel.FK_event_group1">
+            <End Role="group" EntitySet="groups" />
+            <End Role="project" EntitySet="projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_event_type1" Association="pigeonsModel.FK_event_type1">
+            <End Role="type" EntitySet="types" />
+            <End Role="project" EntitySet="projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Task" Association="pigeonsModel.FK_Project_Task">
+            <End Role="project" EntitySet="projects" />
+            <End Role="task" EntitySet="tasks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_id" Type="Int32" Nullable="false" />
+          <Property Name="Type_id" Type="Int32" Nullable="false" />
+          <Property Name="Date_start" Type="DateTime" Nullable="false" />
+          <Property Name="Date_end" Type="DateTime" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_event_group1" FromRole="project" ToRole="group" />
+          <NavigationProperty Name="type" Relationship="pigeonsModel.FK_event_type1" FromRole="project" ToRole="type" />
+          <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Project_Task" FromRole="project" ToRole="task" />
+        </EntityType>
+        <Association Name="FK_event_group1">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.project" Role="project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="Group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_event_type1">
+          <End Type="pigeonsModel.type" Role="type" Multiplicity="1" />
+          <End Type="pigeonsModel.project" Role="project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="Type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Task">
+          <End Type="pigeonsModel.project" Role="project" Multiplicity="1" />
+          <End Type="pigeonsModel.task" Role="task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="task">
+              <PropertyRef Name="Project_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="pigeonsModelStoreContainer" CdmEntityContainer="pigeonsEntities1">
-          <EntitySetMapping Name="events">
-            <EntityTypeMapping TypeName="pigeonsModel.event">
-              <MappingFragment StoreEntitySet="event">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
-                <ScalarProperty Name="Task_id" ColumnName="Task_id" />
-                <ScalarProperty Name="Type_id" ColumnName="Type_id" />
-                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
-                <ScalarProperty Name="Date_end" ColumnName="Date_end" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="groups">
             <EntityTypeMapping TypeName="pigeonsModel.group">
               <MappingFragment StoreEntitySet="group">
@@ -542,8 +473,8 @@ FROM `following` AS `following`</DefiningQuery>
           <EntitySetMapping Name="tasks">
             <EntityTypeMapping TypeName="pigeonsModel.task">
               <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date_due" ColumnName="Date_due" />
                 <ScalarProperty Name="Is_completed" ColumnName="Is_completed" />
@@ -567,6 +498,18 @@ FROM `following` AS `following`</DefiningQuery>
                 <ScalarProperty Name="Is_admin" ColumnName="Is_admin" />
                 <ScalarProperty Name="Last_checkin" ColumnName="Last_checkin" />
                 <ScalarProperty Name="Is_active" ColumnName="Is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projects">
+            <EntityTypeMapping TypeName="pigeonsModel.project">
+              <MappingFragment StoreEntitySet="project">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date_end" ColumnName="Date_end" />
+                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
+                <ScalarProperty Name="Type_id" ColumnName="Type_id" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

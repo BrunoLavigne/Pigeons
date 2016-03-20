@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    public interface IEventDAO
+    public interface IProjectDAO
     {
     }
 }

@@ -3,8 +3,8 @@ using PigeonsLibrairy.Model;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class EventDAO : DAO<@event>, IEventDAO
+    public class ProjectDAO : DAO<project>, IProjectDAO
     {
-        public EventDAO(pigeonsEntities1 context) : base(context) { }
+        public ProjectDAO(pigeonsEntities1 context) : base(context) { }
     }
 }

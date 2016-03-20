@@ -17,7 +17,7 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public type()
         {
-            this.events = new HashSet<@event>();
+            this.projects = new HashSet<project>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace PigeonsLibrairy.Model
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<@event> events { get; set; }
+        public virtual ICollection<project> projects { get; set; }
     }
 }
