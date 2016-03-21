@@ -17,10 +17,9 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group()
         {
-            this.events = new HashSet<@event>();
             this.followings = new HashSet<following>();
             this.messages = new HashSet<message>();
-            this.tasks = new HashSet<task>();
+            this.projects = new HashSet<project>();
         }
     
         public int Id { get; set; }
@@ -30,12 +29,10 @@ namespace PigeonsLibrairy.Model
         public bool Is_active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<@event> events { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<task> tasks { get; set; }
+        public virtual ICollection<project> projects { get; set; }
     }
 }

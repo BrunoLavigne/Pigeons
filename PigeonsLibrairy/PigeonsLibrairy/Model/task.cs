@@ -14,20 +14,12 @@ namespace PigeonsLibrairy.Model
     
     public partial class task
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public task()
-        {
-            this.events = new HashSet<@event>();
-        }
-    
         public int Id { get; set; }
-        public int Group_id { get; set; }
         public string Description { get; set; }
         public System.DateTime Date_due { get; set; }
         public bool Is_completed { get; set; }
+        public int Project_ID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<@event> events { get; set; }
-        public virtual group group { get; set; }
+        public virtual project project { get; set; }
     }
 }
