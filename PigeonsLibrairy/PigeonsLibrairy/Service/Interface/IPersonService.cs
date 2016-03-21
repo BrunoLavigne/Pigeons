@@ -1,4 +1,7 @@
-﻿namespace PigeonsLibrairy.Service.Interface
+﻿using PigeonsLibrairy.Model;
+using System.Collections.Generic;
+
+namespace PigeonsLibrairy.Service.Interface
 {
 
     /// <summary>
@@ -6,5 +9,6 @@
     /// </summary>
     public interface IPersonService
     {
+        IEnumerable<person> GetPersonsBy(string columnName, object value);
     }
 }

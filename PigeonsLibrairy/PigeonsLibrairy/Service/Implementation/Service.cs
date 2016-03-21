@@ -51,7 +51,7 @@ namespace PigeonsLibrairy.Service.Implementation
 
         public IEnumerable<TEntity> Get(System.Linq.Expressions.Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            return dao.Get(filter, orderBy, includeProperties);
         }
 
         public TEntity GetByID(object id)

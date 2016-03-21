@@ -2,6 +2,9 @@
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using PigeonsLibrairy.DAO.Implementation;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -49,6 +52,30 @@ namespace PigeonsLibrairy.Service.Implementation
                     dbContextTransaction.Rollback();
                 }                
             }
+        }
+
+        public IEnumerable<group> GetGroupBy(string columnName, object value)
+        {
+            IEnumerable<group> groupList = new List<group>();
+
+            switch (columnName.ToLower())
+            {
+                case "name":
+                    groupList = dao.Get(g => g.Name == (string)value);
+                    break;
+                case "is_active":
+                    groupList = dao.Get(g => g.Is_active == (bool)value);
+                    break;
+                case "description":
+                    groupList = dao.Get(g => g.Description == (string)value);
+                    break;
+                case "creation_date":
+                    //groupList = dao.Get(g => DbFunctions.TruncateTime(g.Creation_date).Equals( ((DateTime)value).Date) );                    
+                    break;
+                default:
+                    break;
+            }
+            return groupList;
         }
     }
 }

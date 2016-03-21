@@ -12,6 +12,7 @@ using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Exceptions;
+using System.Collections;
 
 namespace FunctionsTester
 {
@@ -247,6 +248,58 @@ namespace FunctionsTester
             }
 
             MessageBox.Show("The group no. 8 have " + listOfFollowers.Count + " followers ( Number of admin : " + nbOfAdmin + ", numbers of followers : " + nbOfFollower);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            person pers = controller.PersonService.Get(p => p.Name == "Bob").First();
+            MessageBox.Show(pers.Description);
+
+            IEnumerable<person> tester = new List<person>();
+            tester = controller.PersonService.Get(p => p.Name == "Bob").ToList();
+
+            int nb = 0;
+            foreach(person p in tester)
+            {
+                nb++;
+            }
+            MessageBox.Show("There is " + nb + " bob");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            IEnumerable<person> tester = new List<person>();
+            tester = controller.PersonService.GetPersonsBy("Email", "bob@gmail.com");
+            int nb = 0;
+            foreach (person p in tester)
+            {
+                nb++;
+            }
+            MessageBox.Show("There is " + nb + " bob");
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            IEnumerable<group> tester = new List<group>();
+            tester = controller.GroupService.GetGroupBy("is_active", true);
+            int nb = 0;
+            foreach (group g in tester)
+            {
+                nb++;
+            }
+            MessageBox.Show("There is " + nb + " active groups");
+
+            // -------------------------------------------------- //
+
+            IEnumerable<group> tester2 = new List<group>();
+            tester = controller.GroupService.GetGroupBy("creation_date", DateTime.Parse("2016-03-19"));
+            int nb2 = 0;
+            foreach (group g in tester2)
+            {
+                nb2++;
+            }
+            MessageBox.Show("There is " + nb2 + " group created on 2016-03-19");
+
         }
     }
 }
