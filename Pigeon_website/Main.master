@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Resources/css/global.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="Page-container">
+
+         <!-- #include file ="Partials/Header.aspx" -->
+
+
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div><!-- /page-container -->
+    </form>
+    
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <!-- todo add local in vendors folder -->
+    <script src="Resources/Vendor/TweenMax.min.js"></script>
+    <script src="Resources/Vendor/TimelineLite.min.js"></script>
+
+    <!-- custom scripts -->
+    <script type="text/javascript" src="Resources/js/global.js"></script>
+    
+</body>
+</html>
