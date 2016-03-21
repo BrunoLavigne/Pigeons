@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
+    /// <summary>
+    /// Interface magnifique
+    /// </summary>
     interface IMessageDAO
     {
         message GetPersonDetailByMessageId(object id);        
