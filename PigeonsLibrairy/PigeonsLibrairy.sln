@@ -25,6 +25,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website", "..\Pigeon
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50786"
+		SlnRelativePath = "..\Pigeon_website\"
 	EndProjectSection
 EndProject
 Global
