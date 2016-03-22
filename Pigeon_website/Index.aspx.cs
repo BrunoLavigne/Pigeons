@@ -24,8 +24,8 @@ public partial class Index : System.Web.UI.Page
         if(lp.Count != 0 && lp[0] != null)
         {
 
-            Session["User"] = lp[0];
-
+            Session["user"] = lp[0];
+            Response.Redirect("Groups.aspx");
         }
 
     }
