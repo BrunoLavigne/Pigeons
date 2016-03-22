@@ -1,4 +1,6 @@
-﻿<div class="header">
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Header.ascx.cs" Inherits="Partials_Header" %>
+
+<div class="header">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +19,13 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="menu-icon glyphicon glyphicon-bookmark"></span>Home</a></li>
                     <li><a href="#"><span class="menu-icon glyphicon glyphicon-user"></span>Profile</a></li>
-                    <li><a href="#"><span class="menu-icon glyphicon glyphicon-off"></span>Déconnexion</a></li>
+                    <li>
+                        
+                        <asp:LinkButton runat="server" ID="btn_deconnexion" OnClick="btn_deconnexion_Click">
+                                <span class="menu-icon glyphicon glyphicon-off"></span>Déconnexion
+                        </asp:LinkButton>
+                    </li>
+                    
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->

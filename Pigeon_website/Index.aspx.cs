@@ -27,6 +27,5 @@ public partial class Index : System.Web.UI.Page
             Session["user"] = lp[0];
             Response.Redirect("Groups.aspx");
         }
-
     }
 }

@@ -15,8 +15,16 @@ public partial class Groups : System.Web.UI.Page
         if(!IsPostBack)
         {
             GlobalHelpers gh = new GlobalHelpers();
-            TestLabel.Text = gh.getCurrentUser().Description;
-            
+
+            // faudrait encore fait un helper pour ça
+            if(gh.getCurrentUser() != null)
+            {
+                TestLabel.Text = "Current user: " + gh.getCurrentUser().Description;
+            } else
+            {
+                TestLabel.Text = "No current user";
+            }
+           
         }
 
     }
