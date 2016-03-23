@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PigeonsLibrairy;
+using PigeonsLibrairy.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +11,10 @@ public partial class Partials_ConnectModal : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            Controller c = new Controller();
 
+        }
     }
 }
