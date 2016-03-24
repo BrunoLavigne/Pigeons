@@ -26,5 +26,7 @@ namespace PigeonsLibrairy.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<project> projects { get; set; }
+
+        public enum COLUMN_NAME { NAME, DESCRIPTION }
     }
 }

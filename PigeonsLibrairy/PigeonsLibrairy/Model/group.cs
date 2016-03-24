@@ -27,7 +27,9 @@ namespace PigeonsLibrairy.Model
         public System.DateTime Creation_date { get; set; }
         public string Description { get; set; }
         public bool Is_active { get; set; }
-    
+
+        public enum COLUMN_NAME { NAME, DESCRIPTION, IS_ACTIVE }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

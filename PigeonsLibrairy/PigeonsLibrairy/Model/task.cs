@@ -21,5 +21,7 @@ namespace PigeonsLibrairy.Model
         public int Project_ID { get; set; }
     
         public virtual project project { get; set; }
+
+        public enum COLUMN_NAME { DESCRIPTION, DATE_DUE, IS_COMPLETED, PROJECT_ID }
     }
 }

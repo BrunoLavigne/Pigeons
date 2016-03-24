@@ -1,4 +1,5 @@
 ﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using System;
@@ -16,6 +17,21 @@ namespace PigeonsLibrairy.Service.Implementation
         public TypeService(pigeonsEntities1 context) : base(context)
         {
             typeDAO = new TypeDAO(context);
+        }
+
+        public new IEnumerable<type> GetBy(string columnName, object value)
+        {
+            IEnumerable<type> typeList = new List<type>();
+
+            if (columnName != "" && value != null)
+            {
+                typeList = typeDAO.GetBy(columnName, value);
+                return typeList;
+            }
+            else
+            {
+                throw new ServiceException("You must provid the column name and a value");
+            }
         }
     }
 }

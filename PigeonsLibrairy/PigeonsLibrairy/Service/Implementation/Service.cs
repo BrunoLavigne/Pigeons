@@ -34,7 +34,7 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 try
                 {
-                    dao.Delete(entityToDelete);
+                    dao.Delete(entityToDelete);                    
                 }
                 catch
                 {
@@ -57,6 +57,11 @@ namespace PigeonsLibrairy.Service.Implementation
         public TEntity GetByID(object id)
         {
             return dao.GetByID(id);
+        }
+
+        public IEnumerable<TEntity> GetBy(string columnName, object value)
+        {
+            return dao.GetBy(columnName, value);
         }
 
         public void Insert(TEntity entity)

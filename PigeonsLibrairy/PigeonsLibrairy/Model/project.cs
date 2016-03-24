@@ -31,5 +31,7 @@ namespace PigeonsLibrairy.Model
         public virtual type type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task> tasks { get; set; }
+
+        public enum COLUMN_NAME { GROUP_ID, TYPE_ID, DATE_START, DATE_END, DESCRIPTION }
     }
 }

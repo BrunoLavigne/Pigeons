@@ -5,6 +5,7 @@ using PigeonsLibrairy.DAO.Implementation;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity;
+using PigeonsLibrairy.Exceptions;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -54,28 +55,19 @@ namespace PigeonsLibrairy.Service.Implementation
             }
         }
 
-        public IEnumerable<group> GetGroupBy(string columnName, object value)
+        public new IEnumerable<group> GetBy(string columnName, object value)
         {
             IEnumerable<group> groupList = new List<group>();
 
-            switch (columnName.ToLower())
+            if(columnName != "" && value != null)
             {
-                case "name":
-                    groupList = dao.Get(g => g.Name == (string)value);
-                    break;
-                case "is_active":
-                    groupList = dao.Get(g => g.Is_active == (bool)value);
-                    break;
-                case "description":
-                    groupList = dao.Get(g => g.Description == (string)value);
-                    break;
-                case "creation_date":
-                    //groupList = dao.Get(g => DbFunctions.TruncateTime(g.Creation_date).Equals( ((DateTime)value).Date) );                    
-                    break;
-                default:
-                    break;
+                groupList = groupDAO.GetBy(columnName, value);
+                return groupList;
             }
-            return groupList;
+            else
+            {
+                throw new ServiceException("You must provid the column name and a value");
+            }                                    
         }
     }
 }
