@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PigeonsLibrairy.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,5 +17,25 @@ public partial class Partials_Header : System.Web.UI.UserControl
     {
         Session.Abandon();
         Response.Redirect("Index.aspx");
+    }
+
+    protected void btn_connexion_Click(object sender, EventArgs e)
+    {
+        // connect user...
+        string userEmail = "bob@gmail.com"; // this.userEmail.Text;
+        string userPassword = "1234"; //  this.userPassword.Text;
+
+        Controller controller = new Controller();
+
+        // TODO: use service method
+        List<PigeonsLibrairy.Model.person> lp = controller.PersonService.GetPersonsBy("email", userEmail).ToList();
+
+        // And check password...
+        if (lp.Count != 0 && lp[0] != null)
+        {
+
+            Session["user"] = lp[0];
+            Response.Redirect("Groups.aspx");
+        }
     }
 }

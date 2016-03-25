@@ -16,17 +16,30 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="menu-icon glyphicon glyphicon-bookmark"></span>Home</a></li>
-                    <li><a href="#"><span class="menu-icon glyphicon glyphicon-user"></span>Profile</a></li>
-                    <li>
-                        
-                        <asp:LinkButton runat="server" ID="btn_deconnexion" OnClick="btn_deconnexion_Click">
-                                <span class="menu-icon glyphicon glyphicon-off"></span>Déconnexion
-                        </asp:LinkButton>
-                    </li>
-                    
-				</ul>
+                <asp:Button ID="btn_connexion" runat="server" OnClick="btn_connexion_Click" Text="ConnexionTest" />
+
+                <asp:Panel runat="server" ID="header_panel_connected">
+                    <ul class="nav navbar-nav navbar-right">
+				        <li><a href="#"><span class="menu-icon glyphicon glyphicon-home"></span>Home</a></li>
+                        <li><a href="#"><span class="menu-icon glyphicon glyphicon glyphicon-cog"></span>Profile</a></li>
+                        <li>
+                            <asp:LinkButton runat="server" ID="btn_deconnexion" OnClick="btn_deconnexion_Click">
+                                    <span class="menu-icon glyphicon glyphicon-off"></span>Déconnexion
+                            </asp:LinkButton>
+                        </li>
+                    </ul>
+                </asp:Panel>
+
+                <asp:Panel runat="server" ID="header_panel_disconnected">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#myModal" data-toggle="modal" data-target="#myModal">
+                                <span class="menu-icon glyphicon glyphicon-user"></span>Connexion
+                            </a>
+                        </li>
+                    </ul>
+                </asp:Panel>
+
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
