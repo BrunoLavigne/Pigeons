@@ -7,8 +7,9 @@ namespace PigeonsLibrairy.Service.Interface
     /// <summary>
     /// Interface pour les services sur la table person
     /// </summary>
-    public interface IPersonService
+    public interface IPersonService : IService<person>
     {
-        IEnumerable<person> GetPersonsBy(string columnName, object value);
+        bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
+        bool loginValidation(string username, string password);
     }
 }

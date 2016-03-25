@@ -3,8 +3,8 @@ using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using PigeonsLibrairy.DAO.Implementation;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity;
+using PigeonsLibrairy.Exceptions;
+using System.Linq;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -24,17 +24,19 @@ namespace PigeonsLibrairy.Service.Implementation
         /// It is now added to the database
         /// At the sametime, we are registering (following) the creator of the group to that new group
         /// </summary>
-        /// <param name="newGroup"></param>
-        /// <param name="personId"></param>
+        /// <param name="newGroup">The group to be created</param>
+        /// <param name="personId">The ID of the person creating the group</param>
         public void CreateNewGroupAndRegister(group newGroup, int personId)
         {
             using(var dbContextTransaction = context.Database.BeginTransaction())
             {
                 try
                 {
-                    dao.Insert(newGroup);
+                    // Inserting the group
+                    Insert(newGroup);
                     context.SaveChanges();
 
+                    // Creating the following
                     following personIsFollowing = new following();
                     personIsFollowing.Person_Id = personId;
                     personIsFollowing.Group_id = newGroup.Id; // The id of the group can be retreived right away without querying the DB
@@ -42,40 +44,72 @@ namespace PigeonsLibrairy.Service.Implementation
                     personIsFollowing.Is_admin = true;
                     personIsFollowing.Last_checkin = DateTime.Now;
 
+                    // Inserting the following
                     followingDAO.Insert(personIsFollowing);
                     context.SaveChanges();
 
+                    // Committing the changes
                     dbContextTransaction.Commit();
                 }
                 catch(Exception)
                 {
+                    // Something went wrong so we are rollbacking the db
                     dbContextTransaction.Rollback();
                 }                
             }
         }
 
-        public IEnumerable<group> GetGroupBy(string columnName, object value)
+        /// <summary>
+        /// Finding all the groups a person is registered too
+        /// </summary>
+        /// <param name="personID">The ID of the person we want the groups</param>
+        /// <returns>A list of active groups that a person is following or an empty list of he is not following any group</returns>
+        public IList<group> GetPersonGroups(int personID)
+        {
+            if(personID == 0)
+            {
+                throw new ServiceException("The ID of the person is null");
+            }
+
+            IList<group> personGroups = new List<group>();
+            IList<following> personFollowings = new List<following>();
+
+            // Getting the list of followings
+            personFollowings = (followingDAO.GetBy(following.COLUMN_NAME.PERSON_ID.ToString(), personID)).ToList();
+
+            if(personFollowings.Count() > 0)
+            {
+                foreach(following followingGroup in personFollowings)
+                {
+                    if (followingGroup.Is_active)
+                    {
+                        // The group is active so adding to the list
+                        personGroups.Add(GetByID(followingGroup.Group_id));
+                    }                    
+                }
+            }
+            return personGroups;
+        }
+
+        /// <summary>
+        /// Following GetBy a specific column name and value
+        /// </summary>
+        /// <param name="columnName">The column name in the following table</param>
+        /// <param name="value">The value to search</param>
+        /// <returns></returns>
+        public new IEnumerable<group> GetBy(string columnName, object value)
         {
             IEnumerable<group> groupList = new List<group>();
 
-            switch (columnName.ToLower())
+            if(columnName != "" && value != null)
             {
-                case "name":
-                    groupList = dao.Get(g => g.Name == (string)value);
-                    break;
-                case "is_active":
-                    groupList = dao.Get(g => g.Is_active == (bool)value);
-                    break;
-                case "description":
-                    groupList = dao.Get(g => g.Description == (string)value);
-                    break;
-                case "creation_date":
-                    //groupList = dao.Get(g => DbFunctions.TruncateTime(g.Creation_date).Equals( ((DateTime)value).Date) );                    
-                    break;
-                default:
-                    break;
+                groupList = groupDAO.GetBy(columnName, value);
+                return groupList;
             }
-            return groupList;
-        }
+            else
+            {
+                throw new ServiceException("You must provid the column name and a value");
+            }                                    
+        }        
     }
 }

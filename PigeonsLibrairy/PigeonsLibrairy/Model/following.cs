@@ -22,5 +22,7 @@ namespace PigeonsLibrairy.Model
     
         public virtual group group { get; set; }
         public virtual person person { get; set; }
+
+        public enum COLUMN_NAME { PERSON_ID, GROUP_ID }
     }
 }

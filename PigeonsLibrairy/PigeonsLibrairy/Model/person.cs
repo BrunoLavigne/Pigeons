@@ -32,6 +32,8 @@ namespace PigeonsLibrairy.Model
         public string Organization { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }
+
+        public enum COLUMN_NAME { NAME, EMAIL, PASSWORD, INSCRIPTION_DATE, PROFILE_PICTURE_LINK, BIRTH_DATE, PHONE_NUMBER, ORGANIZATION, POSITION, DESCRIPTION }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }

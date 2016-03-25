@@ -17,23 +17,6 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Get a list of following by person id
-        /// </summary>
-        /// <param name="personId">The ID of the person</param>
-        /// <returns>A list of following</returns>
-        public List<following> GetTheFollowingGroupsOfPersonId(int personId)
-        {
-            if (personId == 0)
-            {
-                throw new ServiceException("The id cannot be null");
-            }
-
-            List<following> theFollowings = new List<following>();
-            theFollowings = followingDAO.GetTheFollowingGroups(personId);
-            return theFollowings;
-        }
-
-        /// <summary>
         /// Adding a person to a group
         /// </summary>
         /// <param name="personId">The ID of the person to be added</param>
@@ -50,21 +33,19 @@ namespace PigeonsLibrairy.Service.Implementation
             context.SaveChanges();
         }
 
-        /// <summary>
-        /// Retreiving the list of the person following a group (followers)
-        /// </summary>
-        /// <param name="groupId">The group ID we are searching for</param>
-        /// <returns>A list of followers</returns>
-        public List<following> GetThePersonsFollowingGroupsId(int groupId)
+        public new IEnumerable<following> GetBy(string columnName, object value)
         {
-            if(groupId == 0)
-            {
-                throw new ServiceException("The group id cannot be null");
-            }
+            IEnumerable<following> followingList = new List<following>();
 
-            List<following> theFollowers = new List<following>();
-            theFollowers = followingDAO.GetThePersonsFollowingGroupsId(groupId);
-            return theFollowers;
+            if (columnName != "" && value != null)
+            {
+                followingList = followingDAO.GetBy(columnName, value);
+                return followingList;
+            }
+            else
+            {
+                throw new ServiceException("You must provid the column name and a value");
+            }
         }
     }
 }

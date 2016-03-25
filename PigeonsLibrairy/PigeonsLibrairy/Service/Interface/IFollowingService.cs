@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Service.Interface
 {
-    public interface IFollowingService
+    public interface IFollowingService : IService<following>
     {
-        List<following> GetTheFollowingGroupsOfPersonId(int personId);
-        List<following> GetThePersonsFollowingGroupsId(int groupId);
         void addPersonToGroup(int personId, int groupeId);
     }
 }

@@ -47,7 +47,7 @@ namespace FunctionsTester
             personToInsert.Password             = "1234";
 
             // Insertion de la personne
-            controller.PersonService.Insert(personToInsert);
+            controller.PersonService.Insert(personToInsert);            
 
             // Il faut faire le Save sinon l'ajout ne sera pas complété
             controller.Save();
@@ -138,7 +138,7 @@ namespace FunctionsTester
         {
             int personId = 3;
 
-            List<following> testList = controller.FollowingService.GetTheFollowingGroupsOfPersonId(personId);
+            IEnumerable<following> testList = controller.FollowingService.GetBy("person_id", personId);
 
             foreach(following f in testList)
             {
@@ -229,7 +229,7 @@ namespace FunctionsTester
         {
             int groupId = 8;
             // Getting the list
-            List<following> listOfFollowers = controller.FollowingService.GetThePersonsFollowingGroupsId(groupId);
+            IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), groupId);
             
             int nbOfAdmin = 0;
             int nbOfFollower = 0;
@@ -247,7 +247,7 @@ namespace FunctionsTester
                 }
             }
 
-            MessageBox.Show("The group no. 8 have " + listOfFollowers.Count + " followers ( Number of admin : " + nbOfAdmin + ", numbers of followers : " + nbOfFollower);
+            MessageBox.Show("The group no. 8 have " + listOfFollowers.Count() + " followers ( Number of admin : " + nbOfAdmin + ", numbers of followers : " + nbOfFollower);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -269,7 +269,7 @@ namespace FunctionsTester
         private void button12_Click(object sender, EventArgs e)
         {
             IEnumerable<person> tester = new List<person>();
-            tester = controller.PersonService.GetPersonsBy("Email", "bob@gmail.com");
+            tester = controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), "bob@gmail.com");
             int nb = 0;
             foreach (person p in tester)
             {
@@ -281,7 +281,7 @@ namespace FunctionsTester
         private void button13_Click(object sender, EventArgs e)
         {
             IEnumerable<group> tester = new List<group>();
-            tester = controller.GroupService.GetGroupBy("is_active", true);
+            tester = controller.GroupService.GetBy("is_active", true);
             int nb = 0;
             foreach (group g in tester)
             {
@@ -292,13 +292,13 @@ namespace FunctionsTester
             // -------------------------------------------------- //
 
             IEnumerable<group> tester2 = new List<group>();
-            tester = controller.GroupService.GetGroupBy("creation_date", DateTime.Parse("2016-03-19"));
+            tester2 = controller.GroupService.GetBy("name", "Group no.1");
             int nb2 = 0;
             foreach (group g in tester2)
             {
                 nb2++;
             }
-            MessageBox.Show("There is " + nb2 + " group created on 2016-03-19");
+            MessageBox.Show("There is " + nb2 + " group named Group no.1");
 
         }
     }

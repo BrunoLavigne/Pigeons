@@ -10,24 +10,22 @@ namespace PigeonsLibrairy.DAO.Implementation
     {
         public FollowingDAO(pigeonsEntities1 context) : base(context) { }
 
-        /// <summary>
-        /// Get the list of groups a person is following
-        /// </summary>
-        /// <param name="personId">The ID of the person</param>
-        /// <returns>The list of the following the person have</returns>
-        public List<following> GetTheFollowingGroups(int personId)
+        public new IEnumerable<following> GetBy(string columnName, object value)
         {
-            return context.followings.Where(follow => follow.Person_Id == personId).ToList();            
-        }
+            IEnumerable<following> followingList = new List<following>();
 
-        /// <summary>
-        /// Get the list of the persons with are following a group
-        /// </summary>
-        /// <param name="groupId">The group Id</param>
-        /// <returns>A list of following that group</returns>
-        public List<following> GetThePersonsFollowingGroupsId(int groupId)
-        {
-            return context.followings.Where(follow => follow.Group_id == groupId).ToList();
+            switch (columnName.ToLower())
+            {
+                case "person_id":
+                    followingList = Get(f => f.Person_Id == (int)value);
+                    break;
+                case "group_id":
+                    followingList = Get(f => f.Group_id == (int)value);
+                    break;
+                default:
+                    break;
+            }
+            return followingList;
         }
     }
 }

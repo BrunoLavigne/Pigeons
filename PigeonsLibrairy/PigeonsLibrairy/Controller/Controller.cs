@@ -2,6 +2,7 @@
 using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Implementation;
+using PigeonsLibrairy.Service.Interface;
 using System;
 
 namespace PigeonsLibrairy.Controller
@@ -10,19 +11,19 @@ namespace PigeonsLibrairy.Controller
     {
         private pigeonsEntities1 context = new pigeonsEntities1();
         
-        private MessageService messageService;        
-        private PersonService personService;
-        private GroupService groupeService;
-        private FollowingService followingService;
-        private ProjectService projectService;
-        private TaskService taskService;
-        private TypeService typeService;
+        private IMessageService messageService;        
+        private IPersonService personService;
+        private IGroupService groupeService;
+        private IFollowingService followingService;
+        private IProjectService projectService;
+        private ITaskService taskService;
+        private ITypeService typeService;
 
         /// <summary>
         /// Création du Service pour la table Person
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public PersonService PersonService
+        public IPersonService PersonService
         {
             get
             {
@@ -38,7 +39,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Message
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public MessageService MessageService
+        public IMessageService MessageService
         {
             get
             {
@@ -54,7 +55,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Group
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public GroupService GroupService
+        public IGroupService GroupService
         {
             get
             {
@@ -70,7 +71,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Following
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public FollowingService FollowingService
+        public IFollowingService FollowingService
         {
             get
             {
@@ -86,7 +87,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Events
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public ProjectService ProjectService
+        public IProjectService ProjectService
         {
             get
             {
@@ -102,7 +103,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Task
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public TaskService TaskService
+        public ITaskService TaskService
         {
             get
             {
@@ -118,7 +119,7 @@ namespace PigeonsLibrairy.Controller
         /// Création du Service pour la table Type
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
-        public TypeService TypeService
+        public ITypeService TypeService
         {
             get
             {
