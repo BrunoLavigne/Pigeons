@@ -5,9 +5,15 @@ using System.Linq;
 
 public partial class Partials_ConnectModal : System.Web.UI.UserControl
 {
+
+    protected Controller controller { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if(controller == null)
+        {
+            controller = new Controller();
+        }
     }
 
     protected void btn_createUser_Click(object sender, EventArgs e)
@@ -20,7 +26,6 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
 
 
         // Faire de la form validation sur les champs précédents...
-        Controller controller = new Controller();
 
         person user = new person();
         user.Name = firstName + " " + lastName;
@@ -34,7 +39,7 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
         user.Phone_number = "5144444444";
         user.Position = "this guy is on top nuff said";
 
-
+        // Check if user creation was successful
         if(controller.PersonService.registerNewUser(user, email, pass1))
         {
 
@@ -43,30 +48,32 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
 
             Response.Redirect("Groups.aspx");
 
-        } else
-        {
+        } else {
             Response.Redirect("Index.aspx");
         }
     }
 
     protected void btn_connectUser_Click(object sender, EventArgs e)
     {
+
         string userEmail = connectUserEmail.Text;
         string userPassword = connectUserPassword.Text;
+        
+        // Check if user authenticated
+        if(controller.PersonService.loginValidation(userEmail, userPassword) != null)
+        {
 
-        Controller controller = new Controller();
-        if(!controller.PersonService.loginValidation(userEmail, userPassword))
-        {
-            // Login failed
-            Response.Redirect("Index.aspx");
-        } else
-        {
-            // Login success
-            // Put user in session
+            // Login success ... put user in session
             Session["user"] = controller.PersonService.GetBy("Email", userEmail).ToList().ElementAt(0);
 
             // Redirect
             Response.Redirect("Groups.aspx");
+
+        } else {
+
+            // Login failed
+            Response.Redirect("Index.aspx");
+
         }
     }
 }
