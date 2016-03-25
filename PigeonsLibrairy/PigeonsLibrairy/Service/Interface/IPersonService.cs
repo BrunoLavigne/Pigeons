@@ -8,6 +8,8 @@ namespace PigeonsLibrairy.Service.Interface
     /// Interface pour les services sur la table person
     /// </summary>
     public interface IPersonService : IService<person>
-    {        
+    {
+        bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
+        bool loginValidation(string username, string password);
     }
 }
