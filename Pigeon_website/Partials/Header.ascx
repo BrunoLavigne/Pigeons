@@ -16,7 +16,7 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <asp:Button ID="btn_connexion" runat="server" OnClick="btn_connexion_Click" Text="ConnexionTest" />
+                <%--<asp:Button ID="btn_connexion" runat="server" OnClick="btn_connexion_Click" Text="ConnexionTest" />--%>
 
                 <asp:Panel runat="server" ID="header_panel_connected">
                     <ul class="nav navbar-nav navbar-right">
