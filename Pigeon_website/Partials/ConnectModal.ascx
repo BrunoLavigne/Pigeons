@@ -14,15 +14,15 @@
 				<h4>Se connecter</h4>
                 
                 <div class="form-group">
-                    <input type="email" class="form-control" id="userEmail" runat="server" placeholder="Courriel">
+                    <asp:TextBox ID="connectUserEmail" runat="server" placeholder="Courriel" CssClass="form-control"></asp:TextBox>
                 </div>
                 
                 <div class="form-group">
-                    <input type="password" class="form-control" id="userPassword" runat="server" placeholder="Mot de passe">
+                    <asp:TextBox ID="connectUserPassword" runat="server" placeholder="Mot de passe" CssClass="form-control"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-default">Connexion</button>
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_connectUser" OnClick="btn_connectUser_Click" Text="Connexion" />
                 </div>
 
 			</div>

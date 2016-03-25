@@ -1,6 +1,7 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 using System;
+using System.Linq;
 
 public partial class Partials_ConnectModal : System.Web.UI.UserControl
 {
@@ -36,10 +37,36 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
 
         if(controller.PersonService.registerNewUser(user, email, pass1))
         {
+
+            // Also connect the user in session
+            Session["user"] = user;
+
             Response.Redirect("Groups.aspx");
+
         } else
         {
             Response.Redirect("Index.aspx");
+        }
+    }
+
+    protected void btn_connectUser_Click(object sender, EventArgs e)
+    {
+        string userEmail = connectUserEmail.Text;
+        string userPassword = connectUserPassword.Text;
+
+        Controller controller = new Controller();
+        if(!controller.PersonService.loginValidation(userEmail, userPassword))
+        {
+            // Login failed
+            Response.Redirect("Index.aspx");
+        } else
+        {
+            // Login success
+            // Put user in session
+            Session["user"] = controller.PersonService.GetBy("Email", userEmail).ToList().ElementAt(0);
+
+            // Redirect
+            Response.Redirect("Groups.aspx");
         }
     }
 }
