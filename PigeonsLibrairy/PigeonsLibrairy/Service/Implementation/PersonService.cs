@@ -56,12 +56,11 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The password doesnt match");
             }
 
-            IEnumerable<person> personAlreadyExist = personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), newUser.Email);
-            List<person> personAlreadyExistList = personAlreadyExist.ToList();
+            List<person> personAlreadyExist = (personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), newUser.Email)).ToList();            
 
             if (personAlreadyExist.Count() > 0)
             {
-                if (personAlreadyExistList[0].Email == newUser.Email)
+                if (personAlreadyExist[0].Email == newUser.Email)
                 {
                     throw new ServiceException("This user exist already");
                 }
@@ -96,12 +95,11 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The password is null");
             }
 
-            IEnumerable<person> existingPerson = personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), username);
-            List<person> existingPersonList = existingPerson.ToList();
+            List<person> existingPerson = (personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), username)).ToList();            
 
-            if(existingPersonList.Count() > 0)
+            if(existingPerson.Count() > 0)
             {
-                if(existingPersonList[0].Password == password)
+                if(existingPerson[0].Password == password)
                 {
                     loginAccepted = true;
                 }
