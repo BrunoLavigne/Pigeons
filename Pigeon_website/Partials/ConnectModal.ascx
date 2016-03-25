@@ -14,11 +14,11 @@
 				<h4>Se connecter</h4>
                 
                 <div class="form-group">
-                    <input type="email" class="form-control" id="userEmail" placeholder="Courriel">
+                    <input type="email" class="form-control" id="userEmail" runat="server" placeholder="Courriel">
                 </div>
                 
                 <div class="form-group">
-                    <input type="password" class="form-control" id="userPassword" placeholder="Mot de passe">
+                    <input type="password" class="form-control" id="userPassword" runat="server" placeholder="Mot de passe">
                 </div>
 
                 <div class="form-group">
@@ -31,28 +31,27 @@
                 <h4>S'inscrire</h4>
 
                 <div class="form-group">
-
-                    <input type="text" class="form-control" id="createUserFirstName" placeholder="Votre prénom">
+                    <asp:TextBox ID="createUserFirstName" runat="server" placeholder="Votre prénom" CssClass="form-control"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" id="createUserLastName" placeholder="Votre Nom">
+                    <asp:TextBox ID="createUserLastName" runat="server" placeholder="Votre nom" CssClass="form-control"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
-                    <input type="email" class="form-control" id="createUserEmail" placeholder="Votre courriel">
+                    <asp:TextBox ID="createUserEmail" runat="server" placeholder="Votre courriel" CssClass="form-control"></asp:TextBox>
                 </div>
                 
                 <div class="form-group">
-                    <input type="password" class="form-control" id="createUserPass1" placeholder="Entrez votre mot de passe">
+                    <asp:TextBox ID="createUserPass1" runat="server" placeholder="Entrez votre mot de passe" CssClass="form-control"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" id="createUserPass2" placeholder="Confirmer votre mot de passe">
+                    <asp:TextBox ID="createUserPass2" runat="server" placeholder="Entrez votre mot de passe" CssClass="form-control"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-default">S'inscire</button>
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_createUser" OnClick="btn_createUser_Click" Text="Créer mon compte" />
                 </div>
 			</div>
 		</div>
