@@ -38,11 +38,6 @@ window.onload = function () {
 };
 
 
-
-// init modal
-$('#myModal').modal();
-
-
 // bind escape key to close modal
 var ESCAPE_KEY = 27;
 

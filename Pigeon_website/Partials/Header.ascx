@@ -11,7 +11,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Pigeon</a>
+                <asp:HyperLink CssClass="navbar-brand" runat="server" NavigateUrl="~/Index.aspx">
+                    Pigeon Logo Here
+                </asp:HyperLink>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,8 +22,16 @@
 
                 <asp:Panel runat="server" ID="header_panel_connected">
                     <ul class="nav navbar-nav navbar-right">
-				        <li><a href="#"><span class="menu-icon glyphicon glyphicon-home"></span>Home</a></li>
-                        <li><a href="#"><span class="menu-icon glyphicon glyphicon glyphicon-cog"></span>Profile</a></li>
+
+				        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Groups.aspx">
+                                <span class="menu-icon glyphicon glyphicon-tent"></span>Groups
+                            </asp:HyperLink>
+				        </li>
+                        <li>
+                            <asp:HyperLink runat="server" NavigateUrl="~/Account.aspx">
+                                <span class="menu-icon glyphicon glyphicon glyphicon-cog"></span>Account
+                            </asp:HyperLink>                           
                         <li>
                             <asp:LinkButton runat="server" ID="btn_deconnexion" OnClick="btn_deconnexion_Click">
                                     <span class="menu-icon glyphicon glyphicon-off"></span>Déconnexion
