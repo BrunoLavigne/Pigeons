@@ -66,6 +66,9 @@
             this.group_description = new System.Windows.Forms.TextBox();
             this.person_result = new System.Windows.Forms.TextBox();
             this.loginResult = new System.Windows.Forms.TextBox();
+            this.active_personID = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.groupResult = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
             this.SuspendLayout();
             // 
@@ -383,11 +386,39 @@
             this.loginResult.Size = new System.Drawing.Size(145, 20);
             this.loginResult.TabIndex = 38;
             // 
+            // active_personID
+            // 
+            this.active_personID.Enabled = false;
+            this.active_personID.Location = new System.Drawing.Point(683, 35);
+            this.active_personID.Name = "active_personID";
+            this.active_personID.Size = new System.Drawing.Size(44, 20);
+            this.active_personID.TabIndex = 39;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(683, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(24, 13);
+            this.label17.TabIndex = 40;
+            this.label17.Text = "ID :";
+            // 
+            // groupResult
+            // 
+            this.groupResult.Enabled = false;
+            this.groupResult.Location = new System.Drawing.Point(811, 342);
+            this.groupResult.Name = "groupResult";
+            this.groupResult.Size = new System.Drawing.Size(142, 20);
+            this.groupResult.TabIndex = 41;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 621);
+            this.Controls.Add(this.groupResult);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.active_personID);
             this.Controls.Add(this.loginResult);
             this.Controls.Add(this.person_result);
             this.Controls.Add(this.group_description);
@@ -474,5 +505,8 @@
         private System.Windows.Forms.TextBox group_description;
         private System.Windows.Forms.TextBox person_result;
         private System.Windows.Forms.TextBox loginResult;
+        private System.Windows.Forms.TextBox active_personID;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox groupResult;
     }
 }
