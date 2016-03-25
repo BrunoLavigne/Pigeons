@@ -14,18 +14,21 @@ public partial class Groups : System.Web.UI.Page
             Controller controller = new Controller();
 
             // faudrait encore fait un helper pour ça
-            if(Session["user"] != null)
+            if (Session["user"] != null)
             {
                 // person currentUser = gh.getCurrentUser();
-                person currentUser = (person) Session["user"];
+                person currentUser = (person)Session["user"];
 
                 // TestLabel.Text = "Current user: " + gh.getCurrentUser().Description;
                 TestLabel.Text = "Current user: " + currentUser.Email;
                 gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
                 gridViewUserGroups.DataBind();
-            } else
-            {
-                TestLabel.Text = "No current user";
+
+            } else {
+
+                // Redirect to home page... (no login)
+                // Todo: put in helper function in master ^  v 
+                Response.Redirect("Index.aspx");
             }
            
         }
