@@ -1,20 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Index.aspx.cs" Inherits="Index" %>
-<%@ Register TagPrefix="uc" TagName="ConnectModal" 
-    Src="~/Partials/ConnectModal.ascx" %>
+<%@ Register TagPrefix="uc" TagName="ConnectModal" Src="~/Partials/ConnectModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <!-- place homepage animation script here -->
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <div class="container">
 
 	    <div class="Home-logo-container">
-            <img id="" src="Resources/img/pigeon.svg" alt="Alternate Text" />
-		    <div class="bubbles-container">
-			    <div class="bubble"></div>
-			    <div class="bubble"></div>
-			    <div class="bubble"></div>
-		    </div>
-
+            <img id="" src="Resources/img/pigeon.svg" alt="Pigeon logo" />
 	    </div>
 
 	    <div class="jumbotron">
@@ -24,7 +20,7 @@
 			
     </div>
 
-    <!-- modal here -->
+    <!-- Connection modal -->
     <uc:ConnectModal runat="server" ID="connectModal"></uc:ConnectModal>
 
 </asp:Content>
