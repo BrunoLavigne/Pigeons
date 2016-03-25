@@ -216,7 +216,7 @@ namespace FunctionsTester
             foreach(int i in personToBeAdded)
             {
                 // adding them to the group (creating a following)
-                controller.FollowingService.addPersonToGroup(i, groupeId);
+                controller.FollowingService.addPersonToGroup(1, i, groupeId);
             }
 
             MessageBox.Show("omg everyone is added to my group !");
