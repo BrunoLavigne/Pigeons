@@ -18,7 +18,6 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <%--<asp:Button ID="btn_connexion" runat="server" OnClick="btn_connexion_Click" Text="ConnexionTest" />--%>
 
                 <asp:Panel runat="server" ID="header_panel_connected">
                     <ul class="nav navbar-nav navbar-right">
@@ -43,7 +42,7 @@
                 <asp:Panel runat="server" ID="header_panel_disconnected">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#myModal" data-toggle="modal" data-target="#myModal">
+                            <a href="#connectModal" data-toggle="modal" data-target="#connectModal">
                                 <span class="menu-icon glyphicon glyphicon-user"></span>Connexion
                             </a>
                         </li>

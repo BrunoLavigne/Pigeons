@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ConnectModal.ascx.cs" Inherits="Partials_ConnectModal" %>
 
-<div class="modal fade" role="dialog" id="myModal">
+<div class="modal fade" role="dialog" id="connectModal">
 	<div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
