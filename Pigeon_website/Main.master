@@ -15,13 +15,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="Page-container">
-          <uc:Header id="Header" runat="server" />
 
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        <div class="Page-container">
+            <uc:Header id="Header" runat="server" />
+
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
-        </asp:ContentPlaceHolder>
-    </div><!-- /page-container -->
+            </asp:ContentPlaceHolder>
+        </div><!-- /page-container -->
+
     </form>
     
     <script src="Scripts/jquery-2.2.1.min.js"></script>
