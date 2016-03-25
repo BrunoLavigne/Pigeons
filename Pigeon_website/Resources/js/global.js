@@ -1,14 +1,18 @@
-﻿
-// Website-wide js for UI/anims
+﻿/**
+ *
+ * Website-wide js for UI/anims
+ *
+ */
 
+// Pigeon animation on homepage
 window.onload = function () {
 
     var t1 = new TimelineLite();
 
     var pigeonSwell = TweenMax.to('.Home-logo-container', 5, {
         scale: 0.85,
-        // skewX: 20,
-        skewY: 4,
+        //skewY: 4,
+        //skewX: 4,
         repeat: -1,
         yoyo: true,
         ease: Power1.easeInOut,
@@ -17,28 +21,23 @@ window.onload = function () {
         }
     });
 
-    //var bubbleFade = TweenMax.staggerTo('.bubble', 1.25, {
-    //    opacity: 1,
-    //    x: "+= 50px",
-    //    y: "+= 20px",
-    //    ease: Power3.easeInOut
-    //}, 0.75);
-    
 
     t1.add(pigeonSwell, 1);
-    //t1.add(flopWings, 2);
-    //t1.add(bubbleFade, 6);
-    $('#myModal').modal();
 };
 
-// bind escape key to close modal
 
+
+// init modal
+$('#myModal').modal();
+
+
+// bind escape key to close modal
 var ESCAPE_KEY = 27;
+
 $(document).keyup(function (e) {
 
     if (e.keyCode === ESCAPE_KEY) {
         $(".modal").modal('hide');
     }
-        
 
 });
