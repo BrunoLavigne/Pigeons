@@ -76,7 +76,9 @@ namespace FunctionsTester
             string username = loginUsername.Text;
             string password = loginPassword.Text;
 
-            if(controller.PersonService.loginValidation(username, password))
+            person activePerson = controller.PersonService.loginValidation(username, password);
+
+            if (activePerson != null)
             {
                 loginResult.Text = "Login Accepted";
                 person currentUser = (controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), username)).ToList()[0];
@@ -99,7 +101,7 @@ namespace FunctionsTester
 
             if (active_personID.Text == "")
             {
-                DateGrid_ActivePersonGroups.Rows.Add("0", "Empty", "Empty");
+                DateGrid_ActivePersonGroups.Rows.Add("0", "Empty", "Empty", "0");
             }
             else
             {
@@ -108,15 +110,19 @@ namespace FunctionsTester
                 
                 if(personGroups.Count() > 0)
                 {
+                    IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), personGroups[0].Id);
+                    
                     // Affichage
                     foreach (group activeGroups in personGroups)
                     {
-                        DateGrid_ActivePersonGroups.Rows.Add(activeGroups.Id, activeGroups.Name, activeGroups.Description);
+                        DateGrid_ActivePersonGroups.Rows.Add(activeGroups.Id, activeGroups.Name, activeGroups.Description, listOfFollowers.Count());
+                        cb_activePerson_groups.Items.Add(activeGroups.Id.ToString());
                     }
+                    cb_activePerson_groups.SelectedIndex = 0;
                 }
                 else
                 {
-                    DateGrid_ActivePersonGroups.Rows.Add("0", "Empty", "Empty");
+                    DateGrid_ActivePersonGroups.Rows.Add("0", "Empty", "Empty", "0");
                 }
                 
             }            
@@ -145,12 +151,72 @@ namespace FunctionsTester
                     controller.GroupService.CreateNewGroupAndRegister(newGroup, int.Parse(active_personID.Text));
                     groupResult.Text = "Success";
                 }
-                catch(ServiceException s)
+                catch(ServiceException serviceException)
                 {
-                    groupResult.Text = s.Message;
+                    groupResult.Text = serviceException.Message;
                 }
                 
             }
+        }
+
+        /// <summary>
+        /// Test - Find a user to be added to the selected group
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnActiveGroupFind_Click(object sender, EventArgs e)
+        {
+            string searchValue = activeGroup_addPerson.Text;
+
+            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), searchValue).ToList();
+
+            // Afficher the user if found
+            if(searchPersonList.Count() == 1)
+            {
+                person searchPerson = searchPersonList[0];
+                activeGroup_name.Text = searchPerson.Name;
+                activeGroup_id.Text = searchPerson.Id.ToString();
+            }
+            else
+            {
+                activeGroup_name.Text = "No user found";
+            }
+        }
+
+        /// <summary>
+        /// Test - Add the user to the group (following)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnActiveGroup_Add_Click(object sender, EventArgs e)
+        {
+            int personToAddID;
+            int adminID;
+
+            int.TryParse(activeGroup_id.Text, out personToAddID);
+            int.TryParse(active_personID.Text, out adminID);
+            int groupID = int.Parse(cb_activePerson_groups.SelectedItem.ToString());
+
+            try
+            {
+                controller.FollowingService.addPersonToGroup(adminID, personToAddID, groupID);
+                activeGroupResult.Text = "User " + personToAddID + " is added";
+            }
+            catch (ServiceException serviceException)
+            {
+                activeGroupResult.Text = serviceException.Message;
+            }            
+        }
+
+        private void btnGoToGroup_Click(object sender, EventArgs e)
+        {
+            GroupView groupForm = new GroupView();
+            groupForm.Owner = this;
+            
+            this.Hide();
+
+            DialogResult dr = groupForm.ShowDialog();
+            this.Show();
         }
 
         /// <summary>
@@ -161,6 +227,8 @@ namespace FunctionsTester
             DateGrid_ActivePersonGroups.Columns.Add("ID", "ID");
             DateGrid_ActivePersonGroups.Columns.Add("NAME", "Name");
             DateGrid_ActivePersonGroups.Columns.Add("DESCRIPTION", "Description");
+            DateGrid_ActivePersonGroups.Columns.Add("NBUSER", "Nb users in");
         }
+
     }
 }

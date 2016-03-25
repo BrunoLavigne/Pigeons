@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.person_name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -69,7 +70,19 @@
             this.active_personID = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.groupResult = new System.Windows.Forms.TextBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.cb_activePerson_groups = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.activeGroup_addPerson = new System.Windows.Forms.TextBox();
+            this.lblactiveadd = new System.Windows.Forms.Label();
+            this.btnActiveGroupFind = new System.Windows.Forms.Button();
+            this.activeGroup_name = new System.Windows.Forms.TextBox();
+            this.activeGroup_id = new System.Windows.Forms.TextBox();
+            this.btnActiveGroup_Add = new System.Windows.Forms.Button();
+            this.activeGroupResult = new System.Windows.Forms.TextBox();
+            this.btnGoToGroup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // person_name
@@ -102,7 +115,7 @@
             this.person_email.Location = new System.Drawing.Point(88, 58);
             this.person_email.Name = "person_email";
             this.person_email.Size = new System.Drawing.Size(145, 20);
-            this.person_email.TabIndex = 2;
+            this.person_email.TabIndex = 1;
             // 
             // label3
             // 
@@ -118,7 +131,7 @@
             this.person_password.Location = new System.Drawing.Point(88, 110);
             this.person_password.Name = "person_password";
             this.person_password.Size = new System.Drawing.Size(145, 20);
-            this.person_password.TabIndex = 4;
+            this.person_password.TabIndex = 3;
             // 
             // label4
             // 
@@ -134,7 +147,7 @@
             this.person_passwordConfirmation.Location = new System.Drawing.Point(88, 136);
             this.person_passwordConfirmation.Name = "person_passwordConfirmation";
             this.person_passwordConfirmation.Size = new System.Drawing.Size(145, 20);
-            this.person_passwordConfirmation.TabIndex = 6;
+            this.person_passwordConfirmation.TabIndex = 4;
             // 
             // label5
             // 
@@ -150,14 +163,14 @@
             this.person_emailConfirmation.Location = new System.Drawing.Point(88, 84);
             this.person_emailConfirmation.Name = "person_emailConfirmation";
             this.person_emailConfirmation.Size = new System.Drawing.Size(145, 20);
-            this.person_emailConfirmation.TabIndex = 8;
+            this.person_emailConfirmation.TabIndex = 2;
             // 
             // person_birthdate
             // 
             this.person_birthdate.Location = new System.Drawing.Point(88, 162);
             this.person_birthdate.Name = "person_birthdate";
             this.person_birthdate.Size = new System.Drawing.Size(145, 20);
-            this.person_birthdate.TabIndex = 10;
+            this.person_birthdate.TabIndex = 5;
             // 
             // label6
             // 
@@ -182,7 +195,7 @@
             this.person_phone.Location = new System.Drawing.Point(88, 188);
             this.person_phone.Name = "person_phone";
             this.person_phone.Size = new System.Drawing.Size(145, 20);
-            this.person_phone.TabIndex = 12;
+            this.person_phone.TabIndex = 6;
             // 
             // label8
             // 
@@ -198,7 +211,7 @@
             this.person_organization.Location = new System.Drawing.Point(88, 216);
             this.person_organization.Name = "person_organization";
             this.person_organization.Size = new System.Drawing.Size(145, 20);
-            this.person_organization.TabIndex = 14;
+            this.person_organization.TabIndex = 7;
             // 
             // label9
             // 
@@ -214,7 +227,7 @@
             this.person_position.Location = new System.Drawing.Point(88, 242);
             this.person_position.Name = "person_position";
             this.person_position.Size = new System.Drawing.Size(145, 20);
-            this.person_position.TabIndex = 16;
+            this.person_position.TabIndex = 8;
             // 
             // label10
             // 
@@ -230,14 +243,14 @@
             this.person_description.Location = new System.Drawing.Point(88, 268);
             this.person_description.Name = "person_description";
             this.person_description.Size = new System.Drawing.Size(145, 20);
-            this.person_description.TabIndex = 18;
+            this.person_description.TabIndex = 9;
             // 
             // btnInscription
             // 
             this.btnInscription.Location = new System.Drawing.Point(88, 295);
             this.btnInscription.Name = "btnInscription";
             this.btnInscription.Size = new System.Drawing.Size(145, 23);
-            this.btnInscription.TabIndex = 20;
+            this.btnInscription.TabIndex = 10;
             this.btnInscription.Text = "Inscription";
             this.btnInscription.UseVisualStyleBackColor = true;
             this.btnInscription.Click += new System.EventHandler(this.btnInscription_Click);
@@ -256,7 +269,7 @@
             this.loginUsername.Location = new System.Drawing.Point(331, 35);
             this.loginUsername.Name = "loginUsername";
             this.loginUsername.Size = new System.Drawing.Size(145, 20);
-            this.loginUsername.TabIndex = 21;
+            this.loginUsername.TabIndex = 11;
             // 
             // label12
             // 
@@ -272,14 +285,14 @@
             this.loginPassword.Location = new System.Drawing.Point(331, 61);
             this.loginPassword.Name = "loginPassword";
             this.loginPassword.Size = new System.Drawing.Size(145, 20);
-            this.loginPassword.TabIndex = 23;
+            this.loginPassword.TabIndex = 12;
             // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(331, 87);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(145, 23);
-            this.btnLogin.TabIndex = 25;
+            this.btnLogin.TabIndex = 13;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -299,7 +312,7 @@
             this.active_person.Location = new System.Drawing.Point(506, 35);
             this.active_person.Name = "active_person";
             this.active_person.Size = new System.Drawing.Size(171, 20);
-            this.active_person.TabIndex = 26;
+            this.active_person.TabIndex = 14;
             // 
             // DateGrid_ActivePersonGroups
             // 
@@ -323,7 +336,7 @@
             this.btnActivePersonGroups.Location = new System.Drawing.Point(576, 59);
             this.btnActivePersonGroups.Name = "btnActivePersonGroups";
             this.btnActivePersonGroups.Size = new System.Drawing.Size(101, 23);
-            this.btnActivePersonGroups.TabIndex = 30;
+            this.btnActivePersonGroups.TabIndex = 15;
             this.btnActivePersonGroups.Text = "Show my groups";
             this.btnActivePersonGroups.UseVisualStyleBackColor = true;
             this.btnActivePersonGroups.Click += new System.EventHandler(this.btnActivePersonGroups_Click);
@@ -333,7 +346,7 @@
             this.btnCreateGroup.Location = new System.Drawing.Point(811, 313);
             this.btnCreateGroup.Name = "btnCreateGroup";
             this.btnCreateGroup.Size = new System.Drawing.Size(142, 23);
-            this.btnCreateGroup.TabIndex = 31;
+            this.btnCreateGroup.TabIndex = 18;
             this.btnCreateGroup.Text = "Create a new group";
             this.btnCreateGroup.UseVisualStyleBackColor = true;
             this.btnCreateGroup.Click += new System.EventHandler(this.btnCreateGroup_Click);
@@ -361,14 +374,14 @@
             this.group_name.Location = new System.Drawing.Point(509, 315);
             this.group_name.Name = "group_name";
             this.group_name.Size = new System.Drawing.Size(145, 20);
-            this.group_name.TabIndex = 32;
+            this.group_name.TabIndex = 16;
             // 
             // group_description
             // 
             this.group_description.Location = new System.Drawing.Point(660, 316);
             this.group_description.Name = "group_description";
             this.group_description.Size = new System.Drawing.Size(145, 20);
-            this.group_description.TabIndex = 36;
+            this.group_description.TabIndex = 17;
             // 
             // person_result
             // 
@@ -397,7 +410,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(683, 16);
+            this.label17.Location = new System.Drawing.Point(682, 17);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(24, 13);
             this.label17.TabIndex = 40;
@@ -411,11 +424,106 @@
             this.groupResult.Size = new System.Drawing.Size(142, 20);
             this.groupResult.TabIndex = 41;
             // 
+            // cb_activePerson_groups
+            // 
+            this.cb_activePerson_groups.FormattingEnabled = true;
+            this.cb_activePerson_groups.Location = new System.Drawing.Point(506, 413);
+            this.cb_activePerson_groups.Name = "cb_activePerson_groups";
+            this.cb_activePerson_groups.Size = new System.Drawing.Size(148, 21);
+            this.cb_activePerson_groups.TabIndex = 42;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(506, 397);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(56, 13);
+            this.label18.TabIndex = 43;
+            this.label18.Text = "Group ID :";
+            // 
+            // activeGroup_addPerson
+            // 
+            this.activeGroup_addPerson.Location = new System.Drawing.Point(660, 414);
+            this.activeGroup_addPerson.Name = "activeGroup_addPerson";
+            this.activeGroup_addPerson.Size = new System.Drawing.Size(145, 20);
+            this.activeGroup_addPerson.TabIndex = 44;
+            // 
+            // lblactiveadd
+            // 
+            this.lblactiveadd.AutoSize = true;
+            this.lblactiveadd.Location = new System.Drawing.Point(661, 397);
+            this.lblactiveadd.Name = "lblactiveadd";
+            this.lblactiveadd.Size = new System.Drawing.Size(98, 13);
+            this.lblactiveadd.TabIndex = 45;
+            this.lblactiveadd.Text = "Find a user to add :";
+            // 
+            // btnActiveGroupFind
+            // 
+            this.btnActiveGroupFind.Location = new System.Drawing.Point(660, 440);
+            this.btnActiveGroupFind.Name = "btnActiveGroupFind";
+            this.btnActiveGroupFind.Size = new System.Drawing.Size(145, 23);
+            this.btnActiveGroupFind.TabIndex = 46;
+            this.btnActiveGroupFind.Text = "Select the user";
+            this.btnActiveGroupFind.UseVisualStyleBackColor = true;
+            this.btnActiveGroupFind.Click += new System.EventHandler(this.btnActiveGroupFind_Click);
+            // 
+            // activeGroup_name
+            // 
+            this.activeGroup_name.Location = new System.Drawing.Point(660, 469);
+            this.activeGroup_name.Name = "activeGroup_name";
+            this.activeGroup_name.Size = new System.Drawing.Size(99, 20);
+            this.activeGroup_name.TabIndex = 47;
+            // 
+            // activeGroup_id
+            // 
+            this.activeGroup_id.Location = new System.Drawing.Point(765, 469);
+            this.activeGroup_id.Name = "activeGroup_id";
+            this.activeGroup_id.Size = new System.Drawing.Size(40, 20);
+            this.activeGroup_id.TabIndex = 48;
+            // 
+            // btnActiveGroup_Add
+            // 
+            this.btnActiveGroup_Add.Location = new System.Drawing.Point(811, 412);
+            this.btnActiveGroup_Add.Name = "btnActiveGroup_Add";
+            this.btnActiveGroup_Add.Size = new System.Drawing.Size(142, 23);
+            this.btnActiveGroup_Add.TabIndex = 49;
+            this.btnActiveGroup_Add.Text = "Add to my group";
+            this.btnActiveGroup_Add.UseVisualStyleBackColor = true;
+            this.btnActiveGroup_Add.Click += new System.EventHandler(this.btnActiveGroup_Add_Click);
+            // 
+            // activeGroupResult
+            // 
+            this.activeGroupResult.Enabled = false;
+            this.activeGroupResult.Location = new System.Drawing.Point(811, 443);
+            this.activeGroupResult.Name = "activeGroupResult";
+            this.activeGroupResult.Size = new System.Drawing.Size(142, 20);
+            this.activeGroupResult.TabIndex = 50;
+            // 
+            // btnGoToGroup
+            // 
+            this.btnGoToGroup.Location = new System.Drawing.Point(506, 520);
+            this.btnGoToGroup.Name = "btnGoToGroup";
+            this.btnGoToGroup.Size = new System.Drawing.Size(447, 23);
+            this.btnGoToGroup.TabIndex = 51;
+            this.btnGoToGroup.Text = "Go in group";
+            this.btnGoToGroup.UseVisualStyleBackColor = true;
+            this.btnGoToGroup.Click += new System.EventHandler(this.btnGoToGroup_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 621);
+            this.Controls.Add(this.btnGoToGroup);
+            this.Controls.Add(this.activeGroupResult);
+            this.Controls.Add(this.btnActiveGroup_Add);
+            this.Controls.Add(this.activeGroup_id);
+            this.Controls.Add(this.activeGroup_name);
+            this.Controls.Add(this.btnActiveGroupFind);
+            this.Controls.Add(this.lblactiveadd);
+            this.Controls.Add(this.activeGroup_addPerson);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.cb_activePerson_groups);
             this.Controls.Add(this.groupResult);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.active_personID);
@@ -460,6 +568,7 @@
             this.Name = "Form2";
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,5 +617,16 @@
         private System.Windows.Forms.TextBox active_personID;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox groupResult;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.ComboBox cb_activePerson_groups;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox activeGroup_addPerson;
+        private System.Windows.Forms.Label lblactiveadd;
+        private System.Windows.Forms.Button btnActiveGroupFind;
+        private System.Windows.Forms.TextBox activeGroup_name;
+        private System.Windows.Forms.TextBox activeGroup_id;
+        private System.Windows.Forms.Button btnActiveGroup_Add;
+        private System.Windows.Forms.TextBox activeGroupResult;
+        private System.Windows.Forms.Button btnGoToGroup;
     }
 }

@@ -81,9 +81,9 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="username">The username of the user that want to log</param>
         /// <param name="password">The password of the user that want to log</param>
         /// <returns>True if the username and password match, false if not</returns>
-        public bool loginValidation(string username, string password)
+        public person loginValidation(string username, string password)
         {
-            bool loginAccepted = false;
+            person loginAccepted = null;
 
             if(username == null)
             {
@@ -101,7 +101,7 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 if(existingPerson[0].Password == password)
                 {
-                    loginAccepted = true;
+                    loginAccepted = existingPerson[0];
                 }
             }
 

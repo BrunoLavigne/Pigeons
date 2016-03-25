@@ -10,6 +10,6 @@ namespace PigeonsLibrairy.Service.Interface
     public interface IPersonService : IService<person>
     {
         bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
-        bool loginValidation(string username, string password);
+        person loginValidation(string username, string password);
     }
 }
