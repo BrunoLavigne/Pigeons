@@ -81,6 +81,7 @@
             this.activeGroupResult = new System.Windows.Forms.TextBox();
             this.btnGoToGroup = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.cb_activeGroup_addPerson = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -443,7 +444,7 @@
             // 
             // activeGroup_addPerson
             // 
-            this.activeGroup_addPerson.Location = new System.Drawing.Point(660, 414);
+            this.activeGroup_addPerson.Location = new System.Drawing.Point(509, 442);
             this.activeGroup_addPerson.Name = "activeGroup_addPerson";
             this.activeGroup_addPerson.Size = new System.Drawing.Size(145, 20);
             this.activeGroup_addPerson.TabIndex = 44;
@@ -509,11 +510,21 @@
             this.btnGoToGroup.UseVisualStyleBackColor = true;
             this.btnGoToGroup.Click += new System.EventHandler(this.btnGoToGroup_Click);
             // 
+            // cb_activeGroup_addPerson
+            // 
+            this.cb_activeGroup_addPerson.FormattingEnabled = true;
+            this.cb_activeGroup_addPerson.Location = new System.Drawing.Point(660, 414);
+            this.cb_activeGroup_addPerson.Name = "cb_activeGroup_addPerson";
+            this.cb_activeGroup_addPerson.Size = new System.Drawing.Size(145, 21);
+            this.cb_activeGroup_addPerson.TabIndex = 52;
+            this.cb_activeGroup_addPerson.SelectedIndexChanged += new System.EventHandler(this.cb_activeGroup_addPerson_SelectedIndexChanged);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 621);
+            this.Controls.Add(this.cb_activeGroup_addPerson);
             this.Controls.Add(this.btnGoToGroup);
             this.Controls.Add(this.activeGroupResult);
             this.Controls.Add(this.btnActiveGroup_Add);
@@ -628,5 +639,6 @@
         private System.Windows.Forms.Button btnActiveGroup_Add;
         private System.Windows.Forms.TextBox activeGroupResult;
         private System.Windows.Forms.Button btnGoToGroup;
+        private System.Windows.Forms.ComboBox cb_activeGroup_addPerson;
     }
 }
