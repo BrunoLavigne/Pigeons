@@ -41,6 +41,9 @@ namespace PigeonsLibrairy.DAO.Implementation
                 case "description":
                     personList = Get(p => p.Description.ToLower().Contains(((string)value).ToLower()));
                     break;
+                case "all":
+                    personList = Get(p => p.Email.ToLower().Contains(((string)value).ToLower()) && p.Name.ToLower().Contains(((string)value).ToLower()));
+                    break;
                 default:
                     break;
             }
