@@ -43,15 +43,16 @@ public partial class Groups : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static string GetCurrentTime()
+    public static string GetMatchingUsers(string searchValue)
     {
 
         string msg = "";
-        foreach(group g in controller.GroupService.Get())
+
+        foreach (person p in controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue))
         {
-            msg += g.Description + "    " + g.Name;
+            msg += "Nom: " + p.Name + " --- Description: " + p.Description + "\n\n";
         }
 
-        return "Hello you okay here's the time: " + DateTime.Now.ToLongTimeString() + msg;
+        return msg;
     }
 }
