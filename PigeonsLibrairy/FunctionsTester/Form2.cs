@@ -167,14 +167,21 @@ namespace FunctionsTester
         {
             string searchValue = activeGroup_addPerson.Text;
 
-            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), searchValue).ToList();
+            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue).ToList();
 
             // Afficher the user if found
-            if(searchPersonList.Count() == 1)
+            if(searchPersonList.Count() > 0)
             {
-                person searchPerson = searchPersonList[0];
-                activeGroup_name.Text = searchPerson.Name;
-                activeGroup_id.Text = searchPerson.Id.ToString();
+                cb_activeGroup_addPerson.Items.Clear();
+
+                foreach (person personFound in searchPersonList)
+                {
+                    cb_activeGroup_addPerson.Items.Add(personFound.Name + " - " + personFound.Id);
+                }
+                cb_activeGroup_addPerson.SelectedIndex = 0;
+                //person searchPerson = searchPersonList[0];
+                //activeGroup_name.Text = searchPerson.Name;
+                //activeGroup_id.Text = searchPerson.Id.ToString();
             }
             else
             {
@@ -235,5 +242,13 @@ namespace FunctionsTester
             DateGrid_ActivePersonGroups.Columns.Add("NBUSER", "Nb users in");
         }
 
+        private void cb_activeGroup_addPerson_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string thePerson = cb_activeGroup_addPerson.SelectedItem.ToString().Trim();
+            string[] splitter = thePerson.Split('-');
+
+            activeGroup_name.Text = splitter[0];
+            activeGroup_id.Text = splitter[1];
+        }
     }
 }
