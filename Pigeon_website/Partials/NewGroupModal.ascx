@@ -18,6 +18,11 @@
                 <div class="form-group">
                     <textarea id="newGroupDescription" placeholder="Description" class="form-control" runat="server"></textarea>
                 </div>
+
+                <div class="form-group">
+                    <asp:TextBox ID="txtPersonSearch" placeholder="Chercher quelqu'un..." CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:DropDownList ID="personFilterList" runat="server" CssClass="form-control"></asp:DropDownList>
+                </div>
 				
 
 			</div>

@@ -2,6 +2,24 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <script type="text/javascript">
+        function showCurrentTime() {
+            $.ajax({
+
+                type: "POST",
+                url: "Groups.aspx/GetCurrentTime",
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+                success: OnSuccess,
+                error: function (response) {
+                    alert(response.e);
+                }
+            });
+        }
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <%@ Register TagPrefix="uc" TagName="NewGroupModal" Src="~/Partials/NewGroupModal.ascx" %>
@@ -18,7 +36,10 @@
         <div class="container">
             <a href="#newGroupModal" data-toggle="modal" data-target="#newGroupModal" class="btn btn-success Btn-new-group">
                 <span class="menu-icon glyphicon glyphicon-plus"></span>Nouveau groupe
+
             </a>
+            <input id="btnGetTime" type="button" value="Show Current Time" onclick = "showCurrentTime()" />
+
         </div>
     </div>
 

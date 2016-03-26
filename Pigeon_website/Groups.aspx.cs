@@ -1,17 +1,24 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 using System;
+using System.Web.Services;
 
 public partial class Groups : System.Web.UI.Page
 {
 
+    static Controller controller { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        if(controller == null)
+        {
+            controller = new Controller();
+        }
 
         if (!IsPostBack)
         {
             GlobalHelpers gh = new GlobalHelpers();
-            Controller controller = new Controller();
 
             // faudrait encore fait un helper pour ça
             if (Session["user"] != null)
@@ -33,5 +40,18 @@ public partial class Groups : System.Web.UI.Page
            
         }
 
+    }
+
+    [WebMethod]
+    public static string GetCurrentTime()
+    {
+
+        string msg = "";
+        foreach(person p in controller.PersonService.GetBy("email", "bob@gmail.com"))
+        {
+            msg += p.Description +  " - " + p.Email;
+        }
+
+        return "Hello you okay here's the time: " + DateTime.Now.ToLongDateString() + msg;
     }
 }
