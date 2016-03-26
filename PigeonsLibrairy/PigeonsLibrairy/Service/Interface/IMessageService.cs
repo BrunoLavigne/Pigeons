@@ -9,5 +9,6 @@ namespace PigeonsLibrairy.Service.Interface
 {
     public interface IMessageService : IService<message>
     {
+        bool createNewMessage(message messageToCreate);
     }
 }

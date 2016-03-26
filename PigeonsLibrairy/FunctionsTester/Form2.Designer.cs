@@ -70,7 +70,6 @@
             this.active_personID = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.groupResult = new System.Windows.Forms.TextBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cb_activePerson_groups = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.activeGroup_addPerson = new System.Windows.Forms.TextBox();
@@ -81,6 +80,7 @@
             this.btnActiveGroup_Add = new System.Windows.Forms.Button();
             this.activeGroupResult = new System.Windows.Forms.TextBox();
             this.btnGoToGroup = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -505,7 +505,7 @@
             this.btnGoToGroup.Name = "btnGoToGroup";
             this.btnGoToGroup.Size = new System.Drawing.Size(447, 23);
             this.btnGoToGroup.TabIndex = 51;
-            this.btnGoToGroup.Text = "Go in group";
+            this.btnGoToGroup.Text = "Go in group ( select in cbBox )";
             this.btnGoToGroup.UseVisualStyleBackColor = true;
             this.btnGoToGroup.Click += new System.EventHandler(this.btnGoToGroup_Click);
             // 

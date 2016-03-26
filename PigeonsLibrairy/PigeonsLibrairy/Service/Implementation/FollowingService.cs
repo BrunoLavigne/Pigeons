@@ -24,7 +24,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="personId">The ID of the person to be added</param>
         /// <param name="groupeId">The ID of the group the person will be added too</param>
-        public void addPersonToGroup(int adminID, int personId, int groupeId)
+        public void addPersonToGroup(int adminID, int personId, int groupId)
         {
 
             if(personId == 0)
@@ -32,7 +32,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The personID is null");
             }
 
-            if(groupeId == 0)
+            if(groupId == 0)
             {
                 throw new ServiceException("The groupID is null");
             }
@@ -43,7 +43,7 @@ namespace PigeonsLibrairy.Service.Implementation
             }
 
             // Validating the group
-            group theGroup = groupDAO.GetByID(groupeId);
+            group theGroup = groupDAO.GetByID(groupId);
 
             if(theGroup == null)
             {
@@ -55,7 +55,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("This group is not active");
             }
 
-            List<following> followingList = followingDAO.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), groupeId).ToList();
+            List<following> followingList = followingDAO.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), groupId).ToList();
          
             foreach(following follow in followingList)
             {
@@ -82,7 +82,7 @@ namespace PigeonsLibrairy.Service.Implementation
             // Everyting is ok, adding the user
             following newFollowing = new following();
             newFollowing.Person_Id = personId;
-            newFollowing.Group_id = groupeId;
+            newFollowing.Group_id = groupId;
             newFollowing.Is_admin = false;
             newFollowing.Is_active = true;
             newFollowing.Last_checkin = DateTime.Now;
@@ -91,13 +91,28 @@ namespace PigeonsLibrairy.Service.Implementation
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Retreive a list with all the active followers of a group
+        /// </summary>
+        /// <param name="groupID">The group ID we want the followers</param>
+        /// <returns>A list with the followers (following) or an empty list</returns>
+        public IList<following> GetTheFollowers(int groupID)
+        {
+            if(groupID == 0)
+            {
+                throw new ServiceException("The groupID is null");
+            }
+
+            return followingDAO.GetTheFollowers(groupID);
+        }
+
         public new IEnumerable<following> GetBy(string columnName, object value)
         {
             IEnumerable<following> followingList = new List<following>();
 
             if (columnName != "" && value != null)
             {
-                followingList = GetBy(columnName, value);
+                followingList = followingDAO.GetBy(columnName, value);
                 return followingList;
             }
             else
