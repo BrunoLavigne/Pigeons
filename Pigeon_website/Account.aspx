@@ -8,6 +8,9 @@
 
         <div class="jumbotron">
 
+            <asp:Label ID="testUserLabel" runat="server" Text="?"></asp:Label>
+
+
             <h3>The account page</h3>
             <p>View/edit profile info here...</p>
 

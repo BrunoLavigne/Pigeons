@@ -36,23 +36,31 @@ public partial class Account : System.Web.UI.Page
         }
 
 
+        person personToUpdateSession = (person)Session["user"];
+        testUserLabel.Text = personToUpdateSession.Organization;
+
     }
 
     // If no changes have been applied, disable this button anyways
     protected void btnEditUser_Click(object sender, EventArgs e)
     {
+        // get id from the Session
+        // int personToUpdateID = gh.getCurrentUser().Id;
+        person personToUpdateSession = (person)Session["user"];
+        int personToUpdateId = personToUpdateSession.Id;
 
-        person personToUpdate = gh.getCurrentUser();
+        testUserLabel.Text = "persont » " + personToUpdateId;
 
-        // Take new email
+        // connect id with controller
+        person personToUpdate = controller.PersonService.GetByID(personToUpdateId);
+
+        // parse new values...
         personToUpdate.Email = editUserEmail.Text;
-
-        // Take new description
         personToUpdate.Description = editUserDescription.Text;
+        personToUpdate.Organization = "please update incorporated";
 
+        // update via controller
         controller.PersonService.Update(personToUpdate);
-
-        // Show label that everything worked / failed
-        // ...
+        controller.Save();
     }
 }

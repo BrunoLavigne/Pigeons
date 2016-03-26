@@ -1,6 +1,8 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 using System;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 
 public partial class Groups : System.Web.UI.Page
@@ -46,13 +48,11 @@ public partial class Groups : System.Web.UI.Page
     public static string GetMatchingUsers(string searchValue)
     {
 
-        string msg = "";
 
-        foreach (person p in controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue))
-        {
-            msg += "Nom: " + p.Name + " --- Description: " + p.Description + "\n\n";
-        }
+        // instantiate a serializer
+        JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
 
-        return msg;
+        // Fix this!
+        return TheSerializer.Serialize(controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue));
     }
 }

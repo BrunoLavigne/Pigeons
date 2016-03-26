@@ -10,11 +10,18 @@
                 var $searchValue = $("#searchBarValue");
 
 
-                $('#myButton').bind('click',function(e){
-                        e.preventDefault();
-                        console.log("i just want to log" + $searchValue.val());
+                // Optimize this in future
+                // link if input empty or if we didn't find any results and search value keeps getting longer
+                
+                // Use JSON.NET in backend before using this, otherwise we get a "circular reference exception"
+                // http://stackoverflow.com/questions/16949520/circular-reference-detected-exception-while-serializing-object-to-json
+                
 
-                        var params = JSON.stringify({ searchValue: $searchValue.val() });
+                $searchValue.on('change input', function() {
+
+                        console.log("i just want to log" + $(this).val());
+
+                        var params = JSON.stringify({ searchValue: $(this).val() });
 
                         $.ajax({
 
@@ -33,9 +40,8 @@
                             console.log("success i guess" + response.d);
                         }
                 });
-       
-        });
 
+    }); 
     </script>
 
 </asp:Content>
@@ -56,7 +62,7 @@
                 <span class="menu-icon glyphicon glyphicon-plus"></span>Nouveau groupe
 
             </a>
-            <%--<a id='demoLink' href='javascript:'>Iam a link</a>--%>
+
             <input type="text" id="searchBarValue" />
             <button id="myButton" class="btn btn-primary">Get Person List</button> 
         </div>
