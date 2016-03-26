@@ -38,7 +38,7 @@
                 <span class="menu-icon glyphicon glyphicon-plus"></span>Nouveau groupe
 
             </a>
-            <input id="btnGetTime" type="button" value="Show Current Time" onclick = "showCurrentTime()" />
+            <input id="btnGetTime" type="button" value="Show Current Groups" onclick = "showCurrentTime()" />
 
         </div>
     </div>

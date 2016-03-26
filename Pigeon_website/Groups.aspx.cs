@@ -47,11 +47,11 @@ public partial class Groups : System.Web.UI.Page
     {
 
         string msg = "";
-        foreach(person p in controller.PersonService.GetBy("email", "bob@gmail.com"))
+        foreach(group g in controller.GroupService.Get())
         {
-            msg += p.Description +  " - " + p.Email;
+            msg += g.Description + "    " + g.Name;
         }
 
-        return "Hello you okay here's the time: " + DateTime.Now.ToLongDateString() + msg;
+        return "Hello you okay here's the time: " + DateTime.Now.ToLongTimeString() + msg;
     }
 }
