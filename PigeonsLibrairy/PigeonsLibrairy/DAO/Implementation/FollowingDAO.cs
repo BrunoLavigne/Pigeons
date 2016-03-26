@@ -27,5 +27,14 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             return followingList;
         }
+
+        public IList<following> GetTheFollowers(int groupID)
+        {
+            IList<following> followersList = new List<following>();
+
+            followersList = Get(f => f.Group_id == groupID && f.Is_active).ToList();
+
+            return followersList;
+        }
     }
 }

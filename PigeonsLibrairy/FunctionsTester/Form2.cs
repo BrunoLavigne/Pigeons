@@ -154,8 +154,7 @@ namespace FunctionsTester
                 catch(ServiceException serviceException)
                 {
                     groupResult.Text = serviceException.Message;
-                }
-                
+                }                
             }
         }
 
@@ -210,12 +209,18 @@ namespace FunctionsTester
 
         private void btnGoToGroup_Click(object sender, EventArgs e)
         {
-            GroupView groupForm = new GroupView();
+            int groupID = int.Parse(cb_activePerson_groups.SelectedItem.ToString());
+            int personID = int.Parse(active_personID.Text);
+
+            GroupView groupForm = new GroupView(groupID, personID);
             groupForm.Owner = this;
-            
+
             this.Hide();
 
-            DialogResult dr = groupForm.ShowDialog();
+            if(groupForm.ShowDialog() == DialogResult.OK)
+            {
+            }
+
             this.Show();
         }
 
