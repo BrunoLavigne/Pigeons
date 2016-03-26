@@ -12,32 +12,49 @@ public partial class Account : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
-        // Init helpers si pas fait
-        if(gh == null)
+        if(!IsPostBack)
         {
-            gh = new GlobalHelpers();
+            
+            // Init helpers si pas fait
+            if(gh == null)
+            {
+                gh = new GlobalHelpers();
+            }
+
+            // Get current user
+            if(Session["user"] != null)
+            {
+
+                person p = (person)Session["user"];
+
+                editUserEmail.Text = p.Email;
+                editUserDescription.Text = p.Description;
+            } else {
+                Response.Redirect("Index.aspx");
+            }
+
+            // Init controller
+            if (controller == null)
+            {
+                controller = new Controller();
+            }
+
+
+            person personToUpdateSession = (person)Session["user"];
+            testUserLabel.Text = personToUpdateSession.Organization;
+
         }
 
-        // Get current user
-        if(gh.getCurrentUser() != null)
+        if(Session["user"] != null )
         {
-            editUserEmail.Text = gh.getCurrentUser().Email;
-            editUserDescription.Text = gh.getCurrentUser().Description;
-        } else {
-            Response.Redirect("Index.aspx");
-        }
-
-        // Init controller
-        if (controller == null)
+            person activeP = (person)Session["user"];
+            testUserLabel.Text = "The active user is : " + activeP.Description + " 00 " + activeP.Name + " 00 " + activeP.Organization;
+        } else
         {
-            controller = new Controller();
+            testUserLabel.Text = "There seems to be no active user on this page, move along";
         }
 
 
-        person personToUpdateSession = (person)Session["user"];
-        testUserLabel.Text = personToUpdateSession.Organization;
 
     }
 
@@ -52,12 +69,17 @@ public partial class Account : System.Web.UI.Page
         testUserLabel.Text = "persont » " + personToUpdateId;
 
         // connect id with controller
+        if(controller == null)
+        {
+            controller = new Controller();
+        }
+
         person personToUpdate = controller.PersonService.GetByID(personToUpdateId);
 
         // parse new values...
         personToUpdate.Email = editUserEmail.Text;
         personToUpdate.Description = editUserDescription.Text;
-        personToUpdate.Organization = "please update incorporated";
+        personToUpdate.Organization = editUserOrganization.Text;
 
         // update via controller
         controller.PersonService.Update(personToUpdate);

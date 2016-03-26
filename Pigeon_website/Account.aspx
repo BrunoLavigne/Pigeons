@@ -23,8 +23,14 @@
             </div>
 
             <div class="form-group">
+                <asp:TextBox runat="server" ID="editUserOrganization" CssClass="form-control"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
                 <asp:Button runat="server" ID="btnEditUser" CssClass="btn btn-danger" Text="Modifier" OnClick="btnEditUser_Click" />
             </div>
+
+
         </div>
     </div>
 </asp:Content>
