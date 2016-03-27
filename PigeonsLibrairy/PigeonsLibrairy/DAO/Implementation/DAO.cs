@@ -110,5 +110,10 @@ namespace PigeonsLibrairy.DAO.Implementation
                 return query.ToList();
             }
         }
+
+        public virtual List<TEntity> GetAll()
+        {
+            return context.Set<TEntity>().ToList();
+        }
     }
 }

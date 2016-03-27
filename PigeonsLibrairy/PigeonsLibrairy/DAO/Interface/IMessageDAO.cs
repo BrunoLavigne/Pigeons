@@ -12,6 +12,6 @@ namespace PigeonsLibrairy.DAO.Interface
     /// </summary>
     interface IMessageDAO
     {
-        message GetPersonDetailByMessageId(object id);        
+        message GetPersonDetailByMessageId(object id);
     }
 }
