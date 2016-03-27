@@ -1,5 +1,6 @@
 ﻿using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Model;
+using PigeonsLibrairy.Service.Implementation;
 using PigeonsLibrairy.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,11 @@ namespace PigeonsLibrairy.Service.Implementation
         public void Update(TEntity entityToUpdate)
         {
             dao.Update(entityToUpdate);
+        }
+
+        public List<TEntity> GetAll()
+        {
+            return dao.GetAll();
         }
     }
 }

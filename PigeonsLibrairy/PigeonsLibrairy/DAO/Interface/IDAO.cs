@@ -16,5 +16,6 @@ namespace PigeonsLibrairy.DAO.Interface
         void Update(TEntity entityToUpdate);
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
         IEnumerable<TEntity> GetBy(string columnName, object value);
+        List<TEntity> GetAll();
     }
 }

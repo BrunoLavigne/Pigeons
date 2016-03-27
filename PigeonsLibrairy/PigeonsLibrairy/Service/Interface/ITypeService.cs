@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace PigeonsLibrairy.Service.Interface
 {
     public interface ITypeService : IService<type>
-    {
+    {        
     }
 }
