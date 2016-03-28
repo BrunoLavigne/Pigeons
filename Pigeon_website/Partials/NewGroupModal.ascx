@@ -23,7 +23,15 @@
                     <asp:TextBox ID="txtPersonSearch" placeholder="Chercher quelqu'un..." CssClass="form-control" runat="server"></asp:TextBox>
                     <asp:DropDownList ID="personFilterList" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
+
+                <div class="form-group">
+                    <asp:TextBox ID="newGroupPictureLink" placeholder="Ajouter une photo" CssClass="form-control" runat="server"></asp:TextBox>
+                    <!-- TODO: there should be an ajax script on img when user puts pic -->
+                </div>
 				
+                <div class="form-group">
+                    <asp:Button ID="btn_createGroup" runat="server" OnClick="btn_createGroup_Click" CssClass="form-control btn btn-success" />
+                </div>
 
 			</div>
 
