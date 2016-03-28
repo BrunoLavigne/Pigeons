@@ -49,10 +49,12 @@ public partial class Groups : System.Web.UI.Page
     {
 
 
-        // instantiate a serializer
-        JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+        //// instantiate a serializer
+        //JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
 
-        // Fix this!
-        return TheSerializer.Serialize(controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue));
+        //// Fix this!
+        //return TheSerializer.Serialize(controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue));
+
+        return "Alright here are the matching users: (not yet!)";
     }
 }

@@ -27,9 +27,6 @@ public partial class Account : System.Web.UI.Page
 
                 person p = (person)Session["user"];
 
-                //editUserEmail.Text = p.Email;
-                //editUserDescription.Text = p.Description;
-                //userProfilePicture.ResolveUrl(p.Profile_picture_link);
             } else {
                 Response.Redirect("Index.aspx");
             }
