@@ -27,7 +27,7 @@ window.onload = function () {
         repeatDelay: 10,
         yoyo: true,
         ease: Back.easeInOut.config(1.4),
-        onComplete: function() {
+        onComplete: function () {
             console.log("... anim: done with PIGEON-ROTATE");
         }
     });
@@ -37,14 +37,3 @@ window.onload = function () {
     t1.add(pigeonRotate, 5);
 };
 
-
-// bind escape key to close modal
-var ESCAPE_KEY = 27;
-
-$(document).keyup(function (e) {
-
-    if (e.keyCode === ESCAPE_KEY) {
-        $(".modal").modal('hide');
-    }
-
-});

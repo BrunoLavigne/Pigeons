@@ -35,11 +35,16 @@ public partial class Groups : System.Web.UI.Page
 
                 if(userGroups.Count != 0)
                 {
+                    noGroupsView.Visible = false;
+
                     gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
                     gridViewUserGroups.DataBind();
-                } else
-                {
+
+                } else {
+
+                    groupsView.Visible = false;
                     groupsViewMessage.Text = "Vous n'êtes pas encore associé à un groupe! Pourquoi pas en créer un maintenant?";
+
                 }
 
 

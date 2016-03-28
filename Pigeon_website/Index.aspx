@@ -22,5 +22,6 @@
 
     <!-- Connection modal -->
     <uc:ConnectModal runat="server" ID="connectModal"></uc:ConnectModal>
+    <script type="text/javascript" src="Resources/js/animations/homepage.js"></script>
 
 </asp:Content>

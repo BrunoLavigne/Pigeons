@@ -13,17 +13,20 @@
     <asp:Label ID="TestLabel" runat="server" Text="Label"></asp:Label>
 
     <div class="container">
-        <asp:Panel runat="server">
+
+        <asp:Panel runat="server" ID="groupsView">
             <asp:GridView ID="gridViewUserGroups" runat="server"></asp:GridView>
         </asp:Panel>
         
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">Information</div>
-            <div class="panel-body">
-                <asp:Label ID="groupsViewMessage" runat="server"></asp:Label>
+        <asp:Panel runat="server" ID="noGroupsView">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Information</div>
+                <div class="panel-body">
+                    <asp:Label ID="groupsViewMessage" runat="server"></asp:Label>
+                </div>
             </div>
-        </div>
+        </asp:Panel>
+
     </div>
 
     <div class="New-group-bar">

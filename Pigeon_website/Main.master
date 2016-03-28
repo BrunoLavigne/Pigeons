@@ -33,8 +33,8 @@
     <script src="Resources/Vendor/TweenMax.min.js"></script>
     <script src="Resources/Vendor/TimelineLite.min.js"></script>
 
-    <!-- custom scripts -->
-    <script type="text/javascript" src="Resources/js/global.js"></script>
+    <!-- import global ux -->
+    <script type="text/javascript" src="Resources/js/ux/global.js"></script>
     
 </body>
 </html>
