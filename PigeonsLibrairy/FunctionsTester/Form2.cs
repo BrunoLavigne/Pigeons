@@ -1,5 +1,6 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace FunctionsTester
 {
     public partial class Form2 : Form
     {        
-        private Controller controller { get; set; }
+        private MainController controller { get; set; }
+        private HomeFacade homeFacade { get; set; }
 
         public Form2()
         {
             InitializeComponent();
-            controller = new Controller();
+            controller = new MainController();
+            homeFacade = new HomeFacade();
             createDataGridColumns();
         }
         
@@ -55,7 +58,7 @@ namespace FunctionsTester
             aNewPerson.Description  = description;
             aNewPerson.Birth_date   = birthdate;
 
-            if(controller.PersonService.registerNewUser(aNewPerson, emailConfirmation, passwordConfirmation))
+            if(homeFacade.RegisterUser(aNewPerson, emailConfirmation, passwordConfirmation))
             {
                 person_result.Text = "The user is created";
             }
@@ -76,13 +79,12 @@ namespace FunctionsTester
             string username = loginUsername.Text;
             string password = loginPassword.Text;
 
-            person activePerson = controller.PersonService.loginValidation(username, password);
+            person activePerson = homeFacade.LoginValidation(username, password);
 
             if (activePerson != null)
             {
                 loginResult.Text = "Login Accepted";
-                person currentUser = (controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), username)).ToList()[0];
-                active_personID.Text = currentUser.Id.ToString();
+                active_personID.Text = activePerson.Id.ToString();
             }
             else
             {
@@ -110,7 +112,7 @@ namespace FunctionsTester
                 
                 if(personGroups.Count() > 0)
                 {
-                    IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), personGroups[0].Id);
+                    IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_GROUP_ID, personGroups[0].Id);
                     
                     // Affichage
                     foreach (group activeGroups in personGroups)
@@ -167,7 +169,7 @@ namespace FunctionsTester
         {
             string searchValue = activeGroup_addPerson.Text;
 
-            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue).ToList();
+            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_ALL, searchValue).ToList();
 
             // Afficher the user if found
             if(searchPersonList.Count() > 0)
@@ -249,6 +251,24 @@ namespace FunctionsTester
 
             activeGroup_name.Text = splitter[0];
             activeGroup_id.Text = splitter[1];
+        }
+
+        /// <summary>
+        /// Test - Update a person description
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateDesc_Click(object sender, EventArgs e)
+        {
+            int personID;
+            bool convert = int.TryParse(active_personID.Text, out personID);
+
+            string newDescription = txtUpdateDesc.Text;
+
+            person activePerson = homeFacade.GetPersonByID(personID);
+            activePerson.Description = newDescription;
+
+            person updateMe = homeFacade.UpdatePerson(personID, activePerson);
         }
     }
 }

@@ -66,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\MainController.cs" />
     <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
     <Compile Include="DAO\Implementation\ProjectDAO.cs" />
@@ -87,6 +87,10 @@
     <Compile Include="DAO\PersonDAO_toremove.cs" />
     <Compile Include="Exceptions\ControllerException.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="Facade\Implementation\GroupFacade.cs" />
+    <Compile Include="Facade\Implementation\HomeFacade.cs" />
+    <Compile Include="Facade\Interface\IGroupFacade.cs" />
+    <Compile Include="Facade\Interface\IHomeFacade.cs" />
     <Compile Include="Model\following.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>

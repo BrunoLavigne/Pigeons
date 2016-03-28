@@ -14,9 +14,9 @@ namespace PigeonsLibrairy.Service.Implementation
     {
         private TaskDAO taskDAO { get; set; }
 
-        public TaskService(pigeonsEntities1 context) : base(context)
+        public TaskService() : base()
         {
-            taskDAO = new TaskDAO(context);
+            taskDAO = new TaskDAO();
         }
 
         public new IEnumerable<task> GetBy(string columnName, object value)
@@ -25,7 +25,7 @@ namespace PigeonsLibrairy.Service.Implementation
 
             if (columnName != "" && value != null)
             {
-                taskList = taskDAO.GetBy(columnName, value);
+                taskList = GetBy(columnName, value);
                 return taskList;
             }
             else

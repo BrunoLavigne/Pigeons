@@ -9,6 +9,6 @@ namespace PigeonsLibrairy.DAO.Interface
 {
     public interface IFollowingDAO
     {
-        IList<following> GetTheFollowers(int groupID);
+        IList<following> GetTheFollowers(pigeonsEntities1 context, int groupID);
     }
 }

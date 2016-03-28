@@ -14,6 +14,11 @@ namespace PigeonsLibrairy.Model
     
     public partial class message
     {
+        public const string COLUMN_AUTHOR_ID = "author_id";
+        public const string COLUMN_GROUP_ID = "group_id";
+        public const string COLUMN_CONTENT = "content";
+        public const string COLUMN_DATE_CREATED = "date_created";
+
         public int Id { get; set; }
         public int Author_Id { get; set; }
         public int Group_Id { get; set; }
@@ -21,8 +26,6 @@ namespace PigeonsLibrairy.Model
         public System.DateTime Date_created { get; set; }
     
         public virtual group group { get; set; }
-        public virtual person person { get; set; }
-
-        public enum COLUMN_NAME { AUTHOR_ID, GROUP_ID, CONTENT }
+        public virtual person person { get; set; }        
     }
 }

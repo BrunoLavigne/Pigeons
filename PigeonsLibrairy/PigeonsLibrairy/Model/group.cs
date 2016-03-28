@@ -21,14 +21,17 @@ namespace PigeonsLibrairy.Model
             this.messages = new HashSet<message>();
             this.projects = new HashSet<project>();
         }
-    
+
+        public const string COLUMN_NAME = "name";
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_IS_ACTIVE = "is_active";
+        public const string COLUMN_CREATION_DATE = "creation_date";
+
         public int Id { get; set; }
         public string Name { get; set; }
         public System.DateTime Creation_date { get; set; }
         public string Description { get; set; }
-        public bool Is_active { get; set; }
-
-        public enum COLUMN_NAME { NAME, DESCRIPTION, IS_ACTIVE }
+        public bool Is_active { get; set; }        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }

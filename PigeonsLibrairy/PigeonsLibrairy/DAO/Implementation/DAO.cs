@@ -10,13 +10,9 @@ namespace PigeonsLibrairy.DAO.Implementation
 {
     public class DAO<TEntity> where TEntity : class
     {
-        public pigeonsEntities1 context { get; private set; }
-        public DbSet<TEntity> dbSet { get; private set; }
 
-        public DAO(pigeonsEntities1 context)
-        {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();            
+        public DAO()
+        {        
         }
 
         /// <summary>
@@ -24,54 +20,54 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// </summary>
         /// <param name="id">The ID of the Entity we are searching</param>
         /// <returns>The Entity or null</returns>
-        public virtual TEntity GetByID(object id)
-        {
-            return dbSet.Find(id);            
+        public virtual TEntity GetByID(pigeonsEntities1 context, object id)
+        {            
+            return context.Set<TEntity>().Find(id);            
         }
 
         /// <summary>
         /// Delete an Entity from the Database
         /// </summary>
         /// <param name="id">The ID of the Entity to delete</param>
-        public virtual void Delete(object id)
+        public virtual void Delete(pigeonsEntities1 context, object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
+            TEntity entityToDelete = context.Set<TEntity>().Find(id);
+            Delete(context, entityToDelete);
         }
 
         /// <summary>
         /// Delete an Entity from the Database
         /// </summary>
         /// <param name="entityToDelete">The Entity to delete</param>
-        public virtual void Delete(TEntity entityToDelete)
+        public virtual void Delete(pigeonsEntities1 context, TEntity entityToDelete)
         {
             if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                dbSet.Attach(entityToDelete);
+                context.Set<TEntity>().Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
+            context.Set<TEntity>().Remove(entityToDelete);
         }
 
         /// <summary>
         /// Insert an Entity in the Database
         /// </summary>
         /// <param name="entity">The Entity to insert</param>
-        public virtual void Insert(TEntity entity)
+        public virtual void Insert(pigeonsEntities1 context, TEntity entity)
         {
-            dbSet.Add(entity);
+            context.Set<TEntity>().Add(entity);
         }
 
         /// <summary>
         /// Update an Entity from the Database
         /// </summary>
         /// <param name="entityToUpdate">The Entity to update</param>
-        public virtual void Update(TEntity entityToUpdate)
+        public virtual void Update(pigeonsEntities1 context, TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
+            context.Set<TEntity>().Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public IEnumerable<TEntity> GetBy(string columnName, object value)
+        public IEnumerable<TEntity> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             return new List<TEntity>();
         }
@@ -84,11 +80,12 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <param name="includeProperties">If we want to add soma data to the returned Entity (Because LazyLoading is True)</param>
         /// <returns>A list matching the query or null</returns>
         public virtual IEnumerable<TEntity> Get(
+            pigeonsEntities1 context,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = context.Set<TEntity>();
 
             if (filter != null)
             {
@@ -107,13 +104,13 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             else
             {
-                return query.ToList();
+                return query.AsNoTracking().ToList();
             }
         }
 
-        public virtual List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll(pigeonsEntities1 context)
         {
-            return context.Set<TEntity>().ToList();
+            return context.Set<TEntity>().AsNoTracking().ToList();
         }
     }
 }

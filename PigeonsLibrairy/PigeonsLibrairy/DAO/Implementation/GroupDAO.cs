@@ -3,6 +3,7 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,33 +11,30 @@ namespace PigeonsLibrairy.DAO.Implementation
 {
     public class GroupDAO : DAO<group>, IGroupDAO
     {
-        public GroupDAO(pigeonsEntities1 context) : base(context)
+        public GroupDAO() : base() {}
+
+        public new IEnumerable<group> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
+            Expression<Func<group, bool>> filter = null;
 
-        }
-
-        public new IEnumerable<group> GetBy(string columnName, object value)
-        {
-            IEnumerable<group> groupList = new List<group>();
-
-            switch (columnName.ToLower())
+            switch (columnName)
             {
-                case "name":
-                    groupList = Get(g => g.Name == (string)value);
+                case group.COLUMN_NAME:
+                    filter = (g => g.Name == (string)value);
                     break;
-                case "is_active":
-                    groupList = Get(g => g.Is_active == (bool)value);
+                case group.COLUMN_IS_ACTIVE:
+                    filter = (g => g.Is_active == (bool)value);
                     break;
-                case "description":
-                    groupList = Get(g => g.Description == (string)value);
+                case group.COLUMN_DESCRIPTION:
+                    filter = (g => g.Description == (string)value);
                     break;
-                case "creation_date":
+                case group.COLUMN_CREATION_DATE:
                     //groupList = dao.Get(g => DbFunctions.TruncateTime(g.Creation_date).Equals( ((DateTime)value).Date) );                    
                     break;
                 default:
                     break;
             }
-            return groupList;
+            return Get(context, filter);
         }
     }
 }

@@ -14,14 +14,17 @@ namespace PigeonsLibrairy.Model
     
     public partial class task
     {
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_DATE_DUE = "date_due";
+        public const string COLUMN_IS_COMPLETED = "is_completed";
+        public const string COLUMN_PROJECT_ID = "project_id";
+
         public int Id { get; set; }
         public string Description { get; set; }
         public System.DateTime Date_due { get; set; }
         public bool Is_completed { get; set; }
         public int Project_ID { get; set; }
     
-        public virtual project project { get; set; }
-
-        public enum COLUMN_NAME { DESCRIPTION, DATE_DUE, IS_COMPLETED, PROJECT_ID }
+        public virtual project project { get; set; }        
     }
 }

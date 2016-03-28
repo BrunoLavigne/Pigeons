@@ -7,10 +7,8 @@ using System;
 
 namespace PigeonsLibrairy.Controller
 {
-    public class Controller : IDisposable
-    {
-        private pigeonsEntities1 context = new pigeonsEntities1();
-        
+    public class MainController
+    {       
         private IMessageService messageService;        
         private IPersonService personService;
         private IGroupService groupeService;
@@ -29,7 +27,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if(this.personService == null)
                 {
-                    this.personService = new PersonService(context);
+                    this.personService = new PersonService();
                 }
                 return personService;
             }
@@ -45,7 +43,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.messageService == null)
                 {
-                    this.messageService = new MessageService(context);
+                    this.messageService = new MessageService();
                 }
                 return messageService;
             }
@@ -61,7 +59,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.groupeService == null)
                 {
-                    this.groupeService = new GroupService(context);
+                    this.groupeService = new GroupService();
                 }
                 return groupeService;
             }
@@ -77,7 +75,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.followingService == null)
                 {
-                    this.followingService = new FollowingService(context);
+                    this.followingService = new FollowingService();
                 }
                 return followingService;
             }
@@ -93,7 +91,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.projectService == null)
                 {
-                    this.projectService = new ProjectService(context);
+                    this.projectService = new ProjectService();
                 }
                 return projectService;
             }
@@ -109,7 +107,7 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.taskService == null)
                 {
-                    this.taskService = new TaskService(context);
+                    this.taskService = new TaskService();
                 }
                 return taskService;
             }
@@ -125,53 +123,10 @@ namespace PigeonsLibrairy.Controller
             {
                 if (this.typeService == null)
                 {
-                    this.typeService = new TypeService(context);
+                    this.typeService = new TypeService();
                 }
                 return typeService;
             }
-        }
-
-        /// <summary>
-        /// Enregistrement des modifications dans la base de données
-        /// </summary>
-        public void Save()
-        {
-            try
-            {
-                context.SaveChanges();                
-            }
-            catch
-            {
-                throw new ControllerException("There was an error while saving");
-            }
-            
-        }
-
-        private bool disposed = false;
-
-        /// <summary>
-        /// Méthode pour éliminer le context
-        /// </summary>
-        /// <param name="disposing">Validation que le context peut être disposé</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        /// <summary>
-        /// Dispose le context
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

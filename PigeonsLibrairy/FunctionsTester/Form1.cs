@@ -19,13 +19,13 @@ namespace FunctionsTester
     public partial class Form1 : Form
     {
 
-        private Controller controller { get; set; }
+        private MainController controller { get; set; }
 
         public Form1()
         {
             InitializeComponent();
 
-            controller = new Controller();     
+            controller = new MainController();     
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace FunctionsTester
             controller.PersonService.Insert(personToInsert);            
 
             // Il faut faire le Save sinon l'ajout ne sera pas complété
-            controller.Save();
+            //controller.Save();
 
             MessageBox.Show("Bob is now added to the database");
         }
@@ -70,7 +70,7 @@ namespace FunctionsTester
             // Insertion du groupe
             controller.GroupService.Insert(groupToAdd);            
             // Save dans la DB
-            controller.Save();
+            //controller.Save();
 
             MessageBox.Show("Group no.1 is now added to the database");
         }
@@ -90,7 +90,7 @@ namespace FunctionsTester
             messageToAdd.Content        = "Message in place";
 
             controller.MessageService.Insert(messageToAdd);            
-            controller.Save();            
+            //controller.Save();            
 
             MessageBox.Show("Message created");
         }
@@ -103,7 +103,7 @@ namespace FunctionsTester
             person personToUpdate = controller.PersonService.GetByID(4);
             personToUpdate.Description = "Oh my god my description is updated";
             controller.PersonService.Update(personToUpdate);
-            controller.Save();
+            //controller.Save();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace FunctionsTester
 
             try
             {
-                controller.Save();
+                //controller.Save();
                 MessageBox.Show("Person id: 3 is now following groupe id: 2");
             }
             catch(ControllerException controllerException)
@@ -164,7 +164,7 @@ namespace FunctionsTester
 
             // Insertion and saving of the group
             controller.GroupService.Insert(aNewGroup);
-            controller.Save();
+            //controller.Save();
 
             // Creating the following
             following personIsFollowing = new following();
@@ -177,7 +177,7 @@ namespace FunctionsTester
             // Insertion the the following
             controller.FollowingService.Insert(personIsFollowing);
             // Saving
-            controller.Save();
+            //controller.Save();
 
         }
 
@@ -229,7 +229,7 @@ namespace FunctionsTester
         {
             int groupId = 8;
             // Getting the list
-            IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), groupId);
+            IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_GROUP_ID, groupId);
             
             int nbOfAdmin = 0;
             int nbOfFollower = 0;
@@ -269,7 +269,7 @@ namespace FunctionsTester
         private void button12_Click(object sender, EventArgs e)
         {
             IEnumerable<person> tester = new List<person>();
-            tester = controller.PersonService.GetBy(person.COLUMN_NAME.EMAIL.ToString(), "bob@gmail.com");
+            tester = controller.PersonService.GetBy(person.COLUMN_EMAIL, "bob@gmail.com");
             int nb = 0;
             foreach (person p in tester)
             {

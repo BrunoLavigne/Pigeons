@@ -17,12 +17,12 @@ namespace FunctionsTester
     {
         private int activeGroupID { get; set; }
         private int activePersonID { get; set; }
-        private Controller controller { get; set; }
+        private MainController controller { get; set; }
 
         public GroupView(int groupID, int personID)
         {
             InitializeComponent();
-            controller = new Controller();
+            controller = new MainController();
             activeGroupID = groupID;
             activePersonID = personID;
             fillTheFields();
@@ -73,7 +73,7 @@ namespace FunctionsTester
                 {
                     messageResult.Text = "Message created";
 
-                    IEnumerable<message> messageList = controller.MessageService.GetBy(message.COLUMN_NAME.GROUP_ID.ToString(), activeGroupID);
+                    IEnumerable<message> messageList = controller.MessageService.GetBy(message.COLUMN_GROUP_ID, activeGroupID);
                     foreach(message mess in messageList)
                     {
                         person author = controller.PersonService.GetByID(mess.Author_Id);

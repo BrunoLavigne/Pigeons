@@ -3,6 +3,7 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,32 +11,30 @@ namespace PigeonsLibrairy.DAO.Implementation
 {
     public class TaskDAO : DAO<task>, ITaskDAO
     {
-        public TaskDAO(pigeonsEntities1 context) : base(context)
-        {
-        }
+        public TaskDAO() : base() {}
 
-        public new IEnumerable<task> GetBy(string columnName, object value)
+        public new IEnumerable<task> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
-            IEnumerable<task> taskList = new List<task>();
+            Expression<Func<task, bool>> filter = null;            
 
             switch (columnName.ToLower())
             {
-                case "project_id":
-                    taskList = Get(t => t.Project_ID == (int)value);
+                case task.COLUMN_PROJECT_ID:
+                    filter = (t => t.Project_ID == (int)value);
                     break;
-                case "description":
-                    taskList = Get(t => t.Description.ToLower().Contains(((string)value).ToLower()));
+                case task.COLUMN_DESCRIPTION:
+                    filter = (t => t.Description.ToLower().Contains(((string)value).ToLower()));
                     break;
-                case "date_due":
+                case task.COLUMN_DATE_DUE:
                     //taskList = Get(t => t.Date_due.Date == ((DateTime)value).Date);
                     break;
-                case "is_completed":
-                    taskList = Get(t => t.Is_completed == (bool)value);
+                case task.COLUMN_IS_COMPLETED:
+                    filter = (t => t.Is_completed == (bool)value);
                     break;     
                 default:
                     break;
             }
-            return taskList;
+            return Get(context, filter);
         }
     }
 }

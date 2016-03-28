@@ -14,9 +14,9 @@ namespace PigeonsLibrairy.Service.Implementation
     {
         private TypeDAO typeDAO { get; set; }
 
-        public TypeService(pigeonsEntities1 context) : base(context)
+        public TypeService() : base()
         {
-            typeDAO = new TypeDAO(context);
+            typeDAO = new TypeDAO();
         }
 
         public new IEnumerable<type> GetBy(string columnName, object value)
@@ -25,8 +25,11 @@ namespace PigeonsLibrairy.Service.Implementation
 
             if (columnName != "" && value != null)
             {
-                typeList = typeDAO.GetBy(columnName, value);
-                return typeList;
+                using(var context = new pigeonsEntities1())
+                {
+                    typeList = typeDAO.GetBy(context, columnName, value);
+                    return typeList;
+                }
             }
             else
             {

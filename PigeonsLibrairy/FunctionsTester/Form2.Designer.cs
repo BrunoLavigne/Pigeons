@@ -82,6 +82,8 @@
             this.btnGoToGroup = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cb_activeGroup_addPerson = new System.Windows.Forms.ComboBox();
+            this.btnUpdateDesc = new System.Windows.Forms.Button();
+            this.txtUpdateDesc = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -519,11 +521,30 @@
             this.cb_activeGroup_addPerson.TabIndex = 52;
             this.cb_activeGroup_addPerson.SelectedIndexChanged += new System.EventHandler(this.cb_activeGroup_addPerson_SelectedIndexChanged);
             // 
+            // btnUpdateDesc
+            // 
+            this.btnUpdateDesc.Location = new System.Drawing.Point(808, 51);
+            this.btnUpdateDesc.Name = "btnUpdateDesc";
+            this.btnUpdateDesc.Size = new System.Drawing.Size(145, 23);
+            this.btnUpdateDesc.TabIndex = 53;
+            this.btnUpdateDesc.Text = "Update description";
+            this.btnUpdateDesc.UseVisualStyleBackColor = true;
+            this.btnUpdateDesc.Click += new System.EventHandler(this.btnUpdateDesc_Click);
+            // 
+            // txtUpdateDesc
+            // 
+            this.txtUpdateDesc.Location = new System.Drawing.Point(808, 25);
+            this.txtUpdateDesc.Name = "txtUpdateDesc";
+            this.txtUpdateDesc.Size = new System.Drawing.Size(145, 20);
+            this.txtUpdateDesc.TabIndex = 54;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 621);
+            this.Controls.Add(this.txtUpdateDesc);
+            this.Controls.Add(this.btnUpdateDesc);
             this.Controls.Add(this.cb_activeGroup_addPerson);
             this.Controls.Add(this.btnGoToGroup);
             this.Controls.Add(this.activeGroupResult);
@@ -640,5 +661,7 @@
         private System.Windows.Forms.TextBox activeGroupResult;
         private System.Windows.Forms.Button btnGoToGroup;
         private System.Windows.Forms.ComboBox cb_activeGroup_addPerson;
+        private System.Windows.Forms.Button btnUpdateDesc;
+        private System.Windows.Forms.TextBox txtUpdateDesc;
     }
 }
