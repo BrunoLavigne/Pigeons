@@ -30,8 +30,19 @@ public partial class Groups : System.Web.UI.Page
 
                 // TestLabel.Text = "Current user: " + gh.getCurrentUser().Description;
                 TestLabel.Text = "Current user: " + currentUser.Email;
-                gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
-                gridViewUserGroups.DataBind();
+
+                IList<group> userGroups = controller.GroupService.GetPersonGroups(currentUser.Id);
+
+                if(userGroups.Count != 0)
+                {
+                    gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
+                    gridViewUserGroups.DataBind();
+                } else
+                {
+                    groupsViewMessage.Text = "Vous n'êtes pas encore associé à un groupe! Pourquoi pas en créer un maintenant?";
+                }
+
+
 
             } else {
 

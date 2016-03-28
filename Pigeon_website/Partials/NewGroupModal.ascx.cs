@@ -1,11 +1,6 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Partials_NewGroupModal : System.Web.UI.UserControl
 {
