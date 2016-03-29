@@ -21,7 +21,7 @@
         <div class="row">
             <asp:ListView ID="groupsListView" runat="server">
                 <ItemTemplate>
-                    <div class="col-md-4">
+                    <div class="col-sm-6 col-md-4">
                         <div class="Group-item">
                             <div class="group-title">
                                 <asp:Label ID="lblGroupName" runat="server" Text='<%#Eval("name") %>' />

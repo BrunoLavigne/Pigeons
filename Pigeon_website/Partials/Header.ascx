@@ -12,7 +12,9 @@
 					<span class="icon-bar"></span>
 				</button>
                 <asp:HyperLink CssClass="navbar-brand" runat="server" NavigateUrl="~/Index.aspx">
-                    Pigeon Logo Here
+
+                    <!-- font in the logo is railway -->
+                    <asp:Image ImageUrl="~/Resources/img/logo_no_txt.png" runat="server" />
                 </asp:HyperLink>
 			</div>
 
