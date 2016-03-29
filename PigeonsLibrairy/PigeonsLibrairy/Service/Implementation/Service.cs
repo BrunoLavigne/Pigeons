@@ -87,7 +87,7 @@ namespace PigeonsLibrairy.Service.Implementation
             }            
         }
 
-        public List<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             using (var context = new pigeonsEntities1())
             {

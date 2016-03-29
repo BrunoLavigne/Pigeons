@@ -5,13 +5,14 @@ using PigeonsLibrairy.Service.Interface;
 using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
     public class FollowingService : Service<following>, IFollowingService
     {
-        private FollowingDAO followingDAO;
-        private GroupDAO groupDAO;
+        private IFollowingDAO followingDAO;
+        private IGroupDAO groupDAO;
 
         public FollowingService() : base()
         {
@@ -24,7 +25,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="personId">The ID of the person to be added</param>
         /// <param name="groupeId">The ID of the group the person will be added too</param>
-        public void addPersonToGroup(object adminID, object personId, object groupId)
+        public void AddPersonToGroup(object adminID, object personId, object groupId)
         {
             if(personId == null)
             {
@@ -227,14 +228,18 @@ namespace PigeonsLibrairy.Service.Implementation
 
         public new IEnumerable<following> GetBy(string columnName, object value)
         {
-            IEnumerable<following> followingList = new List<following>();
-
             if (columnName != "" && value != null)
             {
                 using(var context = new pigeonsEntities1())
                 {
-                    followingList = followingDAO.GetBy(context, columnName, value);
-                    return followingList;
+                    try
+                    {
+                        return followingDAO.GetBy(context, columnName, value);
+                    }
+                    catch(DAOException daoException)
+                    {
+                        throw new ServiceException(daoException.Message);
+                    }
                 }                
             }
             else
@@ -242,6 +247,5 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("You must provid the column name and a value");
             }
         }
-
     }
 }

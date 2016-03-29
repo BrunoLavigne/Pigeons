@@ -25,7 +25,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="messageToCreate">The message to be added</param>
         /// <returns>True if the message is created, false otherwise</returns>
-        public bool createNewMessage(message messageToCreate)
+        public bool CreateNewMessage(message messageToCreate)
         {
             bool messageAdded = false;
 

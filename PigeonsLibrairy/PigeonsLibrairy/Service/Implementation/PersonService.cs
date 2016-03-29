@@ -40,7 +40,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="newUser">The user to be added</param>
         /// <returns>True if the user was added, false if not</returns>
-        public bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation)
+        public bool RegisterNewUser(person newUser, string emailConfirmation, string passwordConfirmation)
         {
             bool userIsAdded = false;
 
@@ -87,7 +87,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="username">The username of the user that want to log</param>
         /// <param name="password">The password of the user that want to log</param>
         /// <returns>True if the username and password match, false if not</returns>
-        public person loginValidation(string username, string password)
+        public person LoginValidation(string username, string password)
         {
             person loginAccepted = null;
 

@@ -10,6 +10,13 @@ namespace PigeonsLibrairy.DAO.Implementation
     {
         public PersonDAO() : base() {}
 
+        /// <summary>
+        /// Get a person by searching a value in a column
+        /// </summary>
+        /// <param name="context">The connection</param>
+        /// <param name="columnName">The name of the column in the table</param>
+        /// <param name="value">The value to search</param>
+        /// <returns>A list of person that match the query</returns>
         public new IEnumerable<person> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             Expression<Func<person, bool>> filter = null;            

@@ -66,7 +66,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         {
             try
             {
-                mainControl.FollowingService.addPersonToGroup(adminID, personToAddID, groupID);
+                mainControl.FollowingService.AddPersonToGroup(adminID, personToAddID, groupID);
             }
             catch(ServiceException serviceException)
             {
@@ -96,7 +96,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         {
             try
             {
-                return mainControl.MessageService.createNewMessage(messageToCreate);
+                return mainControl.MessageService.CreateNewMessage(messageToCreate);
             }
             catch (ServiceException serviceException)
             {

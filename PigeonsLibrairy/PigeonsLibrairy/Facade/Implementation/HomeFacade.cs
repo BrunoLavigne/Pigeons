@@ -19,7 +19,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public bool RegisterUser(person newUser, string emailConfirmation, string passwordConfirmation)
         {
-            return mainControl.PersonService.registerNewUser(newUser, emailConfirmation, passwordConfirmation);
+            return mainControl.PersonService.RegisterNewUser(newUser, emailConfirmation, passwordConfirmation);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public person LoginValidation(string username, string password)
         {
-            return mainControl.PersonService.loginValidation(username, password);
+            return mainControl.PersonService.LoginValidation(username, password);
         }
 
         /// <summary>
