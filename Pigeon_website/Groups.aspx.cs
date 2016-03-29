@@ -40,6 +40,7 @@ public partial class Groups : System.Web.UI.Page
                     gridViewUserGroups.DataBind();
 
                     groupsListView.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
+                    groupsListView.Items.firs
                     groupsListView.DataBind();
 
                 } else {
