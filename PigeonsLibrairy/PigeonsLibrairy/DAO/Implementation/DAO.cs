@@ -1,4 +1,5 @@
 ﻿using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,15 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <param name="id">The ID of the Entity we are searching</param>
         /// <returns>The Entity or null</returns>
         public virtual TEntity GetByID(pigeonsEntities1 context, object id)
-        {            
-            return context.Set<TEntity>().Find(id);            
+        {
+            try
+            {
+                return context.Set<TEntity>().Find(id);
+            }   
+            catch(ArgumentException argumentException)
+            {
+                throw new DAOException(argumentException.Message);
+            }              
         }
 
         /// <summary>

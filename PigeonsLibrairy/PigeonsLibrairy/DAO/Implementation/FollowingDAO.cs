@@ -11,6 +11,13 @@ namespace PigeonsLibrairy.DAO.Implementation
     {
         public FollowingDAO() : base() { }
 
+        public IEnumerable<following> GetByID(pigeonsEntities1 context, object personID, object groupID)
+        {
+            Expression<Func<following, bool>> filter = null;
+            filter = (f => f.Person_Id == (int)personID && f.Group_id == (int)groupID);
+            return Get(context, filter);
+        }
+
         public new IEnumerable<following> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             Expression<Func<following, bool>> filter = null;

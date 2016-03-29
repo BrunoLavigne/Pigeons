@@ -94,6 +94,71 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
+        /// Remove a follower from a group (Setting the following is_active to false)
+        /// </summary>
+        /// <param name="groupID">The group ID of the group we are modifying</param>
+        /// <param name="followerID">The follower ID to remove</param>
+        /// <returns>True if the follower is removed, false otherwise</returns>
+        public bool RemoveTheFollower(object groupID, object followerID)
+        {
+            if(groupID == null)
+            {
+                throw new ServiceException("The ID of the group is null");
+            }
+
+            if (followerID == null)
+            {
+                throw new ServiceException("The ID of the follower is null");
+            }
+
+            using(var context = new pigeonsEntities1())
+            {
+                try
+                {
+                    group groupValidation = groupDAO.GetByID(context, groupID);
+
+                    if (groupValidation == null)
+                    {
+                        throw new ServiceException("The group doesnt exist");
+                    }
+
+                    if (!groupValidation.Is_active)
+                    {
+                        throw new ServiceException("The group is not active. Cannot change it");
+                    }
+
+                    List<following> followerList = followingDAO.GetBy(context, following.COLUMN_PERSON_ID, followerID).ToList();
+
+                    if(followerList == null)
+                    {
+                        throw new ServiceException("The follower doesn't exist");
+                    }
+
+                    following theFollower = followerList[0];
+
+                    if (!theFollower.Is_active)
+                    {
+                        throw new ServiceException("The follower is already removed from this group");
+                    }
+
+                    if (theFollower.Is_admin)
+                    {
+                        throw new ServiceException("You cannot remove the admin from the group");
+                    }            
+
+                    theFollower.Is_active = false;
+                    followingDAO.Update(context, theFollower);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch(DAOException daoException)
+                {
+                    throw new ServiceException(daoException.Message);
+                }                
+            }            
+        }
+
+        /// <summary>
         /// Retreive a list with all the active followers of a group
         /// </summary>
         /// <param name="groupID">The group ID we want the followers</param>

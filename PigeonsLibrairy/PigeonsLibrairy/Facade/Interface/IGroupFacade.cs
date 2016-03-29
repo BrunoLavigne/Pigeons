@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Facade.Interface
 {
-    public interface IGroupFacade
+    public interface IGroupFacade : IFacade
     {
         // Group
-        group GetGroupByID(object groupID);
         group CreateNewGroupAndRegister(group newGroup, object personID);
+        bool CloseGroup(object adminID, object groupID);
 
         // Person    
-        person GetPersonByID(object personID);
         void AddPersonToGroup(object adminID, object personToAddID, object groupID);
 
         // Following
         List<following> GetGroupFollowers(object groupID);
+        bool RemoveTheFollower(object groupID, object followerID);
         
         // Message
         bool CreateNewMessage(message messageToCreate);

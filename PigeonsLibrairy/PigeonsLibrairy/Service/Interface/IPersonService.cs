@@ -11,6 +11,6 @@ namespace PigeonsLibrairy.Service.Interface
     {
         bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
         person loginValidation(string username, string password);
-        person UpdatePerson(int personID, person updatedPerson);
+        person UpdatePerson(object personID, person updatedPerson);
     }
 }

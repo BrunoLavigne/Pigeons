@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PigeonsLibrairy.DAO.Interface
 {
     /// <summary>
-    /// Interface magnifique
+    /// Interface pour la table message
     /// </summary>
     interface IMessageDAO
     {

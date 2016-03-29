@@ -10,21 +10,53 @@ using PigeonsLibrairy.Exceptions;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
-    public class GroupFacade : IGroupFacade
+    public class GroupFacade : Facade, IGroupFacade
     {
-        private MainController mainControl { get; set; }
-
-        public GroupFacade()
-        {
-            mainControl = new MainController();
-        }
+        public GroupFacade() : base() {}
 
         /// <summary>
         /// Création d'un nouveau groupe et inscription du membre à celui-ci
         /// </summary>
         public group CreateNewGroupAndRegister(group newGroup, object personID)
         {
-            return mainControl.GroupService.CreateNewGroupAndRegister(newGroup, personID);
+            try
+            {
+                return mainControl.GroupService.CreateNewGroupAndRegister(newGroup, personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }            
+        }
+
+        /// <summary>
+        /// Retire une personne du groupe
+        /// </summary>
+        /// <param name="groupID">Le groupe ID du groupe à modifier</param>
+        /// <param name="followerID">Le ID de la person à retirer du groupe</param>
+        /// <returns>True si la personne à été retiré, une erreur sinon</returns>
+        public bool RemoveTheFollower(object groupID, object followerID)
+        {
+            try
+            {
+                return mainControl.FollowingService.RemoveTheFollower(groupID, followerID);
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
+        }
+
+        public bool CloseGroup(object adminID, object groupID)
+        {
+            try
+            {
+                return mainControl.GroupService.CloseGroup(adminID, groupID);
+            }
+            catch(ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
         }
 
         /// <summary>
@@ -40,36 +72,6 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 throw new FacadeException(serviceException.Message);
             }            
-        }
-
-        /// <summary>
-        /// Recherche d'un groupe selon son ID
-        /// </summary>
-        public group GetGroupByID(object groupID)
-        {
-            try
-            {
-                return mainControl.GroupService.GetByID(groupID);
-            }
-            catch(ServiceException serviceException)
-            {
-                throw new FacadeException(serviceException.Message);
-            }            
-        }
-
-        /// <summary>
-        /// Recherche d'une personne selon son ID
-        /// </summary>        
-        public person GetPersonByID(object personID)
-        {
-            try
-            {
-                return mainControl.PersonService.GetByID(personID);
-            }
-            catch (ServiceException serviceException)
-            {
-                throw new FacadeException(serviceException.Message);
-            }
         }
 
         /// <summary>

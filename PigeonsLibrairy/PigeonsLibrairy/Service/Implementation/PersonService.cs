@@ -120,9 +120,9 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="personID">The ID of the person we want to update</param>
         /// <param name="updatedPerson">The person with the updated fields</param>
         /// <returns>The updated person</returns>
-        public person UpdatePerson(int personID, person updatedPerson)
+        public person UpdatePerson(object personID, person updatedPerson)
         {
-            if(personID == 0)
+            if(personID == null)
             {
                 throw new ServiceException("The person ID is null");
             }

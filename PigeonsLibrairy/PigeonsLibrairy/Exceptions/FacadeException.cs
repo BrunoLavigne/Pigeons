@@ -8,7 +8,7 @@ namespace PigeonsLibrairy.Exceptions
 {
     public class FacadeException : Exception
     {
-        public FacadeException() { }
+        public FacadeException() : base() { }
         public FacadeException(string message) : base(message) { }
         public FacadeException(string message, Exception inner) : base(message, inner) { }
     }

@@ -108,21 +108,101 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
+        /// Closing a group service (Setting the group to inactive and the follower too)
+        /// </summary>
+        /// <param name="adminID">The ID of the person trying to close the group (should only be the admin)</param>
+        /// <param name="groupID">The ID of the group we are closing</param>
+        /// <returns>True if the group is closed, throwing a ServiceException otherwise</returns>
+        public bool CloseGroup(object adminID, object groupID)
+        {
+            if (adminID == null)
+            {
+                throw new ServiceException("The ID of the admin is null");
+            }
+
+            if (groupID == null)
+            {
+                throw new ServiceException("The ID of the group is null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    group groupValidation = groupDAO.GetByID(context, groupID);
+
+                    if (groupValidation == null)
+                    {
+                        throw new ServiceException("The group doesnt exist");
+                    }
+
+                    if (!groupValidation.Is_active)
+                    {
+                        throw new ServiceException("This group is already inactive");
+                    }
+
+                    List<following> followingValidation = followingDAO.GetByID(context, adminID, groupID).ToList();
+
+                    if (followingValidation.Count != 1)
+                    {
+                        throw new ServiceException("This person is not following the group");
+                    }
+
+                    if (!followingValidation[0].Is_admin)
+                    {
+                        throw new ServiceException("This person is not the admin of the group");
+                    }
+
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            // Setting the group to inactive
+                            groupValidation.Is_active = false;
+                            groupDAO.Update(context, groupValidation);
+
+                            IEnumerable<following> followersList = followingDAO.GetTheFollowers(context, groupValidation.Id);
+
+                            // Setting each follower to inactive
+                            foreach(following follower in followersList)
+                            {
+                                follower.Is_active = false;
+                                followingDAO.Update(context, follower);
+                            }
+
+                            // Saving and committing
+                            context.SaveChanges();
+                            dbContextTransaction.Commit();
+                            return true;
+                        }
+                        catch (Exception)
+                        {
+                            // Something went wrong so we are rollbacking the db
+                            dbContextTransaction.Rollback();
+                            throw new ServiceException("Error in the transaction");
+                        }
+                    }
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+
+        /// <summary>
         /// Following GetBy a specific column name and value
         /// </summary>
         /// <param name="columnName">The column name in the following table</param>
         /// <param name="value">The value to search</param>
-        /// <returns></returns>
+        /// <returns>The groups we are searching. An empty list of none are found</returns>
         public new IEnumerable<group> GetBy(string columnName, object value)
         {
-            IEnumerable<group> groupList = new List<group>();
-
             if(columnName != "" && value != null)
             {
                 using(var context = new pigeonsEntities1())
-                {
-                    groupList = groupDAO.GetBy(context, columnName, value);
-                    return groupList;
+                {                    
+                    return groupDAO.GetBy(context, columnName, value);
                 }
             }
             else
