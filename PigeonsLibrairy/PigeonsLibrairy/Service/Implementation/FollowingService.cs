@@ -188,6 +188,43 @@ namespace PigeonsLibrairy.Service.Implementation
             }            
         }
 
+        /// <summary>
+        /// Checking if the user accessing a group is the administrator of it
+        /// </summary>
+        /// <param name="personID">The ID of the person accessing the group</param>
+        /// <param name="groupID">The ID of the group</param>
+        /// <returns>True if the person is admin, false if not.</returns>
+        public bool PersonIsGroupAdmin(object personID, object groupID)
+        {
+            if (personID == null)
+            {
+                throw new ServiceException("The person ID is null");
+            }
+
+            if (groupID == null)
+            {
+                throw new ServiceException("The group ID is null");
+            }
+
+            using(var context = new pigeonsEntities1())
+            {
+                List<following> adminValidation = followingDAO.GetByID(context, personID, groupID).ToList();
+
+                if (adminValidation == null)
+                {
+                    throw new ServiceException("This person is not following this group");
+                }
+
+                if(adminValidation.Count != 1)
+                {
+                    throw new ServiceException("Something is wrong with this group");
+                }
+
+                // returning the value
+                return adminValidation[0].Is_admin;                
+            }            
+        }
+
         public new IEnumerable<following> GetBy(string columnName, object value)
         {
             IEnumerable<following> followingList = new List<following>();

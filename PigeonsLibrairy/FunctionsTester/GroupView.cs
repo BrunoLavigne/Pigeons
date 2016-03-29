@@ -25,6 +25,19 @@ namespace FunctionsTester
             activePersonID = personID;
             fillTheFields();
             fillTheMessagesDataGrid();
+
+            bool isThisPersonTheGroupAdmin = groupFacade.PersonIsGroupAdmin(activePersonID, activeGroupID);
+            if (isThisPersonTheGroupAdmin)
+            {
+                btnCloseGroup.Visible = true;
+                btnDeleteFollower.Visible = true;
+            }
+            else
+            {
+                btnCloseGroup.Visible = false;
+                btnDeleteFollower.Visible = false;
+            }
+
         }
 
         /// <summary>

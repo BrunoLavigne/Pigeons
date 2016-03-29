@@ -118,5 +118,20 @@ namespace PigeonsLibrairy.Facade.Implementation
                 throw new FacadeException(serviceException.Message);
             }
         }
+
+        /// <summary>
+        /// Vérification si la personne est l'administrateur du groupe
+        /// </summary>        
+        public bool PersonIsGroupAdmin(object activePersonID, object activeGroupID)
+        {
+            try
+            {
+                return mainControl.FollowingService.PersonIsGroupAdmin(activePersonID, activeGroupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
+        }
     }
 }

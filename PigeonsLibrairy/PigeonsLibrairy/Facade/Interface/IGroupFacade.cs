@@ -19,7 +19,8 @@ namespace PigeonsLibrairy.Facade.Interface
         // Following
         List<following> GetGroupFollowers(object groupID);
         bool RemoveTheFollower(object groupID, object followerID);
-        
+        bool PersonIsGroupAdmin(object activePersonID, object activeGroupID);
+
         // Message
         bool CreateNewMessage(message messageToCreate);
         List<message> GetGroupMessages(object groupID);
