@@ -1,17 +1,23 @@
 ﻿using PigeonsLibrairy.Controller;
+using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 
 public partial class Account : System.Web.UI.Page
 {
 
-
-    protected Controller controller { get; set; }
+    protected HomeFacade homeFacade { get; set; }
 
     protected GlobalHelpers gh { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        if(homeFacade == null)
+        {
+            homeFacade = new HomeFacade();
+        }
+
         if(!IsPostBack)
         {
             
@@ -20,6 +26,8 @@ public partial class Account : System.Web.UI.Page
             {
                 gh = new GlobalHelpers();
             }
+
+
 
             // Get current user
             if(Session["user"] != null)
@@ -30,13 +38,6 @@ public partial class Account : System.Web.UI.Page
             } else {
                 Response.Redirect("Index.aspx");
             }
-
-            // Init controller
-            if (controller == null)
-            {
-                controller = new Controller();
-            }
-
 
             person personToUpdateSession = (person)Session["user"];
             testUserLabel.Text = personToUpdateSession.Organization;
@@ -70,12 +71,7 @@ public partial class Account : System.Web.UI.Page
         testUserLabel.Text = "persont » " + personToUpdateId;
 
         // connect id with controller (cleanup)
-        if(controller == null)
-        {
-            controller = new Controller();
-        }
-
-        person personToUpdate = controller.PersonService.GetByID(personToUpdateId);
+        person personToUpdate = homeFacade.GetPersonByID(personToUpdateId);
 
         // parse new values...
         personToUpdate.Email = editUserEmail.Text;
@@ -89,8 +85,7 @@ public partial class Account : System.Web.UI.Page
         personToUpdate.Profile_picture_link = editUserProfilePicture.Text;
 
         // update via controller
-        controller.PersonService.Update(personToUpdate);
-        controller.Save();
+        homeFacade.UpdatePerson(personToUpdateId, personToUpdate);
 
         // update in session (override previous)
         Session["user"] = personToUpdate;

@@ -1,21 +1,20 @@
-﻿using PigeonsLibrairy.Controller;
+﻿using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
 using System.Web.Services;
 
 public partial class Groups : System.Web.UI.Page
 {
 
-    static Controller controller { get; set; }
+    protected HomeFacade homeFacade { get; set;  }
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        if(controller == null)
+        if(homeFacade == null)
         {
-            controller = new Controller();
+            homeFacade = new HomeFacade();
         }
 
         if (!IsPostBack)
@@ -31,16 +30,16 @@ public partial class Groups : System.Web.UI.Page
                 // TestLabel.Text = "Current user: " + gh.getCurrentUser().Description;
                 TestLabel.Text = "Current user: " + currentUser.Email;
 
-                IList<group> userGroups = controller.GroupService.GetPersonGroups(currentUser.Id);
+                IList<group> userGroups = homeFacade.GetPersonGroups(currentUser.Id);
 
                 if(userGroups.Count != 0)
                 {
                     noGroupsView.Visible = false;
 
-                    gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
+                    gridViewUserGroups.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
                     gridViewUserGroups.DataBind();
 
-                    groupsListView.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
+                    groupsListView.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
                     groupsListView.DataBind();
 
                 } else {

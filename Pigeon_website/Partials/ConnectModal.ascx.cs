@@ -1,4 +1,4 @@
-﻿using PigeonsLibrairy.Controller;
+﻿using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 using System.Linq;
@@ -6,13 +6,13 @@ using System.Linq;
 public partial class Partials_ConnectModal : System.Web.UI.UserControl
 {
 
-    protected Controller controller { get; set; }
+    protected HomeFacade homeFacade { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(controller == null)
+        if(homeFacade == null)
         {
-            controller = new Controller();
+            homeFacade = new HomeFacade();
         }
     }
 
@@ -40,7 +40,7 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
         user.Position = "this guy is on top nuff said";
 
         // Check if user creation was successful
-        if(controller.PersonService.registerNewUser(user, email, pass1))
+        if(homeFacade.RegisterUser(user, email, pass1))
         {
 
             // Also connect the user in session
@@ -60,11 +60,11 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
         string userPassword = connectUserPassword.Text;
         
         // Check if user authenticated
-        if(controller.PersonService.loginValidation(userEmail, userPassword) != null)
+        if(homeFacade.LoginValidation(userEmail, userPassword) != null)
         {
 
             // Login success ... put user in session
-            Session["user"] = controller.PersonService.GetBy("Email", userEmail).ToList().ElementAt(0);
+            Session["user"] = homeFacade.GetPersonBy("email", userEmail).ToList().ElementAt(0);
 
             // Redirect
             Response.Redirect("Groups.aspx");

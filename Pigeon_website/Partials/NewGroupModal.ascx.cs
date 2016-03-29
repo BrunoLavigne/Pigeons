@@ -1,23 +1,27 @@
 ﻿using PigeonsLibrairy.Controller;
+using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 
 public partial class Partials_NewGroupModal : System.Web.UI.UserControl
 {
 
-    protected Controller controller { get; set; }
+    // protected Controller controller { get; set; }
+
+    protected GroupFacade groupFacade { get; set; }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
 
-        if(controller == null)
+        if(groupFacade == null)
         {
-            controller = new Controller();
+            groupFacade = new GroupFacade();
         }
 
-        personFilterList.DataSource = controller.PersonService.GetBy("email", txtPersonSearch.Text);
-        personFilterList.DataBind();
+        // personFilterList.DataSource = controller.PersonService.GetBy("email", txtPersonSearch.Text);
+        // personFilterList.DataBind();
     }
 
     protected void btn_createGroup_Click(object sender, EventArgs e)
@@ -38,8 +42,6 @@ public partial class Partials_NewGroupModal : System.Web.UI.UserControl
         person theCreator = (person)Session["user"];
 
         // get all the peeps invited to group, send to "following" table
-
-        controller.GroupService.CreateNewGroupAndRegister(g, theCreator.Id);
-        controller.Save();      // ?
+        groupFacade.CreateNewGroupAndRegister(g, theCreator.Id);
     }
 }
