@@ -27,7 +27,7 @@
                                 <asp:Label ID="lblGroupName" runat="server" Text='<%#Eval("name") %>' />
                             </div>
                             <div class="group-since">
-                                <asp:Label ID="lblGroupSince" runat="server" Text='<%#Eval("creation_date") %>' />
+                                Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%#Eval("creation_date") %>' />
                             </div>
                             <div class="group-description">
                                 <asp:Label ID="lblGroupDescription" runat="Server" Text='<%#Eval("description") %>' />

@@ -12,7 +12,13 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|PT+Serif:400,700italic' rel='stylesheet' type='text/css' />
+
+    <!-- Custom css -->
     <link href="Resources/css/global.css" rel="stylesheet" />
+
 </head>
 <body>
     <form id="form1" runat="server">

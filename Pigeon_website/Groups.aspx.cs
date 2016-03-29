@@ -12,52 +12,43 @@ public partial class Groups : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        if(homeFacade == null)
-        {
-            homeFacade = new HomeFacade();
-        }
+        person currentUser;
 
-        if (!IsPostBack)
+        // faudrait encore fait un helper pour ça
+        if (Session["user"] != null)
         {
-            GlobalHelpers gh = new GlobalHelpers();
 
-            // faudrait encore fait un helper pour ça
-            if (Session["user"] != null)
+            currentUser = (person) Session["user"];
+
+            if (homeFacade == null)
             {
-                // person currentUser = gh.getCurrentUser();
-                person currentUser = (person)Session["user"];
+                homeFacade = new HomeFacade();
+            }
 
-                // TestLabel.Text = "Current user: " + gh.getCurrentUser().Description;
-                TestLabel.Text = "Current user: " + currentUser.Email;
+            IList<group> userGroups = homeFacade.GetPersonGroups(currentUser.Id);
 
-                IList<group> userGroups = homeFacade.GetPersonGroups(currentUser.Id);
+            if (userGroups.Count != 0)
+            {
+                noGroupsView.Visible = false;
 
-                if(userGroups.Count != 0)
-                {
-                    noGroupsView.Visible = false;
+                gridViewUserGroups.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
+                gridViewUserGroups.DataBind();
 
-                    gridViewUserGroups.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
-                    gridViewUserGroups.DataBind();
-
-                    groupsListView.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
-                    groupsListView.DataBind();
-
-                } else {
-
-                    groupsView.Visible = false;
-                    groupsViewMessage.Text = "Vous n'êtes pas encore associé à un groupe! Pourquoi pas en créer un maintenant?";
-
-                }
-
-
+                groupsListView.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
+                groupsListView.DataBind();
 
             } else {
 
-                // Redirect to home page... (no login)
-                // Todo: put in helper function in master ^  v 
-                Response.Redirect("Index.aspx");
+                groupsView.Visible = false;
+                groupsViewMessage.Text = "Vous n'êtes pas encore associé à un groupe! Pourquoi pas en créer un maintenant?";
+
             }
-           
+
+        } else {
+
+            // Redirect to home page... (no login)
+            // Todo: put in helper function in master ^  v 
+            Response.Redirect("Index.aspx");
         }
 
     }
@@ -76,3 +67,4 @@ public partial class Groups : System.Web.UI.Page
         return "Alright here are the matching users: (not yet!)";
     }
 }
+

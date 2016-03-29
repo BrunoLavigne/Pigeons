@@ -68,6 +68,7 @@
 
 
 /* Groups page */
+/* Group component */
 .Group-item {
 
     background-color: #e7e7e7;
@@ -79,4 +80,23 @@
     -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
     -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
     box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
+}
+
+.Group-item .group-title {
+
+    margin-bottom: 12px;
+
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; 
+}
+
+.Group-item .group-since {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.Group-item .group-description {
+    font-family: 'PT Serif', serif;
 }
