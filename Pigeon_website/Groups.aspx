@@ -17,6 +17,22 @@
         <asp:Panel runat="server" ID="groupsView">
             <asp:GridView ID="gridViewUserGroups" runat="server"></asp:GridView>
         </asp:Panel>
+
+        <asp:ListView ID="groupsListView" runat="server">
+            <ItemTemplate>
+                <div class="col-md-4">
+                    <div class="group-title">
+                        <asp:Label ID="lblGroupName" runat="server" Text='<%#Eval("name") %>' />
+                    </div>
+                    <div class="group-since">
+                        <asp:Label ID="lblGroupSince" runat="server" Text='<%#Eval("creation_date") %>' />
+                    </div>
+                    <div class="group-description">
+                        <asp:Label ID="lblGroupDescription" runat="Server" Text='<%#Eval("description") %>' />
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:ListView>
         
         <asp:Panel runat="server" ID="noGroupsView">
             <div class="panel panel-primary">

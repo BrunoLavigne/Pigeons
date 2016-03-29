@@ -40,6 +40,9 @@ public partial class Groups : System.Web.UI.Page
                     gridViewUserGroups.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
                     gridViewUserGroups.DataBind();
 
+                    groupsListView.DataSource = controller.GroupService.GetPersonGroups(currentUser.Id);
+                    groupsListView.DataBind();
+
                 } else {
 
                     groupsView.Visible = false;
