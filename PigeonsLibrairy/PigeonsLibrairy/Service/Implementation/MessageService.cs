@@ -69,16 +69,28 @@ namespace PigeonsLibrairy.Service.Implementation
             return messageAdded;
         }
 
-        public new IEnumerable<message> GetBy(string columnName, object value)
+        public IEnumerable<message> GetGroupMessages(object groupID)
         {
+            if(groupID == null)
+            {
+                throw new ServiceException("The group ID is null");
+            }
+
             IEnumerable<message> messageList = new List<message>();
 
+            using (var context = new pigeonsEntities1())
+            {
+                return messageDAO.GetGroupMessages(context, groupID);
+            }
+        }
+
+        public new IEnumerable<message> GetBy(string columnName, object value)
+        {
             if (columnName != "" && value != null)
             {
                 using(var context = new pigeonsEntities1())
                 {
-                    messageList = messageDAO.GetBy(context, columnName, value);
-                    return messageList;
+                    return messageDAO.GetBy(context, columnName, value);                    
                 }
             }
             else

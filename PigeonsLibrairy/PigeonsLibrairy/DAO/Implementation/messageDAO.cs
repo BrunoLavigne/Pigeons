@@ -30,6 +30,13 @@ namespace PigeonsLibrairy.DAO.Implementation
             return null;
         }
 
+        public IEnumerable<message> GetGroupMessages(pigeonsEntities1 context, object groupID)
+        {
+            Expression<Func<message, bool>> filter = (m => m.Group_Id == (int)groupID);
+            string includeProperties = "person";
+            return Get(context, filter, null, includeProperties).OrderByDescending(m => m.Date_created);
+        }
+
         public new IEnumerable<message> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             Expression<Func<message, bool>> filter = null;            

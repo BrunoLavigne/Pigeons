@@ -59,9 +59,28 @@ namespace PigeonsLibrairy.Facade.Implementation
             return mainControl.PersonService.GetBy(columnName, value).ToList();
         }
 
-        public List<group> GetPersonGroups(int personID)
+        /// <summary>
+        /// Recherche des groupes actif qu'une person suis
+        /// </summary>
+        public List<group> GetPersonGroups(object personID)
         {
-            return null;
+            return mainControl.GroupService.GetPersonGroups(personID).ToList();
+        }
+
+        /// <summary>
+        /// Recherche du nombre de personnes qui suivent un groupe (following)
+        /// </summary>        
+        public int GetGroupFollowers(object groupID)
+        {
+            return mainControl.FollowingService.GetTheFollowers(groupID).Count();
+        }
+
+        /// <summary>
+        /// Recherche de tout les personnes dont le username (email) ou le nom concorde avec la valeur recherchée
+        /// </summary>
+        public List<person> GetAllPersons(object searchValue)
+        {
+            return mainControl.PersonService.GetBy(person.COLUMN_ALL, searchValue).ToList();
         }
     }
 }

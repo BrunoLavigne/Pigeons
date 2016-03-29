@@ -1,15 +1,11 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Facade.Implementation;
+using PigeonsLibrairy.Facade.Interface;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FunctionsTester
@@ -17,13 +13,15 @@ namespace FunctionsTester
     public partial class Form2 : Form
     {        
         private MainController controller { get; set; }
-        private HomeFacade homeFacade { get; set; }
+        private IHomeFacade homeFacade { get; set; }
+        private IGroupFacade groupFacade { get; set; }
 
         public Form2()
         {
             InitializeComponent();
             controller = new MainController();
             homeFacade = new HomeFacade();
+            groupFacade = new GroupFacade();
             createDataGridColumns();
         }
         
@@ -37,16 +35,16 @@ namespace FunctionsTester
             string name, email, emailConfirmation, password, passwordConfirmation, phonenumber, organisation, position, description;
             DateTime birthdate;
 
-            name = person_name.Text;
-            email = person_email.Text;
-            emailConfirmation = person_emailConfirmation.Text;
-            password = person_password.Text;
-            passwordConfirmation = person_passwordConfirmation.Text;
-            phonenumber = person_phone.Text;
-            organisation = person_organization.Text;
-            position = person_position.Text;
-            description = person_description.Text;
-            birthdate = person_birthdate.Value.Date;
+            name                    = person_name.Text;
+            email                   = person_email.Text;
+            emailConfirmation       = person_emailConfirmation.Text;
+            password                = person_password.Text;
+            passwordConfirmation    = person_passwordConfirmation.Text;
+            phonenumber             = person_phone.Text;
+            organisation            = person_organization.Text;
+            position                = person_position.Text;
+            description             = person_description.Text;
+            birthdate               = person_birthdate.Value.Date;
 
             person aNewPerson = new person();
             aNewPerson.Name         = name;
@@ -108,16 +106,17 @@ namespace FunctionsTester
             else
             {
                 // Retrieving the groups the person is following
-                List<group> personGroups = controller.GroupService.GetPersonGroups(int.Parse(active_personID.Text)).ToList();
+                List<group> personGroups = homeFacade.GetPersonGroups(int.Parse(active_personID.Text));
                 
                 if(personGroups.Count() > 0)
-                {
-                    IEnumerable<following> listOfFollowers = controller.FollowingService.GetBy(following.COLUMN_GROUP_ID, personGroups[0].Id);
-                    
+                {                    
                     // Affichage
                     foreach (group activeGroups in personGroups)
                     {
-                        DateGrid_ActivePersonGroups.Rows.Add(activeGroups.Id, activeGroups.Name, activeGroups.Description, listOfFollowers.Count());
+                        // Number of followers
+                        int nbOfFollowers = homeFacade.GetGroupFollowers(activeGroups.Id);
+
+                        DateGrid_ActivePersonGroups.Rows.Add(activeGroups.Id, activeGroups.Name, activeGroups.Description, nbOfFollowers);
                         cb_activePerson_groups.Items.Add(activeGroups.Id.ToString());
                     }
                     cb_activePerson_groups.SelectedIndex = 0;
@@ -125,8 +124,7 @@ namespace FunctionsTester
                 else
                 {
                     DateGrid_ActivePersonGroups.Rows.Add("0", "Empty", "Empty", "0");
-                }
-                
+                }                
             }            
         }
 
@@ -141,17 +139,24 @@ namespace FunctionsTester
             {
                 string groupName = group_name.Text;
                 string groupDesc = group_description.Text;
+                int personID = int.Parse(active_personID.Text);
 
-                group newGroup = new group();
-                newGroup.Name = groupName;
-                newGroup.Description = groupDesc;
-                newGroup.Creation_date = DateTime.Now;
-                newGroup.Is_active = true;                
+                group newGroup          = new group();
+                newGroup.Name           = groupName;
+                newGroup.Description    = groupDesc;                                         
 
                 try
                 {
-                    controller.GroupService.CreateNewGroupAndRegister(newGroup, int.Parse(active_personID.Text));
-                    groupResult.Text = "Success";
+                    group createdGroup = groupFacade.CreateNewGroupAndRegister(newGroup, personID);
+
+                    if (createdGroup != null)
+                    {
+                        groupResult.Text = "Success";
+                    }
+                    else
+                    {
+                        groupResult.Text = "Fail";
+                    }                                 
                 }
                 catch(ServiceException serviceException)
                 {
@@ -169,7 +174,7 @@ namespace FunctionsTester
         {
             string searchValue = activeGroup_addPerson.Text;
 
-            List<person> searchPersonList = controller.PersonService.GetBy(person.COLUMN_ALL, searchValue).ToList();
+            List<person> searchPersonList = homeFacade.GetAllPersons(searchValue);
 
             // Afficher the user if found
             if(searchPersonList.Count() > 0)
@@ -181,9 +186,6 @@ namespace FunctionsTester
                     cb_activeGroup_addPerson.Items.Add(personFound.Name + " - " + personFound.Id);
                 }
                 cb_activeGroup_addPerson.SelectedIndex = 0;
-                //person searchPerson = searchPersonList[0];
-                //activeGroup_name.Text = searchPerson.Name;
-                //activeGroup_id.Text = searchPerson.Id.ToString();
             }
             else
             {
@@ -200,19 +202,22 @@ namespace FunctionsTester
         {
             int personToAddID;
             int adminID;
+            int groupID;
 
             int.TryParse(activeGroup_id.Text, out personToAddID);
             int.TryParse(active_personID.Text, out adminID);
-            int groupID = int.Parse(cb_activePerson_groups.SelectedItem.ToString());
+            int.TryParse(cb_activePerson_groups.SelectedItem.ToString(), out groupID);
 
             try
             {
-                controller.FollowingService.addPersonToGroup(adminID, personToAddID, groupID);
+                // Adding the person
+                groupFacade.AddPersonToGroup(adminID, personToAddID, groupID);
+
                 activeGroupResult.Text = "User " + personToAddID + " is added";
             }
-            catch (ServiceException serviceException)
+            catch (FacadeException facadeException)
             {
-                activeGroupResult.Text = serviceException.Message;
+                activeGroupResult.Text = facadeException.Message;
             }            
         }
 

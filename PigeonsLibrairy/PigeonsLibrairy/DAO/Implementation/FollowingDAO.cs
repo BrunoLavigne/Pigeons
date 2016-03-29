@@ -31,16 +31,16 @@ namespace PigeonsLibrairy.DAO.Implementation
 
         public IEnumerable<following> GetPersonFollowingGroups(pigeonsEntities1 context, object personID)
         {
-            Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.group.Is_active == true);
+            Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.group.Is_active == true);            
             string includeProperties = "group";
-            return Get(context, filter, null, includeProperties);
+            return Get(context, filter, null, includeProperties).OrderBy(m => m.group.Creation_date);
         }
 
-        public IList<following> GetTheFollowers(pigeonsEntities1 context, int groupID)
+        public IList<following> GetTheFollowers(pigeonsEntities1 context, object groupID)
         {
             IList<following> followersList = new List<following>();
 
-            followersList = Get(context, f => f.Group_id == groupID && f.Is_active).ToList();
+            followersList = Get(context, f => f.Group_id == (int)groupID && f.Is_active).ToList();
 
             return followersList;
         }
