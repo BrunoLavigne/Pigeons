@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
 {
     public class MessageDAO : DAO<message>, IMessageDAO
     {
-        public MessageDAO(pigeonsEntities1 context) : base(context)
+        public MessageDAO() : base()
         {            
         }
 
@@ -23,33 +24,41 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <returns></returns>
         public message GetPersonDetailByMessageId(object id)
         {
-            var message = this.dbSet.Find(id);
-            this.context.Entry(message).Reference("person").Load();
-            return message;
+            //var message = this.dbSet.Find(id);
+            //this.context.Entry(message).Reference("person").Load();
+            //return message;
+            return null;
         }
 
-        public new IEnumerable<message> GetBy(string columnName, object value)
+        public IEnumerable<message> GetGroupMessages(pigeonsEntities1 context, object groupID)
         {
-            IEnumerable<message> messageList = new List<message>();
+            Expression<Func<message, bool>> filter = (m => m.Group_Id == (int)groupID);
+            string includeProperties = "person";
+            return Get(context, filter, null, includeProperties).OrderByDescending(m => m.Date_created);
+        }
+
+        public new IEnumerable<message> GetBy(pigeonsEntities1 context, string columnName, object value)
+        {
+            Expression<Func<message, bool>> filter = null;            
 
             switch (columnName.ToLower())
             {
-                case "author_id":
-                    messageList = Get(m => m.Author_Id == (int)value);
+                case message.COLUMN_AUTHOR_ID:
+                    filter = (m => m.Author_Id == (int)value);
                     break;
-                case "group_id":
-                    messageList = Get(m => m.Group_Id == (int)value);
+                case message.COLUMN_GROUP_ID:
+                    filter = (m => m.Group_Id == (int)value);
                     break;
-                case "content":
-                    messageList = Get(m => m.Content.ToLower().Contains(((string)value).ToLower()));
+                case message.COLUMN_CONTENT:
+                    filter = (m => m.Content.ToLower().Contains(((string)value).ToLower()));
                     break;
-                case "date_created":
+                case message.COLUMN_DATE_CREATED:
                     //messageList = Get(m => DbFunctions.TruncateTime(m.Date_created).Equals( ((DateTime)value).Date) );                    
                     break;
                 default:
                     break;
             }
-            return messageList;
+            return Get(context, filter);
         }
 
     }

@@ -11,31 +11,23 @@ namespace PigeonsLibrairy.Service.Implementation
 {
     public class Service<TEntity> where TEntity : class
     {
-        internal pigeonsEntities1 context;
-        internal DbSet<TEntity> dbSet;
         internal DAO<TEntity> dao;
 
-        public Service(pigeonsEntities1 context)
+        public Service()
         {
-            if(context != null)
-            {
-                this.context = context;
-                this.dbSet = context.Set<TEntity>();
-                this.dao = new DAO<TEntity>(context);
-            }
-            else
-            {
-                throw new Exception("context is null");
-            }            
+            this.dao = new DAO<TEntity>();
         }
 
         public void Delete(TEntity entityToDelete)
         {
             if(entityToDelete != null)
             {
-                try
-                {
-                    dao.Delete(entityToDelete);                    
+                try                   
+                {   
+                    using(var context = new pigeonsEntities1())
+                    {
+                        dao.Delete(context, entityToDelete);
+                    }                                                         
                 }
                 catch
                 {
@@ -46,38 +38,61 @@ namespace PigeonsLibrairy.Service.Implementation
 
         public void Delete(object id)
         {
-            TEntity entityToDelete = dao.GetByID(id);
-            Delete(entityToDelete);
+            using(var context = new pigeonsEntities1())
+            {
+                TEntity entityToDelete = dao.GetByID(context, id);
+                Delete(entityToDelete);
+            }                
         }
 
         public IEnumerable<TEntity> Get(System.Linq.Expressions.Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            return dao.Get(filter, orderBy, includeProperties);
+            using (var context = new pigeonsEntities1())
+            {
+                return dao.Get(context, filter, orderBy, includeProperties);
+            }
+                
         }
 
         public TEntity GetByID(object id)
         {
-            return dao.GetByID(id);
+            using (var context = new pigeonsEntities1())
+            {
+                return dao.GetByID(context, id);
+            }            
         }
 
         public IEnumerable<TEntity> GetBy(string columnName, object value)
         {
-            return dao.GetBy(columnName, value);
+            using (var context = new pigeonsEntities1())
+            {
+                return dao.GetBy(context, columnName, value);
+            }
+            
         }
 
         public void Insert(TEntity entity)
-        {
-            dao.Insert(entity);
+        { 
+            using (var context = new pigeonsEntities1())
+            {
+                dao.Insert(context, entity);
+            }                      
         }
 
         public void Update(TEntity entityToUpdate)
         {
-            dao.Update(entityToUpdate);
+            using (var context = new pigeonsEntities1())
+            {
+                dao.Update(context, entityToUpdate);
+            }            
         }
 
         public List<TEntity> GetAll()
         {
-            return dao.GetAll();
+            using (var context = new pigeonsEntities1())
+            {
+                return dao.GetAll(context);
+            }            
         }
     }
 }

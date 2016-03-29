@@ -13,11 +13,11 @@ namespace PigeonsLibrairy.Service.Implementation
         private GroupDAO groupDAO { get; set; }
         private PersonDAO personDAO { get; set; }
 
-        public MessageService(pigeonsEntities1 context) : base(context)
+        public MessageService() : base()
         {
-            messageDAO = new MessageDAO(context);
-            groupDAO = new GroupDAO(context);
-            personDAO = new PersonDAO(context);
+            messageDAO = new MessageDAO();
+            groupDAO = new GroupDAO();
+            personDAO = new PersonDAO();
         }
 
         /// <summary>
@@ -39,47 +39,64 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("There is no content to the message");
             }
 
-            group activeGroup = groupDAO.GetByID(messageToCreate.Group_Id);
-
-            if(activeGroup == null)
+            using(var context = new pigeonsEntities1())
             {
-                throw new ServiceException("The group doesnt exist");
+                group activeGroup = groupDAO.GetByID(context, messageToCreate.Group_Id);
+
+                if (activeGroup == null)
+                {
+                    throw new ServiceException("The group doesnt exist");
+                }
+
+                if (!activeGroup.Is_active)
+                {
+                    throw new ServiceException("The group is not active : Cannot create a message");
+                }
+
+                person activePerson = personDAO.GetByID(context, messageToCreate.Author_Id);
+
+                if (activePerson == null)
+                {
+                    throw new ServiceException("The person doesnt exist");
+                }
+
+                messageToCreate.Date_created = DateTime.Now;
+                messageDAO.Insert(context, messageToCreate);
+                context.SaveChanges();
+                messageAdded = true;
             }
-
-            if (!activeGroup.Is_active)
-            {
-                throw new ServiceException("The group is not active : Cannot create a message");
-            }
-
-            person activePerson = personDAO.GetByID(messageToCreate.Author_Id);
-
-            if (activePerson == null)
-            {
-                throw new ServiceException("The person doesnt exist");
-            }
-
-            messageToCreate.Date_created = DateTime.Now;
-            Insert(messageToCreate);
-            context.SaveChanges();
-            messageAdded = true;
 
             return messageAdded;
         }
 
-        public new IEnumerable<message> GetBy(string columnName, object value)
+        public IEnumerable<message> GetGroupMessages(object groupID)
         {
+            if(groupID == null)
+            {
+                throw new ServiceException("The group ID is null");
+            }
+
             IEnumerable<message> messageList = new List<message>();
 
+            using (var context = new pigeonsEntities1())
+            {
+                return messageDAO.GetGroupMessages(context, groupID);
+            }
+        }
+
+        public new IEnumerable<message> GetBy(string columnName, object value)
+        {
             if (columnName != "" && value != null)
             {
-                messageList = messageDAO.GetBy(columnName, value);
-                return messageList;
+                using(var context = new pigeonsEntities1())
+                {
+                    return messageDAO.GetBy(context, columnName, value);                    
+                }
             }
             else
             {
                 throw new ServiceException("You must provid the column name and a value");
             }
         }
-
     }
 }

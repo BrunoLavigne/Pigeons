@@ -13,10 +13,10 @@ namespace PigeonsLibrairy.Service.Implementation
         private FollowingDAO followingDAO;
         private GroupDAO groupDAO;
 
-        public FollowingService(pigeonsEntities1 context) : base(context)
+        public FollowingService() : base()
         {
-            followingDAO = new FollowingDAO(context);
-            groupDAO = new GroupDAO(context);
+            followingDAO = new FollowingDAO();
+            groupDAO = new GroupDAO();
         }
 
         /// <summary>
@@ -24,71 +24,73 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="personId">The ID of the person to be added</param>
         /// <param name="groupeId">The ID of the group the person will be added too</param>
-        public void addPersonToGroup(int adminID, int personId, int groupId)
+        public void addPersonToGroup(object adminID, object personId, object groupId)
         {
-
-            if(personId == 0)
+            if(personId == null)
             {
                 throw new ServiceException("The personID is null");
             }
 
-            if(groupId == 0)
+            if(groupId == null)
             {
                 throw new ServiceException("The groupID is null");
             }
 
-            if(adminID == 0)
+            if(adminID == null)
             {
                 throw new ServiceException("The adminID is null");
             }
 
-            // Validating the group
-            group theGroup = groupDAO.GetByID(groupId);
-
-            if(theGroup == null)
+            using (var context = new pigeonsEntities1())
             {
-                throw new ServiceException("The group doesnt exist");
+                // Validating the group
+                group theGroup = groupDAO.GetByID(context, groupId);
+
+                if (theGroup == null)
+                {
+                    throw new ServiceException("The group doesnt exist");
+                }
+
+                if (!theGroup.Is_active)
+                {
+                    throw new ServiceException("This group is not active");
+                }
+
+                List<following> followingList = followingDAO.GetBy(context, following.COLUMN_GROUP_ID, groupId).ToList();
+
+                foreach (following follow in followingList)
+                {
+                    // If the user is already following that group
+                    if (follow.Person_Id == (int) personId && follow.Is_active)
+                    {
+                        throw new ServiceException("The user is already following this group");
+                    }
+                    // He was following the group but was deactivated - Reactivating the person
+                    else if (follow.Person_Id == (int) personId && !follow.Is_active)
+                    {
+                        follow.Is_active = true;
+                        followingDAO.Update(context, follow);
+                        context.SaveChanges();
+                        return;
+                    }
+                    // The user adding is not admin of this group
+                    if (follow.Person_Id == (int) adminID && !follow.Is_admin)
+                    {
+                        throw new ServiceException("The user trying to add is not the admin");
+                    }
+                }
+
+                // Everyting is ok, adding the following
+                following newFollowing = new following();
+                newFollowing.Person_Id = (int)personId;
+                newFollowing.Group_id = (int)groupId;
+                newFollowing.Is_admin = false;
+                newFollowing.Is_active = true;
+                newFollowing.Last_checkin = DateTime.Now;
+
+                followingDAO.Insert(context, newFollowing);
+                context.SaveChanges();
             }
-
-            if (!theGroup.Is_active)
-            {
-                throw new ServiceException("This group is not active");
-            }
-
-            List<following> followingList = followingDAO.GetBy(following.COLUMN_NAME.GROUP_ID.ToString(), groupId).ToList();
-         
-            foreach(following follow in followingList)
-            {
-                // If the user is already following that group
-                if(follow.Person_Id == personId && follow.Is_active)
-                {
-                    throw new ServiceException("The user is already following this group");
-                }
-                // He was following the group but was deactivated - Reactivating the person
-                else if(follow.Person_Id == personId && !follow.Is_active)
-                {
-                    follow.Is_active = true;
-                    Update(follow);
-                    context.SaveChanges();
-                    return;
-                }
-                // The user adding is not admin of this group
-                if(follow.Person_Id == adminID && !follow.Is_admin)
-                {
-                    throw new ServiceException("The user trying to add is not the admin");
-                }
-            }           
-
-            // Everyting is ok, adding the user
-            following newFollowing = new following();
-            newFollowing.Person_Id = personId;
-            newFollowing.Group_id = groupId;
-            newFollowing.Is_admin = false;
-            newFollowing.Is_active = true;
-            newFollowing.Last_checkin = DateTime.Now;
-
-            Insert(newFollowing);
-            context.SaveChanges();
         }
 
         /// <summary>
@@ -96,14 +98,29 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="groupID">The group ID we want the followers</param>
         /// <returns>A list with the followers (following) or an empty list</returns>
-        public IList<following> GetTheFollowers(int groupID)
+        public IList<following> GetTheFollowers(object groupID)
         {
-            if(groupID == 0)
+            if(groupID == null)
             {
                 throw new ServiceException("The groupID is null");
             }
 
-            return followingDAO.GetTheFollowers(groupID);
+            using(var context = new pigeonsEntities1())
+            {
+                group group = groupDAO.GetByID(context, groupID);
+
+                if(group == null)
+                {
+                    throw new ServiceException("This group doesn't exist");
+                }
+
+                if (!group.Is_active)
+                {
+                    throw new ServiceException("This group is not active");
+                }
+
+                return followingDAO.GetTheFollowers(context, groupID);
+            }            
         }
 
         public new IEnumerable<following> GetBy(string columnName, object value)
@@ -112,8 +129,11 @@ namespace PigeonsLibrairy.Service.Implementation
 
             if (columnName != "" && value != null)
             {
-                followingList = followingDAO.GetBy(columnName, value);
-                return followingList;
+                using(var context = new pigeonsEntities1())
+                {
+                    followingList = followingDAO.GetBy(context, columnName, value);
+                    return followingList;
+                }                
             }
             else
             {

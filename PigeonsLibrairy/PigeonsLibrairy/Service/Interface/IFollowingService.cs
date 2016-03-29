@@ -9,7 +9,7 @@ namespace PigeonsLibrairy.Service.Interface
 {
     public interface IFollowingService : IService<following>
     {
-        void addPersonToGroup(int adminID, int personId, int groupId);
-        IList<following> GetTheFollowers(int groupID);
+        void addPersonToGroup(object adminID, object personId, object groupId);
+        IList<following> GetTheFollowers(object groupID);
     }
 }

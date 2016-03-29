@@ -13,5 +13,6 @@ namespace PigeonsLibrairy.DAO.Interface
     interface IMessageDAO
     {
         message GetPersonDetailByMessageId(object id);
+        IEnumerable<message> GetGroupMessages(pigeonsEntities1 context, object groupID);
     }
 }

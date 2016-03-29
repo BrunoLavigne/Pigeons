@@ -1,53 +1,53 @@
 ﻿using PigeonsLibrairy.DAO.Interface;
 using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
     public class PersonDAO : DAO<person>, IPersonDAO
     {
-        public PersonDAO(pigeonsEntities1 context) : base(context)
-        {
-        }
+        public PersonDAO() : base() {}
 
-        public new IEnumerable<person> GetBy(string columnName, object value)
+        public new IEnumerable<person> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
-            IEnumerable<person> personList = new List<person>();
+            Expression<Func<person, bool>> filter = null;            
 
             switch (columnName.ToLower())
             {
-                case "name":
-                    personList = Get(p => p.Name.ToLower() == ((string)value).ToLower());
+                case person.COLUMN_NAME:
+                    filter = (p => p.Name.ToLower() == ((string)value).ToLower());
                     break;
-                case "email":
-                    personList = Get(p => p.Email.ToLower() == ((string)value).ToLower());
+                case person.COLUMN_EMAIL:
+                    filter = (p => p.Email.ToLower() == ((string)value).ToLower());
                     break;
-                case "password":
-                    personList = Get(p => p.Password == (string)value);
+                case person.COLUMN_PASSWORD:
+                    filter = (p => p.Password == (string)value);
                     break;
-                case "inscription_date":
+                case person.COLUMN_INSCRIPTION_DATE:
                     break;
-                case "birth_date":
+                case person.COLUMN_BIRTH_DATE:
                     break;
-                case "phone_number":
-                    personList = Get(p => p.Phone_number.ToLower() == ((string)value).ToLower());
+                case person.COLUMN_PHONE_NUMBER:
+                    filter = (p => p.Phone_number.ToLower() == ((string)value).ToLower());
                     break;
-                case "organisation":
-                    personList = Get(p => p.Organization.ToLower() == ((string)value).ToLower());
+                case person.COLUMN_ORGANIZATION:
+                    filter = (p => p.Organization.ToLower() == ((string)value).ToLower());
                     break;
-                case "position":
-                    personList = Get(p => p.Position.ToLower() == ((string)value).ToLower());
+                case person.COLUMN_POSITION:
+                    filter = (p => p.Position.ToLower() == ((string)value).ToLower());
                     break;
-                case "description":
-                    personList = Get(p => p.Description.ToLower().Contains(((string)value).ToLower()));
+                case person.COLUMN_DESCRIPTION:
+                    filter = (p => p.Description.ToLower().Contains(((string)value).ToLower()));
                     break;
-                case "all":
-                    personList = Get(p => p.Email.ToLower().Contains(((string)value).ToLower()) || p.Name.ToLower().Contains(((string)value).ToLower()));
+                case person.COLUMN_ALL:
+                    filter = (p => p.Email.ToLower().Contains(((string)value).ToLower()) || p.Name.ToLower().Contains(((string)value).ToLower()));
                     break;
                 default:
                     break;
             }
-            return personList;
+            return Get(context, filter);
         }            
     }
 }

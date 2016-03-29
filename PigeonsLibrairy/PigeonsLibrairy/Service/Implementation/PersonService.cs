@@ -12,9 +12,9 @@ namespace PigeonsLibrairy.Service.Implementation
     {
         private PersonDAO personDAO { get; set; }
 
-        public PersonService(pigeonsEntities1 context) : base(context)
+        public PersonService() : base()
         {
-            personDAO = new PersonDAO(context);
+            personDAO = new PersonDAO();
         }
 
         public new IEnumerable<person> GetBy(string columnName, object value)
@@ -23,8 +23,11 @@ namespace PigeonsLibrairy.Service.Implementation
 
             if (columnName != "" && value != null)
             {
-                personsList = personDAO.GetBy(columnName, value);
-                return personsList;
+                using(var context = new pigeonsEntities1())
+                {
+                    personsList = personDAO.GetBy(context, columnName, value);
+                    return personsList;
+                }                
             }
             else
             {
@@ -56,7 +59,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The password doesnt match");
             }
 
-            List<person> personAlreadyExist = (personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), newUser.Email)).ToList();            
+            List<person> personAlreadyExist = (GetBy(person.COLUMN_EMAIL, newUser.Email)).ToList();            
 
             if (personAlreadyExist.Count() > 0)
             {
@@ -66,11 +69,14 @@ namespace PigeonsLibrairy.Service.Implementation
                 }
             }
 
-            newUser.Inscription_date = DateTime.Now;
-            newUser.Profile_picture_link = "";
-            Insert(newUser);
-            context.SaveChanges();       
-            userIsAdded = true;
+            using(var context = new pigeonsEntities1())
+            {
+                newUser.Inscription_date = DateTime.Now;
+                newUser.Profile_picture_link = "";
+                personDAO.Insert(context, newUser);
+                context.SaveChanges();
+                userIsAdded = true;
+            }            
         
             return userIsAdded;
         }
@@ -95,7 +101,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The password is null");
             }
 
-            List<person> existingPerson = (personDAO.GetBy(person.COLUMN_NAME.EMAIL.ToString(), username)).ToList();            
+            List<person> existingPerson = (GetBy(person.COLUMN_EMAIL, username)).ToList();            
 
             if(existingPerson.Count() > 0)
             {
@@ -106,6 +112,47 @@ namespace PigeonsLibrairy.Service.Implementation
             }
 
             return loginAccepted;
+        }
+
+        /// <summary>
+        /// Updating a person
+        /// </summary>
+        /// <param name="personID">The ID of the person we want to update</param>
+        /// <param name="updatedPerson">The person with the updated fields</param>
+        /// <returns>The updated person</returns>
+        public person UpdatePerson(int personID, person updatedPerson)
+        {
+            if(personID == 0)
+            {
+                throw new ServiceException("The person ID is null");
+            }
+
+            if (updatedPerson == null)
+            {
+                throw new ServiceException("The person to update is null");
+            }
+
+            using(var context = new pigeonsEntities1())
+            {
+                try
+                {
+                    person validatePerson = GetByID(personID);
+
+                    if(validatePerson == null)
+                    {
+                        throw new ServiceException("The person you are trying to update is not in the DB");
+                    }
+
+                    validatePerson = updatedPerson;
+                    personDAO.Update(context, validatePerson);
+                    context.SaveChanges();
+                    return validatePerson;
+                }
+                catch
+                {
+                    throw new ServiceException("Impossible to update");
+                }
+            }
         }
     }
 }

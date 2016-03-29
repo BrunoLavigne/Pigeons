@@ -10,9 +10,9 @@ namespace PigeonsLibrairy.Service.Implementation
     {
         private ProjectDAO projectDAO { get; set; }
 
-        public ProjectService(pigeonsEntities1 context) : base(context)
+        public ProjectService() : base()
         {
-            projectDAO = new ProjectDAO(context);
+            projectDAO = new ProjectDAO();
         }
 
         public new IEnumerable<project> GetBy(string columnName, object value)
@@ -21,8 +21,11 @@ namespace PigeonsLibrairy.Service.Implementation
 
             if (columnName != "" && value != null)
             {
-                projectList = projectDAO.GetBy(columnName, value);
-                return projectList;
+                using(var context = new pigeonsEntities1())
+                {
+                    projectList = projectDAO.GetBy(context, columnName, value);
+                    return projectList;
+                }
             }
             else
             {
