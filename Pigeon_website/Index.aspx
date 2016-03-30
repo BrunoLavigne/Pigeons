@@ -10,7 +10,7 @@
     <div class="container">
 
 	    <div class="Home-logo-container">
-            <img id="" src="Resources/img/pigeon.svg" alt="Pigeon logo" />
+            <img id="" src="Resources/img/pigeon.svg" alt="Pigeon logo" class="logo" />
 	    </div>
 
 	    <div class="jumbotron">

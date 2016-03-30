@@ -35,5 +35,6 @@ window.onload = function () {
     // Add anims to timeline
     t1.add(pigeonSwell, 1);
     t1.add(pigeonRotate, 5);
+
 };
 

@@ -10,13 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <%@ Register TagPrefix="uc" TagName="NewGroupModal" Src="~/Partials/NewGroupModal.ascx" %>
 
-    <asp:Label ID="TestLabel" runat="server" Text="Label"></asp:Label>
-
     <div class="container">
-
-        <asp:Panel runat="server" ID="groupsView">
-            <asp:GridView ID="gridViewUserGroups" runat="server"></asp:GridView>
-        </asp:Panel>
 
         <div class="row">
             <asp:ListView ID="groupsListView" runat="server">
