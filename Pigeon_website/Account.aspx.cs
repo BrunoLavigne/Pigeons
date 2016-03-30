@@ -40,7 +40,6 @@ public partial class Account : System.Web.UI.Page
             }
 
             person personToUpdateSession = (person)Session["user"];
-            testUserLabel.Text = personToUpdateSession.Organization;
 
         }
 
@@ -50,10 +49,8 @@ public partial class Account : System.Web.UI.Page
             editUserEmail.Text = activeP.Email;
             editUserDescription.Text = activeP.Description;
             userProfilePicture.ImageUrl = activeP.Profile_picture_link;
-            testUserLabel.Text = "The active user is : " + activeP.Description + " 00 " + activeP.Name + " 00 " + activeP.Organization;
-        } else
-        {
-            testUserLabel.Text = "There seems to be no active user on this page, move along";
+        } else {
+            Response.Redirect("Index.aspx");
         }
 
 
@@ -67,8 +64,6 @@ public partial class Account : System.Web.UI.Page
         // int personToUpdateID = gh.getCurrentUser().Id;
         person personToUpdateSession = (person)Session["user"];
         int personToUpdateId = personToUpdateSession.Id;
-
-        testUserLabel.Text = "persont » " + personToUpdateId;
 
         // connect id with controller (cleanup)
         person personToUpdate = homeFacade.GetPersonByID(personToUpdateId);
