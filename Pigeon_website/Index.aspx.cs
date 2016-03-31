@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Index : System.Web.UI.Page
@@ -18,12 +16,16 @@ public partial class Index : System.Web.UI.Page
         string userPassword = this.userPassword.Text;
 
         Controller controller = new Controller();
+
+        // TODO: use service method
         List<PigeonsLibrairy.Model.person> lp = controller.PersonService.GetPersonsBy("email", userEmail).ToList();
-        if (lp[0] != null)
+
+        // And check password...
+        if(lp.Count != 0 && lp[0] != null)
         {
 
-            // todo: vérif. passowrd
-            Response.Redirect("http://google.com");
+            Session["user"] = lp[0];
+            Response.Redirect("Groups.aspx");
         }
     }
 }

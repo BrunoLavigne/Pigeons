@@ -1,4 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+<%@ Register TagPrefix="uc" TagName="Header" 
+    Src="~/Partials/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -14,9 +16,7 @@
 <body>
     <form id="form1" runat="server">
     <div class="Page-container">
-
-         <!-- #include file ="Partials/Header.aspx" -->
-
+          <uc:Header id="Header" runat="server" />
 
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
@@ -24,7 +24,7 @@
     </div><!-- /page-container -->
     </form>
     
-    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/jquery-2.2.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
 
     <!-- todo add local in vendors folder -->

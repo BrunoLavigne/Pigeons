@@ -5,10 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Partials_Header : System.Web.UI.Page
+public partial class Partials_Header : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
+    }
+
+    protected void btn_deconnexion_Click(object sender, EventArgs e)
+    {
+        Session.Abandon();
+        Response.Redirect("Index.aspx");
     }
 }
