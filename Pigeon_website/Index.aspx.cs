@@ -15,17 +15,17 @@ public partial class Index : System.Web.UI.Page
         string userEmail = this.userEmail.Text;
         string userPassword = this.userPassword.Text;
 
-        Controller controller = new Controller();
+        MainController controller = new MainController();
 
         // TODO: use service method
-        List<PigeonsLibrairy.Model.person> lp = controller.PersonService.GetPersonsBy("email", userEmail).ToList();
+        //List<PigeonsLibrairy.Model.person> lp = controller.PersonService.GetPersonsBy("email", userEmail).ToList();
 
         // And check password...
-        if(lp.Count != 0 && lp[0] != null)
-        {
+        //if(lp.Count != 0 && lp[0] != null)
+        //{
 
-            Session["user"] = lp[0];
-            Response.Redirect("Groups.aspx");
-        }
+        //    Session["user"] = lp[0];
+        //    Response.Redirect("Groups.aspx");
+        //}
     }
 }

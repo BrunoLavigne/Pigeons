@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace PigeonsLibrairy.DAO.Interface
 {
     /// <summary>
-    /// Interface magnifique
+    /// Interface pour la table message
     /// </summary>
     interface IMessageDAO
     {
-        message GetPersonDetailByMessageId(object id);        
+        message GetPersonDetailByMessageId(object id);
+        IEnumerable<message> GetGroupMessages(pigeonsEntities1 context, object groupID);
     }
 }

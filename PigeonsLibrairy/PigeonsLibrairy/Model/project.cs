@@ -19,7 +19,13 @@ namespace PigeonsLibrairy.Model
         {
             this.tasks = new HashSet<task>();
         }
-    
+
+        public const string COLUMN_GROUP_ID = "group_id";
+        public const string COLUMN_TYPE_ID = "type_id";
+        public const string COLUMN_DATE_START = "date_start";
+        public const string COLUMN_DATE_END = "date_end";
+        public const string COLUMN_DESCRIPTION = "description";
+
         public int Id { get; set; }
         public int Group_id { get; set; }
         public int Type_id { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,11 +10,13 @@ namespace PigeonsLibrairy.DAO.Interface
 {
     public interface IDAO<TEntity> where TEntity : class
     {
-        TEntity GetByID(object id);
-        void Delete(object id);
-        void Delete(TEntity entityToDelete);
-        void Insert(TEntity entity);
-        void Update(TEntity entityToUpdate);
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
+        void Delete(pigeonsEntities1 context, object id);
+        void Delete(pigeonsEntities1 context, TEntity entityToDelete);
+        void Insert(pigeonsEntities1 context, TEntity entity);
+        void Update(pigeonsEntities1 context, TEntity entityToUpdate);
+        TEntity GetByID(pigeonsEntities1 context, object id);        
+        IEnumerable<TEntity> GetAll(pigeonsEntities1 context);
+        IEnumerable<TEntity> GetBy(pigeonsEntities1 context, string columnName, object value);
+        IEnumerable<TEntity> Get(pigeonsEntities1 context, Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");        
     }
 }
