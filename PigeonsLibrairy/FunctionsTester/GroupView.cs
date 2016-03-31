@@ -25,6 +25,7 @@ namespace FunctionsTester
             activePersonID = personID;
             fillTheFields();
             fillTheMessagesDataGrid();
+            fillTheType();
 
             bool isThisPersonTheGroupAdmin = groupFacade.PersonIsGroupAdmin(activePersonID, activeGroupID);
             if (isThisPersonTheGroupAdmin)
@@ -152,6 +153,39 @@ namespace FunctionsTester
         }
 
         /// <summary>
+        /// Test - Ajouter un project à un groupe
+        /// </summary>
+        private void btnAddProject_Click(object sender, EventArgs e)
+        {
+            DateTime projectStart = default(DateTime);
+            DateTime projectEnd = default(DateTime);
+            string selectedType = cbProjectType.SelectedText.Trim();
+            string projectDescription = rtb_ProjectDesc.Text;
+            string[] typeSplit = selectedType.Split('-');
+            string typeID = typeSplit[1];
+
+            if (!checkStart.Checked)
+            {
+                projectStart = dateTimePicker_start.Value;
+            }
+
+            if (!checkEnd.Checked)
+            {
+                projectEnd = dateTimePicker_end.Value;
+            }
+
+            project aBrandNewProject = new project();
+            aBrandNewProject.Description = projectDescription;
+            aBrandNewProject.Date_start = projectStart;
+            aBrandNewProject.Date_end = projectEnd;
+
+            if(groupFacade.CreateNewProject(aBrandNewProject, activeGroupID) != null)
+            {
+                showTheProjects();
+            }
+        }
+
+        /// <summary>
         /// Selected the ID of a follower
         /// Will be used to select the author of a message
         /// </summary>        
@@ -160,6 +194,27 @@ namespace FunctionsTester
             int personID;
             int.TryParse(cb_followers.SelectedItem.ToString(), out personID);
             followerID.Text = personID.ToString();
+        }
+
+        private void fillTheType()
+        {
+            IEnumerable<type> typeList = groupFacade.GetAllTypes();
+            foreach(type t in typeList)
+            {
+                cbProjectType.Items.Add(t.Name + " - " + t.Id);
+            }
+            cbProjectType.SelectedIndex = 0;
+        }
+
+        private void showTheProjects()
+        {
+            IEnumerable<project> projectList = groupFacade.GetProjectsFromGroup(activeGroupID);
+
+            foreach(project p in projectList)
+            {
+                dataGridView_Projects.Rows.Add(p.Description, p.Type_id.ToString(), p.Date_start, p.Date_end);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -58,7 +58,25 @@
             this.txtRemoveFollowerResult = new System.Windows.Forms.TextBox();
             this.btnCloseGroup = new System.Windows.Forms.Button();
             this.txtGroupCloseResult = new System.Windows.Forms.TextBox();
+            this.btnAddProject = new System.Windows.Forms.Button();
+            this.cbProjectType = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.rtb_ProjectDesc = new System.Windows.Forms.RichTextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dataGridView_Projects = new System.Windows.Forms.DataGridView();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Début = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkStart = new System.Windows.Forms.CheckBox();
+            this.checkEnd = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Projects)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -169,6 +187,7 @@
             // dataGrid_messages
             // 
             this.dataGrid_messages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGrid_messages.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGrid_messages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid_messages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Auteur_ID,
@@ -303,7 +322,7 @@
             // 
             this.btnDeleteFollower.Location = new System.Drawing.Point(744, 148);
             this.btnDeleteFollower.Name = "btnDeleteFollower";
-            this.btnDeleteFollower.Size = new System.Drawing.Size(414, 34);
+            this.btnDeleteFollower.Size = new System.Drawing.Size(414, 46);
             this.btnDeleteFollower.TabIndex = 22;
             this.btnDeleteFollower.Text = "Remove a person from the group";
             this.btnDeleteFollower.UseVisualStyleBackColor = true;
@@ -312,7 +331,7 @@
             // txtRemoveFollowerResult
             // 
             this.txtRemoveFollowerResult.Enabled = false;
-            this.txtRemoveFollowerResult.Location = new System.Drawing.Point(744, 191);
+            this.txtRemoveFollowerResult.Location = new System.Drawing.Point(744, 203);
             this.txtRemoveFollowerResult.Margin = new System.Windows.Forms.Padding(6);
             this.txtRemoveFollowerResult.Name = "txtRemoveFollowerResult";
             this.txtRemoveFollowerResult.Size = new System.Drawing.Size(414, 31);
@@ -322,7 +341,7 @@
             // 
             this.btnCloseGroup.Location = new System.Drawing.Point(1184, 147);
             this.btnCloseGroup.Name = "btnCloseGroup";
-            this.btnCloseGroup.Size = new System.Drawing.Size(414, 34);
+            this.btnCloseGroup.Size = new System.Drawing.Size(414, 47);
             this.btnCloseGroup.TabIndex = 24;
             this.btnCloseGroup.Text = "Close this group";
             this.btnCloseGroup.UseVisualStyleBackColor = true;
@@ -331,17 +350,179 @@
             // txtGroupCloseResult
             // 
             this.txtGroupCloseResult.Enabled = false;
-            this.txtGroupCloseResult.Location = new System.Drawing.Point(1184, 191);
+            this.txtGroupCloseResult.Location = new System.Drawing.Point(1184, 203);
             this.txtGroupCloseResult.Margin = new System.Windows.Forms.Padding(6);
             this.txtGroupCloseResult.Name = "txtGroupCloseResult";
             this.txtGroupCloseResult.Size = new System.Drawing.Size(414, 31);
             this.txtGroupCloseResult.TabIndex = 25;
             // 
+            // btnAddProject
+            // 
+            this.btnAddProject.Location = new System.Drawing.Point(1873, 33);
+            this.btnAddProject.Margin = new System.Windows.Forms.Padding(6);
+            this.btnAddProject.Name = "btnAddProject";
+            this.btnAddProject.Size = new System.Drawing.Size(212, 55);
+            this.btnAddProject.TabIndex = 26;
+            this.btnAddProject.Text = "Add a project";
+            this.btnAddProject.UseVisualStyleBackColor = true;
+            this.btnAddProject.Click += new System.EventHandler(this.btnAddProject_Click);
+            // 
+            // cbProjectType
+            // 
+            this.cbProjectType.FormattingEnabled = true;
+            this.cbProjectType.Location = new System.Drawing.Point(1810, 100);
+            this.cbProjectType.Margin = new System.Windows.Forms.Padding(6);
+            this.cbProjectType.Name = "cbProjectType";
+            this.cbProjectType.Size = new System.Drawing.Size(328, 33);
+            this.cbProjectType.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(1724, 104);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 25);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Type :";
+            // 
+            // dateTimePicker_start
+            // 
+            this.dateTimePicker_start.Location = new System.Drawing.Point(1810, 151);
+            this.dateTimePicker_start.Name = "dateTimePicker_start";
+            this.dateTimePicker_start.Size = new System.Drawing.Size(328, 31);
+            this.dateTimePicker_start.TabIndex = 29;
+            // 
+            // dateTimePicker_end
+            // 
+            this.dateTimePicker_end.Location = new System.Drawing.Point(1810, 201);
+            this.dateTimePicker_end.Name = "dateTimePicker_end";
+            this.dateTimePicker_end.Size = new System.Drawing.Size(328, 31);
+            this.dateTimePicker_end.TabIndex = 30;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(1715, 153);
+            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(81, 25);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Début :";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1742, 201);
+            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(54, 25);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "Fin :";
+            // 
+            // rtb_ProjectDesc
+            // 
+            this.rtb_ProjectDesc.Location = new System.Drawing.Point(1810, 246);
+            this.rtb_ProjectDesc.Margin = new System.Windows.Forms.Padding(6);
+            this.rtb_ProjectDesc.Name = "rtb_ProjectDesc";
+            this.rtb_ProjectDesc.Size = new System.Drawing.Size(328, 119);
+            this.rtb_ProjectDesc.TabIndex = 33;
+            this.rtb_ProjectDesc.Text = "";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(1664, 246);
+            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(132, 25);
+            this.label13.TabIndex = 34;
+            this.label13.Text = "Description :";
+            // 
+            // dataGridView_Projects
+            // 
+            this.dataGridView_Projects.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_Projects.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders;
+            this.dataGridView_Projects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Projects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Description,
+            this.Type,
+            this.Début,
+            this.Fin});
+            this.dataGridView_Projects.Location = new System.Drawing.Point(1669, 383);
+            this.dataGridView_Projects.Name = "dataGridView_Projects";
+            this.dataGridView_Projects.RowTemplate.Height = 33;
+            this.dataGridView_Projects.Size = new System.Drawing.Size(609, 369);
+            this.dataGridView_Projects.TabIndex = 35;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // Type
+            // 
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            // 
+            // Début
+            // 
+            this.Début.HeaderText = "Début";
+            this.Début.Name = "Début";
+            // 
+            // Fin
+            // 
+            this.Fin.HeaderText = "Fin";
+            this.Fin.Name = "Fin";
+            // 
+            // checkStart
+            // 
+            this.checkStart.AutoSize = true;
+            this.checkStart.Location = new System.Drawing.Point(2157, 154);
+            this.checkStart.Name = "checkStart";
+            this.checkStart.Size = new System.Drawing.Size(119, 29);
+            this.checkStart.TabIndex = 36;
+            this.checkStart.Text = "No date";
+            this.checkStart.UseVisualStyleBackColor = true;
+            // 
+            // checkEnd
+            // 
+            this.checkEnd.AutoSize = true;
+            this.checkEnd.Location = new System.Drawing.Point(2157, 201);
+            this.checkEnd.Name = "checkEnd";
+            this.checkEnd.Size = new System.Drawing.Size(119, 29);
+            this.checkEnd.TabIndex = 37;
+            this.checkEnd.Text = "No date";
+            this.checkEnd.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(2157, 325);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(119, 40);
+            this.button2.TabIndex = 38;
+            this.button2.Text = "show";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // GroupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1622, 998);
+            this.ClientSize = new System.Drawing.Size(2435, 998);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.checkEnd);
+            this.Controls.Add(this.checkStart);
+            this.Controls.Add(this.dataGridView_Projects);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.rtb_ProjectDesc);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.dateTimePicker_end);
+            this.Controls.Add(this.dateTimePicker_start);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.cbProjectType);
+            this.Controls.Add(this.btnAddProject);
             this.Controls.Add(this.txtGroupCloseResult);
             this.Controls.Add(this.btnCloseGroup);
             this.Controls.Add(this.txtRemoveFollowerResult);
@@ -372,6 +553,7 @@
             this.Name = "GroupView";
             this.Text = "GroupView";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Projects)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,5 +591,22 @@
         private System.Windows.Forms.TextBox txtRemoveFollowerResult;
         private System.Windows.Forms.Button btnCloseGroup;
         private System.Windows.Forms.TextBox txtGroupCloseResult;
+        private System.Windows.Forms.Button btnAddProject;
+        private System.Windows.Forms.ComboBox cbProjectType;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_end;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RichTextBox rtb_ProjectDesc;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataGridView dataGridView_Projects;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Début;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fin;
+        private System.Windows.Forms.CheckBox checkStart;
+        private System.Windows.Forms.CheckBox checkEnd;
+        private System.Windows.Forms.Button button2;
     }
 }

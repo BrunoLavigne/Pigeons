@@ -24,5 +24,11 @@ namespace PigeonsLibrairy.Facade.Interface
         // Message
         bool CreateNewMessage(message messageToCreate);
         List<message> GetGroupMessages(object groupID);
+
+        // Type
+        IEnumerable<type> GetAllTypes();
+
+        // Project
+        IEnumerable<project> GetProjectsFromGroup(object groupID);     
     }
 }

@@ -133,5 +133,50 @@ namespace PigeonsLibrairy.Facade.Implementation
                 throw new FacadeException(serviceException.Message);
             }
         }
+
+        /// <summary>
+        /// Ajout un nouveau projet à un groupe
+        /// </summary>
+        /// <param name="projectToInsert"></param>
+        /// <returns></returns>
+        public project CreateNewProject(project projectToInsert, object groupID)
+        {
+            try
+            {
+                return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
+        }
+
+        public IEnumerable<project> GetProjectsFromGroup(object groupID)
+        {
+            try
+            {
+                return mainControl.ProjectService.GetProjectsFromGroup(groupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Recherche de tout les types qui sont disponibles
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<type> GetAllTypes()
+        {
+            try
+            {
+                return mainControl.TypeService.GetAll();
+            }
+            catch (ServiceException serviceException)
+            {
+                throw new FacadeException(serviceException.Message);
+            }
+        }
     }
 }
