@@ -1,6 +1,8 @@
-﻿namespace PigeonsLibrairy.Service.Interface
+﻿using PigeonsLibrairy.Model;
+
+namespace PigeonsLibrairy.Service.Interface
 {
-    public interface IProjectService
+    public interface IProjectService : IService<project>
     {
     }
 }

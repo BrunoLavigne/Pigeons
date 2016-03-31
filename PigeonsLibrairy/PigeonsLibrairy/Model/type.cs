@@ -19,12 +19,15 @@ namespace PigeonsLibrairy.Model
         {
             this.projects = new HashSet<project>();
         }
-    
+
+        public const string COLUMN_NAME = "name";
+        public const string COLUMN_DESCRIPTION = "description";
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<project> projects { get; set; }
+        public virtual ICollection<project> projects { get; set; }        
     }
 }

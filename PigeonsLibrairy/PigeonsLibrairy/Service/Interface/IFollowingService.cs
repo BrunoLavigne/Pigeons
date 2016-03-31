@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Service.Interface
 {
-    public interface IFollowingService
+    public interface IFollowingService : IService<following>
     {
-        List<following> GetTheFollowingGroupsOfPersonId(int personId);
-        List<following> GetThePersonsFollowingGroupsId(int groupId);
-        void addPersonToGroup(int personId, int groupeId);
+        void AddPersonToGroup(object adminID, object personId, object groupId);
+        bool RemoveTheFollower(object groupID, object followerID);
+        bool PersonIsGroupAdmin(object personID, object groupID);
+        IList<following> GetTheFollowers(object groupID);
     }
 }
