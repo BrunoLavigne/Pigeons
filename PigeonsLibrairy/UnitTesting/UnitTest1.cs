@@ -14,8 +14,8 @@ namespace UnitTesting
         public void InsertTest()
         {
             pigeonsEntities1 context = new pigeonsEntities1();
-            PersonDAO personne = new PersonDAO(context);
             PersonService service = new PersonService(context);
+            //service.
             //personne.Insert()
         }
 
