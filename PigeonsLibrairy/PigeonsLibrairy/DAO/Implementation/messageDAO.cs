@@ -1,15 +1,17 @@
 ﻿using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
+    /// <summary>
+    /// DAO de la table <see cref="message"/>
+    /// </summary>
     class MessageDAO : DAO<message>, IMessageDAO
     {
         public MessageDAO() : base()
@@ -38,9 +40,16 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <returns>A list with the messages from the group. An empty list of there is no message</returns>
         public IEnumerable<message> GetGroupMessages(pigeonsEntities1 context, object groupID)
         {
-            Expression<Func<message, bool>> filter = (m => m.Group_Id == (int)groupID);
-            string includeProperties = "person";
-            return Get(context, filter, null, includeProperties).OrderByDescending(m => m.Date_created);
+            try
+            {
+                Expression<Func<message, bool>> filter = (m => m.Group_Id == (int)groupID);
+                string includeProperties = "person";
+                return Get(context, filter, null, includeProperties).OrderByDescending(m => m.Date_created);
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le MessageDAO GetGroupMessages : " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -52,26 +61,33 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <returns>A list of message that match the query</returns>
         public new IEnumerable<message> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
-            Expression<Func<message, bool>> filter = null;            
+            Expression<Func<message, bool>> filter = null;
 
-            switch (columnName.ToLower())
+            try
             {
-                case message.COLUMN_AUTHOR_ID:
-                    filter = (m => m.Author_Id == (int)value);
-                    break;
-                case message.COLUMN_GROUP_ID:
-                    filter = (m => m.Group_Id == (int)value);
-                    break;
-                case message.COLUMN_CONTENT:
-                    filter = (m => m.Content.ToLower().Contains(((string)value).ToLower()));
-                    break;
-                case message.COLUMN_DATE_CREATED:
-                    //messageList = Get(m => DbFunctions.TruncateTime(m.Date_created).Equals( ((DateTime)value).Date) );                    
-                    break;
-                default:
-                    break;
+                switch (columnName.ToLower())
+                {
+                    case message.COLUMN_AUTHOR_ID:
+                        filter = (m => m.Author_Id == (int)value);
+                        break;
+                    case message.COLUMN_GROUP_ID:
+                        filter = (m => m.Group_Id == (int)value);
+                        break;
+                    case message.COLUMN_CONTENT:
+                        filter = (m => m.Content.ToLower().Contains(((string)value).ToLower()));
+                        break;
+                    case message.COLUMN_DATE_CREATED:
+                        //messageList = Get(m => DbFunctions.TruncateTime(m.Date_created).Equals( ((DateTime)value).Date) );                    
+                        break;
+                    default:
+                        break;
+                }
+                return Get(context, filter);
             }
-            return Get(context, filter);
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le MessageDAO GetBy : " + ex.Message);
+            }
         }
     }
 }

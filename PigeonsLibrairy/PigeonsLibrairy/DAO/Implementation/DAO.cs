@@ -10,9 +10,15 @@ using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
+    /// <summary>
+    /// DAO général pour toute les tables
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     class DAO<TEntity> : IDAO<TEntity> where TEntity : class
     {
-
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public DAO() { }
 
         /// <summary>
@@ -29,7 +35,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }   
             catch(Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le GetByID du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le GetByID du DAO " + ex.Message);
             }              
         }
 
@@ -47,7 +53,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le Delete du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le Delete du DAO " + ex.Message);
             }
         }
 
@@ -68,7 +74,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le Delete du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le Delete du DAO " + ex.Message);
             }
         }
 
@@ -85,7 +91,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le Insert du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le Insert du DAO " + ex.Message);
             }
         }
 
@@ -103,7 +109,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le Update du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le Update du DAO " + ex.Message);
             }
         }
 
@@ -122,7 +128,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le GetBy du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le GetBy du DAO " + ex.Message);
             }
         }
 
@@ -166,7 +172,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le Get du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le Get du DAO " + ex.Message);
             }
         }
 
@@ -183,7 +189,7 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException("Erreur dans le GetAll du DAO" + ex.Message);
+                throw new DAOException("Erreur dans le GetAll du DAO " + ex.Message);
             }
         }
     }

@@ -15,6 +15,9 @@ namespace PigeonsLibrairy.Service.Implementation
     {
         private DAO<TEntity> dao { get; set; }
 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public Service()
         {
             this.dao = new DAO<TEntity>();
@@ -26,20 +29,22 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="entityToDelete">L'Entity à effacer</param>
         public void Delete(TEntity entityToDelete)
         {
-            if(entityToDelete != null)
+            if (entityToDelete != null)
             {
-                try                   
-                {   
-                    using(var context = new pigeonsEntities1())
-                    {
-                        dao.Delete(context, entityToDelete);
-                    }                                                         
-                }
-                catch (Exception ex) when (ex is DAOException)
+                throw new ServiceException("L'Entity à Deleter est null");
+            }
+
+            try                   
+            {   
+                using(var context = new pigeonsEntities1())
                 {
-                    throw new ServiceException(ex.Message);                    
-                }                
-            }                  
+                    dao.Delete(context, entityToDelete);
+                }                                                         
+            }
+            catch (Exception ex) when (ex is DAOException)
+            {
+                throw new ServiceException(ex.Message);                    
+            }                
         }
 
         /// <summary>
@@ -48,6 +53,11 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="id">Le ID de l'Entity qui doit être effacée</param>
         public void Delete(object id)
         {
+            if(id == null)
+            {
+                throw new ServiceException("Le ID est null");
+            }
+
             try
             {
                 using (var context = new pigeonsEntities1())
@@ -56,9 +66,9 @@ namespace PigeonsLibrairy.Service.Implementation
                     Delete(entityToDelete);
                 }
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -71,6 +81,11 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>Une liste d'Entity qui corresponde à la requête</returns>
         public IEnumerable<TEntity> Get(System.Linq.Expressions.Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
+            if(filter == null)
+            {
+                throw new ServiceException("La requête est null");
+            }
+
             try
             {
                 using (var context = new pigeonsEntities1())
@@ -78,9 +93,9 @@ namespace PigeonsLibrairy.Service.Implementation
                     return dao.Get(context, filter, orderBy, includeProperties);
                 }
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -98,11 +113,11 @@ namespace PigeonsLibrairy.Service.Implementation
                     return dao.GetByID(context, id);
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
-                     
+
         }
 
         /// <summary>
@@ -119,10 +134,10 @@ namespace PigeonsLibrairy.Service.Implementation
                 {
                     return dao.GetBy(context, columnName, value);
                 }
-            }            
-            catch(Exception ex) when (ex is DAOException)
+            }
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -139,10 +154,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     dao.Insert(context, entity);
                 }
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }                      
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -158,10 +173,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     dao.Update(context, entityToUpdate);
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }            
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -177,10 +192,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     return dao.GetAll(context);
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }                     
+                throw new ServiceException(daoException.Message);
+            }
         }
     }
 }

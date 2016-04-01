@@ -9,6 +9,9 @@ using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
+    /// <summary>
+    /// Service pour la table Following (<see cref="following"/>)
+    /// </summary>
     public class FollowingService : Service<following>, IFollowingService
     {
         private IFollowingDAO followingDAO;
@@ -95,9 +98,9 @@ namespace PigeonsLibrairy.Service.Implementation
                     context.SaveChanges();
                 }
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -160,9 +163,9 @@ namespace PigeonsLibrairy.Service.Implementation
                     return true;
                 }                
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -197,10 +200,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     return followingDAO.GetTheFollowers(context, groupID);
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }           
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -241,10 +244,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     return adminValidation[0].Is_admin;
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }                        
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -272,10 +275,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     return followingDAO.GetBy(context, columnName, value);
                 }                    
             }
-            catch (Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
-            }            
+                throw new ServiceException(daoException.Message);
+            }
         }
     }
 }

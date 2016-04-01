@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace PigeonsLibrairy.Facade.Interface
 {
     /// <summary>
-    /// Interface pour le HomeFacade
-    /// Rend accessible toutes les fonctions nécessaires lorsqu'un utilisateur accède au site, avant de rentrer dans son dashboard
+    /// Interface pour la classe <see cref="Implementation.HomeFacade"/>
     /// </summary>
     public interface IHomeFacade : IFacade
     {

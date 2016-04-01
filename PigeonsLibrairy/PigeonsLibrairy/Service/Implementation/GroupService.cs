@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
+    /// <summary>
+    /// Service pour la table Group (<see cref="group"/>)
+    /// </summary>
     public class GroupService : Service<group>, IGroupService
     {
         private GroupDAO groupDAO { get; set; }
@@ -67,9 +70,9 @@ namespace PigeonsLibrairy.Service.Implementation
                     return newGroup;
                 }
             }
-            catch(Exception ex) when (ex is DAOException)
+            catch (DAOException daoException)
             {
-                throw new ServiceException(ex.Message);
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -86,22 +89,29 @@ namespace PigeonsLibrairy.Service.Implementation
             }
 
             IList<group> personGroups = new List<group>();
-            IList<following> personFollowings = new List<following>();           
+            IList<following> personFollowings = new List<following>();
 
-            using(var context = new pigeonsEntities1())
+            try
             {
-                // Getting the list of followings
-                personFollowings = (followingDAO.GetPersonFollowingGroups(context, personID)).ToList();
-
-                if (personFollowings.Count() > 0)
+                using (var context = new pigeonsEntities1())
                 {
-                    foreach (following followingGroup in personFollowings)
+                    // Getting the list of followings
+                    personFollowings = (followingDAO.GetPersonFollowingGroups(context, personID)).ToList();
+
+                    if (personFollowings.Count() > 0)
                     {
-                        personGroups.Add(followingGroup.group);
+                        foreach (following followingGroup in personFollowings)
+                        {
+                            personGroups.Add(followingGroup.group);
+                        }
                     }
                 }
-            }            
-            return personGroups;
+                return personGroups;
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -195,17 +205,27 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>The groups we are searching. An empty list of none are found</returns>
         public new IEnumerable<group> GetBy(string columnName, object value)
         {
-            if(columnName != "" && value != null)
+            if (columnName == null || columnName == "")
             {
-                using(var context = new pigeonsEntities1())
-                {                    
+                throw new ServiceException("La valeur de la colonne ne doit pas être null");
+            }
+
+            if (value == null || (string)value == "")
+            {
+                throw new ServiceException("La valeur recherchée ne peut pas être null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
                     return groupDAO.GetBy(context, columnName, value);
                 }
             }
-            else
+            catch (DAOException daoException)
             {
-                throw new ServiceException("You must provid the column name and a value");
-            }                                    
+                throw new ServiceException(daoException.Message);
+            }                                  
         }        
     }
 }

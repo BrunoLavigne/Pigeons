@@ -3,16 +3,20 @@ using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using System.Collections.Generic;
-using System.Linq;
-using System;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
+    /// <summary>
+    /// Service pour la table Projet (see<see cref="project"/>)
+    /// </summary>
     public class ProjectService : Service<project>, IProjectService
     {
         private ProjectDAO projectDAO { get; set; }
         private GroupDAO groupDAO { get; set; }
 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public ProjectService() : base()
         {
             projectDAO = new ProjectDAO();
@@ -37,10 +41,11 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("Le ID du groupe est null");
             }
 
-            using(var context = new pigeonsEntities1())
+            try
             {
-                try
+                using (var context = new pigeonsEntities1())
                 {
+
                     group groupValidation = groupDAO.GetByID(context, groupID);
 
                     if (groupValidation == null)
@@ -57,11 +62,11 @@ namespace PigeonsLibrairy.Service.Implementation
                     context.SaveChanges();
                     return aProject;
                 }
-                catch(DAOException daoException)
-                {
-                    throw new ServiceException(daoException.Message);
-                }                
             }
+            catch(DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }                
         }
 
         /// <summary>
@@ -93,17 +98,27 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="value">La valeur recherchée</param>
         /// <returns>Une liste de project ou un liste vide si aucune project n'ai trouvé</returns>
         public new IEnumerable<project> GetBy(string columnName, object value)
-        {        
-            if (columnName != "" && value != null)
+        {
+            if (columnName == null || columnName == "")
             {
-                using(var context = new pigeonsEntities1())
-                {                   
+                throw new ServiceException("La valeur de la colonne ne doit pas être null");
+            }
+
+            if (value == null || (string)value == "")
+            {
+                throw new ServiceException("La valeur recherchée ne peut pas être null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
                     return projectDAO.GetBy(context, columnName, value);
                 }
             }
-            else
+            catch (DAOException daoException)
             {
-                throw new ServiceException("You must provid the column name and a value");
+                throw new ServiceException(daoException.Message);
             }
         }
     }

@@ -1,17 +1,20 @@
 ﻿using PigeonsLibrairy.Facade.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PigeonsLibrairy.Model;
-using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Log;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
+    /// <summary>
+    /// Facade offrant les service pour les pages de group
+    /// </summary>
     public class GroupFacade : Facade, IGroupFacade
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public GroupFacade() : base() {}
 
         /// <summary>
@@ -25,8 +28,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -43,7 +47,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
             }
         }
 
@@ -53,9 +58,10 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 return mainControl.GroupService.CloseGroup(adminID, groupID);
             }
-            catch(ServiceException serviceException)
+            catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
             }
         }
 
@@ -68,10 +74,10 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 mainControl.FollowingService.AddPersonToGroup(adminID, personToAddID, groupID);
             }
-            catch(ServiceException serviceException)
+            catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+            }
         }
 
         /// <summary>
@@ -85,8 +91,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -100,7 +107,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
             }
         }
         
@@ -115,7 +123,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
 
@@ -130,7 +139,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
             }
         }
 
@@ -147,7 +157,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
 
@@ -159,7 +170,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
 
@@ -175,7 +187,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
     }

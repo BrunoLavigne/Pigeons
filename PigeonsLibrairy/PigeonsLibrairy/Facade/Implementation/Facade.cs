@@ -1,19 +1,23 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Facade.Interface;
+using PigeonsLibrairy.Log;
 using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
+    /// <summary>
+    /// Services partagés par toutes les Facades
+    /// </summary>
     public class Facade : IFacade
     {
         protected MainController mainControl { get; set; }
 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public Facade()
         {
             mainControl = new MainController();
@@ -30,10 +34,11 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 return mainControl.PersonService.GetByID(personID);
             }
-            catch(ServiceException serviceException)
+            catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -47,9 +52,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
-                        
         }
 
         /// <summary>
@@ -60,17 +65,17 @@ namespace PigeonsLibrairy.Facade.Implementation
             try
             {
                 return mainControl.PersonService.UpdatePerson(personID, personToUpdate);
-            }            
+            }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         #endregion Person
 
         #region Group
-
 
         /// <summary>
         /// Recherche d'un groupe selon son ID
@@ -83,7 +88,8 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
 

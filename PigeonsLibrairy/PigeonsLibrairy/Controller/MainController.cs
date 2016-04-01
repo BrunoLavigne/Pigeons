@@ -1,12 +1,11 @@
-﻿using PigeonsLibrairy.DAO.Implementation;
-using PigeonsLibrairy.Exceptions;
-using PigeonsLibrairy.Model;
-using PigeonsLibrairy.Service.Implementation;
+﻿using PigeonsLibrairy.Service.Implementation;
 using PigeonsLibrairy.Service.Interface;
-using System;
 
 namespace PigeonsLibrairy.Controller
 {
+    /// <summary>
+    /// Controlleur regroupant tout les services
+    /// </summary>
     public class MainController
     {       
         private IMessageService messageService;        
@@ -18,7 +17,7 @@ namespace PigeonsLibrairy.Controller
         private ITypeService typeService;
 
         /// <summary>
-        /// Création du Service pour la table Person
+        /// Création du Service pour la table <see cref="Model.person"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public IPersonService PersonService
@@ -34,7 +33,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Message
+        /// Création du Service pour la table <see cref="Model.message"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public IMessageService MessageService
@@ -50,7 +49,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Group
+        /// Création du Service pour la table <see cref="Model.group"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public IGroupService GroupService
@@ -66,7 +65,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Following
+        /// Création du Service pour la table <see cref="Model.following"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public IFollowingService FollowingService
@@ -82,7 +81,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Events
+        /// Création du Service pour la table <see cref="Model.project"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public IProjectService ProjectService
@@ -98,7 +97,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Task
+        /// Création du Service pour la table <see cref="Model.task"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public ITaskService TaskService
@@ -114,7 +113,7 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table Type
+        /// Création du Service pour la table <see cref="Model.type"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
         public ITypeService TypeService
