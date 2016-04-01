@@ -153,7 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
     <EntityDeploy Include="Model\PigeonsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PigeonsModel.Designer.cs</LastGenOutput>
@@ -161,6 +160,7 @@
     <None Include="Model\PigeonsModel.edmx.diagram">
       <DependentUpon>PigeonsModel.edmx</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="PigeonsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
