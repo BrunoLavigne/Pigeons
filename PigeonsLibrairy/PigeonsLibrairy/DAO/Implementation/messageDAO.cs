@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class MessageDAO : DAO<message>, IMessageDAO
+    class MessageDAO : DAO<message>, IMessageDAO
     {
         public MessageDAO() : base()
         {            

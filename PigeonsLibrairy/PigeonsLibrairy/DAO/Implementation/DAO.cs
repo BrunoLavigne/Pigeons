@@ -4,39 +4,40 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class DAO<TEntity> : IDAO<TEntity> where TEntity : class
+    class DAO<TEntity> : IDAO<TEntity> where TEntity : class
     {
 
         public DAO() { }
 
         /// <summary>
-        /// Retreive an Entity from the Database
+        /// Recherche une Entity dans la base de donnée par sa clé primaire
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="id">The ID of the Entity we are searching</param>
-        /// <returns>The Entity or null</returns>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="id">Le ID de l'entity recherchée</param>
+        /// <returns>L'Entity ou null</returns>
         public virtual TEntity GetByID(pigeonsEntities1 context, object id)
         {
             try
             {
                 return context.Set<TEntity>().Find(id);
             }   
-            catch(ArgumentException argumentException)
+            catch(Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(argumentException.Message);
+                throw new DAOException("Erreur dans le GetByID du DAO" + ex.Message);
             }              
         }
-        
+
         /// <summary>
-        /// Delete an Entity from the Database using his ID
+        /// Efface un Entity de la base de données par sa clé primaire
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="id">The ID of the Entity to delete</param>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="id">Le ID de l'Entity à effacer</param>
         public virtual void Delete(pigeonsEntities1 context, object id)
         {
             try
@@ -44,17 +45,17 @@ namespace PigeonsLibrairy.DAO.Implementation
                 TEntity entityToDelete = context.Set<TEntity>().Find(id);
                 Delete(context, entityToDelete);
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
-            }                        
+                throw new DAOException("Erreur dans le Delete du DAO" + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Delete an Entity from the Database
+        /// Efface une entity de la base de donnée
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="entityToDelete">The Entity to delete</param>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="entityToDelete">L'Entity à effacer</param>
         public virtual void Delete(pigeonsEntities1 context, TEntity entityToDelete)
         {
             try
@@ -65,34 +66,34 @@ namespace PigeonsLibrairy.DAO.Implementation
                 }
                 context.Set<TEntity>().Remove(entityToDelete);
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
+                throw new DAOException("Erreur dans le Delete du DAO" + ex.Message);
             }
         }
 
         /// <summary>
-        /// Insert an Entity in the Database
+        /// Insert une Entity dans la base de donnée
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="entity">The Entity to insert</param>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="entity">L'Entity qui doit être inséré</param>
         public virtual void Insert(pigeonsEntities1 context, TEntity entity)
         {
             try
             {
                 context.Set<TEntity>().Add(entity);
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
-            }            
+                throw new DAOException("Erreur dans le Insert du DAO" + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Update an Entity from the Database
+        /// Mise à jour d'une Entity dans la base de donnée
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="entityToUpdate">The Entity to update</param>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="entityToUpdate">L'Entity à updater</param>
         public virtual void Update(pigeonsEntities1 context, TEntity entityToUpdate)
         {
             try
@@ -100,38 +101,39 @@ namespace PigeonsLibrairy.DAO.Implementation
                 context.Set<TEntity>().Attach(entityToUpdate);
                 context.Entry(entityToUpdate).State = EntityState.Modified;
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
+                throw new DAOException("Erreur dans le Update du DAO" + ex.Message);
             }
         }
 
         /// <summary>
-        /// Get an Entity from the Database by searching a value that match in a specific column
+        /// Recherche une Entity dans la base de donnée à partir d'une valeur dans une colonne donnée
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <param name="columnName">The name of the column to search in</param>
-        /// <param name="value">The value to search</param>
-        /// <returns>A list with the Entity match the query</returns>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="columnName">Le nom de la colonne dans la table</param>
+        /// <param name="value">La valeur à rechercher</param>
+        /// <returns>Une liste d'Entity qui correspond à la recherche. Une liste vide sinon.</returns>
         public IEnumerable<TEntity> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             try
             {
                 return new List<TEntity>();
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
-            }            
+                throw new DAOException("Erreur dans le GetBy du DAO" + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Retreive an Entity from the Database by a query
+        /// Recherche d'une Entity dans la base de donnée à partir d'une requête Linq
         /// </summary>
-        /// <param name="filter">The Query</param>
-        /// <param name="orderBy">The column to use to order</param>
-        /// <param name="includeProperties">If we want to add soma data to the returned Entity (Because LazyLoading is True)</param>
-        /// <returns>A list matching the query or null</returns>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <param name="filter">La requête</param>
+        /// <param name="orderBy">La colonne utilisé pour trier les résultats</param>
+        /// <param name="includeProperties">Pour inclure une autre table dans le résultat (LazyLoading = False)</param>
+        /// <returns>Une liste d'Entity qui correspond à la requête. Une liste vide sinon.</returns>
         public virtual IEnumerable<TEntity> Get(
             pigeonsEntities1 context,
             Expression<Func<TEntity, bool>> filter = null,
@@ -162,27 +164,27 @@ namespace PigeonsLibrairy.DAO.Implementation
                     return query.AsNoTracking().ToList();
                 }
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
-            }            
+                throw new DAOException("Erreur dans le Get du DAO" + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Retreive all the Entity from a specific table
+        /// Recherche de toute les Entity contenu dans une table
         /// </summary>
-        /// <param name="context">The connection to the database</param>
-        /// <returns>A list with all the Entites from the table</returns>
+        /// <param name="context">La connection vers la base de données</param>
+        /// <returns>Une liste avec tout les Entity de la table</returns>
         public virtual IEnumerable<TEntity> GetAll(pigeonsEntities1 context)
         {
             try
             {
                 return context.Set<TEntity>().AsNoTracking().ToList();
             }
-            catch(Exception exception)
+            catch (Exception ex) when (ex is ArgumentException || ex is EntityException)
             {
-                throw new DAOException(exception.Message);
-            }            
+                throw new DAOException("Erreur dans le GetAll du DAO" + ex.Message);
+            }
         }
     }
 }

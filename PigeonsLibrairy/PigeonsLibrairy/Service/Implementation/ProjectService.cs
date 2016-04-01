@@ -98,7 +98,7 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 using(var context = new pigeonsEntities1())
                 {                   
-                    return dao.GetBy(context, columnName, value);
+                    return projectDAO.GetBy(context, columnName, value);
                 }
             }
             else

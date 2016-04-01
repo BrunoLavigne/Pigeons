@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PigeonsLibrairy.Model;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    public interface IProjectDAO
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.ProjectDAO"/>
+    /// </summary>
+    interface IProjectDAO : IDAO<project>
     {
     }
 }

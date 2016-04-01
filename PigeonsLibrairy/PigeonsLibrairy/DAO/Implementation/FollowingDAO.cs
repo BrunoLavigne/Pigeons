@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class FollowingDAO : DAO<following>, IFollowingDAO
+    class FollowingDAO : DAO<following>, IFollowingDAO
     {
         public FollowingDAO() : base() { }
 

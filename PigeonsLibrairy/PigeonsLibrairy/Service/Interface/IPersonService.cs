@@ -5,7 +5,7 @@ namespace PigeonsLibrairy.Service.Interface
 {
 
     /// <summary>
-    /// Interface pour les services sur la table person
+    /// Interface pour la classe <see cref="Implementation.PersonService"/>
     /// </summary>
     public interface IPersonService : IService<person>
     {

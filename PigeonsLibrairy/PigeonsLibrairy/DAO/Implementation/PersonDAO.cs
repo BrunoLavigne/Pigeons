@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class PersonDAO : DAO<person>, IPersonDAO
+    class PersonDAO : DAO<person>, IPersonDAO
     {
         public PersonDAO() : base() {}
 

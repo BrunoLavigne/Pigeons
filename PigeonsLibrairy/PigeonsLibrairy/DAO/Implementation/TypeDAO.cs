@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class TypeDAO : DAO<type>, ITypeDAO
+    class TypeDAO : DAO<type>, ITypeDAO
     {
         public TypeDAO() : base() { }
 

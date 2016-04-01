@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class GroupDAO : DAO<group>, IGroupDAO
+    class GroupDAO : DAO<group>, IGroupDAO
     {
         public GroupDAO() : base() { }
 

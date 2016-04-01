@@ -28,7 +28,6 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="personId">The ID of the person creating the group</param>
         public group CreateNewGroupAndRegister(group newGroup, object personId)
         {
-
             if(newGroup == null)
             {
                 throw new ServiceException("The group is null");
@@ -39,10 +38,10 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The personID is null");
             }
 
-            using(var context = new pigeonsEntities1())
-            using(var dbContextTransaction = context.Database.BeginTransaction())
+            try
             {
-                try
+                using (var context = new pigeonsEntities1())
+                using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
                     newGroup.Creation_date = DateTime.Now;
                     newGroup.Is_active = true;
@@ -52,12 +51,12 @@ namespace PigeonsLibrairy.Service.Implementation
                     context.SaveChanges();
 
                     // Creating the following
-                    following personIsFollowing     = new following();
-                    personIsFollowing.Person_Id     = (int) personId;
-                    personIsFollowing.Group_id      = newGroup.Id; // The id of the group can be retreived right away without querying the DB
-                    personIsFollowing.Is_active     = true;
-                    personIsFollowing.Is_admin      = true;
-                    personIsFollowing.Last_checkin  = DateTime.Now;
+                    following personIsFollowing = new following();
+                    personIsFollowing.Person_Id = (int)personId;
+                    personIsFollowing.Group_id = newGroup.Id; // The id of the group can be retreived right away without querying the DB
+                    personIsFollowing.Is_active = true;
+                    personIsFollowing.Is_admin = true;
+                    personIsFollowing.Last_checkin = DateTime.Now;
 
                     // Inserting the following
                     followingDAO.Insert(context, personIsFollowing);
@@ -67,12 +66,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     dbContextTransaction.Commit();
                     return newGroup;
                 }
-                catch(Exception)
-                {
-                    // Something went wrong so we are rollbacking the db
-                    dbContextTransaction.Rollback();
-                }
-                return null;             
+            }
+            catch(Exception ex) when (ex is DAOException)
+            {
+                throw new ServiceException(ex.Message);
             }
         }
 

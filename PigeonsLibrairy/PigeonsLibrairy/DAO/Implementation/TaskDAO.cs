@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
-    public class TaskDAO : DAO<task>, ITaskDAO
+    class TaskDAO : DAO<task>, ITaskDAO
     {
         public TaskDAO() : base() { }
 
