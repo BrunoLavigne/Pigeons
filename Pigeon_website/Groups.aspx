@@ -18,10 +18,12 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="Group-item">
                             <div class="group-title">
-                                <asp:Label ID="lblGroupName" runat="server" Text='<%#Eval("name") %>' />
+                                <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
+                                    <asp:Label ID="lblGroupName" runat="server" Text='<%# Eval("name") %>' />
+                                </asp:HyperLink>
                             </div>
                             <div class="group-since">
-                                Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%#Eval("creation_date") %>' />
+                                Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
                             </div>
                             <div class="group-description">
                                 <asp:Label ID="lblGroupDescription" runat="Server" Text='<%#Eval("description") %>' />
