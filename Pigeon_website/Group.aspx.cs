@@ -2,6 +2,7 @@
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -45,6 +46,7 @@ public partial class Group : System.Web.UI.Page
         }
     }
 
+    // On devrait plus passer un groupe
     protected void renderGroupToPage(int groupId)
     {
 
@@ -57,6 +59,19 @@ public partial class Group : System.Web.UI.Page
         {
             theGroup = gf.GetGroupByID(groupId);
             lblTest.Text = theGroup.Creation_date + " --- " + theGroup.Description;
+
+
+            lblGroupName.Text = theGroup.Name;
+            lblGroupDescription.Text = theGroup.Description;
+
+            CultureInfo frCA = new CultureInfo("fr-CA");
+
+            lblGroupDateCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.LongDatePattern, frCA);
+            lblGroupTimeCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.ShortDatePattern, frCA);
+
+            // render messages to page
+            messagesListView.DataSource = gf.GetGroupMessages(groupId);
+            messagesListView.DataBind();
 
         } catch(Exception e)
         {
