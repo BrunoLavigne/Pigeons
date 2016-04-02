@@ -115,7 +115,7 @@
 /* In groups page */
 
 .Group-presentation {
-    background: white;
+    background: #f8f8f8;
 }
 .Group-presentation .picture-container {
     padding: 32px 15px 20px 15px;
@@ -141,6 +141,40 @@ img.media-object {
     border-radius: 50%;
 }
 
+
+.Toggler, .Toggler:hover, .Toggler:focus {
+    text-decoration: none;
+    color: black;
+}
+.Toggler-container {
+    padding: 20px;
+    border-radius: 4px;
+    background: #f8f8f8;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+.Toggler-container:hover, .Toggler-container:focus {
+    cursor: pointer;
+}
+.Toggler-container i {
+    float: right;
+}
+
+.Group-messages-container {
+    position: relative;
+}
+
 .Group-message {
+
+    /*display: none;*/
+
     margin-top: 10px;
+    padding: 40px;
+    background: #f8f8f8;
+    border-radius: 4px;
+
+    -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
+    -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
+    box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
 }

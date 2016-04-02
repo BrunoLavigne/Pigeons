@@ -73,6 +73,22 @@ public partial class Group : System.Web.UI.Page
             messagesListView.DataSource = gf.GetGroupMessages(groupId);
             messagesListView.DataBind();
 
+            // render todos to page
+            // test for now
+            List<task> taskList = new List<task>();
+
+            task task1 = new task();
+
+            task1.Description = "Finir le frontend";
+            task1.Date_due = DateTime.Now;
+
+            task1.Is_completed = false;
+            // ...
+
+            taskList.Add(task1);
+            todosListView.DataSource = taskList;
+            todosListView.DataBind();
+
         } catch(Exception e)
         {
             lblTest.Text = "Group not found: " + e.Message;
