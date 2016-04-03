@@ -41,6 +41,10 @@
 
     <!-- import global ux -->
     <script type="text/javascript" src="Resources/js/ux/global.js"></script>
+
+
+    <!-- Import page-specific js (Todo: include only in group.aspx, but make sure imported after master page) -->
+    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
     
 </body>
 </html>

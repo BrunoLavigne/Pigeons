@@ -87,9 +87,5 @@
 
     </div><!-- ./container -->
 
-
-    
-
-
 </asp:Content>
 
