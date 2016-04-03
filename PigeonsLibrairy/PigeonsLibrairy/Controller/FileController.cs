@@ -1,8 +1,9 @@
-﻿using System;
+﻿using PigeonsLibrairy.Exceptions;
+using System;
 using System.IO;
 using System.Web;
 
-namespace PigeonFileController
+namespace PigeonsLibrairy.Controller
 {
     /// <summary>
     /// Controller for file uploads
@@ -34,7 +35,7 @@ namespace PigeonFileController
         /// <param name="fileByteArray">a Byte array of the file itself</param>
         /// <param name="fileExtension">a string of the original file's extension</param>
         /// <returns>a FileInfo Object of the saved file, null if exception.</returns>
-        protected FileInfo saveByteFile(Byte[] fileByteArray, string fileExtension)
+        public FileInfo saveByteFile(Byte[] fileByteArray, string fileExtension)
         {
             FileInfo savedFileInfo = null;
             try
@@ -58,7 +59,7 @@ namespace PigeonFileController
             }
             catch (Exception error)
             {
-                // bla bla bla exception handling...
+                throw new ControllerException(error.Message);
             }
             return savedFileInfo;
         }
@@ -68,7 +69,7 @@ namespace PigeonFileController
         /// </summary>
         /// <param name="fileName">The file name / integer code to lookup and retrieve.</param>
         /// <returns>A FileInfo object representing the file information on the server (path and such).</returns>
-        protected FileInfo getFileByName(string fileName)
+        public FileInfo getFileByName(string fileName)
         {
             FileInfo fileToGet = null;
             try
