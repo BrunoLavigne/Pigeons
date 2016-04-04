@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" %>
+<%@ Register TagPrefix="uc" TagName="NewGroupMessageModal" Src="~/Partials/NewGroupMessageModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -44,7 +45,11 @@
 
         <!-- Messages section -->
         <a id="Group-messages-toggler" class="Toggler">
-            <div class="Toggler-container">Messages <i class="glyphicon glyphicon-collapse-down"></i></i></div>
+            <div class="Toggler-container">Messages <i class="glyphicon glyphicon-collapse-down"></i></div>
+        </a>
+
+        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
+            Nouveau message
         </a>
 
         <div class="Group-messages-container">
@@ -86,6 +91,10 @@
 
 
     </div><!-- ./container -->
+
+
+    <!-- Connection modal -->
+    <uc:NewGroupMessageModal runat="server" ID="newGroupMessageModal"></uc:NewGroupMessageModal>
 
 </asp:Content>
 
