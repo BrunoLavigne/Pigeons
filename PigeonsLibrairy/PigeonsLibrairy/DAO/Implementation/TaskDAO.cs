@@ -16,7 +16,31 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// </summary>
     class TaskDAO : DAO<task>, ITaskDAO
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public TaskDAO() : base() { }
+
+        /// <summary>
+        /// Recherche des Task qui ne sont pas compétés
+        /// </summary>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
+        public IEnumerable<task> GetAvailableTask(object groupID)
+        {
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    Expression<Func<task, bool>> filter = (t => t.Group_ID == (int)groupID && !t.Is_completed);
+                    return Get(context, filter).OrderBy(t => t.Task_Start);
+                }                
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Get a task by searching a value in a column

@@ -58,22 +58,14 @@
             this.txtRemoveFollowerResult = new System.Windows.Forms.TextBox();
             this.btnCloseGroup = new System.Windows.Forms.Button();
             this.txtGroupCloseResult = new System.Windows.Forms.TextBox();
-            this.btnAddProject = new System.Windows.Forms.Button();
-            this.cbProjectType = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.btnAddTask = new System.Windows.Forms.Button();
             this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.rtb_ProjectDesc = new System.Windows.Forms.RichTextBox();
+            this.rtb_TaskDesc = new System.Windows.Forms.RichTextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.dataGridView_Projects = new System.Windows.Forms.DataGridView();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Début = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkStart = new System.Windows.Forms.CheckBox();
-            this.checkEnd = new System.Windows.Forms.CheckBox();
+            this.dataGridView_Task = new System.Windows.Forms.DataGridView();
             this.btn_ShowTasks = new System.Windows.Forms.Button();
             this.btn_CreateEvent = new System.Windows.Forms.Button();
             this.txtEventDescription = new System.Windows.Forms.RichTextBox();
@@ -91,8 +83,15 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btn_pic = new System.Windows.Forms.Button();
+            this.txtTaskID = new System.Windows.Forms.TextBox();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Début = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.is_completed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCompletedTask = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Projects)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Task)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_events)).BeginInit();
             this.SuspendLayout();
             // 
@@ -316,7 +315,7 @@
             // btnDeleteFollower
             // 
             this.btnDeleteFollower.Location = new System.Drawing.Point(372, 77);
-            this.btnDeleteFollower.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDeleteFollower.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteFollower.Name = "btnDeleteFollower";
             this.btnDeleteFollower.Size = new System.Drawing.Size(207, 24);
             this.btnDeleteFollower.TabIndex = 22;
@@ -335,7 +334,7 @@
             // btnCloseGroup
             // 
             this.btnCloseGroup.Location = new System.Drawing.Point(592, 76);
-            this.btnCloseGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCloseGroup.Margin = new System.Windows.Forms.Padding(2);
             this.btnCloseGroup.Name = "btnCloseGroup";
             this.btnCloseGroup.Size = new System.Drawing.Size(207, 24);
             this.btnCloseGroup.TabIndex = 24;
@@ -351,53 +350,38 @@
             this.txtGroupCloseResult.Size = new System.Drawing.Size(209, 20);
             this.txtGroupCloseResult.TabIndex = 25;
             // 
-            // btnAddProject
+            // btnAddTask
             // 
-            this.btnAddProject.Location = new System.Drawing.Point(936, 17);
-            this.btnAddProject.Name = "btnAddProject";
-            this.btnAddProject.Size = new System.Drawing.Size(106, 29);
-            this.btnAddProject.TabIndex = 26;
-            this.btnAddProject.Text = "Add a project";
-            this.btnAddProject.UseVisualStyleBackColor = true;
-            this.btnAddProject.Click += new System.EventHandler(this.btnAddProject_Click);
-            // 
-            // cbProjectType
-            // 
-            this.cbProjectType.FormattingEnabled = true;
-            this.cbProjectType.Location = new System.Drawing.Point(905, 52);
-            this.cbProjectType.Name = "cbProjectType";
-            this.cbProjectType.Size = new System.Drawing.Size(166, 21);
-            this.cbProjectType.TabIndex = 27;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(862, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 13);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "Type :";
+            this.btnAddTask.Location = new System.Drawing.Point(936, 17);
+            this.btnAddTask.Name = "btnAddTask";
+            this.btnAddTask.Size = new System.Drawing.Size(106, 29);
+            this.btnAddTask.TabIndex = 26;
+            this.btnAddTask.Text = "Add a task";
+            this.btnAddTask.UseVisualStyleBackColor = true;
+            this.btnAddTask.Click += new System.EventHandler(this.btnAddTask_Click);
             // 
             // dateTimePicker_start
             // 
-            this.dateTimePicker_start.Location = new System.Drawing.Point(905, 79);
-            this.dateTimePicker_start.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker_start.Location = new System.Drawing.Point(905, 55);
+            this.dateTimePicker_start.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_start.Name = "dateTimePicker_start";
+            this.dateTimePicker_start.ShowCheckBox = true;
             this.dateTimePicker_start.Size = new System.Drawing.Size(166, 20);
             this.dateTimePicker_start.TabIndex = 29;
             // 
             // dateTimePicker_end
             // 
-            this.dateTimePicker_end.Location = new System.Drawing.Point(905, 105);
-            this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(905, 81);
+            this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
+            this.dateTimePicker_end.ShowCheckBox = true;
             this.dateTimePicker_end.Size = new System.Drawing.Size(166, 20);
             this.dateTimePicker_end.TabIndex = 30;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(858, 80);
+            this.label11.Location = new System.Drawing.Point(858, 56);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(42, 13);
             this.label11.TabIndex = 31;
@@ -406,87 +390,48 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(871, 105);
+            this.label12.Location = new System.Drawing.Point(871, 81);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
             this.label12.TabIndex = 32;
             this.label12.Text = "Fin :";
             // 
-            // rtb_ProjectDesc
+            // rtb_TaskDesc
             // 
-            this.rtb_ProjectDesc.Location = new System.Drawing.Point(905, 128);
-            this.rtb_ProjectDesc.Name = "rtb_ProjectDesc";
-            this.rtb_ProjectDesc.Size = new System.Drawing.Size(166, 64);
-            this.rtb_ProjectDesc.TabIndex = 33;
-            this.rtb_ProjectDesc.Text = "";
+            this.rtb_TaskDesc.Location = new System.Drawing.Point(905, 111);
+            this.rtb_TaskDesc.Name = "rtb_TaskDesc";
+            this.rtb_TaskDesc.Size = new System.Drawing.Size(166, 64);
+            this.rtb_TaskDesc.TabIndex = 33;
+            this.rtb_TaskDesc.Text = "";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(832, 128);
+            this.label13.Location = new System.Drawing.Point(832, 114);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(66, 13);
             this.label13.TabIndex = 34;
             this.label13.Text = "Description :";
             // 
-            // dataGridView_Projects
+            // dataGridView_Task
             // 
-            this.dataGridView_Projects.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView_Projects.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders;
-            this.dataGridView_Projects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Projects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView_Task.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_Task.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders;
+            this.dataGridView_Task.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Task.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.Description,
-            this.Type,
             this.Début,
-            this.Fin});
-            this.dataGridView_Projects.Location = new System.Drawing.Point(834, 228);
-            this.dataGridView_Projects.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dataGridView_Projects.Name = "dataGridView_Projects";
-            this.dataGridView_Projects.RowTemplate.Height = 33;
-            this.dataGridView_Projects.Size = new System.Drawing.Size(304, 163);
-            this.dataGridView_Projects.TabIndex = 35;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            // 
-            // Début
-            // 
-            this.Début.HeaderText = "Début";
-            this.Début.Name = "Début";
-            // 
-            // Fin
-            // 
-            this.Fin.HeaderText = "Fin";
-            this.Fin.Name = "Fin";
-            // 
-            // checkStart
-            // 
-            this.checkStart.AutoSize = true;
-            this.checkStart.Location = new System.Drawing.Point(1078, 80);
-            this.checkStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.checkStart.Name = "checkStart";
-            this.checkStart.Size = new System.Drawing.Size(64, 17);
-            this.checkStart.TabIndex = 36;
-            this.checkStart.Text = "No date";
-            this.checkStart.UseVisualStyleBackColor = true;
-            // 
-            // checkEnd
-            // 
-            this.checkEnd.AutoSize = true;
-            this.checkEnd.Location = new System.Drawing.Point(1078, 105);
-            this.checkEnd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.checkEnd.Name = "checkEnd";
-            this.checkEnd.Size = new System.Drawing.Size(64, 17);
-            this.checkEnd.TabIndex = 37;
-            this.checkEnd.Text = "No date";
-            this.checkEnd.UseVisualStyleBackColor = true;
+            this.Fin,
+            this.is_completed});
+            this.dataGridView_Task.Location = new System.Drawing.Point(834, 228);
+            this.dataGridView_Task.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView_Task.Name = "dataGridView_Task";
+            this.dataGridView_Task.RowTemplate.Height = 33;
+            this.dataGridView_Task.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_Task.Size = new System.Drawing.Size(304, 163);
+            this.dataGridView_Task.TabIndex = 35;
+            this.dataGridView_Task.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Task_CellContentClick);
             // 
             // btn_ShowTasks
             // 
@@ -496,6 +441,7 @@
             this.btn_ShowTasks.TabIndex = 38;
             this.btn_ShowTasks.Text = "show";
             this.btn_ShowTasks.UseVisualStyleBackColor = true;
+            this.btn_ShowTasks.Click += new System.EventHandler(this.btn_ShowTasks_Click);
             // 
             // btn_CreateEvent
             // 
@@ -630,11 +576,57 @@
             this.btn_pic.UseVisualStyleBackColor = true;
             this.btn_pic.Click += new System.EventHandler(this.btn_pic_Click);
             // 
+            // txtTaskID
+            // 
+            this.txtTaskID.Enabled = false;
+            this.txtTaskID.Location = new System.Drawing.Point(835, 423);
+            this.txtTaskID.Name = "txtTaskID";
+            this.txtTaskID.Size = new System.Drawing.Size(103, 20);
+            this.txtTaskID.TabIndex = 51;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // Début
+            // 
+            this.Début.HeaderText = "Début";
+            this.Début.Name = "Début";
+            // 
+            // Fin
+            // 
+            this.Fin.HeaderText = "Fin";
+            this.Fin.Name = "Fin";
+            // 
+            // is_completed
+            // 
+            this.is_completed.HeaderText = "is_completed";
+            this.is_completed.Name = "is_completed";
+            // 
+            // btnCompletedTask
+            // 
+            this.btnCompletedTask.Location = new System.Drawing.Point(944, 423);
+            this.btnCompletedTask.Name = "btnCompletedTask";
+            this.btnCompletedTask.Size = new System.Drawing.Size(194, 21);
+            this.btnCompletedTask.TabIndex = 52;
+            this.btnCompletedTask.Text = "Set task as completed";
+            this.btnCompletedTask.UseVisualStyleBackColor = true;
+            this.btnCompletedTask.Click += new System.EventHandler(this.btnCompletedTask_Click);
+            // 
             // GroupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1459, 519);
+            this.Controls.Add(this.btnCompletedTask);
+            this.Controls.Add(this.txtTaskID);
             this.Controls.Add(this.btn_pic);
             this.Controls.Add(this.btn_ShowEvents);
             this.Controls.Add(this.dataGridView_events);
@@ -648,18 +640,14 @@
             this.Controls.Add(this.txtEventDescription);
             this.Controls.Add(this.btn_CreateEvent);
             this.Controls.Add(this.btn_ShowTasks);
-            this.Controls.Add(this.checkEnd);
-            this.Controls.Add(this.checkStart);
-            this.Controls.Add(this.dataGridView_Projects);
+            this.Controls.Add(this.dataGridView_Task);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.rtb_ProjectDesc);
+            this.Controls.Add(this.rtb_TaskDesc);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.dateTimePicker_end);
             this.Controls.Add(this.dateTimePicker_start);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.cbProjectType);
-            this.Controls.Add(this.btnAddProject);
+            this.Controls.Add(this.btnAddTask);
             this.Controls.Add(this.txtGroupCloseResult);
             this.Controls.Add(this.btnCloseGroup);
             this.Controls.Add(this.txtRemoveFollowerResult);
@@ -689,7 +677,7 @@
             this.Name = "GroupView";
             this.Text = "GroupView";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Projects)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Task)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_events)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -728,22 +716,14 @@
         private System.Windows.Forms.TextBox txtRemoveFollowerResult;
         private System.Windows.Forms.Button btnCloseGroup;
         private System.Windows.Forms.TextBox txtGroupCloseResult;
-        private System.Windows.Forms.Button btnAddProject;
-        private System.Windows.Forms.ComboBox cbProjectType;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnAddTask;
         private System.Windows.Forms.DateTimePicker dateTimePicker_start;
         private System.Windows.Forms.DateTimePicker dateTimePicker_end;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.RichTextBox rtb_ProjectDesc;
+        private System.Windows.Forms.RichTextBox rtb_TaskDesc;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DataGridView dataGridView_Projects;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Début;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fin;
-        private System.Windows.Forms.CheckBox checkStart;
-        private System.Windows.Forms.CheckBox checkEnd;
+        private System.Windows.Forms.DataGridView dataGridView_Task;
         private System.Windows.Forms.Button btn_ShowTasks;
         private System.Windows.Forms.Button btn_CreateEvent;
         private System.Windows.Forms.RichTextBox txtEventDescription;
@@ -761,5 +741,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btn_pic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Début;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn is_completed;
+        private System.Windows.Forms.TextBox txtTaskID;
+        private System.Windows.Forms.Button btnCompletedTask;
     }
 }

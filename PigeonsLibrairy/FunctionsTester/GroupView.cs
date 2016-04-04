@@ -153,38 +153,6 @@ namespace FunctionsTester
             }
         }
 
-        /// <summary>
-        /// Test - Ajouter un project à un groupe
-        /// </summary>
-        private void btnAddProject_Click(object sender, EventArgs e)
-        {
-            DateTime projectStart = default(DateTime);
-            DateTime projectEnd = default(DateTime);
-            string selectedType = cbProjectType.SelectedText.Trim();
-            string projectDescription = rtb_ProjectDesc.Text;
-            string[] typeSplit = selectedType.Split('-');
-            string typeID = typeSplit[1];
-
-            if (!checkStart.Checked)
-            {
-                projectStart = dateTimePicker_start.Value;
-            }
-
-            if (!checkEnd.Checked)
-            {
-                projectEnd = dateTimePicker_end.Value;
-            }
-
-            //project aBrandNewProject = new project();
-            //aBrandNewProject.Description = projectDescription;
-            //aBrandNewProject.Date_start = projectStart;
-            //aBrandNewProject.Date_end = projectEnd;
-
-            //if(groupFacade.CreateNewProject(aBrandNewProject, activeGroupID) != null)
-            //{
-            //    showTheProjects();
-            //}
-        }
 
         /// <summary>
         /// Test - Ajouter un Event
@@ -206,6 +174,45 @@ namespace FunctionsTester
             }
         }
 
+        /// <summary>
+        /// Test - Création d'une Task
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddTask_Click(object sender, EventArgs e)
+        {
+            DateTime taskStart = default(DateTime);
+            DateTime tasktEnd = default(DateTime);
+            string taskDesc = rtb_TaskDesc.Text;
+
+            if (dateTimePicker_start.Checked)
+            {
+                taskStart = dateTimePicker_start.Value;
+            }
+
+            if (dateTimePicker_end.Checked)
+            {
+                tasktEnd = dateTimePicker_end.Value;
+            }
+
+            task newTask = new task();
+            newTask.Group_ID = activeGroupID;
+            newTask.Task_Start = taskStart;
+            newTask.Task_End = tasktEnd;
+            newTask.Description = taskDesc;
+
+            groupFacade.CreateNewTask(newTask, newTask.Group_ID, activePersonID);
+        }
+
+        private void btn_ShowTasks_Click(object sender, EventArgs e)
+        {
+            IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID);
+
+            foreach (task t in taskList)
+            {
+                dataGridView_Task.Rows.Add(t.Id, t.Description, t.Task_Start, t.Task_End, t.Is_completed);
+            }
+        }
 
         /// <summary>
         /// Selected the ID of a follower
@@ -260,6 +267,23 @@ namespace FunctionsTester
             {
             }
 
+        }
+
+        private void btnCompletedTask_Click(object sender, EventArgs e)
+        {
+            int taskID = int.Parse(txtTaskID.Text);
+
+            groupFacade.TaskIsCompleted(taskID);
+
+        }
+
+        private void dataGridView_Task_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedRow = dataGridView_Task.CurrentRow.Index;
+            object selectedRowID = dataGridView_Task[0, selectedRow].Value;
+            String taskid = selectedRowID.ToString();
+
+            txtTaskID.Text = taskid;
         }
     }
 }

@@ -145,51 +145,95 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         /// <summary>
+        /// Recherche de toutes les Tasks associées à un groupe
+        /// </summary>        
+        public List<task> GetGroupTasks(object groupID)
+        {
+            try
+            {
+                return mainControl.TaskService.GetAvailableTask(groupID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Création d'une nouvelle Task dans un groupe
+        /// </summary>
+        public task CreateNewTask(task newTask, object groupID, object personID)
+        {
+            try
+            {
+                return mainControl.TaskService.CreateNewTask(newTask, groupID, personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        public void TaskIsCompleted(object taskID)
+        {
+            try
+            {
+                mainControl.TaskService.TaskIsCompleted(taskID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);                
+            }
+        }
+
+        /// <summary>
         /// Ajout un nouveau projet à un groupe
         /// </summary>
         /// <param name="projectToInsert"></param>
         /// <returns></returns>
-            //public project CreateNewProject(project projectToInsert, object groupID)
-            //{
-            //    try
-            //    {
-            //        return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
-            //    }
-            //    catch (ServiceException serviceException)
-            //    {
-            //        ExceptionLog.LogTheError(serviceException.Message);
-            //        return null;
-            //    }
-            //}
+        //public project CreateNewProject(project projectToInsert, object groupID)
+        //{
+        //    try
+        //    {
+        //        return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
 
-            //public IEnumerable<project> GetProjectsFromGroup(object groupID)
-            //{
-            //    try
-            //    {
-            //        return mainControl.ProjectService.GetProjectsFromGroup(groupID);
-            //    }
-            //    catch (ServiceException serviceException)
-            //    {
-            //        ExceptionLog.LogTheError(serviceException.Message);
-            //        return null;
-            //    }
-            //}
+        //public IEnumerable<project> GetProjectsFromGroup(object groupID)
+        //{
+        //    try
+        //    {
+        //        return mainControl.ProjectService.GetProjectsFromGroup(groupID);
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Recherche de tout les types qui sont disponibles
         /// </summary>
         /// <returns></returns>
-            //public IEnumerable<type> GetAllTypes()
-            //{
-            //    try
-            //    {
-            //        return mainControl.TypeService.GetAll();
-            //    }
-            //    catch (ServiceException serviceException)
-            //    {
-            //        ExceptionLog.LogTheError(serviceException.Message);
-            //        return null;
-            //    }
-            //}
+        //public IEnumerable<type> GetAllTypes()
+        //{
+        //    try
+        //    {
+        //        return mainControl.TypeService.GetAll();
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
     }
 }

@@ -31,12 +31,12 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>Une liste de personne. Une liste vide sinon</returns>
         public new IEnumerable<person> GetBy(string columnName, object value)
         {
-            if (columnName == null || columnName == "")
+            if (columnName == "")
             {
                 throw new ServiceException("La valeur de la colonne ne doit pas être null");
             }
 
-            if (value == null || (string)value == "")
+            if (value == null)
             {
                 throw new ServiceException("La valeur recherchée ne peut pas être null");
             }

@@ -22,6 +22,11 @@ namespace PigeonsLibrairy.Facade.Interface
 
         // Message
         bool CreateNewMessage(message messageToCreate);
-        List<message> GetGroupMessages(object groupID);   
+        List<message> GetGroupMessages(object groupID);
+
+        // Task
+        task CreateNewTask(task newTask, object groupID, object personID);
+        List<task> GetGroupTasks(object groupID);
+        void TaskIsCompleted(object taskID);
     }
 }

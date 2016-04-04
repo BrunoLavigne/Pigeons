@@ -1,4 +1,5 @@
 ﻿using PigeonsLibrairy.Model;
+using System.Collections.Generic;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
@@ -7,5 +8,6 @@ namespace PigeonsLibrairy.DAO.Interface
     /// </summary>
     interface ITaskDAO : IDAO<task>
     {
+        IEnumerable<task> GetAvailableTask(object groupID);
     }
 }
