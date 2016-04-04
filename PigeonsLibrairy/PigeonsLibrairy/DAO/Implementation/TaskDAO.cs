@@ -33,14 +33,17 @@ namespace PigeonsLibrairy.DAO.Implementation
             {
                 switch (columnName.ToLower())
                 {
-                    case task.COLUMN_PROJECT_ID:
-                        filter = (t => t.Project_ID == (int)value);
+                    case task.COLUMN_GROUP_ID:
+                        filter = (t => t.Group_ID == (int)value);
                         break;
                     case task.COLUMN_DESCRIPTION:
                         filter = (t => t.Description.ToLower().Contains(((string)value).ToLower()));
                         break;
-                    case task.COLUMN_DATE_DUE:
-                        //taskList = Get(t => t.Date_due.Date == ((DateTime)value).Date);
+                    case task.COLUMN_TASK_START:
+                        //filter = (t => t.Task_Start.Value.Date == ((DateTime)value).Date);
+                        break;
+                    case task.COLUMN_TASK_END:
+                        //filter = (t => t.Task_End.Value.Date == ((DateTime)value).Date);
                         break;
                     case task.COLUMN_IS_COMPLETED:
                         filter = (t => t.Is_completed == (bool)value);

@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Interface
     /// </summary>
     interface IFollowingDAO : IDAO<following>
     {
-        IList<following> GetTheFollowers(pigeonsEntities1 context, object groupID);
+        IList<following> GetTheFollowersCount(pigeonsEntities1 context, object groupID);
         IEnumerable<following> GetByID(pigeonsEntities1 context, object personID, object groupID);
     }
 }

@@ -12,20 +12,13 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class message
+    public partial class assignation
     {
-        public const string COLUMN_AUTHOR_ID    = "person_id";
-        public const string COLUMN_GROUP_ID     = "group_id";
-        public const string COLUMN_CONTENT      = "content";
-        public const string COLUMN_DATE_CREATED = "date_created";
-        
-        public int Id { get; set; }
-        public int Author_Id { get; set; }
-        public int Group_Id { get; set; }
-        public string Content { get; set; }
-        public System.DateTime Date_created { get; set; }
+        public int ID { get; set; }
+        public int Task_ID { get; set; }
+        public int Person_ID { get; set; }
     
-        public virtual group group { get; set; }
         public virtual person person { get; set; }
+        public virtual task task { get; set; }
     }
 }

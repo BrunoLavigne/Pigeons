@@ -12,9 +12,7 @@ namespace PigeonsLibrairy.Controller
         private IPersonService personService;
         private IGroupService groupeService;
         private IFollowingService followingService;
-        private IProjectService projectService;
         private ITaskService taskService;
-        private ITypeService typeService;
 
         /// <summary>
         /// Création du Service pour la table <see cref="Model.person"/>
@@ -81,22 +79,6 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        /// Création du Service pour la table <see cref="Model.project"/>
-        /// Vérifacation si le dao est null pour conserver le même context
-        /// </summary>
-        public IProjectService ProjectService
-        {
-            get
-            {
-                if (this.projectService == null)
-                {
-                    this.projectService = new ProjectService();
-                }
-                return projectService;
-            }
-        }
-
-        /// <summary>
         /// Création du Service pour la table <see cref="Model.task"/>
         /// Vérifacation si le dao est null pour conserver le même context
         /// </summary>
@@ -109,22 +91,6 @@ namespace PigeonsLibrairy.Controller
                     this.taskService = new TaskService();
                 }
                 return taskService;
-            }
-        }
-
-        /// <summary>
-        /// Création du Service pour la table <see cref="Model.type"/>
-        /// Vérifacation si le dao est null pour conserver le même context
-        /// </summary>
-        public ITypeService TypeService
-        {
-            get
-            {
-                if (this.typeService == null)
-                {
-                    this.typeService = new TypeService();
-                }
-                return typeService;
             }
         }
     }

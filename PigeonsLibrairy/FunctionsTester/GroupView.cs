@@ -175,15 +175,15 @@ namespace FunctionsTester
                 projectEnd = dateTimePicker_end.Value;
             }
 
-            project aBrandNewProject = new project();
-            aBrandNewProject.Description = projectDescription;
-            aBrandNewProject.Date_start = projectStart;
-            aBrandNewProject.Date_end = projectEnd;
+            //project aBrandNewProject = new project();
+            //aBrandNewProject.Description = projectDescription;
+            //aBrandNewProject.Date_start = projectStart;
+            //aBrandNewProject.Date_end = projectEnd;
 
-            if(groupFacade.CreateNewProject(aBrandNewProject, activeGroupID) != null)
-            {
-                showTheProjects();
-            }
+            //if(groupFacade.CreateNewProject(aBrandNewProject, activeGroupID) != null)
+            //{
+            //    showTheProjects();
+            //}
         }
 
         /// <summary>
@@ -220,23 +220,22 @@ namespace FunctionsTester
 
         private void fillTheType()
         {
-            IEnumerable<type> typeList = groupFacade.GetAllTypes();
-            foreach(type t in typeList)
-            {
-                cbProjectType.Items.Add(t.Name + " - " + t.Id);
-            }
-            cbProjectType.SelectedIndex = 0;
+            //IEnumerable<type> typeList = groupFacade.GetAllTypes();
+            //foreach(type t in typeList)
+            //{
+            //    cbProjectType.Items.Add(t.Name + " - " + t.Id);
+            //}
+            //cbProjectType.SelectedIndex = 0;
         }
 
         private void showTheProjects()
         {
-            IEnumerable<project> projectList = groupFacade.GetProjectsFromGroup(activeGroupID);
+            //IEnumerable<project> projectList = groupFacade.GetProjectsFromGroup(activeGroupID);
 
-            foreach(project p in projectList)
-            {
-                dataGridView_Projects.Rows.Add(p.Description, p.Type_id.ToString(), p.Date_start, p.Date_end);
-            }
-
+            //foreach(project p in projectList)
+            //{
+            //    dataGridView_Projects.Rows.Add(p.Description, p.Type_id.ToString(), p.Date_start, p.Date_end);
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)

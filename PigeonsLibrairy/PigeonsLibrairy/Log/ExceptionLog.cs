@@ -23,9 +23,9 @@ namespace PigeonsLibrairy.Log
         /// </summary>
         /// <param name="errorMessage">Le message à insérer dans le fichier</param>
         public static void LogTheError(string errorMessage)
-        {
+        {            
             logger.WriteLine("[" + DateTime.Now + " ] : ERROR : " + errorMessage);
-            logger.Close();
+            //logger.Close();
         }
     }
 }

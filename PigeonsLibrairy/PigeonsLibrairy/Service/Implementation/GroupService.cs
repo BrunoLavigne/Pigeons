@@ -168,7 +168,7 @@ namespace PigeonsLibrairy.Service.Implementation
                             groupValidation.Is_active = false;
                             groupDAO.Update(context, groupValidation);
 
-                            IEnumerable<following> followersList = followingDAO.GetTheFollowers(context, groupValidation.Id);
+                            IEnumerable<following> followersList = followingDAO.GetTheFollowersCount(context, groupValidation.Id);
 
                             // Setting each follower to inactive
                             foreach(following follower in followersList)

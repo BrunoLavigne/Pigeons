@@ -13,26 +13,26 @@ namespace PigeonsLibrairy.Model
     using System.Collections.Generic;
     
     public partial class person
-    {        
-
+    {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public person()
         {
             this.messages = new HashSet<message>();
             this.followings = new HashSet<following>();
+            this.assignations = new HashSet<assignation>();
         }
 
-        public const string COLUMN_NAME = "name";
-        public const string COLUMN_EMAIL = "email";
-        public const string COLUMN_PASSWORD = "password";
+        public const string COLUMN_PERSON_ID       = "person_id";
+        public const string COLUMN_NAME            = "name";
+        public const string COLUMN_EMAIL           = "email";
+        public const string COLUMN_PASSWORD        = "password";
         public const string COLUMN_INSCRIPTION_DATE = "inscription_date";
-        public const string COLUMN_PROFILE_PICTURE_LINK = "profile_picture_link";
-        public const string COLUMN_BIRTH_DATE = "birth_date";
-        public const string COLUMN_PHONE_NUMBER = "phone_number";
-        public const string COLUMN_ORGANIZATION = "organization";
-        public const string COLUMN_POSITION = "position";
-        public const string COLUMN_DESCRIPTION = "description";
-        public const string COLUMN_ALL = "all";
+        public const string COLUMN_BIRTH_DATE      = "birth_date";
+        public const string COLUMN_PHONE_NUMBER    = "phone_number";
+        public const string COLUMN_ORGANIZATION    = "organization";
+        public const string COLUMN_POSITION        = "position";
+        public const string COLUMN_DESCRIPTION     = "description";
+        public const string COLUMN_ALL             = "all";
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -45,12 +45,12 @@ namespace PigeonsLibrairy.Model
         public string Organization { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }
-
-        //public enum COLUMN_NAME { NAME, EMAIL, PASSWORD, INSCRIPTION_DATE, PROFILE_PICTURE_LINK, BIRTH_DATE, PHONE_NUMBER, ORGANIZATION, POSITION, DESCRIPTION, ALL }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<assignation> assignations { get; set; }
     }
 }

@@ -9,8 +9,14 @@ using System.Data.Entity.Core;
 
 namespace PigeonsLibrairy.DAO.Implementation
 {
+    /// <summary>
+    /// DAO de la classe <see cref="following"/>
+    /// </summary>
     class FollowingDAO : DAO<following>, IFollowingDAO
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public FollowingDAO() : base() { }
 
         /// <summary>
@@ -92,7 +98,7 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <param name="context">The connection</param>
         /// <param name="groupID">The ID of the group</param>
         /// <returns>A list of following the group</returns>
-        public IList<following> GetTheFollowers(pigeonsEntities1 context, object groupID)
+        public IList<following> GetTheFollowersCount(pigeonsEntities1 context, object groupID)
         {
             try
             {

@@ -149,47 +149,47 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         /// <param name="projectToInsert"></param>
         /// <returns></returns>
-        public project CreateNewProject(project projectToInsert, object groupID)
-        {
-            try
-            {
-                return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return null;
-            }
-        }
+            //public project CreateNewProject(project projectToInsert, object groupID)
+            //{
+            //    try
+            //    {
+            //        return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
+            //    }
+            //    catch (ServiceException serviceException)
+            //    {
+            //        ExceptionLog.LogTheError(serviceException.Message);
+            //        return null;
+            //    }
+            //}
 
-        public IEnumerable<project> GetProjectsFromGroup(object groupID)
-        {
-            try
-            {
-                return mainControl.ProjectService.GetProjectsFromGroup(groupID);
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return null;
-            }
-        }
+            //public IEnumerable<project> GetProjectsFromGroup(object groupID)
+            //{
+            //    try
+            //    {
+            //        return mainControl.ProjectService.GetProjectsFromGroup(groupID);
+            //    }
+            //    catch (ServiceException serviceException)
+            //    {
+            //        ExceptionLog.LogTheError(serviceException.Message);
+            //        return null;
+            //    }
+            //}
 
         /// <summary>
         /// Recherche de tout les types qui sont disponibles
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<type> GetAllTypes()
-        {
-            try
-            {
-                return mainControl.TypeService.GetAll();
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return null;
-            }
-        }
+            //public IEnumerable<type> GetAllTypes()
+            //{
+            //    try
+            //    {
+            //        return mainControl.TypeService.GetAll();
+            //    }
+            //    catch (ServiceException serviceException)
+            //    {
+            //        ExceptionLog.LogTheError(serviceException.Message);
+            //        return null;
+            //    }
+            //}
     }
 }

@@ -197,7 +197,7 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("Ce groupe n'est pas actif");
                     }
 
-                    return followingDAO.GetTheFollowers(context, groupID);
+                    return followingDAO.GetTheFollowersCount(context, groupID);
                 }
             }
             catch (DAOException daoException)
