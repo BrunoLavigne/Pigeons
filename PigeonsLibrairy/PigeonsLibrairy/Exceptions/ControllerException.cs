@@ -2,6 +2,9 @@
 
 namespace PigeonsLibrairy.Exceptions
 {
+    /// <summary>
+    /// Exception pour les classe Controller <see cref="Controller"/>
+    /// </summary>
     public class ControllerException : Exception
     {
         public ControllerException() : base() { }

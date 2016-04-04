@@ -26,7 +26,10 @@
                                 Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
                             </div>
                             <div class="group-description">
-                                <asp:Label ID="lblGroupDescription" runat="Server" Text='<%#Eval("description") %>' />
+                                <asp:Label ID="lblGroupDescription" runat="Server" Text='<%# Eval("description") %>' />
+                            </div>
+                            <div class="groupFollowers">
+                                <asp:Label ID="lblGroupFollowrers" runat="server" Text='<%# "Nb followers : " + Eval("followers") %>' />
                             </div>
                         </div>
                     </div>

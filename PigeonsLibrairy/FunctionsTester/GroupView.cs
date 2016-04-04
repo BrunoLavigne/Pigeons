@@ -4,6 +4,7 @@ using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -186,6 +187,27 @@ namespace FunctionsTester
         }
 
         /// <summary>
+        /// Test - Ajouter un Event
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DateTime eventStart = default(DateTime);
+            DateTime eventtEnd = default(DateTime);
+            string eventDesc = txtEventDescription.Text;
+
+            if (dateTimePicker_eventStart.Checked)
+            {
+                eventStart = dateTimePicker_eventStart.Value;
+            }
+
+            if (dateTimePicker_eventEnd.Checked)
+            {
+                eventtEnd = dateTimePicker_eventEnd.Value;
+            }
+        }
+
+
+        /// <summary>
         /// Selected the ID of a follower
         /// Will be used to select the author of a message
         /// </summary>        
@@ -220,6 +242,25 @@ namespace FunctionsTester
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();            
+        }
+
+        private void btn_pic_Click(object sender, EventArgs e)
+        {
+
+            openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+
+            openFileDialog1.ShowDialog();
+
+            string file = openFileDialog1.FileName;
+            try
+            {
+                string text = File.ReadAllText(file);
+            }
+            catch (IOException)
+            {
+            }
+
         }
     }
 }
