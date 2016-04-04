@@ -12,13 +12,7 @@ public partial class Group : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
-        {
-            lblTest.Text = "Ceci n'est pas un postback";
-        } else
-        {
-            lblTest.Text = "Ceci est un postback";
-        }
+
 
         // Also check if the group actually exists and if the user is following it
         if(Session["user"] == null || Request.Params["groupID"] == null)
@@ -37,11 +31,7 @@ public partial class Group : System.Web.UI.Page
             if(goodGroupId)
             {
                 // Render group to page
-                lblTest.Text = "You want to see group: " + groupId;
                 renderGroupToPage(groupId);
-            } else
-            {
-                lblTest.Text = "Not a valid group/group not found";
             }
         }
     }
@@ -58,8 +48,6 @@ public partial class Group : System.Web.UI.Page
         try
         {
             theGroup = gf.GetGroupByID(groupId);
-            lblTest.Text = theGroup.Creation_date + " --- " + theGroup.Description;
-
 
             lblGroupName.Text = theGroup.Name;
             lblGroupDescription.Text = theGroup.Description;
@@ -91,7 +79,6 @@ public partial class Group : System.Web.UI.Page
 
         } catch(Exception e)
         {
-            lblTest.Text = "Group not found: " + e.Message;
             Console.WriteLine("Group not found: " + e.Message);
         }
         

@@ -36,21 +36,28 @@
     <!-- temporary -->
     <div class="container">
 
-        <div class="row test">
-
-            <asp:Label runat="server" ID="lblTest"></asp:Label>
-            <asp:Button ID="BtnTest" runat="server" Text="Button" OnClick="BtnTest_Click" />
-        </div>
-
-
         <div class="row">
 
             <!-- Messages section -->
             <div class="col-lg-4">
                 
-                <a id="Group-messages-toggler" class="Toggler">
-                    <div class="Toggler-container">Messages <i class="glyphicon glyphicon-collapse-down"></i></div>
-                </a>
+                <div class="Toggler messages">
+                    <div class="text">Messages</div>
+
+                    <div class="action">
+                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </a>
+                    </div>
+
+                    <div class="action">
+                        <a id="Group-messages-toggler">
+                            <i class="glyphicon glyphicon-collapse-down"></i>
+                        </a>
+                    </div>
+
+                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
 
                 <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
                     Nouveau message
@@ -83,7 +90,7 @@
             <!-- Tasks section -->
             <div class="col-lg-4">
 
-                <a id="Tasks-toggler" class="Toggler">
+                <a id="Tasks-toggler" class="Toggler tasks">
                     <div class="Toggler-container">Tasks <i class="glyphicon glyphicon-collapse-down"></i></div>
                 </a>
                 

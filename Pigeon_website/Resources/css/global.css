@@ -142,24 +142,51 @@ img.media-object {
 }
 
 
-.Toggler, .Toggler:hover, .Toggler:focus {
-    text-decoration: none;
-    color: black;
-}
-.Toggler-container {
-    padding: 20px;
-    border-radius: 4px;
-    background: #f8f8f8;
+/**
+    Toggler component
+*/
 
-    font-size: 24px;
-    font-weight: bold;
+.Toggler {
+    text-decoration: none;
+    color: white;
+    border-radius: 16px;
 }
-.Toggler-container:hover, .Toggler-container:focus {
-    cursor: pointer;
+
+.Toggler > div {
+    display: inline-block;
+    height: 100%;
+    padding: 24px;
 }
-.Toggler-container i {
+
+.Toggler a {
+    color: white;
+}
+
+.Toggler .text {
+    border-radius: 16px;
+}
+
+.Toggler .action {
     float: right;
 }
+
+
+.Toggler.messages {
+    background-color: rgb(1, 91, 125);
+}
+
+.Toggler.messages .text {
+    background-color: rgb(0, 70, 98);
+}
+
+.Toggler.files {
+    background-color: rgb(30, 101, 95);
+}
+
+.Toggler.tasks {
+    background-color: rgb(201, 115, 4);
+}
+
 
 .Group-messages-container {
     position: relative;
