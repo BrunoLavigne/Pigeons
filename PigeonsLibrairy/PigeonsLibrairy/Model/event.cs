@@ -14,16 +14,13 @@ namespace PigeonsLibrairy.Model
     
     public partial class @event
     {
-        public int Id { get; set; }
-        public int Group_id { get; set; }
-        public int Task_id { get; set; }
-        public int Type_id { get; set; }
-        public System.DateTime Date_start { get; set; }
-        public System.DateTime Date_end { get; set; }
+        public int ID { get; set; }
         public string Description { get; set; }
+        public int Group_ID { get; set; }
+        public System.DateTime Event_Start { get; set; }
+        public Nullable<System.DateTime> Event_End { get; set; }
+        public sbyte Is_Completed { get; set; }
     
         public virtual group group { get; set; }
-        public virtual task task { get; set; }
-        public virtual type type { get; set; }
     }
 }

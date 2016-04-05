@@ -17,25 +17,32 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group()
         {
-            this.events = new HashSet<@event>();
             this.followings = new HashSet<following>();
             this.messages = new HashSet<message>();
             this.tasks = new HashSet<task>();
+            this.events = new HashSet<@event>();
         }
-    
+
+        public const string COLUMN_GROUP_ID     = "group_id";
+        public const string COLUMN_NAME         = "name";
+        public const string COLUMN_IS_ACTIVE    = "is_active";
+        public const string COLUMN_DESCRIPTION  = "description";
+        public const string COLUMN_CREATION_DATE = "creation_date";        
+
         public int Id { get; set; }
         public string Name { get; set; }
         public System.DateTime Creation_date { get; set; }
         public string Description { get; set; }
         public bool Is_active { get; set; }
+        public string Group_picture_link { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<@event> events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task> tasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<@event> events { get; set; }
     }
 }

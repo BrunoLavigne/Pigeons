@@ -19,8 +19,21 @@ namespace PigeonsLibrairy.Model
         {
             this.messages = new HashSet<message>();
             this.followings = new HashSet<following>();
+            this.assignations = new HashSet<assignation>();
         }
-    
+
+        public const string COLUMN_PERSON_ID       = "person_id";
+        public const string COLUMN_NAME            = "name";
+        public const string COLUMN_EMAIL           = "email";
+        public const string COLUMN_PASSWORD        = "password";
+        public const string COLUMN_INSCRIPTION_DATE = "inscription_date";
+        public const string COLUMN_BIRTH_DATE      = "birth_date";
+        public const string COLUMN_PHONE_NUMBER    = "phone_number";
+        public const string COLUMN_ORGANIZATION    = "organization";
+        public const string COLUMN_POSITION        = "position";
+        public const string COLUMN_DESCRIPTION     = "description";
+        public const string COLUMN_ALL             = "all";
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -37,5 +50,7 @@ namespace PigeonsLibrairy.Model
         public virtual ICollection<message> messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<assignation> assignations { get; set; }
     }
 }
