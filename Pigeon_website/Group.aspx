@@ -14,7 +14,7 @@
     <div class="Group-presentation">
 
         <div class="picture-container">
-            <img src="http://placehold.it/400/400" />
+            <asp:Image runat="server" ID="presentationPicture" />
         </div>
 
         <div class="text">

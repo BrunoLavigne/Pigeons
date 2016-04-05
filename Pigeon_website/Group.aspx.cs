@@ -58,6 +58,8 @@ public partial class Group : System.Web.UI.Page
             lblGroupName.Text = theGroup.Name;
             lblGroupDescription.Text = theGroup.Description;
 
+            presentationPicture.ImageUrl = theGroup.Group_picture_link;
+
             CultureInfo frCA = new CultureInfo("fr-CA");
 
             lblGroupDateCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.LongDatePattern, frCA);

@@ -38,6 +38,7 @@ public partial class Partials_NewGroupModal : System.Web.UI.UserControl
         g.Description = groupDescription;
         g.Creation_date = DateTime.Now;                         // should be set automatically in backend   
         g.Is_active = true;                                     // also? should be active by default
+        g.Group_picture_link = groupePicture;
 
         person theCreator = (person)Session["user"];
 
