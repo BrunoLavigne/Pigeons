@@ -193,3 +193,6 @@
 
 </asp:Content>
 
+<asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+</asp:Content>
