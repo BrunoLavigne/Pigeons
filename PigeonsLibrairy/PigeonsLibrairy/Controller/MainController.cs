@@ -13,6 +13,8 @@ namespace PigeonsLibrairy.Controller
         private IGroupService groupeService;
         private IFollowingService followingService;
         private ITaskService taskService;
+        private IAssignationService assignationService;
+        private IEventService eventService;
 
         /// <summary>
         /// Création du Service pour la table <see cref="Model.person"/>
@@ -91,6 +93,38 @@ namespace PigeonsLibrairy.Controller
                     this.taskService = new TaskService();
                 }
                 return taskService;
+            }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table <see cref="Model.assignation"/>
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public IAssignationService AssignationService
+        {
+            get
+            {
+                if (this.assignationService == null)
+                {
+                    this.assignationService = new AssignationService();
+                }
+                return assignationService;
+            }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table <see cref="Model.@event"/>
+        /// Vérifacation si le dao est null pour conserver le même context
+        /// </summary>
+        public IEventService EventService
+        {
+            get
+            {
+                if (this.eventService == null)
+                {
+                    this.eventService = new EventService();
+                }
+                return eventService;
             }
         }
     }

@@ -61,14 +61,16 @@ namespace FunctionsTester
             txtUserName.Text    = activePerson.Name;
 
             // Retreiving the followers
-            List<following> followers = groupFacade.GetGroupFollowers(activeGroupID);
+            List<person> followers = groupFacade.GetGroupFollowers(activeGroupID);
 
-            foreach(following follower in followers)
+            foreach(person follower in followers)
             {
-                cb_followers.Items.Add(follower.Person_Id);
+                cb_followers.Items.Add(follower.Id);
+                cbFollowerAssignation.Items.Add(follower.Name + " - " + follower.Id);
             }
 
             cb_followers.SelectedIndex = 0;
+            cbFollowerAssignation.SelectedIndex = 0;
             followerNb.Text = followers.Count().ToString();
         }
 
@@ -197,6 +199,7 @@ namespace FunctionsTester
 
             task newTask = new task();
             newTask.Group_ID = activeGroupID;
+            newTask.Author_ID = activePersonID;
             newTask.Task_Start = taskStart;
             newTask.Task_End = tasktEnd;
             newTask.Description = taskDesc;
@@ -207,6 +210,8 @@ namespace FunctionsTester
         private void btn_ShowTasks_Click(object sender, EventArgs e)
         {
             IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID);
+
+            dataGridView_Task.Rows.Clear();
 
             foreach (task t in taskList)
             {
@@ -284,6 +289,33 @@ namespace FunctionsTester
             String taskid = selectedRowID.ToString();
 
             txtTaskID.Text = taskid;
+        }
+
+        private void cbFollowerAssignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int personID;
+            string personInfo = cbFollowerAssignation.SelectedItem.ToString();
+            string[] splitPersonInfo = personInfo.Trim().Split('-');
+
+            int.TryParse(splitPersonInfo[1], out personID);
+            followerID.Text = personID.ToString();
+        }
+
+        /// <summary>
+        /// Test - Assignation d'une task à une personne
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int personID = int.Parse(followerID.Text);
+            int taskID = int.Parse(txtTaskID.Text);
+
+            assignation taskAssignation = new assignation();
+            taskAssignation.Person_ID = personID;
+            taskAssignation.Task_ID = taskID;
+
+            groupFacade.AssignTaskToPerson(taskAssignation);
         }
     }
 }

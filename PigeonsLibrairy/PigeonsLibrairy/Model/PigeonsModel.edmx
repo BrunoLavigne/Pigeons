@@ -78,6 +78,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
           <Property Name="Group_ID" Type="int" Nullable="false" />
           <Property Name="Task_Start" Type="datetime" Precision="0" />
           <Property Name="Task_End" Type="datetime" Precision="0" />
@@ -189,6 +190,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Task_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="task" Type="Self.task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="task">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pigeonsModelStoreContainer">
           <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
@@ -227,6 +242,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Task_Group" Association="Self.FK_Task_Group">
             <End Role="group" EntitySet="group" />
+            <End Role="task" EntitySet="task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Person" Association="Self.FK_Task_Person">
+            <End Role="person" EntitySet="person" />
             <End Role="task" EntitySet="task" />
           </AssociationSet>
         </EntityContainer>
@@ -279,6 +298,7 @@
           <NavigationProperty Name="messages" Relationship="Self.FK_message_person" FromRole="person" ToRole="messages" />
           <NavigationProperty Name="followings" Relationship="Self.FK_following_person" FromRole="person" ToRole="following" />
           <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Person" FromRole="person" ToRole="assignation" />
+          <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Task_Person" FromRole="person" ToRole="task" />
         </EntityType>
         <EntityType Name="task">
           <Key>
@@ -292,6 +312,8 @@
           <Property Name="Task_End" Type="DateTime" />
           <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Task" FromRole="task" ToRole="assignation" />
           <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Task_Group" FromRole="task" ToRole="group" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_Task_Person" FromRole="task" ToRole="person" />
         </EntityType>
         <EntityType Name="following">
           <Key>
@@ -396,6 +418,10 @@
             <End Role="group" EntitySet="groups" />
             <End Role="event" EntitySet="events" />
           </AssociationSet>
+          <AssociationSet Name="FK_Task_Person" Association="pigeonsModel.FK_Task_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="task" EntitySet="tasks" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="assignation">
           <Key>
@@ -473,6 +499,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Task_Person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.task" Role="task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="task">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -522,6 +562,7 @@
           <EntitySetMapping Name="tasks">
             <EntityTypeMapping TypeName="pigeonsModel.task">
               <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
                 <ScalarProperty Name="Task_End" ColumnName="Task_End" />
                 <ScalarProperty Name="Task_Start" ColumnName="Task_Start" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />

@@ -174,7 +174,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="groupID">Le ID du groupe pour lequel nous désirons les followers</param>
         /// <returns>Une liste de follower, une liste vide sinon</returns>
-        public IList<following> GetTheFollowers(object groupID)
+        public IEnumerable<person> GetTheFollowers(object groupID)
         {
             if(groupID == null)
             {
@@ -197,7 +197,14 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("Ce groupe n'est pas actif");
                     }
 
-                    return followingDAO.GetTheFollowersCount(context, groupID);
+                    IEnumerable<following> followingList = followingDAO.GetTheFollowers(context, groupID);
+                    IList<person> followers = new List<person>();
+
+                    foreach(following f in followingList)
+                    {
+                        followers.Add(f.person);
+                    }
+                    return followers;
                 }
             }
             catch (DAOException daoException)
@@ -228,20 +235,15 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 using (var context = new pigeonsEntities1())
                 {
-                    List<following> adminValidation = followingDAO.GetByID(context, personID, groupID).ToList();
+                    following adminValidation = followingDAO.GetByID(context, personID, groupID);
 
                     if (adminValidation == null)
                     {
                         throw new ServiceException("Cette personne n'existe pas");
                     }
 
-                    if (adminValidation.Count != 1)
-                    {
-                        throw new ServiceException("Il-y-a un problème avec ce groupe (Plus qu'un administrateur)");
-                    }
-
                     // returning the value
-                    return adminValidation[0].Is_admin;
+                    return adminValidation.Is_admin;
                 }
             }
             catch (DAOException daoException)
@@ -263,7 +265,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("La valeur de la colonne ne doit pas être null");
             }
 
-            if(value == null || (string)value == "")
+            if(value == null)
             {
                 throw new ServiceException("La valeur recherchée ne peut pas être null");
             }

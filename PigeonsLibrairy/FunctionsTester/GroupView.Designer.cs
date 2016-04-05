@@ -66,6 +66,11 @@
             this.rtb_TaskDesc = new System.Windows.Forms.RichTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.dataGridView_Task = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Début = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.is_completed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_ShowTasks = new System.Windows.Forms.Button();
             this.btn_CreateEvent = new System.Windows.Forms.Button();
             this.txtEventDescription = new System.Windows.Forms.RichTextBox();
@@ -73,9 +78,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.dateTimePicker_eventEnd = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_eventStart = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbFollowerAssignation = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.btn_ShowEvents = new System.Windows.Forms.Button();
             this.dataGridView_events = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,12 +88,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btn_pic = new System.Windows.Forms.Button();
             this.txtTaskID = new System.Windows.Forms.TextBox();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Début = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.is_completed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCompletedTask = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Task)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_events)).BeginInit();
@@ -424,14 +424,40 @@
             this.Début,
             this.Fin,
             this.is_completed});
-            this.dataGridView_Task.Location = new System.Drawing.Point(834, 228);
+            this.dataGridView_Task.Location = new System.Drawing.Point(834, 180);
             this.dataGridView_Task.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView_Task.Name = "dataGridView_Task";
             this.dataGridView_Task.RowTemplate.Height = 33;
             this.dataGridView_Task.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Task.Size = new System.Drawing.Size(304, 163);
+            this.dataGridView_Task.Size = new System.Drawing.Size(304, 211);
             this.dataGridView_Task.TabIndex = 35;
             this.dataGridView_Task.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Task_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // Début
+            // 
+            this.Début.HeaderText = "Début";
+            this.Début.Name = "Début";
+            // 
+            // Fin
+            // 
+            this.Fin.HeaderText = "Fin";
+            this.Fin.Name = "Fin";
+            // 
+            // is_completed
+            // 
+            this.is_completed.HeaderText = "is_completed";
+            this.is_completed.Name = "is_completed";
             // 
             // btn_ShowTasks
             // 
@@ -497,30 +523,23 @@
             this.dateTimePicker_eventStart.Size = new System.Drawing.Size(166, 20);
             this.dateTimePicker_eventStart.TabIndex = 41;
             // 
-            // comboBox1
+            // cbFollowerAssignation
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(905, 198);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(166, 21);
-            this.comboBox1.TabIndex = 46;
+            this.cbFollowerAssignation.FormattingEnabled = true;
+            this.cbFollowerAssignation.Location = new System.Drawing.Point(955, 424);
+            this.cbFollowerAssignation.Name = "cbFollowerAssignation";
+            this.cbFollowerAssignation.Size = new System.Drawing.Size(116, 21);
+            this.cbFollowerAssignation.TabIndex = 46;
+            this.cbFollowerAssignation.SelectedIndexChanged += new System.EventHandler(this.cbFollowerAssignation_SelectedIndexChanged);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(842, 202);
+            this.label16.Location = new System.Drawing.Point(893, 426);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(56, 13);
             this.label16.TabIndex = 45;
             this.label16.Text = "Assign to :";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(1077, 198);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(37, 20);
-            this.textBox1.TabIndex = 47;
             // 
             // btn_ShowEvents
             // 
@@ -579,59 +598,43 @@
             // txtTaskID
             // 
             this.txtTaskID.Enabled = false;
-            this.txtTaskID.Location = new System.Drawing.Point(835, 423);
+            this.txtTaskID.Location = new System.Drawing.Point(836, 423);
             this.txtTaskID.Name = "txtTaskID";
-            this.txtTaskID.Size = new System.Drawing.Size(103, 20);
+            this.txtTaskID.Size = new System.Drawing.Size(51, 20);
             this.txtTaskID.TabIndex = 51;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            // 
-            // Début
-            // 
-            this.Début.HeaderText = "Début";
-            this.Début.Name = "Début";
-            // 
-            // Fin
-            // 
-            this.Fin.HeaderText = "Fin";
-            this.Fin.Name = "Fin";
-            // 
-            // is_completed
-            // 
-            this.is_completed.HeaderText = "is_completed";
-            this.is_completed.Name = "is_completed";
             // 
             // btnCompletedTask
             // 
-            this.btnCompletedTask.Location = new System.Drawing.Point(944, 423);
+            this.btnCompletedTask.Location = new System.Drawing.Point(835, 451);
             this.btnCompletedTask.Name = "btnCompletedTask";
-            this.btnCompletedTask.Size = new System.Drawing.Size(194, 21);
+            this.btnCompletedTask.Size = new System.Drawing.Size(299, 21);
             this.btnCompletedTask.TabIndex = 52;
             this.btnCompletedTask.Text = "Set task as completed";
             this.btnCompletedTask.UseVisualStyleBackColor = true;
             this.btnCompletedTask.Click += new System.EventHandler(this.btnCompletedTask_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1077, 423);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(56, 21);
+            this.button2.TabIndex = 53;
+            this.button2.Text = "Assign";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // GroupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1459, 519);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnCompletedTask);
             this.Controls.Add(this.txtTaskID);
             this.Controls.Add(this.btn_pic);
             this.Controls.Add(this.btn_ShowEvents);
             this.Controls.Add(this.dataGridView_events);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbFollowerAssignation);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label15);
@@ -731,9 +734,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DateTimePicker dateTimePicker_eventEnd;
         private System.Windows.Forms.DateTimePicker dateTimePicker_eventStart;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbFollowerAssignation;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_ShowEvents;
         private System.Windows.Forms.DataGridView dataGridView_events;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -748,5 +750,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn is_completed;
         private System.Windows.Forms.TextBox txtTaskID;
         private System.Windows.Forms.Button btnCompletedTask;
+        private System.Windows.Forms.Button button2;
     }
 }

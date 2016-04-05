@@ -14,6 +14,9 @@ namespace PigeonsLibrairy.Model
     
     public partial class assignation
     {
+        public const string COLUMN_PERSON_ID    = "person_id";
+        public const string COLUMN_TASK_ID      = "task_id";
+
         public int ID { get; set; }
         public int Task_ID { get; set; }
         public int Person_ID { get; set; }

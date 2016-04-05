@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -13,7 +14,7 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>
     public class PersonService : Service<person>, IPersonService
     {
-        private PersonDAO personDAO { get; set; }
+        private IPersonDAO personDAO { get; set; }
 
         /// <summary>
         /// Constructeur

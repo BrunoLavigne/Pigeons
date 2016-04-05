@@ -83,7 +83,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// <summary>
         /// Recherche des personnes qui suivent un groupe (following)
         /// </summary>        
-        public List<following> GetGroupFollowers(object groupID)
+        public List<person> GetGroupFollowers(object groupID)
         {
             try
             {
@@ -176,6 +176,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
+        /// <summary>
+        /// Marque une assignation comme étant complétée
+        /// </summary>        
         public void TaskIsCompleted(object taskID)
         {
             try
@@ -185,6 +188,22 @@ namespace PigeonsLibrairy.Facade.Implementation
             catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);                
+            }
+        }
+
+        /// <summary>
+        /// Assignation d'une Person à une Task
+        /// </summary>
+        public assignation AssignTaskToPerson(assignation newAssignation)
+        {
+            try
+            {
+                return mainControl.AssignationService.AssignTaskToPerson(newAssignation);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
 

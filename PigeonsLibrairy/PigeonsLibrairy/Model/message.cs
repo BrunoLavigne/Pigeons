@@ -18,7 +18,7 @@ namespace PigeonsLibrairy.Model
         public const string COLUMN_GROUP_ID     = "group_id";
         public const string COLUMN_CONTENT      = "content";
         public const string COLUMN_DATE_CREATED = "date_created";
-        
+
         public int Id { get; set; }
         public int Author_Id { get; set; }
         public int Group_Id { get; set; }

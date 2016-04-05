@@ -8,3 +8,4 @@
 [2016-04-04 04:16:07 PM ] : ERROR : La date de fin : 2016-04-04 04:15:49 PM ne peut pas précéder la date de départ : 
 [2016-04-04 04:16:57 PM ] : ERROR : La date de fin : 2016-04-04 04:16:50 PM ne peut pas précéder la date de départ : 2016-04-21 04:16:50 PM
 [2016-04-04 04:16:59 PM ] : ERROR : La date de fin : 2016-04-04 04:16:50 PM ne peut pas précéder la date de départ : 2016-04-21 04:16:50 PM
+[2016-04-05 03:13:32 PM ] : ERROR : La person ID : 3 est déjà associé à cette tâche (ID : 1)

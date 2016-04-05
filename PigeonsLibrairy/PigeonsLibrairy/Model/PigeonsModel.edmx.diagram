@@ -24,6 +24,7 @@
         <AssociationConnector Association="pigeonsModel.FK_Task_Group" />
         <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="6.75" PointY="7.625" />
         <AssociationConnector Association="pigeonsModel.FK_Event_Group" />
+        <AssociationConnector Association="pigeonsModel.FK_Task_Person" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
