@@ -5,11 +5,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
+    <link rel="stylesheet" href="Resources/css/Group-page.css" />
+
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
         <div class="picture-container">
-            <img src="http://lorempixel.com/400/400" />
+            <img src="http://placehold.it/400/400" />
         </div>
 
         <div class="text">
