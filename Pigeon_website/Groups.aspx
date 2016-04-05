@@ -8,6 +8,9 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+    <link rel="stylesheet" href="Resources/css/Groups-page.css" />
+
     <%@ Register TagPrefix="uc" TagName="NewGroupModal" Src="~/Partials/NewGroupModal.ascx" %>
 
     <div class="container">
