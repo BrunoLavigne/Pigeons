@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" %>
 <%@ Register TagPrefix="uc" TagName="NewGroupMessageModal" Src="~/Partials/NewGroupMessageModal.ascx" %>
+<%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
+<%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -39,7 +41,7 @@
     <div class="container">
 
         <!-- Only show if user is also admin -->
-        <asp:Panel runat="server" ID="panelAdminButtons">
+        <asp:Panel runat="server" ID="panelAdminButtons" CssClass="Admin-buttons">
 
             <div class="row">
                 <div class="col-sm-12">
@@ -52,23 +54,28 @@
                         <div class="text-container">Personne</div>
                     </div>
                 
-                    <div class="Group-action-btn RemoveUser">
+                    <a href="#removeUserModal" data-toggle="modal" data-target="#removeUserModal">
+                        <div class="Group-action-btn RemoveUser">
 
-                        <div class="icon-container">
-                            <i class="glyphicon glyphicon-minus-sign"></i>
-                        </div>
+                            <div class="icon-container">
+                                <i class="glyphicon glyphicon-minus-sign"></i>
+                            </div>
                 
-                        <div class="text-container">Personne</div>
-                    </div>
-                    
-                    <div class="Group-action-btn deleteGroup">
+                            <div class="text-container">Personne</div>
+                        </div>
+                    </a>
 
-                        <div class="icon-container">
-                            <i class="glyphicon glyphicon-remove-sign"></i>
-                        </div>
+                    <a href="#deleteGroupModal" data-toggle="modal" data-target="#deleteGroupModal">
+                        <div class="Group-action-btn deleteGroup">
+
+                            <div class="icon-container">
+                                <i class="glyphicon glyphicon-remove-sign"></i>
+                            </div>
                 
-                        <div class="text-container">Groupe</div>
-                    </div>
+                            <div class="text-container">Groupe</div>
+                        </div>
+                    </a>
+
                 </div>
             </div>
 
@@ -107,7 +114,7 @@
 
                                         <!-- toggle profile picture, some info (email) -->
                                         <a href="#">
-                                            <img class="media-object" src="http://lorempixel.com/300/300" alt="...">
+                                            <img class="media-object" src="http://placehold.it/300/300" alt="...">
                                         </a>
                                     &nbsp;</div>
                                     <div class="media-body">
@@ -182,7 +189,13 @@
 
 
     <!-- Connection modal -->
-    <uc:NewGroupMessageModal runat="server" ID="newGroupMessageModal"></uc:NewGroupMessageModal>
+    <uc:NewGroupMessageModal runat="server" ID="NewGroupMessageModal"></uc:NewGroupMessageModal>
+
+    <!-- Remove user from group modal -->
+    <uc:RemoveUserModal runat="server" ID="RemoveUserModal"></uc:RemoveUserModal>
+
+    <!-- Remove group modal -->
+    <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
 </asp:Content>
 

@@ -28,6 +28,14 @@
 }
 
 
+/*
+    Admin buttons
+*/
+.Admin-buttons {
+    margin: 20px 0;
+}
+
+
 .Group-action-btn {
     color: white;
     border-radius: 16px;

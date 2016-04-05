@@ -3,10 +3,6 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Group : System.Web.UI.Page
 {
@@ -20,7 +16,12 @@ public partial class Group : System.Web.UI.Page
             Response.Redirect("Index.aspx");
         } else
         {
+
             person currentUser = (person) Session["user"];
+
+            // Check if user is admin of the group
+            GroupFacade gf = new GroupFacade();
+
 
             // Get group ID from url parameter
             Boolean goodGroupId = false;
@@ -32,6 +33,11 @@ public partial class Group : System.Web.UI.Page
             {
                 // Render group to page
                 renderGroupToPage(groupId);
+
+                if(!gf.PersonIsGroupAdmin(currentUser.Id, groupId))
+                {
+
+                }
             }
         }
     }
