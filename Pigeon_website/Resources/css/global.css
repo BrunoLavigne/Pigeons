@@ -1,4 +1,11 @@
-﻿.Page-container {
+﻿/*
+    Utility classes
+*/
+.t-center {
+    text-align: center;
+}
+
+.Page-container {
 
 	
 	min-height: 100vh;
@@ -57,17 +64,11 @@
     margin-right: 10px;
 }
 
-.New-group-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f8f8;      /* bootstrappy */
-    border-color: #e7e7e7;
-    padding: 30px 0;
-}
 .Btn-new-group {
     font-size: 22px;
     padding: 10px;
+    width: 150px;
+    border-radius: 12px;
 }
 
 
