@@ -61,10 +61,6 @@
                     <div class="action"><i class="glyphicon glyphicon-search"></i></div>
                 </div>
 
-                <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
-                    Nouveau message
-                </a>
-
                 <div class="Group-messages-container">
                     <asp:ListView ID="messagesListView" runat="server">
                         <ItemTemplate>
@@ -89,13 +85,49 @@
                 </div>
             </div>
 
+            <!-- Files section -->
+            <div class="col-lg-4">
+                <div class="Toggler files">
+                    <div class="text">Files</div>
+
+                    <div class="action">
+                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </a>
+                    </div>
+
+                    <div class="action">
+                        <a id="Group-files-toggler">
+                            <i class="glyphicon glyphicon-collapse-down"></i>
+                        </a>
+                    </div>
+
+                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+            </div>
+
+
             <!-- Tasks section -->
             <div class="col-lg-4">
 
-                <a id="Tasks-toggler" class="Toggler tasks">
-                    <div class="Toggler-container">Tasks <i class="glyphicon glyphicon-collapse-down"></i></div>
-                </a>
-                
+                <div class="Toggler tasks">
+                    <div class="text">Todos</div>
+
+                    <div class="action">
+                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </a>
+                    </div>
+
+                    <div class="action">
+                        <a id="Group-tasks-toggler">
+                            <i class="glyphicon glyphicon-collapse-down"></i>
+                        </a>
+                    </div>
+
+                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
+                </div>
+
                 <asp:ListView ID="ListView1" runat="server">
                     <ItemTemplate>
                         <div class="Group-todo">
