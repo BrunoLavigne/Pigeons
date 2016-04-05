@@ -19,11 +19,11 @@ namespace PigeonsLibrairy.Log
         /// <param name="errorMessage">Le message à insérer dans le fichier</param>
         public static void LogTheError(string errorMessage)
         {
-            using(StreamWriter logger = new StreamWriter(LOGGER_FILE, true))
-            {
-                logger.WriteLine("[" + DateTime.Now + " ] : ERROR : " + errorMessage);
-                logger.Close();
-            }
+            //using(StreamWriter logger = new StreamWriter(LOGGER_FILE, true))
+            //{
+            //    logger.WriteLine("[" + DateTime.Now + " ] : ERROR : " + errorMessage);
+            //    logger.Close();
+            //}
         }
     }
 }
