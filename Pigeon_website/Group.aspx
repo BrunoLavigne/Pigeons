@@ -38,6 +38,43 @@
     <!-- temporary -->
     <div class="container">
 
+        <!-- Only show if user is also admin -->
+        <asp:Panel runat="server" ID="panelAdminButtons">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="Group-action-btn AddUser">
+
+                        <div class="icon-container">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </div>
+                
+                        <div class="text-container">Personne</div>
+                    </div>
+                
+                    <div class="Group-action-btn RemoveUser">
+
+                        <div class="icon-container">
+                            <i class="glyphicon glyphicon-minus-sign"></i>
+                        </div>
+                
+                        <div class="text-container">Personne</div>
+                    </div>
+                    
+                    <div class="Group-action-btn deleteGroup">
+
+                        <div class="icon-container">
+                            <i class="glyphicon glyphicon-remove-sign"></i>
+                        </div>
+                
+                        <div class="text-container">Groupe</div>
+                    </div>
+                </div>
+            </div>
+
+        </asp:Panel>
+
+
         <div class="row">
 
             <!-- Messages section -->
@@ -106,7 +143,6 @@
                 </div>
             </div>
 
-
             <!-- Tasks section -->
             <div class="col-lg-4">
 
@@ -138,21 +174,6 @@
                 </asp:ListView>
 
             </div>
-
-        </div>
-
-
-        <!-- the todos -->
-        <div class="row">
-
-            <asp:ListView ID="todosListView" runat="server">
-                <ItemTemplate>
-                    <div class="Group-todo">
-                        <div class="h4"><asp:Label runat="server" Text='<%#Eval("description") %>'></asp:Label></div>
-                        <p>Completé?: <asp:Label runat="server" Text='<%#Eval("is_completed") %>'></asp:Label></p>
-                    </div>
-                </ItemTemplate>
-            </asp:ListView>
 
         </div>
 

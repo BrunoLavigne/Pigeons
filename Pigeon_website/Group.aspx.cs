@@ -74,8 +74,8 @@ public partial class Group : System.Web.UI.Page
             // ...
 
             taskList.Add(task1);
-            todosListView.DataSource = taskList;
-            todosListView.DataBind();
+            //todosListView.DataSource = taskList;
+            //todosListView.DataBind();
 
         } catch(Exception e)
         {

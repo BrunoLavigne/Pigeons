@@ -28,6 +28,33 @@
 }
 
 
+.Group-action-btn {
+    color: white;
+    border-radius: 16px;
+    background-color: rgb(97, 69, 91);
+    width: 175px;
+    display: inline-block;
+}
+
+.Group-action-btn.deleteGroup {
+    background-color: #7d2301;
+}
+
+.Group-action-btn.deleteGroup .icon-container {
+    background-color: rgb(87, 6, 0);
+}
+
+.Group-action-btn .icon-container {
+    border-radius: 16px;
+    background-color: rgb(76, 51, 72);
+}
+
+.Group-action-btn > div {
+    display: inline-block;
+    padding: 24px;
+}
+
+
 /* The toggler components toggles messages/tasks/files */
 .Toggler {
     text-decoration: none;
