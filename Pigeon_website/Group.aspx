@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="uc" TagName="NewGroupMessageModal" Src="~/Partials/NewGroupMessageModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
+<%@ Register TagPrefix="uc" TagName="TodosGroupModal" Src="~/Partials/GroupTodosModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -157,7 +158,7 @@
                     <div class="text">Todos</div>
 
                     <div class="action">
-                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
+                        <a href="#todosModal" data-toggle="modal" data-target="#todosModal">
                             <i class="glyphicon glyphicon-plus-sign"></i>
                         </a>
                     </div>
@@ -168,17 +169,7 @@
                         </a>
                     </div>
 
-                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
                 </div>
-
-                <asp:ListView ID="ListView1" runat="server">
-                    <ItemTemplate>
-                        <div class="Group-todo">
-                            <div class="h4"><asp:Label runat="server" Text='<%#Eval("description") %>'></asp:Label></div>
-                            <p>Completé?: <asp:Label runat="server" Text='<%#Eval("is_completed") %>'></asp:Label></p>
-                        </div>
-                    </ItemTemplate>
-                </asp:ListView>
 
             </div>
 
@@ -196,6 +187,9 @@
 
     <!-- Remove group modal -->
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
+
+    <!-- Tasks modal -->
+    <uc:TodosGroupModal runat="server" ID="TodosGroupModal" />
 
 </asp:Content>
 
