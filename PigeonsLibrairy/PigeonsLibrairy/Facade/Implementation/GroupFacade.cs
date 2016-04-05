@@ -1,30 +1,68 @@
 ﻿using PigeonsLibrairy.Facade.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PigeonsLibrairy.Model;
-using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Log;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
-    public class GroupFacade : IGroupFacade
+    /// <summary>
+    /// Facade offrant les service pour les pages de group
+    /// </summary>
+    public class GroupFacade : Facade, IGroupFacade
     {
-        private MainController mainControl { get; set; }
-
-        public GroupFacade()
-        {
-            mainControl = new MainController();
-        }
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public GroupFacade() : base() {}
 
         /// <summary>
         /// Création d'un nouveau groupe et inscription du membre à celui-ci
         /// </summary>
         public group CreateNewGroupAndRegister(group newGroup, object personID)
         {
-            return mainControl.GroupService.CreateNewGroupAndRegister(newGroup, personID);
+            try
+            {
+                return mainControl.GroupService.CreateNewGroupAndRegister(newGroup, personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Retire une personne du groupe
+        /// </summary>
+        /// <param name="groupID">Le groupe ID du groupe à modifier</param>
+        /// <param name="followerID">Le ID de la person à retirer du groupe</param>
+        /// <returns>True si la personne à été retiré, une erreur sinon</returns>
+        public bool RemoveTheFollower(object groupID, object followerID)
+        {
+            try
+            {
+                return mainControl.FollowingService.RemoveTheFollower(groupID, followerID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }
+        }
+
+        public bool CloseGroup(object adminID, object groupID)
+        {
+            try
+            {
+                return mainControl.GroupService.CloseGroup(adminID, groupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -34,41 +72,11 @@ namespace PigeonsLibrairy.Facade.Implementation
         {
             try
             {
-                mainControl.FollowingService.addPersonToGroup(adminID, personToAddID, groupID);
-            }
-            catch(ServiceException serviceException)
-            {
-                throw new FacadeException(serviceException.Message);
-            }            
-        }
-
-        /// <summary>
-        /// Recherche d'un groupe selon son ID
-        /// </summary>
-        public group GetGroupByID(object groupID)
-        {
-            try
-            {
-                return mainControl.GroupService.GetByID(groupID);
-            }
-            catch(ServiceException serviceException)
-            {
-                throw new FacadeException(serviceException.Message);
-            }            
-        }
-
-        /// <summary>
-        /// Recherche d'une personne selon son ID
-        /// </summary>        
-        public person GetPersonByID(object personID)
-        {
-            try
-            {
-                return mainControl.PersonService.GetByID(personID);
+                mainControl.FollowingService.AddPersonToGroup(adminID, personToAddID, groupID);
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
             }
         }
 
@@ -83,8 +91,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
-            }            
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -94,11 +103,12 @@ namespace PigeonsLibrairy.Facade.Implementation
         {
             try
             {
-                return mainControl.MessageService.createNewMessage(messageToCreate);
+                return mainControl.MessageService.CreateNewMessage(messageToCreate);
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
             }
         }
         
@@ -113,8 +123,117 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                throw new FacadeException(serviceException.Message);
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
             }
         }
+
+        /// <summary>
+        /// Vérification si la personne est l'administrateur du groupe
+        /// </summary>        
+        public bool PersonIsGroupAdmin(object activePersonID, object activeGroupID)
+        {
+            try
+            {
+                return mainControl.FollowingService.PersonIsGroupAdmin(activePersonID, activeGroupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Recherche de toutes les Tasks associées à un groupe
+        /// </summary>        
+        public List<task> GetGroupTasks(object groupID)
+        {
+            try
+            {
+                return mainControl.TaskService.GetAvailableTask(groupID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Création d'une nouvelle Task dans un groupe
+        /// </summary>
+        public task CreateNewTask(task newTask, object groupID, object personID)
+        {
+            try
+            {
+                return mainControl.TaskService.CreateNewTask(newTask, groupID, personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        public void TaskIsCompleted(object taskID)
+        {
+            try
+            {
+                mainControl.TaskService.TaskIsCompleted(taskID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);                
+            }
+        }
+
+        /// <summary>
+        /// Ajout un nouveau projet à un groupe
+        /// </summary>
+        /// <param name="projectToInsert"></param>
+        /// <returns></returns>
+        //public project CreateNewProject(project projectToInsert, object groupID)
+        //{
+        //    try
+        //    {
+        //        return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
+
+        //public IEnumerable<project> GetProjectsFromGroup(object groupID)
+        //{
+        //    try
+        //    {
+        //        return mainControl.ProjectService.GetProjectsFromGroup(groupID);
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
+
+        /// <summary>
+        /// Recherche de tout les types qui sont disponibles
+        /// </summary>
+        /// <returns></returns>
+        //public IEnumerable<type> GetAllTypes()
+        //{
+        //    try
+        //    {
+        //        return mainControl.TypeService.GetAll();
+        //    }
+        //    catch (ServiceException serviceException)
+        //    {
+        //        ExceptionLog.LogTheError(serviceException.Message);
+        //        return null;
+        //    }
+        //}
     }
 }

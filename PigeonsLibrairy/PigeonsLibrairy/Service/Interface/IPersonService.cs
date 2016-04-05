@@ -5,12 +5,12 @@ namespace PigeonsLibrairy.Service.Interface
 {
 
     /// <summary>
-    /// Interface pour les services sur la table person
+    /// Interface pour la classe <see cref="Implementation.PersonService"/>
     /// </summary>
     public interface IPersonService : IService<person>
     {
-        bool registerNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
-        person loginValidation(string username, string password);
-        person UpdatePerson(int personID, person updatedPerson);
+        bool RegisterNewUser(person newUser, string emailConfirmation, string passwordConfirmation);
+        person LoginValidation(string username, string password);
+        person UpdatePerson(object personID, person updatedPerson);
     }
 }

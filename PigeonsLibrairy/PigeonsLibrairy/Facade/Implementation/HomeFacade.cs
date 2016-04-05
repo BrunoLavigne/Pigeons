@@ -1,30 +1,36 @@
-﻿using PigeonsLibrairy.Controller;
+﻿using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Facade.Interface;
+using PigeonsLibrairy.Log;
 using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
-
-    public class HomeFacade : IHomeFacade
-    {
-        private MainController mainControl { get; set; }
-
-        public HomeFacade()
-        {
-            mainControl = new MainController();            
-        }
+    /// <summary>
+    /// Facade offrant accès aux services nécessaire à partir de la page Login jusqu'à la page Groups
+    /// </summary>
+    public class HomeFacade : Facade, IHomeFacade
+    {   
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public HomeFacade() : base() {}
 
         /// <summary>
         /// Enregistrement d'un nouvel utilisateur
         /// </summary>
         public bool RegisterUser(person newUser, string emailConfirmation, string passwordConfirmation)
         {
-            return mainControl.PersonService.registerNewUser(newUser, emailConfirmation, passwordConfirmation);
+            try
+            {
+                return mainControl.PersonService.RegisterNewUser(newUser, emailConfirmation, passwordConfirmation);
+            }
+            catch(ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }            
         }
 
         /// <summary>
@@ -32,31 +38,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public person LoginValidation(string username, string password)
         {
-            return mainControl.PersonService.loginValidation(username, password);
-        }
-
-        /// <summary>
-        /// Mise à jour d'un utilisateur
-        /// </summary>        
-        public person UpdatePerson(int personID, person personToUpdate)
-        {
-            return mainControl.PersonService.UpdatePerson(personID, personToUpdate);
-        }
-
-        /// <summary>
-        /// Recherche d'un utilisateur par ID
-        /// </summary>        
-        public person GetPersonByID(int personID)
-        {
-            return mainControl.PersonService.GetByID(personID);
-        }
-
-        /// <summary>
-        /// Recherche d'un utilisateur selon un valeur donnée dans un colonne de la table person
-        /// </summary>        
-        public List<person> GetPersonBy(string columnName, object value)
-        {
-            return mainControl.PersonService.GetBy(columnName, value).ToList();
+            try
+            {
+                return mainControl.PersonService.LoginValidation(username, password);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -64,7 +54,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public List<group> GetPersonGroups(object personID)
         {
-            return mainControl.GroupService.GetPersonGroups(personID).ToList();
+            try
+            {
+                return mainControl.GroupService.GetPersonGroups(personID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -72,7 +70,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>        
         public int GetGroupFollowers(object groupID)
         {
-            return mainControl.FollowingService.GetTheFollowers(groupID).Count();
+            try
+            {
+                return mainControl.FollowingService.GetTheFollowers(groupID).Count();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return 0;
+            }         
         }
 
         /// <summary>
@@ -80,7 +86,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public List<person> GetAllPersons(object searchValue)
         {
-            return mainControl.PersonService.GetBy(person.COLUMN_ALL, searchValue).ToList();
+            try
+            {
+                return mainControl.PersonService.GetBy(person.COLUMN_ALL, searchValue).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }            
         }
     }
 }

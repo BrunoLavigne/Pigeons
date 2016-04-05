@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    public interface IFollowingDAO
+    /// <summary>
+    /// Interface de la class <see cref="Implementation.FollowingDAO"/>
+    /// </summary>
+    interface IFollowingDAO : IDAO<following>
     {
-        IList<following> GetTheFollowers(pigeonsEntities1 context, object groupID);
+        IList<following> GetTheFollowersCount(pigeonsEntities1 context, object groupID);
+        IEnumerable<following> GetByID(pigeonsEntities1 context, object personID, object groupID);
     }
 }

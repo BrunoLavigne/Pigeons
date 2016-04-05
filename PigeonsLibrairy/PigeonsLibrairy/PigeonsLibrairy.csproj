@@ -21,6 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -66,32 +69,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Controller\FileController.cs" />
     <Compile Include="Controller\MainController.cs" />
-    <Compile Include="DAO\GenericDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
-    <Compile Include="DAO\Implementation\ProjectDAO.cs" />
     <Compile Include="DAO\Implementation\FollowingDAO.cs" />
     <Compile Include="DAO\Implementation\GroupDAO.cs" />
     <Compile Include="DAO\Implementation\MessageDAO.cs" />
     <Compile Include="DAO\Implementation\PersonDAO.cs" />
     <Compile Include="DAO\Implementation\TaskDAO.cs" />
-    <Compile Include="DAO\Implementation\TypeDAO.cs" />
     <Compile Include="DAO\Interface\IDAO.cs" />
-    <Compile Include="DAO\Interface\IProjectDAO.cs" />
     <Compile Include="DAO\Interface\IFollowingDAO.cs" />
     <Compile Include="DAO\Interface\IGroupDAO.cs" />
     <Compile Include="DAO\Interface\IMessageDAO.cs" />
     <Compile Include="DAO\Interface\IPersonDAO.cs" />
     <Compile Include="DAO\Interface\ITaskDAO.cs" />
-    <Compile Include="DAO\Interface\ITypeDAO.cs" />
-    <Compile Include="DAO\PersonDAO_toremove.cs" />
     <Compile Include="Exceptions\ControllerException.cs" />
+    <Compile Include="Exceptions\DAOException.cs" />
     <Compile Include="Exceptions\FacadeException.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="Facade\Implementation\Facade.cs" />
     <Compile Include="Facade\Implementation\GroupFacade.cs" />
     <Compile Include="Facade\Implementation\HomeFacade.cs" />
+    <Compile Include="Facade\Interface\IFacade.cs" />
     <Compile Include="Facade\Interface\IGroupFacade.cs" />
     <Compile Include="Facade\Interface\IHomeFacade.cs" />
+    <Compile Include="Log\ExceptionLog.cs" />
+    <Compile Include="Model\assignation.cs">
+      <DependentUpon>PigeonsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\event.cs">
+      <DependentUpon>PigeonsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\following.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
@@ -119,32 +127,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PigeonsModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\project.cs">
-      <DependentUpon>PigeonsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\task.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\type.cs">
-      <DependentUpon>PigeonsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service\Implementation\ProjectService.cs" />
     <Compile Include="Service\Implementation\FollowingService.cs" />
     <Compile Include="Service\Implementation\GroupService.cs" />
     <Compile Include="Service\Implementation\MessageService.cs" />
     <Compile Include="Service\Implementation\PersonService.cs" />
     <Compile Include="Service\Implementation\Service.cs" />
     <Compile Include="Service\Implementation\TaskService.cs" />
-    <Compile Include="Service\Implementation\TypeService.cs" />
-    <Compile Include="Service\Interface\IProjectService.cs" />
     <Compile Include="Service\Interface\IGroupService.cs" />
     <Compile Include="Service\Interface\IMessageService.cs" />
     <Compile Include="Service\Interface\IFollowingService.cs" />
     <Compile Include="Service\Interface\IPersonService.cs" />
     <Compile Include="Service\Interface\IService.cs" />
     <Compile Include="Service\Interface\ITaskService.cs" />
-    <Compile Include="Service\Interface\ITypeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -159,6 +157,7 @@
     <None Include="PigeonsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Log\LoggerFile.txt" />
     <Content Include="Model\PigeonsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PigeonsModel.edmx</DependentUpon>

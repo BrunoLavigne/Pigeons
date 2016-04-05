@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Service.Interface
 {
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.MessageService"/>
+    /// </summary>
     public interface IMessageService : IService<message>
     {
-        bool createNewMessage(message messageToCreate);
+        bool CreateNewMessage(message messageToCreate);
         IEnumerable<message> GetGroupMessages(object groupID);
     }
 }

@@ -1,15 +1,16 @@
 ﻿using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Service.Interface
 {
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.FollowingService"/>
+    /// </summary>
     public interface IFollowingService : IService<following>
     {
-        void addPersonToGroup(object adminID, object personId, object groupId);
+        void AddPersonToGroup(object adminID, object personId, object groupId);
+        bool RemoveTheFollower(object groupID, object followerID);
+        bool PersonIsGroupAdmin(object personID, object groupID);
         IList<following> GetTheFollowers(object groupID);
     }
 }

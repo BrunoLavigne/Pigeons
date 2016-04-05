@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    interface IGroupDAO
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.GroupDAO"/>
+    /// </summary>
+    interface IGroupDAO : IDAO<group>
     {
     }
 }

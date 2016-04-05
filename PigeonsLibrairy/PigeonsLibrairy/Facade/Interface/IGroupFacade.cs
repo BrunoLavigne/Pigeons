@@ -1,27 +1,32 @@
 ﻿using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Facade.Interface
 {
-    public interface IGroupFacade
+    /// <summary>
+    /// Interface pour la classe <see cref="Implementation.GroupFacade"/>
+    /// </summary>
+    public interface IGroupFacade : IFacade
     {
         // Group
-        group GetGroupByID(object groupID);
         group CreateNewGroupAndRegister(group newGroup, object personID);
+        bool CloseGroup(object adminID, object groupID);
 
         // Person    
-        person GetPersonByID(object personID);
         void AddPersonToGroup(object adminID, object personToAddID, object groupID);
 
         // Following
         List<following> GetGroupFollowers(object groupID);
-        
+        bool RemoveTheFollower(object groupID, object followerID);
+        bool PersonIsGroupAdmin(object activePersonID, object activeGroupID);
+
         // Message
         bool CreateNewMessage(message messageToCreate);
         List<message> GetGroupMessages(object groupID);
+
+        // Task
+        task CreateNewTask(task newTask, object groupID, object personID);
+        List<task> GetGroupTasks(object groupID);
+        void TaskIsCompleted(object taskID);
     }
 }

@@ -2,6 +2,7 @@
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Web.Services;
 
 public partial class Groups : System.Web.UI.Page
@@ -32,7 +33,25 @@ public partial class Groups : System.Web.UI.Page
 
                 noGroupsView.Visible = false;
 
-                groupsListView.DataSource = homeFacade.GetPersonGroups(currentUser.Id);
+                DataTable table = new DataTable();
+                table.Columns.Add("id");
+                table.Columns.Add("name");
+                table.Columns.Add("creation_date");
+                table.Columns.Add("description");
+                table.Columns.Add("followers");
+
+                foreach (group g in homeFacade.GetPersonGroups(currentUser.Id))
+                {
+                    DataRow dr = table.NewRow();
+                    dr["id"] = g.Id;
+                    dr["name"] = g.Name;
+                    dr["creation_date"] = g.Creation_date;
+                    dr["description"] = g.Description;
+                    dr["followers"] = homeFacade.GetGroupFollowers(g.Id).ToString();
+                    table.Rows.Add(dr);
+                }
+
+                groupsListView.DataSource = table;                
                 groupsListView.DataBind();
 
             } else {
