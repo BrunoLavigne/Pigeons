@@ -23,10 +23,10 @@ namespace PigeonsLibrairy.Model
             this.events = new HashSet<@event>();
         }
 
-        public const string COLUMN_GROUP_ID     = "group_id";
-        public const string COLUMN_NAME         = "name";
-        public const string COLUMN_IS_ACTIVE    = "is_active";
-        public const string COLUMN_DESCRIPTION  = "description";
+        public const string COLUMN_GROUP_ID = "group_id";
+        public const string COLUMN_NAME = "name";
+        public const string COLUMN_IS_ACTIVE = "is_active";
+        public const string COLUMN_DESCRIPTION = "description";
         public const string COLUMN_CREATION_DATE = "creation_date";
 
         public int Id { get; set; }

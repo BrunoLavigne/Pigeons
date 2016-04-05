@@ -14,10 +14,10 @@ namespace PigeonsLibrairy.Model
     
     public partial class @event
     {
-        public const string COLUMN_GROUP_ID     = "group_id";
-        public const string COLUMN_DESCRIPTION  = "description";
-        public const string COLUMN_EVENTSTART   = "event_start";
-        public const string COLUMN_EVENTEND     = "event_end";
+        public const string COLUMN_GROUP_ID = "group_id";
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_EVENTSTART = "event_start";
+        public const string COLUMN_EVENTEND = "event_end";
         public const string COLUMN_IS_COMPLETED = "is_completed";
 
         public int ID { get; set; }
@@ -25,7 +25,7 @@ namespace PigeonsLibrairy.Model
         public int Group_ID { get; set; }
         public System.DateTime Event_Start { get; set; }
         public Nullable<System.DateTime> Event_End { get; set; }
-        public sbyte Is_Completed { get; set; }
+        public bool Is_Completed { get; set; }
     
         public virtual group group { get; set; }
     }

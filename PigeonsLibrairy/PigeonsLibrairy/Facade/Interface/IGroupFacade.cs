@@ -31,5 +31,9 @@ namespace PigeonsLibrairy.Facade.Interface
 
         // Assignation
         assignation AssignTaskToPerson(assignation newAssignation);
+
+        // Event
+        @event CreateNewEvent(@event newEvent);
+        List<@event> GetGroupEvent(object groupID);
     }
 }

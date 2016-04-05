@@ -4,6 +4,7 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
@@ -17,6 +18,25 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// Constructeur
         /// </summary>
         public EventDAO() : base() { }
+
+        /// <summary>
+        /// Recherche de tout les Events non complété pour un Group
+        /// </summary>
+        /// <param name="context">La connection</param>
+        /// <param name="groupID">Le ID du groupe</param>
+        /// <returns>Une liste de Events ou une liste vide</returns>
+        public IEnumerable<@event> GetGroupEvent(pigeonsEntities1 context, object groupID)
+        {
+            try
+            {
+                Expression<Func<@event, bool>> filter = (e => e.Group_ID == (int)groupID && !e.Is_Completed);
+                return Get(context, filter).OrderBy(e => e.Event_Start);
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le FollowingDAO GetPersonFollowingGroups : " + ex.Message);
+            }
+        }
 
         /// <summary>
         /// Get an event by searching a value in a column

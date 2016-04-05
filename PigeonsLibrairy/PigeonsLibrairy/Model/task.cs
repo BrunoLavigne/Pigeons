@@ -20,12 +20,12 @@ namespace PigeonsLibrairy.Model
             this.assignations = new HashSet<assignation>();
         }
 
-        public const string COLUMN_PERSON_ID    = "person_id";
-        public const string COLUMN_DESCRIPTION  = "description";
+        public const string COLUMN_PERSON_ID = "person_id";
+        public const string COLUMN_DESCRIPTION = "description";
         public const string COLUMN_IS_COMPLETED = "is_completed";
-        public const string COLUMN_GROUP_ID     = "group_id";
-        public const string COLUMN_TASK_START   = "task_start";
-        public const string COLUMN_TASK_END     = "task_end";
+        public const string COLUMN_GROUP_ID = "group_id";
+        public const string COLUMN_TASK_START = "task_start";
+        public const string COLUMN_TASK_END = "task_end";
 
         public int Id { get; set; }
         public string Description { get; set; }

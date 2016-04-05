@@ -22,7 +22,7 @@
           <Property Name="Group_ID" Type="int" Nullable="false" />
           <Property Name="Event_Start" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Event_End" Type="datetime" Precision="0" />
-          <Property Name="Is_Completed" Type="tinyint" Nullable="false" />
+          <Property Name="Is_Completed" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="following">
           <Key>
@@ -413,14 +413,14 @@
             <End Role="group" EntitySet="groups" />
             <End Role="task" EntitySet="tasks" />
           </AssociationSet>
+          <AssociationSet Name="FK_Task_Person" Association="pigeonsModel.FK_Task_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="task" EntitySet="tasks" />
+          </AssociationSet>
           <EntitySet Name="events" EntityType="pigeonsModel.event" />
           <AssociationSet Name="FK_Event_Group" Association="pigeonsModel.FK_Event_Group">
             <End Role="group" EntitySet="groups" />
             <End Role="event" EntitySet="events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Task_Person" Association="pigeonsModel.FK_Task_Person">
-            <End Role="person" EntitySet="people" />
-            <End Role="task" EntitySet="tasks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="assignation">
@@ -473,6 +473,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Task_Person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.task" Role="task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="task">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="event">
           <Key>
             <PropertyRef Name="ID" />
@@ -482,7 +496,7 @@
           <Property Name="Group_ID" Type="Int32" Nullable="false" />
           <Property Name="Event_Start" Type="DateTime" Nullable="false" />
           <Property Name="Event_End" Type="DateTime" />
-          <Property Name="Is_Completed" Type="SByte" Nullable="false" />
+          <Property Name="Is_Completed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Event_Group" FromRole="event" ToRole="group" />
         </EntityType>
         <Association Name="FK_Event_Group">
@@ -496,20 +510,6 @@
             </Principal>
             <Dependent Role="event">
               <PropertyRef Name="Group_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Task_Person">
-          <End Type="pigeonsModel.person" Role="person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="pigeonsModel.task" Role="task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="task">
-              <PropertyRef Name="Author_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

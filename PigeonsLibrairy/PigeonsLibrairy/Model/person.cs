@@ -23,17 +23,17 @@ namespace PigeonsLibrairy.Model
             this.tasks = new HashSet<task>();
         }
 
-        public const string COLUMN_PERSON_ID        = "person_id";
-        public const string COLUMN_NAME             = "name";
-        public const string COLUMN_EMAIL            = "email";
-        public const string COLUMN_PASSWORD         = "password";
+        public const string COLUMN_PERSON_ID = "person_id";
+        public const string COLUMN_NAME = "name";
+        public const string COLUMN_EMAIL = "email";
+        public const string COLUMN_PASSWORD = "password";
         public const string COLUMN_INSCRIPTION_DATE = "inscription_date";
-        public const string COLUMN_BIRTH_DATE       = "birth_date";
-        public const string COLUMN_PHONE_NUMBER     = "phone_number";
-        public const string COLUMN_ORGANIZATION     = "organization";
-        public const string COLUMN_POSITION         = "position";
-        public const string COLUMN_DESCRIPTION      = "description";
-        public const string COLUMN_ALL              = "all";
+        public const string COLUMN_BIRTH_DATE = "birth_date";
+        public const string COLUMN_PHONE_NUMBER = "phone_number";
+        public const string COLUMN_ORGANIZATION = "organization";
+        public const string COLUMN_POSITION = "position";
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_ALL = "all";
 
         public int Id { get; set; }
         public string Name { get; set; }

@@ -83,7 +83,7 @@ namespace PigeonsLibrairy.DAO.Implementation
         {
             try
             {
-                Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.group.Is_active == true);
+                Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.Is_active && f.group.Is_active);
                 string includeProperties = "group, person";
                 return Get(context, filter, null, includeProperties).OrderBy(m => m.group.Creation_date);
             }

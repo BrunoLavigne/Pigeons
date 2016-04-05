@@ -17,6 +17,8 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public GroupFacade() : base() {}
 
+        #region Group
+
         /// <summary>
         /// Création d'un nouveau groupe et inscription du membre à celui-ci
         /// </summary>
@@ -32,6 +34,26 @@ namespace PigeonsLibrairy.Facade.Implementation
                 return null;
             }
         }
+
+        /// <summary>
+        /// Fermeture d'un groupe
+        /// </summary>
+        public bool CloseGroup(object adminID, object groupID)
+        {
+            try
+            {
+                return mainControl.GroupService.CloseGroup(adminID, groupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }
+        }
+
+        #endregion Group
+
+        #region Following
 
         /// <summary>
         /// Retire une personne du groupe
@@ -50,20 +72,7 @@ namespace PigeonsLibrairy.Facade.Implementation
                 ExceptionLog.LogTheError(serviceException.Message);
                 return false;
             }
-        }
-
-        public bool CloseGroup(object adminID, object groupID)
-        {
-            try
-            {
-                return mainControl.GroupService.CloseGroup(adminID, groupID);
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return false;
-            }
-        }
+        }     
 
         /// <summary>
         /// Ajouter une personne à son groupe
@@ -97,6 +106,26 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         /// <summary>
+        /// Vérification si la personne est l'administrateur du groupe
+        /// </summary>        
+        public bool PersonIsGroupAdmin(object activePersonID, object activeGroupID)
+        {
+            try
+            {
+                return mainControl.FollowingService.PersonIsGroupAdmin(activePersonID, activeGroupID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return false;
+            }
+        }
+
+        #endregion Following
+
+        #region Message
+
+        /// <summary>
         /// Creation d'un nouveau message dans un groupe
         /// </summary>
         public bool CreateNewMessage(message messageToCreate)
@@ -128,21 +157,9 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
-        /// <summary>
-        /// Vérification si la personne est l'administrateur du groupe
-        /// </summary>        
-        public bool PersonIsGroupAdmin(object activePersonID, object activeGroupID)
-        {
-            try
-            {
-                return mainControl.FollowingService.PersonIsGroupAdmin(activePersonID, activeGroupID);
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return false;
-            }
-        }
+        #endregion Message
+
+        #region Task
 
         /// <summary>
         /// Recherche de toutes les Tasks associées à un groupe
@@ -191,6 +208,10 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
+        #endregion Task
+
+        #region Assignation
+
         /// <summary>
         /// Assignation d'une Person à une Task
         /// </summary>
@@ -207,52 +228,42 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
-        /// <summary>
-        /// Ajout un nouveau projet à un groupe
-        /// </summary>
-        /// <param name="projectToInsert"></param>
-        /// <returns></returns>
-        //public project CreateNewProject(project projectToInsert, object groupID)
-        //{
-        //    try
-        //    {
-        //        return mainControl.ProjectService.CreateNewProject(projectToInsert, groupID);
-        //    }
-        //    catch (ServiceException serviceException)
-        //    {
-        //        ExceptionLog.LogTheError(serviceException.Message);
-        //        return null;
-        //    }
-        //}
+        #endregion Assignation
 
-        //public IEnumerable<project> GetProjectsFromGroup(object groupID)
-        //{
-        //    try
-        //    {
-        //        return mainControl.ProjectService.GetProjectsFromGroup(groupID);
-        //    }
-        //    catch (ServiceException serviceException)
-        //    {
-        //        ExceptionLog.LogTheError(serviceException.Message);
-        //        return null;
-        //    }
-        //}
+        #region Event
 
         /// <summary>
-        /// Recherche de tout les types qui sont disponibles
+        /// Création d'un nouvel évènement dans un groupe
         /// </summary>
-        /// <returns></returns>
-        //public IEnumerable<type> GetAllTypes()
-        //{
-        //    try
-        //    {
-        //        return mainControl.TypeService.GetAll();
-        //    }
-        //    catch (ServiceException serviceException)
-        //    {
-        //        ExceptionLog.LogTheError(serviceException.Message);
-        //        return null;
-        //    }
-        //}
+        public @event CreateNewEvent(@event newEvent)
+        {
+            try
+            {
+                return mainControl.EventService.CreateNewEvent(newEvent);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Recherche de tout les Events non complétés d'un groupe
+        /// </summary>
+        public List<@event> GetGroupEvent(object groupID)
+        {
+            try
+            {
+                return mainControl.EventService.GetGroupEvent(groupID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        #endregion Event
     }
 }

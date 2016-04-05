@@ -28,6 +28,7 @@ namespace FunctionsTester
             fillTheMessagesDataGrid();
             fillTheType();
 
+            // Vérification si l'utilisateur est administrateur du groupe
             bool isThisPersonTheGroupAdmin = groupFacade.PersonIsGroupAdmin(activePersonID, activeGroupID);
             if (isThisPersonTheGroupAdmin)
             {
@@ -60,9 +61,10 @@ namespace FunctionsTester
             txtUserID.Text      = activePerson.Id.ToString();
             txtUserName.Text    = activePerson.Name;
 
-            // Retreiving the followers
+            // Retreiving the persons following a group
             List<person> followers = groupFacade.GetGroupFollowers(activeGroupID);
 
+            
             foreach(person follower in followers)
             {
                 cb_followers.Items.Add(follower.Id);
@@ -104,6 +106,9 @@ namespace FunctionsTester
             }            
         }
 
+        /// <summary>
+        /// Test - Affichage des messages du groupe
+        /// </summary>
         private void fillTheMessagesDataGrid()
         {
             dataGrid_messages.Rows.Clear();
@@ -174,6 +179,15 @@ namespace FunctionsTester
             {
                 eventtEnd = dateTimePicker_eventEnd.Value;
             }
+
+            @event newEvent = new @event();
+            newEvent.Description = eventDesc;
+            newEvent.Event_Start = eventStart;
+            newEvent.Event_End = eventtEnd;
+            newEvent.Group_ID = activeGroupID;
+
+            groupFacade.CreateNewEvent(newEvent);                    
+
         }
 
         /// <summary>
@@ -316,6 +330,21 @@ namespace FunctionsTester
             taskAssignation.Task_ID = taskID;
 
             groupFacade.AssignTaskToPerson(taskAssignation);
+        }
+
+        /// <summary>
+        /// Test - Affichage des events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ShowEvents_Click(object sender, EventArgs e)
+        {
+            List<@event> eventList = groupFacade.GetGroupEvent(activeGroupID);
+
+            foreach(@event ev in eventList)
+            {
+                dataGridView_events.Rows.Add(ev.Description, ev.Event_Start, ev.Event_End);
+            }
         }
     }
 }

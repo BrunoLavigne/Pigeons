@@ -549,6 +549,7 @@
             this.btn_ShowEvents.TabIndex = 49;
             this.btn_ShowEvents.Text = "show";
             this.btn_ShowEvents.UseVisualStyleBackColor = true;
+            this.btn_ShowEvents.Click += new System.EventHandler(this.btn_ShowEvents_Click);
             // 
             // dataGridView_events
             // 

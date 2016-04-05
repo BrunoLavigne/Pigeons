@@ -12,5 +12,7 @@ namespace PigeonsLibrairy.Service.Interface
     /// </summary>
     public interface IEventService : IService<@event>
     {
+        @event CreateNewEvent(@event newEvent);
+        IEnumerable<@event> GetGroupEvent(object groupID);
     }
 }
