@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="OrderedPersonTest" storage="c:\users\franz\documents\github\pigeons\pigeonslibrairy\unittesting\orderedpersontest.orderedtest" id="febae9e6-0848-445c-9a1d-7fced8890e57" continueAfterFailure="true" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="3b9a4b41-4cad-0899-edea-6498924122b8" name="InsertPersonTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="70f0ff97-7b0a-94a1-ab87-6a59fb978a4c" name="GetByIdPersonTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="ce389c79-a9fd-c438-2075-b9c4738e0440" name="UpdatePersonTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="5392979b-2ce6-153d-4a66-fc07d011d53d" name="DeletePersonTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>
