@@ -78,7 +78,26 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return 0;
-            }         
+            }      
+        }
+
+        /// <summary>
+        /// Recherche des informations (person/following/groups) reliés à une person par son ID
+        /// 
+        /// </summary>
+        /// <param name="personID"></param>
+        /// <returns></returns>
+        public person GetPersonData(object personID)
+        {
+            try
+            {
+                return mainControl.PersonService.GetPersonData(personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>

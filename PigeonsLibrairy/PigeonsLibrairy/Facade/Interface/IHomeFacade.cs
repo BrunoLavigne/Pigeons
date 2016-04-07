@@ -11,6 +11,7 @@ namespace PigeonsLibrairy.Facade.Interface
         // Person
         bool RegisterUser(person newUser, string emailConfirmation, string passwordConfirmation);
         person LoginValidation(string username, string password);
+        person GetPersonData(object personID);
         List<person> GetAllPersons(object searchValue);
 
         // Group

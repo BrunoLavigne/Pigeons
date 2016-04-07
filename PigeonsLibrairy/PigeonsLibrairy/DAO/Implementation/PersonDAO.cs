@@ -4,6 +4,7 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace PigeonsLibrairy.DAO.Implementation
@@ -67,6 +68,19 @@ namespace PigeonsLibrairy.DAO.Implementation
             {
                 throw new DAOException(ex.Message);
             }
-        }            
+        }
+
+        /// <summary>
+        /// Recherche dans la BD les informations (person/following/group) pour une Person
+        /// </summary>
+        /// <param name="context">La connection à la base de données</param>
+        /// <param name="personID">Le ID de la personne</param>
+        /// <returns>Une liste qui contient la personne ses following et ses groupes</returns>
+        public IEnumerable<person> GetPersonData(pigeonsEntities1 context, object personID)
+        {
+            Expression<Func<person, bool>> filter = (p => p.Id == (int)personID && p.followings.Any(f => f.Is_active && f.group.Is_active));
+            string includedProperty = "followings";
+            return Get(context, filter, null, includedProperty);
+        }
     }
 }

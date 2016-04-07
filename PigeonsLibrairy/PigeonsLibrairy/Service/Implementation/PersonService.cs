@@ -187,6 +187,38 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 throw new ServiceException(daoException.Message);
             }
-        }            
+        }
+        
+        /// <summary>
+        /// Recherche d'une Person qui inclu la person, ses following et ses group
+        /// </summary>
+        /// <param name="personID">Le ID de la personne</param>
+        /// <returns>La person et ses information qui corresponde au ID. Null sinon</returns>
+        public person GetPersonData(object personID)
+        {
+            if (personID == null)
+            {
+                throw new ServiceException("Erreur GetPersonDate : Le ID de la personne est null");
+            }
+
+            try
+            {
+                using(var context = new pigeonsEntities1())
+                {
+                    List<person> personList = personDAO.GetPersonData(context, personID).ToList();
+
+                    if(personList.Count() != 1)
+                    {
+                        throw new ServiceException("Erreur personService GetPersonData : La requête ne retourne pas qu'une personne");
+                    }
+
+                    return personList[0];
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
     }
 }
