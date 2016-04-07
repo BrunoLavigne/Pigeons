@@ -42,9 +42,10 @@
     <!-- import global ux -->
     <script type="text/javascript" src="Resources/js/ux/global.js"></script>
 
+    <!-- Page-specific js -->
+    <asp:ContentPlaceHolder ID="ContentPlaceHolderScripts" runat="server">
 
-    <!-- Import page-specific js (Todo: include only in group.aspx, but make sure imported after master page) -->
-    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    </asp:ContentPlaceHolder>
     
 </body>
 </html>

@@ -3,22 +3,12 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Group : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
-        {
-            lblTest.Text = "Ceci n'est pas un postback";
-        } else
-        {
-            lblTest.Text = "Ceci est un postback";
-        }
+
 
         // Also check if the group actually exists and if the user is following it
         if(Session["user"] == null || Request.Params["groupID"] == null)
@@ -26,7 +16,12 @@ public partial class Group : System.Web.UI.Page
             Response.Redirect("Index.aspx");
         } else
         {
+
             person currentUser = (person) Session["user"];
+
+            // Check if user is admin of the group
+            GroupFacade gf = new GroupFacade();
+
 
             // Get group ID from url parameter
             Boolean goodGroupId = false;
@@ -37,11 +32,12 @@ public partial class Group : System.Web.UI.Page
             if(goodGroupId)
             {
                 // Render group to page
-                lblTest.Text = "You want to see group: " + groupId;
                 renderGroupToPage(groupId);
-            } else
-            {
-                lblTest.Text = "Not a valid group/group not found";
+
+                if(!gf.PersonIsGroupAdmin(currentUser.Id, groupId))
+                {
+
+                }
             }
         }
     }
@@ -58,11 +54,11 @@ public partial class Group : System.Web.UI.Page
         try
         {
             theGroup = gf.GetGroupByID(groupId);
-            lblTest.Text = theGroup.Creation_date + " --- " + theGroup.Description;
-
 
             lblGroupName.Text = theGroup.Name;
             lblGroupDescription.Text = theGroup.Description;
+
+            presentationPicture.ImageUrl = theGroup.Group_picture_link;
 
             CultureInfo frCA = new CultureInfo("fr-CA");
 
@@ -86,12 +82,11 @@ public partial class Group : System.Web.UI.Page
             // ...
 
             taskList.Add(task1);
-            todosListView.DataSource = taskList;
-            todosListView.DataBind();
+            //todosListView.DataSource = taskList;
+            //todosListView.DataBind();
 
         } catch(Exception e)
         {
-            lblTest.Text = "Group not found: " + e.Message;
             Console.WriteLine("Group not found: " + e.Message);
         }
         
@@ -101,4 +96,5 @@ public partial class Group : System.Web.UI.Page
     {
         // fun
     }
+
 }

@@ -1,13 +1,14 @@
-﻿.Page-container {
+﻿/*
+    Utility classes
+*/
+.t-center {
+    text-align: center;
+}
 
+.Page-container {
 	
 	min-height: 100vh;
 	
-/*		display: flex;
-		flex-direction: row;
-		justify-content: center;*/
-	
-
 	background: #6db3f2; /* Old browsers */
 	background: -moz-linear-gradient(top,  #6db3f2 0%, #54a3ee 50%, #3690f0 51%, #1e69de 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(top,  #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* Chrome10-25,Safari5.1-6 */
@@ -57,124 +58,3 @@
     margin-right: 10px;
 }
 
-.New-group-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f8f8;      /* bootstrappy */
-    border-color: #e7e7e7;
-    padding: 30px 0;
-}
-.Btn-new-group {
-    font-size: 22px;
-    padding: 10px;
-}
-
-
-/* Groups page */
-/* Group component */
-.Group-item {
-
-    background-color: #e7e7e7;
-    border-radius: 4px;
-
-    margin-top: 22px;
-    padding: 15px 24px;
-
-    -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-}
-
-.Group-item .group-title {
-
-    margin-bottom: 12px;
-
-    font-size: 24px;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400; 
-}
-
-.Group-item .group-since {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.Group-item .group-description {
-    font-family: 'PT Serif', serif;
-}
-
-.test {
-
-    border: 2px dotted red;
-    border-radius: 4px;
-
-}
-
-/* In groups page */
-
-.Group-presentation {
-    background: #f8f8f8;
-}
-.Group-presentation .picture-container {
-    padding: 32px 15px 20px 15px;
-    text-align: center;
-}
-.Group-presentation .picture-container img {
-    border: 7px solid lightgray;
-    border-radius: 50%;
-    max-width: 200px;
-}
-
-.Group-presentation .text {
-    text-align: center;
-}
-
-.Group-presentation .text .title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
-}
-
-img.media-object {
-    height: 75px;
-    border-radius: 50%;
-}
-
-
-.Toggler, .Toggler:hover, .Toggler:focus {
-    text-decoration: none;
-    color: black;
-}
-.Toggler-container {
-    padding: 20px;
-    border-radius: 4px;
-    background: #f8f8f8;
-
-    font-size: 24px;
-    font-weight: bold;
-}
-.Toggler-container:hover, .Toggler-container:focus {
-    cursor: pointer;
-}
-.Toggler-container i {
-    float: right;
-}
-
-.Group-messages-container {
-    position: relative;
-}
-
-.Group-message {
-
-    /*display: none;*/
-
-    margin-top: 10px;
-    padding: 40px;
-    background: #f8f8f8;
-    border-radius: 4px;
-
-    -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-}

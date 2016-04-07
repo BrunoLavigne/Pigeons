@@ -8,9 +8,21 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+    <link rel="stylesheet" href="Resources/css/Groups-page.css" />
+
     <%@ Register TagPrefix="uc" TagName="NewGroupModal" Src="~/Partials/NewGroupModal.ascx" %>
 
     <div class="container">
+
+        <div class="row t-center">
+            <a href="#newGroupModal" data-toggle="modal" data-target="#newGroupModal" class="btn btn-success Btn-new-group">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+
+
 
         <div class="row">
             <asp:ListView ID="groupsListView" runat="server">
@@ -47,17 +59,6 @@
             </div>
         </asp:Panel>
 
-    </div>
-
-    <div class="New-group-bar">
-        <div class="container">
-            <a href="#newGroupModal" data-toggle="modal" data-target="#newGroupModal" class="btn btn-success Btn-new-group">
-                <span class="menu-icon glyphicon glyphicon-plus"></span>Nouveau groupe
-            </a>
-
-            <input type="text" id="searchBarValue" />
-            <button id="myButton" class="btn btn-primary">Get Person List</button> 
-        </div>
     </div>
 
     <!-- New group modal -->
