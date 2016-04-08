@@ -13,5 +13,6 @@ namespace PigeonsLibrairy.DAO.Interface
     interface IEventDAO : IDAO<@event>
     {
         IEnumerable<@event> GetGroupEvent(pigeonsEntities1 context, object groupID);
+        IEnumerable<@event> GetUpComingEvents(pigeonsEntities1 context, object groupID, object numberOfEvent);
     }
 }

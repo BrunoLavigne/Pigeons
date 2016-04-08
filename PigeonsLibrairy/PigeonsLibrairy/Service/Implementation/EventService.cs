@@ -5,6 +5,7 @@ using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -120,6 +121,38 @@ namespace PigeonsLibrairy.Service.Implementation
                 }
             }
             catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Retourne une liste des Évènement 
+        /// </summary>
+        /// <param name="numberOfEvents"></param>
+        /// <returns></returns>
+        public IEnumerable<@event> GetUpComingEvents(object groupID, object numberOfEvents)
+        {
+            if(groupID == null)
+            {
+                throw new ServiceException("Le ID du groupe de peu pas être null");
+            }
+
+            try
+            {
+                using(var context = new pigeonsEntities1())
+                {
+                    IEnumerable<@event> upComingEvents = eventDAO.GetUpComingEvents(context, groupID, numberOfEvents);
+
+                    if (upComingEvents == null)
+                    {
+                        throw new ServiceException(string.Format("Le groupe ID : {0} n'a pas retouré d'événement", groupID));
+                    }
+
+                    return upComingEvents;
+                }
+            }
+            catch(DAOException daoException)
             {
                 throw new ServiceException(daoException.Message);
             }

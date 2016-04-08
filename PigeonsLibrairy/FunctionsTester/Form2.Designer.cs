@@ -84,175 +84,202 @@
             this.cb_activeGroup_addPerson = new System.Windows.Forms.ComboBox();
             this.btnUpdateDesc = new System.Windows.Forms.Button();
             this.txtUpdateDesc = new System.Windows.Forms.TextBox();
+            this.cb_LoginPerson = new System.Windows.Forms.ComboBox();
+            this.cb_LoginFollowings = new System.Windows.Forms.ComboBox();
+            this.cb_LoginGroups = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // person_name
             // 
-            this.person_name.Location = new System.Drawing.Point(88, 32);
+            this.person_name.Location = new System.Drawing.Point(176, 62);
+            this.person_name.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_name.Name = "person_name";
-            this.person_name.Size = new System.Drawing.Size(145, 20);
+            this.person_name.Size = new System.Drawing.Size(286, 31);
             this.person_name.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 35);
+            this.label1.Location = new System.Drawing.Point(78, 67);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(80, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Name :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 61);
+            this.label2.Location = new System.Drawing.Point(84, 117);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(77, 25);
             this.label2.TabIndex = 3;
             this.label2.Text = "Email :";
             // 
             // person_email
             // 
-            this.person_email.Location = new System.Drawing.Point(88, 58);
+            this.person_email.Location = new System.Drawing.Point(176, 112);
+            this.person_email.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_email.Name = "person_email";
-            this.person_email.Size = new System.Drawing.Size(145, 20);
+            this.person_email.Size = new System.Drawing.Size(286, 31);
             this.person_email.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 113);
+            this.label3.Location = new System.Drawing.Point(42, 217);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(118, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "Password :";
             // 
             // person_password
             // 
-            this.person_password.Location = new System.Drawing.Point(88, 110);
+            this.person_password.Location = new System.Drawing.Point(176, 212);
+            this.person_password.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_password.Name = "person_password";
-            this.person_password.Size = new System.Drawing.Size(145, 20);
+            this.person_password.Size = new System.Drawing.Size(286, 31);
             this.person_password.TabIndex = 3;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 139);
+            this.label4.Location = new System.Drawing.Point(64, 267);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 13);
+            this.label4.Size = new System.Drawing.Size(98, 25);
             this.label4.TabIndex = 7;
             this.label4.Text = "Confirm :";
             // 
             // person_passwordConfirmation
             // 
-            this.person_passwordConfirmation.Location = new System.Drawing.Point(88, 136);
+            this.person_passwordConfirmation.Location = new System.Drawing.Point(176, 262);
+            this.person_passwordConfirmation.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_passwordConfirmation.Name = "person_passwordConfirmation";
-            this.person_passwordConfirmation.Size = new System.Drawing.Size(145, 20);
+            this.person_passwordConfirmation.Size = new System.Drawing.Size(286, 31);
             this.person_passwordConfirmation.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 87);
+            this.label5.Location = new System.Drawing.Point(64, 167);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.Size = new System.Drawing.Size(98, 25);
             this.label5.TabIndex = 9;
             this.label5.Text = "Confirm :";
             // 
             // person_emailConfirmation
             // 
-            this.person_emailConfirmation.Location = new System.Drawing.Point(88, 84);
+            this.person_emailConfirmation.Location = new System.Drawing.Point(176, 162);
+            this.person_emailConfirmation.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_emailConfirmation.Name = "person_emailConfirmation";
-            this.person_emailConfirmation.Size = new System.Drawing.Size(145, 20);
+            this.person_emailConfirmation.Size = new System.Drawing.Size(286, 31);
             this.person_emailConfirmation.TabIndex = 2;
             // 
             // person_birthdate
             // 
-            this.person_birthdate.Location = new System.Drawing.Point(88, 162);
+            this.person_birthdate.Location = new System.Drawing.Point(176, 312);
+            this.person_birthdate.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_birthdate.Name = "person_birthdate";
-            this.person_birthdate.Size = new System.Drawing.Size(145, 20);
+            this.person_birthdate.Size = new System.Drawing.Size(286, 31);
             this.person_birthdate.TabIndex = 5;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(25, 164);
+            this.label6.Location = new System.Drawing.Point(50, 315);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.Size = new System.Drawing.Size(110, 25);
             this.label6.TabIndex = 11;
             this.label6.Text = "Birthdate :";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(36, 191);
+            this.label7.Location = new System.Drawing.Point(72, 367);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.Size = new System.Drawing.Size(86, 25);
             this.label7.TabIndex = 13;
             this.label7.Text = "Phone :";
             // 
             // person_phone
             // 
-            this.person_phone.Location = new System.Drawing.Point(88, 188);
+            this.person_phone.Location = new System.Drawing.Point(176, 362);
+            this.person_phone.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_phone.Name = "person_phone";
-            this.person_phone.Size = new System.Drawing.Size(145, 20);
+            this.person_phone.Size = new System.Drawing.Size(286, 31);
             this.person_phone.TabIndex = 6;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 219);
+            this.label8.Location = new System.Drawing.Point(16, 421);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 13);
+            this.label8.Size = new System.Drawing.Size(146, 25);
             this.label8.TabIndex = 15;
             this.label8.Text = "Organization :";
             // 
             // person_organization
             // 
-            this.person_organization.Location = new System.Drawing.Point(88, 216);
+            this.person_organization.Location = new System.Drawing.Point(176, 415);
+            this.person_organization.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_organization.Name = "person_organization";
-            this.person_organization.Size = new System.Drawing.Size(145, 20);
+            this.person_organization.Size = new System.Drawing.Size(286, 31);
             this.person_organization.TabIndex = 7;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(31, 245);
+            this.label9.Location = new System.Drawing.Point(62, 471);
+            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 13);
+            this.label9.Size = new System.Drawing.Size(99, 25);
             this.label9.TabIndex = 17;
             this.label9.Text = "position :";
             // 
             // person_position
             // 
-            this.person_position.Location = new System.Drawing.Point(88, 242);
+            this.person_position.Location = new System.Drawing.Point(176, 465);
+            this.person_position.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_position.Name = "person_position";
-            this.person_position.Size = new System.Drawing.Size(145, 20);
+            this.person_position.Size = new System.Drawing.Size(286, 31);
             this.person_position.TabIndex = 8;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 271);
+            this.label10.Location = new System.Drawing.Point(28, 521);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 13);
+            this.label10.Size = new System.Drawing.Size(132, 25);
             this.label10.TabIndex = 19;
             this.label10.Text = "Description :";
             // 
             // person_description
             // 
-            this.person_description.Location = new System.Drawing.Point(88, 268);
+            this.person_description.Location = new System.Drawing.Point(176, 515);
+            this.person_description.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_description.Name = "person_description";
-            this.person_description.Size = new System.Drawing.Size(145, 20);
+            this.person_description.Size = new System.Drawing.Size(286, 31);
             this.person_description.TabIndex = 9;
             // 
             // btnInscription
             // 
-            this.btnInscription.Location = new System.Drawing.Point(88, 295);
+            this.btnInscription.Location = new System.Drawing.Point(176, 567);
+            this.btnInscription.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnInscription.Name = "btnInscription";
-            this.btnInscription.Size = new System.Drawing.Size(145, 23);
+            this.btnInscription.Size = new System.Drawing.Size(290, 44);
             this.btnInscription.TabIndex = 10;
             this.btnInscription.Text = "Inscription";
             this.btnInscription.UseVisualStyleBackColor = true;
@@ -261,40 +288,45 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(285, 38);
+            this.label11.Location = new System.Drawing.Point(570, 73);
+            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.Size = new System.Drawing.Size(77, 25);
             this.label11.TabIndex = 22;
             this.label11.Text = "Email :";
             // 
             // loginUsername
             // 
-            this.loginUsername.Location = new System.Drawing.Point(331, 35);
+            this.loginUsername.Location = new System.Drawing.Point(662, 67);
+            this.loginUsername.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.loginUsername.Name = "loginUsername";
-            this.loginUsername.Size = new System.Drawing.Size(145, 20);
+            this.loginUsername.Size = new System.Drawing.Size(286, 31);
             this.loginUsername.TabIndex = 11;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(264, 64);
+            this.label12.Location = new System.Drawing.Point(528, 123);
+            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(59, 13);
+            this.label12.Size = new System.Drawing.Size(118, 25);
             this.label12.TabIndex = 24;
             this.label12.Text = "Password :";
             // 
             // loginPassword
             // 
-            this.loginPassword.Location = new System.Drawing.Point(331, 61);
+            this.loginPassword.Location = new System.Drawing.Point(662, 117);
+            this.loginPassword.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.loginPassword.Name = "loginPassword";
-            this.loginPassword.Size = new System.Drawing.Size(145, 20);
+            this.loginPassword.Size = new System.Drawing.Size(286, 31);
             this.loginPassword.TabIndex = 12;
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(331, 87);
+            this.btnLogin.Location = new System.Drawing.Point(662, 167);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(145, 23);
+            this.btnLogin.Size = new System.Drawing.Size(290, 44);
             this.btnLogin.TabIndex = 13;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -303,42 +335,47 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(506, 15);
+            this.label13.Location = new System.Drawing.Point(1012, 29);
+            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(35, 13);
+            this.label13.Size = new System.Drawing.Size(69, 25);
             this.label13.TabIndex = 27;
             this.label13.Text = "User :";
             // 
             // active_person
             // 
             this.active_person.Enabled = false;
-            this.active_person.Location = new System.Drawing.Point(506, 35);
+            this.active_person.Location = new System.Drawing.Point(1012, 67);
+            this.active_person.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.active_person.Name = "active_person";
-            this.active_person.Size = new System.Drawing.Size(171, 20);
+            this.active_person.Size = new System.Drawing.Size(338, 31);
             this.active_person.TabIndex = 14;
             // 
             // DateGrid_ActivePersonGroups
             // 
             this.DateGrid_ActivePersonGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DateGrid_ActivePersonGroups.Location = new System.Drawing.Point(506, 87);
+            this.DateGrid_ActivePersonGroups.Location = new System.Drawing.Point(1012, 167);
+            this.DateGrid_ActivePersonGroups.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.DateGrid_ActivePersonGroups.Name = "DateGrid_ActivePersonGroups";
-            this.DateGrid_ActivePersonGroups.Size = new System.Drawing.Size(447, 201);
+            this.DateGrid_ActivePersonGroups.Size = new System.Drawing.Size(894, 387);
             this.DateGrid_ActivePersonGroups.TabIndex = 28;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(506, 63);
+            this.label14.Location = new System.Drawing.Point(1012, 121);
+            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(64, 13);
+            this.label14.Size = new System.Drawing.Size(129, 25);
             this.label14.TabIndex = 29;
             this.label14.Text = "User groups";
             // 
             // btnActivePersonGroups
             // 
-            this.btnActivePersonGroups.Location = new System.Drawing.Point(576, 59);
+            this.btnActivePersonGroups.Location = new System.Drawing.Point(1152, 113);
+            this.btnActivePersonGroups.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnActivePersonGroups.Name = "btnActivePersonGroups";
-            this.btnActivePersonGroups.Size = new System.Drawing.Size(101, 23);
+            this.btnActivePersonGroups.Size = new System.Drawing.Size(202, 44);
             this.btnActivePersonGroups.TabIndex = 15;
             this.btnActivePersonGroups.Text = "Show my groups";
             this.btnActivePersonGroups.UseVisualStyleBackColor = true;
@@ -346,9 +383,10 @@
             // 
             // btnCreateGroup
             // 
-            this.btnCreateGroup.Location = new System.Drawing.Point(811, 313);
+            this.btnCreateGroup.Location = new System.Drawing.Point(1622, 602);
+            this.btnCreateGroup.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnCreateGroup.Name = "btnCreateGroup";
-            this.btnCreateGroup.Size = new System.Drawing.Size(142, 23);
+            this.btnCreateGroup.Size = new System.Drawing.Size(284, 44);
             this.btnCreateGroup.TabIndex = 18;
             this.btnCreateGroup.Text = "Create a new group";
             this.btnCreateGroup.UseVisualStyleBackColor = true;
@@ -357,114 +395,128 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(661, 296);
+            this.label15.Location = new System.Drawing.Point(1322, 569);
+            this.label15.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(66, 13);
+            this.label15.Size = new System.Drawing.Size(132, 25);
             this.label15.TabIndex = 35;
             this.label15.Text = "Description :";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(510, 296);
+            this.label16.Location = new System.Drawing.Point(1020, 569);
+            this.label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(71, 13);
+            this.label16.Size = new System.Drawing.Size(142, 25);
             this.label16.TabIndex = 33;
             this.label16.Text = "Group name :";
             // 
             // group_name
             // 
-            this.group_name.Location = new System.Drawing.Point(509, 315);
+            this.group_name.Location = new System.Drawing.Point(1018, 606);
+            this.group_name.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.group_name.Name = "group_name";
-            this.group_name.Size = new System.Drawing.Size(145, 20);
+            this.group_name.Size = new System.Drawing.Size(286, 31);
             this.group_name.TabIndex = 16;
             // 
             // group_description
             // 
-            this.group_description.Location = new System.Drawing.Point(660, 316);
+            this.group_description.Location = new System.Drawing.Point(1320, 608);
+            this.group_description.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.group_description.Name = "group_description";
-            this.group_description.Size = new System.Drawing.Size(145, 20);
+            this.group_description.Size = new System.Drawing.Size(286, 31);
             this.group_description.TabIndex = 17;
             // 
             // person_result
             // 
             this.person_result.Enabled = false;
-            this.person_result.Location = new System.Drawing.Point(88, 324);
+            this.person_result.Location = new System.Drawing.Point(176, 623);
+            this.person_result.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.person_result.Name = "person_result";
-            this.person_result.Size = new System.Drawing.Size(145, 20);
+            this.person_result.Size = new System.Drawing.Size(286, 31);
             this.person_result.TabIndex = 37;
             // 
             // loginResult
             // 
             this.loginResult.Enabled = false;
-            this.loginResult.Location = new System.Drawing.Point(331, 116);
+            this.loginResult.Location = new System.Drawing.Point(662, 223);
+            this.loginResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.loginResult.Name = "loginResult";
-            this.loginResult.Size = new System.Drawing.Size(145, 20);
+            this.loginResult.Size = new System.Drawing.Size(286, 31);
             this.loginResult.TabIndex = 38;
             // 
             // active_personID
             // 
             this.active_personID.Enabled = false;
-            this.active_personID.Location = new System.Drawing.Point(683, 35);
+            this.active_personID.Location = new System.Drawing.Point(1366, 67);
+            this.active_personID.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.active_personID.Name = "active_personID";
-            this.active_personID.Size = new System.Drawing.Size(44, 20);
+            this.active_personID.Size = new System.Drawing.Size(84, 31);
             this.active_personID.TabIndex = 39;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(682, 17);
+            this.label17.Location = new System.Drawing.Point(1364, 33);
+            this.label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(24, 13);
+            this.label17.Size = new System.Drawing.Size(44, 25);
             this.label17.TabIndex = 40;
             this.label17.Text = "ID :";
             // 
             // groupResult
             // 
             this.groupResult.Enabled = false;
-            this.groupResult.Location = new System.Drawing.Point(811, 342);
+            this.groupResult.Location = new System.Drawing.Point(1622, 658);
+            this.groupResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupResult.Name = "groupResult";
-            this.groupResult.Size = new System.Drawing.Size(142, 20);
+            this.groupResult.Size = new System.Drawing.Size(280, 31);
             this.groupResult.TabIndex = 41;
             // 
             // cb_activePerson_groups
             // 
             this.cb_activePerson_groups.FormattingEnabled = true;
-            this.cb_activePerson_groups.Location = new System.Drawing.Point(506, 413);
+            this.cb_activePerson_groups.Location = new System.Drawing.Point(1012, 794);
+            this.cb_activePerson_groups.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.cb_activePerson_groups.Name = "cb_activePerson_groups";
-            this.cb_activePerson_groups.Size = new System.Drawing.Size(148, 21);
+            this.cb_activePerson_groups.Size = new System.Drawing.Size(292, 33);
             this.cb_activePerson_groups.TabIndex = 42;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(506, 397);
+            this.label18.Location = new System.Drawing.Point(1012, 763);
+            this.label18.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(56, 13);
+            this.label18.Size = new System.Drawing.Size(109, 25);
             this.label18.TabIndex = 43;
             this.label18.Text = "Group ID :";
             // 
             // activeGroup_addPerson
             // 
-            this.activeGroup_addPerson.Location = new System.Drawing.Point(509, 442);
+            this.activeGroup_addPerson.Location = new System.Drawing.Point(1018, 850);
+            this.activeGroup_addPerson.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.activeGroup_addPerson.Name = "activeGroup_addPerson";
-            this.activeGroup_addPerson.Size = new System.Drawing.Size(145, 20);
+            this.activeGroup_addPerson.Size = new System.Drawing.Size(286, 31);
             this.activeGroup_addPerson.TabIndex = 44;
             // 
             // lblactiveadd
             // 
             this.lblactiveadd.AutoSize = true;
-            this.lblactiveadd.Location = new System.Drawing.Point(661, 397);
+            this.lblactiveadd.Location = new System.Drawing.Point(1322, 763);
+            this.lblactiveadd.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblactiveadd.Name = "lblactiveadd";
-            this.lblactiveadd.Size = new System.Drawing.Size(98, 13);
+            this.lblactiveadd.Size = new System.Drawing.Size(198, 25);
             this.lblactiveadd.TabIndex = 45;
             this.lblactiveadd.Text = "Find a user to add :";
             // 
             // btnActiveGroupFind
             // 
-            this.btnActiveGroupFind.Location = new System.Drawing.Point(660, 440);
+            this.btnActiveGroupFind.Location = new System.Drawing.Point(1320, 846);
+            this.btnActiveGroupFind.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnActiveGroupFind.Name = "btnActiveGroupFind";
-            this.btnActiveGroupFind.Size = new System.Drawing.Size(145, 23);
+            this.btnActiveGroupFind.Size = new System.Drawing.Size(290, 44);
             this.btnActiveGroupFind.TabIndex = 46;
             this.btnActiveGroupFind.Text = "Select the user";
             this.btnActiveGroupFind.UseVisualStyleBackColor = true;
@@ -472,23 +524,26 @@
             // 
             // activeGroup_name
             // 
-            this.activeGroup_name.Location = new System.Drawing.Point(660, 469);
+            this.activeGroup_name.Location = new System.Drawing.Point(1320, 902);
+            this.activeGroup_name.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.activeGroup_name.Name = "activeGroup_name";
-            this.activeGroup_name.Size = new System.Drawing.Size(99, 20);
+            this.activeGroup_name.Size = new System.Drawing.Size(194, 31);
             this.activeGroup_name.TabIndex = 47;
             // 
             // activeGroup_id
             // 
-            this.activeGroup_id.Location = new System.Drawing.Point(765, 469);
+            this.activeGroup_id.Location = new System.Drawing.Point(1530, 902);
+            this.activeGroup_id.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.activeGroup_id.Name = "activeGroup_id";
-            this.activeGroup_id.Size = new System.Drawing.Size(40, 20);
+            this.activeGroup_id.Size = new System.Drawing.Size(76, 31);
             this.activeGroup_id.TabIndex = 48;
             // 
             // btnActiveGroup_Add
             // 
-            this.btnActiveGroup_Add.Location = new System.Drawing.Point(811, 412);
+            this.btnActiveGroup_Add.Location = new System.Drawing.Point(1622, 792);
+            this.btnActiveGroup_Add.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnActiveGroup_Add.Name = "btnActiveGroup_Add";
-            this.btnActiveGroup_Add.Size = new System.Drawing.Size(142, 23);
+            this.btnActiveGroup_Add.Size = new System.Drawing.Size(284, 44);
             this.btnActiveGroup_Add.TabIndex = 49;
             this.btnActiveGroup_Add.Text = "Add to my group";
             this.btnActiveGroup_Add.UseVisualStyleBackColor = true;
@@ -497,16 +552,18 @@
             // activeGroupResult
             // 
             this.activeGroupResult.Enabled = false;
-            this.activeGroupResult.Location = new System.Drawing.Point(811, 443);
+            this.activeGroupResult.Location = new System.Drawing.Point(1622, 852);
+            this.activeGroupResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.activeGroupResult.Name = "activeGroupResult";
-            this.activeGroupResult.Size = new System.Drawing.Size(142, 20);
+            this.activeGroupResult.Size = new System.Drawing.Size(280, 31);
             this.activeGroupResult.TabIndex = 50;
             // 
             // btnGoToGroup
             // 
-            this.btnGoToGroup.Location = new System.Drawing.Point(506, 520);
+            this.btnGoToGroup.Location = new System.Drawing.Point(1012, 1000);
+            this.btnGoToGroup.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnGoToGroup.Name = "btnGoToGroup";
-            this.btnGoToGroup.Size = new System.Drawing.Size(447, 23);
+            this.btnGoToGroup.Size = new System.Drawing.Size(894, 44);
             this.btnGoToGroup.TabIndex = 51;
             this.btnGoToGroup.Text = "Go in group ( select in cbBox )";
             this.btnGoToGroup.UseVisualStyleBackColor = true;
@@ -515,17 +572,19 @@
             // cb_activeGroup_addPerson
             // 
             this.cb_activeGroup_addPerson.FormattingEnabled = true;
-            this.cb_activeGroup_addPerson.Location = new System.Drawing.Point(660, 414);
+            this.cb_activeGroup_addPerson.Location = new System.Drawing.Point(1320, 796);
+            this.cb_activeGroup_addPerson.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.cb_activeGroup_addPerson.Name = "cb_activeGroup_addPerson";
-            this.cb_activeGroup_addPerson.Size = new System.Drawing.Size(145, 21);
+            this.cb_activeGroup_addPerson.Size = new System.Drawing.Size(286, 33);
             this.cb_activeGroup_addPerson.TabIndex = 52;
             this.cb_activeGroup_addPerson.SelectedIndexChanged += new System.EventHandler(this.cb_activeGroup_addPerson_SelectedIndexChanged);
             // 
             // btnUpdateDesc
             // 
-            this.btnUpdateDesc.Location = new System.Drawing.Point(808, 51);
+            this.btnUpdateDesc.Location = new System.Drawing.Point(1616, 98);
+            this.btnUpdateDesc.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnUpdateDesc.Name = "btnUpdateDesc";
-            this.btnUpdateDesc.Size = new System.Drawing.Size(145, 23);
+            this.btnUpdateDesc.Size = new System.Drawing.Size(290, 44);
             this.btnUpdateDesc.TabIndex = 53;
             this.btnUpdateDesc.Text = "Update description";
             this.btnUpdateDesc.UseVisualStyleBackColor = true;
@@ -533,16 +592,77 @@
             // 
             // txtUpdateDesc
             // 
-            this.txtUpdateDesc.Location = new System.Drawing.Point(808, 25);
+            this.txtUpdateDesc.Location = new System.Drawing.Point(1616, 48);
+            this.txtUpdateDesc.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtUpdateDesc.Name = "txtUpdateDesc";
-            this.txtUpdateDesc.Size = new System.Drawing.Size(145, 20);
+            this.txtUpdateDesc.Size = new System.Drawing.Size(286, 31);
             this.txtUpdateDesc.TabIndex = 54;
+            // 
+            // cb_LoginPerson
+            // 
+            this.cb_LoginPerson.FormattingEnabled = true;
+            this.cb_LoginPerson.Location = new System.Drawing.Point(662, 307);
+            this.cb_LoginPerson.Name = "cb_LoginPerson";
+            this.cb_LoginPerson.Size = new System.Drawing.Size(286, 33);
+            this.cb_LoginPerson.TabIndex = 55;
+            // 
+            // cb_LoginFollowings
+            // 
+            this.cb_LoginFollowings.FormattingEnabled = true;
+            this.cb_LoginFollowings.Location = new System.Drawing.Point(662, 359);
+            this.cb_LoginFollowings.Name = "cb_LoginFollowings";
+            this.cb_LoginFollowings.Size = new System.Drawing.Size(286, 33);
+            this.cb_LoginFollowings.TabIndex = 56;
+            // 
+            // cb_LoginGroups
+            // 
+            this.cb_LoginGroups.FormattingEnabled = true;
+            this.cb_LoginGroups.Location = new System.Drawing.Point(662, 413);
+            this.cb_LoginGroups.Name = "cb_LoginGroups";
+            this.cb_LoginGroups.Size = new System.Drawing.Size(286, 33);
+            this.cb_LoginGroups.TabIndex = 57;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(564, 310);
+            this.label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(92, 25);
+            this.label19.TabIndex = 58;
+            this.label19.Text = "Person :";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(541, 366);
+            this.label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(115, 25);
+            this.label20.TabIndex = 59;
+            this.label20.Text = "Following :";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(562, 415);
+            this.label21.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(94, 25);
+            this.label21.TabIndex = 60;
+            this.label21.Text = "Groups :";
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 621);
+            this.ClientSize = new System.Drawing.Size(1988, 1194);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.cb_LoginGroups);
+            this.Controls.Add(this.cb_LoginFollowings);
+            this.Controls.Add(this.cb_LoginPerson);
             this.Controls.Add(this.txtUpdateDesc);
             this.Controls.Add(this.btnUpdateDesc);
             this.Controls.Add(this.cb_activeGroup_addPerson);
@@ -597,8 +717,10 @@
             this.Controls.Add(this.person_email);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.person_name);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DateGrid_ActivePersonGroups)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
@@ -663,5 +785,11 @@
         private System.Windows.Forms.ComboBox cb_activeGroup_addPerson;
         private System.Windows.Forms.Button btnUpdateDesc;
         private System.Windows.Forms.TextBox txtUpdateDesc;
+        private System.Windows.Forms.ComboBox cb_LoginPerson;
+        private System.Windows.Forms.ComboBox cb_LoginFollowings;
+        private System.Windows.Forms.ComboBox cb_LoginGroups;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
     }
 }

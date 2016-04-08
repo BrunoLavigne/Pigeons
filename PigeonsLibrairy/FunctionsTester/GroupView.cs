@@ -1,6 +1,7 @@
 ﻿using PigeonsLibrairy.Controller;
 using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Facade.Implementation;
+using PigeonsLibrairy.Facade.Interface;
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,18 @@ namespace FunctionsTester
     {
         private int activeGroupID { get; set; }
         private int activePersonID { get; set; }
-        private MainController controller { get; set; }
-        private GroupFacade groupFacade { get; set; }
+        private IGroupFacade groupFacade { get; set; }
 
         public GroupView(int groupID, int personID)
         {
             InitializeComponent();
-            controller = new MainController();
             groupFacade = new GroupFacade();
             activeGroupID = groupID;
             activePersonID = personID;
             fillTheFields();
             fillTheMessagesDataGrid();
             fillTheType();
+            fillTheNextFiveEvents(5);
 
             // Vérification si l'utilisateur est administrateur du groupe
             bool isThisPersonTheGroupAdmin = groupFacade.PersonIsGroupAdmin(activePersonID, activeGroupID);
@@ -41,6 +41,20 @@ namespace FunctionsTester
                 btnDeleteFollower.Visible = false;
             }
 
+        }
+
+        /// <summary>
+        /// Test - Affichage des 5 prochains events qui arrive
+        /// </summary>
+        private void fillTheNextFiveEvents(int nbOfEvents)
+        {
+            List<@event> upcomingEvents = groupFacade.GetUpComingEvents(activeGroupID, 10);
+            dataGridView_next5events.Rows.Clear();
+
+            foreach (@event ev in upcomingEvents)
+            {
+                dataGridView_next5events.Rows.Add(ev.Description, ev.Event_Start, ev.Event_End);
+            }
         }
 
         /// <summary>
@@ -340,8 +354,9 @@ namespace FunctionsTester
         private void btn_ShowEvents_Click(object sender, EventArgs e)
         {
             List<@event> eventList = groupFacade.GetGroupEvent(activeGroupID);
+            dataGridView_events.Rows.Clear();
 
-            foreach(@event ev in eventList)
+            foreach (@event ev in eventList)
             {
                 dataGridView_events.Rows.Add(ev.Description, ev.Event_Start, ev.Event_End);
             }

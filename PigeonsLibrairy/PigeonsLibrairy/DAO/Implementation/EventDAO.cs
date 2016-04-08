@@ -38,6 +38,19 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
         }
 
+        public IEnumerable<@event> GetUpComingEvents(pigeonsEntities1 context, object groupID, object numberOfEvent)
+        {
+            try
+            {
+                Expression<Func<@event, bool>> filter = (e => e.Group_ID == (int)groupID && !e.Is_Completed);
+                return Get(context, filter).OrderBy(e => e.Event_Start).Take((int)numberOfEvent);
+            }
+            catch(Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le EventDAO GetUpComingEvents : " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// Get an event by searching a value in a column
         /// </summary>

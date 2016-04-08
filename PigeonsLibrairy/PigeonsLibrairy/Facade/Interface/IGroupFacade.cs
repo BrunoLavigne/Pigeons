@@ -35,5 +35,6 @@ namespace PigeonsLibrairy.Facade.Interface
         // Event
         @event CreateNewEvent(@event newEvent);
         List<@event> GetGroupEvent(object groupID);
+        List<@event> GetUpComingEvents(object groupID, int numberOfEvents = 5);
     }
 }
