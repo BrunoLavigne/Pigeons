@@ -99,7 +99,7 @@ namespace FunctionsTester
             foreach(following f in activePerson.followings)
             {
                 cb_LoginFollowings.Items.Add(f.Person_Id + " - " + f.Group_id);
-                // cb_LoginGroups.Items.Add(f.group.Name);
+                cb_LoginGroups.Items.Add(f.group.Name);
             }            
         }
 

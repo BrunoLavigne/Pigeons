@@ -265,22 +265,6 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
-        /// <summary>
-        /// Recherche des évènement récents qui s'en viennent pour un groupe
-        /// </summary>
-        public List<@event> GetUpComingEvents(object groupID, int numberOfEvents = 5)
-        {
-            try
-            {
-                return mainControl.EventService.GetUpComingEvents(groupID, numberOfEvents).ToList();
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return null;
-            }
-        }
-
         #endregion Event
 
         #region ChatHistory
