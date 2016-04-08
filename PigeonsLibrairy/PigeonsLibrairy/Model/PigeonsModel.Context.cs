@@ -33,5 +33,6 @@ namespace PigeonsLibrairy.Model
         public virtual DbSet<following> followings { get; set; }
         public virtual DbSet<assignation> assignations { get; set; }
         public virtual DbSet<@event> events { get; set; }
+        public virtual DbSet<chathistory> chathistories { get; set; }
     }
 }

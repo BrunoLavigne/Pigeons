@@ -15,6 +15,7 @@ namespace PigeonsLibrairy.Controller
         private ITaskService taskService;
         private IAssignationService assignationService;
         private IEventService eventService;
+        private IChatHistoryService chatHistoryService;
 
         /// <summary>
         /// Création du Service pour la table <see cref="Model.person"/>
@@ -126,6 +127,21 @@ namespace PigeonsLibrairy.Controller
                 }
                 return eventService;
             }
+        }
+
+        /// <summary>
+        /// Création du Service pour la table <see cref="Model.chathistory"/>
+        /// </summary>
+        public IChatHistoryService ChatHistoryService
+        {
+            get
+            {
+                if(this.chatHistoryService == null)
+                {
+                    this.chatHistoryService = new ChatHistoryService();
+                }
+                return chatHistoryService;
+            }            
         }
     }
 }

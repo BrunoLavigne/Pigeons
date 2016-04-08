@@ -4,6 +4,7 @@ using System.Linq;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Log;
+using System;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
@@ -281,5 +282,25 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         #endregion Event
+
+        #region ChatHistory
+
+        /// <summary>
+        /// Recherche des messages chats pour un Groupe
+        /// </summary>
+        public List<chathistory> GetGroupChatHistory(object groupID)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Insertion du message dans la base de données
+        /// </summary>        
+        public void InsertChatMessage(chathistory chatMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion ChatHistory
     }
 }

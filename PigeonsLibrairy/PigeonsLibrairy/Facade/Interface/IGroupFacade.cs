@@ -36,5 +36,9 @@ namespace PigeonsLibrairy.Facade.Interface
         @event CreateNewEvent(@event newEvent);
         List<@event> GetGroupEvent(object groupID);
         List<@event> GetUpComingEvents(object groupID, int numberOfEvents = 5);
+
+        // ChatHistory
+        List<chathistory> GetGroupChatHistory(object groupID);
+        void InsertChatMessage(chathistory chatMessage);
     }
 }

@@ -21,6 +21,7 @@ namespace PigeonsLibrairy.Model
             this.followings = new HashSet<following>();
             this.assignations = new HashSet<assignation>();
             this.tasks = new HashSet<task>();
+            this.chathistories = new HashSet<chathistory>();
         }
 
         public const string COLUMN_PERSON_ID = "person_id";
@@ -55,5 +56,7 @@ namespace PigeonsLibrairy.Model
         public virtual ICollection<assignation> assignations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task> tasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chathistory> chathistories { get; set; }
     }
 }

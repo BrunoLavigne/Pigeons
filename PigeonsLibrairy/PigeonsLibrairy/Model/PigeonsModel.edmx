@@ -13,6 +13,16 @@
           <Property Name="Task_ID" Type="int" Nullable="false" />
           <Property Name="Person_ID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="chathistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="text" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="event">
           <Key>
             <PropertyRef Name="ID" />
@@ -22,7 +32,7 @@
           <Property Name="Group_ID" Type="int" Nullable="false" />
           <Property Name="Event_Start" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Event_End" Type="datetime" Precision="0" />
-          <Property Name="Is_Completed" Type="bool" Nullable="false" />
+          <Property Name="Is_Completed" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="following">
           <Key>
@@ -78,7 +88,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="Author_ID" Type="int" Nullable="false" />
           <Property Name="Group_ID" Type="int" Nullable="false" />
           <Property Name="Task_Start" Type="datetime" Precision="0" />
           <Property Name="Task_End" Type="datetime" Precision="0" />
@@ -107,6 +116,34 @@
             </Principal>
             <Dependent Role="assignation">
               <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Group">
+          <End Role="group" Type="Self.group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Author_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -190,22 +227,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Task_Person">
-          <End Role="person" Type="Self.person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="task" Type="Self.task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="task">
-              <PropertyRef Name="Author_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="pigeonsModelStoreContainer">
           <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="chathistory" EntityType="Self.chathistory" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
@@ -219,6 +243,14 @@
           <AssociationSet Name="FK_Assignation_Task" Association="Self.FK_Assignation_Task">
             <End Role="task" EntitySet="task" />
             <End Role="assignation" EntitySet="assignation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Group" Association="Self.FK_ChatMessage_Group">
+            <End Role="group" EntitySet="group" />
+            <End Role="chathistory" EntitySet="chathistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Person" Association="Self.FK_ChatMessage_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="chathistory" EntitySet="chathistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Event_Group" Association="Self.FK_Event_Group">
             <End Role="group" EntitySet="group" />
@@ -244,10 +276,6 @@
             <End Role="group" EntitySet="group" />
             <End Role="task" EntitySet="task" />
           </AssociationSet>
-          <AssociationSet Name="FK_Task_Person" Association="Self.FK_Task_Person">
-            <End Role="person" EntitySet="person" />
-            <End Role="task" EntitySet="task" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -267,6 +295,7 @@
           <Property Name="Group_picture_link" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Task_Group" FromRole="group" ToRole="task" />
           <NavigationProperty Name="events" Relationship="pigeonsModel.FK_Event_Group" FromRole="group" ToRole="event" />
+          <NavigationProperty Name="chathistories" Relationship="pigeonsModel.FK_ChatMessage_Group" FromRole="group" ToRole="chathistory" />
         </EntityType>
         <EntityType Name="message">
           <Key>
@@ -299,6 +328,7 @@
           <NavigationProperty Name="followings" Relationship="Self.FK_following_person" FromRole="person" ToRole="following" />
           <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Person" FromRole="person" ToRole="assignation" />
           <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Task_Person" FromRole="person" ToRole="task" />
+          <NavigationProperty Name="chathistories" Relationship="pigeonsModel.FK_ChatMessage_Person" FromRole="person" ToRole="chathistory" />
         </EntityType>
         <EntityType Name="task">
           <Key>
@@ -422,6 +452,15 @@
             <End Role="group" EntitySet="groups" />
             <End Role="event" EntitySet="events" />
           </AssociationSet>
+          <EntitySet Name="chathistories" EntityType="pigeonsModel.chathistory" />
+          <AssociationSet Name="FK_ChatMessage_Group" Association="pigeonsModel.FK_ChatMessage_Group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="chathistory" EntitySet="chathistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Person" Association="pigeonsModel.FK_ChatMessage_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="chathistory" EntitySet="chathistories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="assignation">
           <Key>
@@ -513,6 +552,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="chathistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_ChatMessage_Group" FromRole="chathistory" ToRole="group" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_ChatMessage_Person" FromRole="chathistory" ToRole="person" />
+        </EntityType>
+        <Association Name="FK_ChatMessage_Group">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.chathistory" Role="chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.chathistory" Role="chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -562,7 +641,6 @@
           <EntitySetMapping Name="tasks">
             <EntityTypeMapping TypeName="pigeonsModel.task">
               <MappingFragment StoreEntitySet="task">
-                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
                 <ScalarProperty Name="Task_End" ColumnName="Task_End" />
                 <ScalarProperty Name="Task_Start" ColumnName="Task_Start" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
@@ -600,6 +678,17 @@
                 <ScalarProperty Name="Event_Start" ColumnName="Event_Start" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chathistories">
+            <EntityTypeMapping TypeName="pigeonsModel.chathistory">
+              <MappingFragment StoreEntitySet="chathistory">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

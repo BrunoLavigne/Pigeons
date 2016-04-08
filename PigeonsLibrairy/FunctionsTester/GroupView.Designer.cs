@@ -94,6 +94,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Task)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_events)).BeginInit();
@@ -134,7 +135,7 @@
             // 
             this.txtGroupID.Enabled = false;
             this.txtGroupID.Location = new System.Drawing.Point(240, 33);
-            this.txtGroupID.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtGroupID.Margin = new System.Windows.Forms.Padding(6);
             this.txtGroupID.Name = "txtGroupID";
             this.txtGroupID.Size = new System.Drawing.Size(300, 31);
             this.txtGroupID.TabIndex = 3;
@@ -143,7 +144,7 @@
             // 
             this.txtgroupName.Enabled = false;
             this.txtgroupName.Location = new System.Drawing.Point(240, 90);
-            this.txtgroupName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtgroupName.Margin = new System.Windows.Forms.Padding(6);
             this.txtgroupName.Name = "txtgroupName";
             this.txtgroupName.Size = new System.Drawing.Size(300, 31);
             this.txtgroupName.TabIndex = 4;
@@ -152,7 +153,7 @@
             // 
             this.txtGroupDesc.Enabled = false;
             this.txtGroupDesc.Location = new System.Drawing.Point(240, 150);
-            this.txtGroupDesc.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtGroupDesc.Margin = new System.Windows.Forms.Padding(6);
             this.txtGroupDesc.Name = "txtGroupDesc";
             this.txtGroupDesc.Size = new System.Drawing.Size(300, 31);
             this.txtGroupDesc.TabIndex = 5;
@@ -181,7 +182,7 @@
             // 
             this.cb_followers.FormattingEnabled = true;
             this.cb_followers.Location = new System.Drawing.Point(744, 33);
-            this.cb_followers.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cb_followers.Margin = new System.Windows.Forms.Padding(6);
             this.cb_followers.Name = "cb_followers";
             this.cb_followers.Size = new System.Drawing.Size(328, 33);
             this.cb_followers.TabIndex = 8;
@@ -191,7 +192,7 @@
             // 
             this.followerNb.Enabled = false;
             this.followerNb.Location = new System.Drawing.Point(744, 90);
-            this.followerNb.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.followerNb.Margin = new System.Windows.Forms.Padding(6);
             this.followerNb.Name = "followerNb";
             this.followerNb.Size = new System.Drawing.Size(328, 31);
             this.followerNb.TabIndex = 9;
@@ -200,7 +201,7 @@
             // 
             this.followerID.Enabled = false;
             this.followerID.Location = new System.Drawing.Point(1088, 33);
-            this.followerID.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.followerID.Margin = new System.Windows.Forms.Padding(6);
             this.followerID.Name = "followerID";
             this.followerID.Size = new System.Drawing.Size(70, 31);
             this.followerID.TabIndex = 10;
@@ -216,7 +217,7 @@
             this.Content,
             this.Date_Created});
             this.dataGrid_messages.Location = new System.Drawing.Point(30, 277);
-            this.dataGrid_messages.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dataGrid_messages.Margin = new System.Windows.Forms.Padding(6);
             this.dataGrid_messages.Name = "dataGrid_messages";
             this.dataGrid_messages.Size = new System.Drawing.Size(1568, 475);
             this.dataGrid_messages.TabIndex = 11;
@@ -254,7 +255,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(30, 931);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 44);
             this.button1.TabIndex = 13;
@@ -266,7 +267,7 @@
             // 
             this.txtUserID.Enabled = false;
             this.txtUserID.Location = new System.Drawing.Point(1382, 33);
-            this.txtUserID.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtUserID.Margin = new System.Windows.Forms.Padding(6);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(212, 31);
             this.txtUserID.TabIndex = 14;
@@ -295,7 +296,7 @@
             // 
             this.txtUserName.Enabled = false;
             this.txtUserName.Location = new System.Drawing.Point(1382, 83);
-            this.txtUserName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtUserName.Margin = new System.Windows.Forms.Padding(6);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(212, 31);
             this.txtUserName.TabIndex = 16;
@@ -313,7 +314,7 @@
             // txtMessageContent
             // 
             this.txtMessageContent.Location = new System.Drawing.Point(240, 779);
-            this.txtMessageContent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtMessageContent.Margin = new System.Windows.Forms.Padding(6);
             this.txtMessageContent.Name = "txtMessageContent";
             this.txtMessageContent.Size = new System.Drawing.Size(522, 79);
             this.txtMessageContent.TabIndex = 19;
@@ -322,7 +323,7 @@
             // btnCreateMessage
             // 
             this.btnCreateMessage.Location = new System.Drawing.Point(778, 779);
-            this.btnCreateMessage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnCreateMessage.Margin = new System.Windows.Forms.Padding(6);
             this.btnCreateMessage.Name = "btnCreateMessage";
             this.btnCreateMessage.Size = new System.Drawing.Size(212, 83);
             this.btnCreateMessage.TabIndex = 20;
@@ -334,7 +335,7 @@
             // 
             this.messageResult.Enabled = false;
             this.messageResult.Location = new System.Drawing.Point(1002, 779);
-            this.messageResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.messageResult.Margin = new System.Windows.Forms.Padding(6);
             this.messageResult.Name = "messageResult";
             this.messageResult.Size = new System.Drawing.Size(212, 31);
             this.messageResult.TabIndex = 21;
@@ -342,7 +343,7 @@
             // btnDeleteFollower
             // 
             this.btnDeleteFollower.Location = new System.Drawing.Point(744, 148);
-            this.btnDeleteFollower.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDeleteFollower.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeleteFollower.Name = "btnDeleteFollower";
             this.btnDeleteFollower.Size = new System.Drawing.Size(414, 46);
             this.btnDeleteFollower.TabIndex = 22;
@@ -354,7 +355,7 @@
             // 
             this.txtRemoveFollowerResult.Enabled = false;
             this.txtRemoveFollowerResult.Location = new System.Drawing.Point(744, 204);
-            this.txtRemoveFollowerResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtRemoveFollowerResult.Margin = new System.Windows.Forms.Padding(6);
             this.txtRemoveFollowerResult.Name = "txtRemoveFollowerResult";
             this.txtRemoveFollowerResult.Size = new System.Drawing.Size(414, 31);
             this.txtRemoveFollowerResult.TabIndex = 23;
@@ -362,7 +363,7 @@
             // btnCloseGroup
             // 
             this.btnCloseGroup.Location = new System.Drawing.Point(1184, 146);
-            this.btnCloseGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseGroup.Name = "btnCloseGroup";
             this.btnCloseGroup.Size = new System.Drawing.Size(414, 46);
             this.btnCloseGroup.TabIndex = 24;
@@ -374,7 +375,7 @@
             // 
             this.txtGroupCloseResult.Enabled = false;
             this.txtGroupCloseResult.Location = new System.Drawing.Point(1184, 204);
-            this.txtGroupCloseResult.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtGroupCloseResult.Margin = new System.Windows.Forms.Padding(6);
             this.txtGroupCloseResult.Name = "txtGroupCloseResult";
             this.txtGroupCloseResult.Size = new System.Drawing.Size(414, 31);
             this.txtGroupCloseResult.TabIndex = 25;
@@ -382,7 +383,7 @@
             // btnAddTask
             // 
             this.btnAddTask.Location = new System.Drawing.Point(1872, 33);
-            this.btnAddTask.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnAddTask.Margin = new System.Windows.Forms.Padding(6);
             this.btnAddTask.Name = "btnAddTask";
             this.btnAddTask.Size = new System.Drawing.Size(212, 56);
             this.btnAddTask.TabIndex = 26;
@@ -393,7 +394,7 @@
             // dateTimePicker_start
             // 
             this.dateTimePicker_start.Location = new System.Drawing.Point(1810, 106);
-            this.dateTimePicker_start.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker_start.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker_start.Name = "dateTimePicker_start";
             this.dateTimePicker_start.ShowCheckBox = true;
             this.dateTimePicker_start.Size = new System.Drawing.Size(328, 31);
@@ -402,7 +403,7 @@
             // dateTimePicker_end
             // 
             this.dateTimePicker_end.Location = new System.Drawing.Point(1810, 156);
-            this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.ShowCheckBox = true;
             this.dateTimePicker_end.Size = new System.Drawing.Size(328, 31);
@@ -431,7 +432,7 @@
             // rtb_TaskDesc
             // 
             this.rtb_TaskDesc.Location = new System.Drawing.Point(1810, 213);
-            this.rtb_TaskDesc.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.rtb_TaskDesc.Margin = new System.Windows.Forms.Padding(6);
             this.rtb_TaskDesc.Name = "rtb_TaskDesc";
             this.rtb_TaskDesc.Size = new System.Drawing.Size(328, 119);
             this.rtb_TaskDesc.TabIndex = 33;
@@ -459,7 +460,7 @@
             this.Fin,
             this.is_completed});
             this.dataGridView_Task.Location = new System.Drawing.Point(1668, 346);
-            this.dataGridView_Task.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView_Task.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView_Task.Name = "dataGridView_Task";
             this.dataGridView_Task.RowTemplate.Height = 33;
             this.dataGridView_Task.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -496,7 +497,7 @@
             // btn_ShowTasks
             // 
             this.btn_ShowTasks.Location = new System.Drawing.Point(1668, 762);
-            this.btn_ShowTasks.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_ShowTasks.Margin = new System.Windows.Forms.Padding(6);
             this.btn_ShowTasks.Name = "btn_ShowTasks";
             this.btn_ShowTasks.Size = new System.Drawing.Size(608, 40);
             this.btn_ShowTasks.TabIndex = 38;
@@ -507,7 +508,7 @@
             // btn_CreateEvent
             // 
             this.btn_CreateEvent.Location = new System.Drawing.Point(2490, 33);
-            this.btn_CreateEvent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_CreateEvent.Margin = new System.Windows.Forms.Padding(6);
             this.btn_CreateEvent.Name = "btn_CreateEvent";
             this.btn_CreateEvent.Size = new System.Drawing.Size(212, 56);
             this.btn_CreateEvent.TabIndex = 39;
@@ -518,7 +519,7 @@
             // txtEventDescription
             // 
             this.txtEventDescription.Location = new System.Drawing.Point(2434, 104);
-            this.txtEventDescription.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtEventDescription.Margin = new System.Windows.Forms.Padding(6);
             this.txtEventDescription.Name = "txtEventDescription";
             this.txtEventDescription.Size = new System.Drawing.Size(328, 216);
             this.txtEventDescription.TabIndex = 40;
@@ -547,7 +548,7 @@
             // dateTimePicker_eventEnd
             // 
             this.dateTimePicker_eventEnd.Location = new System.Drawing.Point(2438, 383);
-            this.dateTimePicker_eventEnd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker_eventEnd.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker_eventEnd.Name = "dateTimePicker_eventEnd";
             this.dateTimePicker_eventEnd.ShowCheckBox = true;
             this.dateTimePicker_eventEnd.Size = new System.Drawing.Size(328, 31);
@@ -556,7 +557,7 @@
             // dateTimePicker_eventStart
             // 
             this.dateTimePicker_eventStart.Location = new System.Drawing.Point(2438, 333);
-            this.dateTimePicker_eventStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker_eventStart.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker_eventStart.Name = "dateTimePicker_eventStart";
             this.dateTimePicker_eventStart.ShowCheckBox = true;
             this.dateTimePicker_eventStart.Size = new System.Drawing.Size(328, 31);
@@ -566,7 +567,7 @@
             // 
             this.cbFollowerAssignation.FormattingEnabled = true;
             this.cbFollowerAssignation.Location = new System.Drawing.Point(1910, 815);
-            this.cbFollowerAssignation.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cbFollowerAssignation.Margin = new System.Windows.Forms.Padding(6);
             this.cbFollowerAssignation.Name = "cbFollowerAssignation";
             this.cbFollowerAssignation.Size = new System.Drawing.Size(228, 33);
             this.cbFollowerAssignation.TabIndex = 46;
@@ -585,7 +586,7 @@
             // btn_ShowEvents
             // 
             this.btn_ShowEvents.Location = new System.Drawing.Point(2349, 645);
-            this.btn_ShowEvents.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_ShowEvents.Margin = new System.Windows.Forms.Padding(6);
             this.btn_ShowEvents.Name = "btn_ShowEvents";
             this.btn_ShowEvents.Size = new System.Drawing.Size(512, 40);
             this.btn_ShowEvents.TabIndex = 49;
@@ -603,7 +604,7 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
             this.dataGridView_events.Location = new System.Drawing.Point(2350, 438);
-            this.dataGridView_events.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView_events.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView_events.Name = "dataGridView_events";
             this.dataGridView_events.RowTemplate.Height = 33;
             this.dataGridView_events.Size = new System.Drawing.Size(512, 188);
@@ -631,7 +632,7 @@
             // btn_pic
             // 
             this.btn_pic.Location = new System.Drawing.Point(282, 931);
-            this.btn_pic.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_pic.Margin = new System.Windows.Forms.Padding(6);
             this.btn_pic.Name = "btn_pic";
             this.btn_pic.Size = new System.Drawing.Size(306, 44);
             this.btn_pic.TabIndex = 50;
@@ -643,7 +644,7 @@
             // 
             this.txtTaskID.Enabled = false;
             this.txtTaskID.Location = new System.Drawing.Point(1672, 813);
-            this.txtTaskID.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtTaskID.Margin = new System.Windows.Forms.Padding(6);
             this.txtTaskID.Name = "txtTaskID";
             this.txtTaskID.Size = new System.Drawing.Size(98, 31);
             this.txtTaskID.TabIndex = 51;
@@ -651,7 +652,7 @@
             // btnCompletedTask
             // 
             this.btnCompletedTask.Location = new System.Drawing.Point(1670, 867);
-            this.btnCompletedTask.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnCompletedTask.Margin = new System.Windows.Forms.Padding(6);
             this.btnCompletedTask.Name = "btnCompletedTask";
             this.btnCompletedTask.Size = new System.Drawing.Size(598, 40);
             this.btnCompletedTask.TabIndex = 52;
@@ -662,7 +663,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(2154, 813);
-            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 40);
             this.button2.TabIndex = 53;
@@ -701,11 +702,19 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "Fin";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(340, 190);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 31);
+            this.dateTimePicker1.TabIndex = 55;
+            // 
             // GroupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2918, 998);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.dataGridView_next5events);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnCompletedTask);
@@ -756,7 +765,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "GroupView";
             this.Text = "GroupView";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid_messages)).EndInit();
@@ -836,5 +845,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

@@ -21,6 +21,7 @@ namespace PigeonsLibrairy.Model
             this.messages = new HashSet<message>();
             this.tasks = new HashSet<task>();
             this.events = new HashSet<@event>();
+            this.chathistories = new HashSet<chathistory>();
         }
 
         public const string COLUMN_GROUP_ID = "group_id";
@@ -44,5 +45,7 @@ namespace PigeonsLibrairy.Model
         public virtual ICollection<task> tasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<@event> events { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chathistory> chathistories { get; set; }
     }
 }
