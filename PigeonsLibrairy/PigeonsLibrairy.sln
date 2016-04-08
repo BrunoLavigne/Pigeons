@@ -5,6 +5,30 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonsLibrairy", "PigeonsLibrairy\PigeonsLibrairy.csproj", "{EF5C1197-F700-4EFD-9875-40785785BE16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsTester", "FunctionsTester\FunctionsTester.csproj", "{A93536F1-62DE-443E-83FE-02E6A8EFAA70}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website", "..\Pigeon_website\", "{E0E6FA2A-9B8D-4927-B390-FD69191526E1}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{ef5c1197-f700-4efd-9875-40785785be16}|PigeonsLibrairy.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50786"
+		Debug.AspNetCompiler.PhysicalPath = "..\Pigeon_website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50786\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50786"
+		Release.AspNetCompiler.PhysicalPath = "..\Pigeon_website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50786\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50786"
+		SlnRelativePath = "..\Pigeon_website\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +39,14 @@ Global
 		{EF5C1197-F700-4EFD-9875-40785785BE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF5C1197-F700-4EFD-9875-40785785BE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF5C1197-F700-4EFD-9875-40785785BE16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93536F1-62DE-443E-83FE-02E6A8EFAA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93536F1-62DE-443E-83FE-02E6A8EFAA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93536F1-62DE-443E-83FE-02E6A8EFAA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93536F1-62DE-443E-83FE-02E6A8EFAA70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E6FA2A-9B8D-4927-B390-FD69191526E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E6FA2A-9B8D-4927-B390-FD69191526E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E6FA2A-9B8D-4927-B390-FD69191526E1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E6FA2A-9B8D-4927-B390-FD69191526E1}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

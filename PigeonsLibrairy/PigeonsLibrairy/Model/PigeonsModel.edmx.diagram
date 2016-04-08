@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6a4253138f8e4417a4859c45240815bd" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="pigeonsModel.group" Width="1.5" PointX="5.875" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.message" Width="1.5" PointX="3.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.person" Width="1.5" PointX="0.625" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.task" Width="1.5" PointX="3.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="pigeonsModel.following" Width="1.5" PointX="3.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="pigeonsModel.FK_event_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_event_task" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_event_type" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_following_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_message_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_task_group" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_message_person" ManuallyRouted="false" />
+        <AssociationConnector Association="pigeonsModel.FK_following_person" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pigeonsModel.assignation" Width="1.5" PointX="0.625" PointY="8.125" />
+        <AssociationConnector Association="pigeonsModel.FK_Assignation_Person" />
+        <AssociationConnector Association="pigeonsModel.FK_Assignation_Task" />
+        <AssociationConnector Association="pigeonsModel.FK_Task_Group" />
+        <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="6.75" PointY="7.625" />
+        <AssociationConnector Association="pigeonsModel.FK_Event_Group" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
