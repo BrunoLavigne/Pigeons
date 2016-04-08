@@ -136,10 +136,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PigeonsModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\task.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Implementation\AssignationService.cs" />
     <Compile Include="Service\Implementation\ChatHistoryService.cs" />
     <Compile Include="Service\Implementation\EventService.cs" />

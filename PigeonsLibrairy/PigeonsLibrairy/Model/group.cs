@@ -17,11 +17,11 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group()
         {
+            this.chathistories = new HashSet<chathistory>();
+            this.events = new HashSet<@event>();
             this.followings = new HashSet<following>();
             this.messages = new HashSet<message>();
             this.tasks = new HashSet<task>();
-            this.events = new HashSet<@event>();
-            this.chathistories = new HashSet<chathistory>();
         }
 
         public const string COLUMN_GROUP_ID = "group_id";
@@ -34,18 +34,18 @@ namespace PigeonsLibrairy.Model
         public string Name { get; set; }
         public System.DateTime Creation_date { get; set; }
         public string Description { get; set; }
-        public bool Is_active { get; set; }
         public string Group_picture_link { get; set; }
+        public bool Is_active { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chathistory> chathistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<@event> events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task> tasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<@event> events { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<chathistory> chathistories { get; set; }
     }
 }

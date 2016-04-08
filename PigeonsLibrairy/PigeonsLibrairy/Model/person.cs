@@ -17,11 +17,10 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public person()
         {
-            this.messages = new HashSet<message>();
-            this.followings = new HashSet<following>();
             this.assignations = new HashSet<assignation>();
-            this.tasks = new HashSet<task>();
             this.chathistories = new HashSet<chathistory>();
+            this.followings = new HashSet<following>();
+            this.messages = new HashSet<message>();
         }
 
         public const string COLUMN_PERSON_ID = "person_id";
@@ -49,14 +48,12 @@ namespace PigeonsLibrairy.Model
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<message> messages { get; set; }
+        public virtual ICollection<assignation> assignations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chathistory> chathistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<assignation> assignations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<task> tasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<chathistory> chathistories { get; set; }
+        public virtual ICollection<message> messages { get; set; }
     }
 }

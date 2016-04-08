@@ -14,11 +14,6 @@ namespace PigeonsLibrairy.Model
     
     public partial class chathistory
     {
-        public const string COLUMN_GROUP_ID = "group_id";
-        public const string COLUMN_AUTHOR_ID = "author_id";
-        public const string COLUMN_MESSAGE = "message";
-        public const string COLUMN_CREATION_DATE = "creation_date";
-
         public int ID { get; set; }
         public int Group_ID { get; set; }
         public int Author_ID { get; set; }

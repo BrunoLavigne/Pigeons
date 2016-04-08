@@ -29,15 +29,13 @@ namespace PigeonsLibrairy.Model
 
         public int Id { get; set; }
         public string Description { get; set; }
-        public bool Is_completed { get; set; }
         public int Group_ID { get; set; }
         public Nullable<System.DateTime> Task_Start { get; set; }
         public Nullable<System.DateTime> Task_End { get; set; }
-        public int Author_ID { get; set; }
+        public bool Is_completed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<assignation> assignations { get; set; }
         public virtual group group { get; set; }
-        public virtual person person { get; set; }
     }
 }

@@ -213,7 +213,7 @@ namespace FunctionsTester
 
             task newTask = new task();
             newTask.Group_ID = activeGroupID;
-            newTask.Author_ID = activePersonID;
+            //newTask.Author_ID = activePersonID;
             newTask.Task_Start = taskStart;
             newTask.Task_End = tasktEnd;
             newTask.Description = taskDesc;
