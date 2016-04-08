@@ -102,7 +102,7 @@ namespace UnitTesting
             {
                 group groupToTest = new group();
 
-                groupToTest.Name = "Rookies";
+                groupToTest.Name = GROUP_NAME;
                 groupToTest.Creation_date = DateTime.Now;
                 groupToTest.Description = "WE ROCK";
                 groupToTest.Is_active = true;
