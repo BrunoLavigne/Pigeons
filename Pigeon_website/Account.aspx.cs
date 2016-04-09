@@ -27,23 +27,7 @@ public partial class Account : System.Web.UI.Page
                 gh = new GlobalHelpers();
             }
 
-
-
-            // Get current user
-            if(Session["user"] != null)
-            {
-                person activeP = (person)Session["user"];
-                editUserEmail.Text = activeP.Email;
-                editUserDescription.Text = activeP.Description;
-                editUserOrganization.Text = activeP.Organization;
-                editUserPosition.Text = activeP.Position;
-                editUserPhoneNumber.Text = activeP.Phone_number;
-                editUserProfilePicture.Text = activeP.Profile_picture_link;
-                userProfilePicture.ImageUrl = activeP.Profile_picture_link;
-
-            } else {
-                Response.Redirect("Index.aspx");
-            }
+            setValuesInPage();
 
         }
 
@@ -77,5 +61,27 @@ public partial class Account : System.Web.UI.Page
         // update in session (override previous)
         Session["user"] = personToUpdate;
 
+        // set values in page (refresh) DIRTY
+        setValuesInPage();
+
+    }
+
+    protected void setValuesInPage()
+    {
+        // Get current user
+        if (Session["user"] != null)
+        {
+            person activeP = (person)Session["user"];
+            editUserEmail.Text = activeP.Email;
+            editUserDescription.Text = activeP.Description;
+            editUserOrganization.Text = activeP.Organization;
+            editUserPosition.Text = activeP.Position;
+            editUserPhoneNumber.Text = activeP.Phone_number;
+            editUserProfilePicture.Text = activeP.Profile_picture_link;
+            userProfilePicture.ImageUrl = activeP.Profile_picture_link;
+
+        } else {
+            Response.Redirect("Index.aspx");
+        }
     }
 }
