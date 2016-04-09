@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
 using PigeonsLibrairy.DAO.Interface;
+using System.Text.RegularExpressions;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -175,6 +176,23 @@ namespace PigeonsLibrairy.Service.Implementation
                     if (validatePerson == null)
                     {
                         throw new ServiceException("The person you are trying to update is not in the DB");
+                    }
+
+                    string phoneNumber = updatedPerson.Phone_number;
+
+                    if (phoneNumber != "")
+                    {
+                        Regex pattern = new Regex("[()-]");
+                        string formatedPhoneNumber = pattern.Replace(phoneNumber.Trim(), "");
+
+                        if(formatedPhoneNumber.Count() <= 10)
+                        {
+                            updatedPerson.Phone_number = formatedPhoneNumber;
+                        }
+                        else
+                        {
+                            throw new ServiceException("Le numéro de téléphone n'est pas valide");
+                        }
                     }
 
                     validatePerson = updatedPerson;

@@ -138,27 +138,25 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("Ce groupe n'est pas actif, impossible de le changer");
                     }
 
-                    List<following> followerList = followingDAO.GetBy(context, following.COLUMN_PERSON_ID, followerID).ToList();
+                    following follower = followingDAO.GetByID(context, followerID, groupID);
 
-                    if(followerList == null)
+                    if(follower == null)
                     {
                         throw new ServiceException("Ce follower n'existe pas");
                     }
 
-                    following theFollower = followerList[0];
-
-                    if (!theFollower.Is_active)
+                    if (!follower.Is_active)
                     {
                         throw new ServiceException("Ce follower ne suis déjà plus ce groupe");
                     }
 
-                    if (theFollower.Is_admin)
+                    if (follower.Is_admin)
                     {
                         throw new ServiceException("Il est impossible de retirer l'admin d'un groupe");
-                    }            
+                    }
 
-                    theFollower.Is_active = false;
-                    followingDAO.Update(context, theFollower);
+                    follower.Is_active = false;
+                    followingDAO.Update(context, follower);
                     context.SaveChanges();
                     return true;
                 }                
@@ -200,9 +198,12 @@ namespace PigeonsLibrairy.Service.Implementation
                     IEnumerable<following> followingList = followingDAO.GetTheFollowers(context, groupID);
                     IList<person> followers = new List<person>();
 
-                    foreach(following f in followingList)
+                    foreach(following follower in followingList)
                     {
-                        followers.Add(f.person);
+                        if (follower.Is_active)
+                        {
+                            followers.Add(follower.person);
+                        }                        
                     }
                     return followers;
                 }
