@@ -10,7 +10,7 @@
             padding: 20px;
         }
 
-        .Remove-user-modal .Person-container .info, .Remove-user-modal .Person-container .profile-picture {
+        .Remove-user-modal .Person-container > div {
             display: inline-block;
             vertical-align: middle;
         }
@@ -41,7 +41,7 @@
             </asp:Label>
 
             <h2>Utilisateurs du groupe</h2>
-			<div class="col-md-6">
+			<div class="">
 
                 <asp:ListView ID="followingListView" runat="server" OnItemCommand="btnRemoveFollowing_Command">
                     <ItemTemplate>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="button-wrapper">
-                                 <asp:Button ID="btnRemoveFollowing" runat="server" Text="Supprimer" CommandName="RemoveFollowing" CommandArgument='<%#Eval("id") %>'></asp:Button>
+                                 <asp:Button CssClass="btn btn-danger" ID="btnRemoveFollowing" runat="server" Text="Supprimer" CommandName="RemoveFollowing" CommandArgument='<%#Eval("id") %>'></asp:Button>
                             </div>
                             
                         </div>
