@@ -9,6 +9,7 @@
             width: 100%;
             max-width: 400px;
         }
+
     </style>
 
     <div class="container">

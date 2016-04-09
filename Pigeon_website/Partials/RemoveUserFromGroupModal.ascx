@@ -22,6 +22,8 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
+            background-position: center center;
+            background-size: cover;
         }
 
 </style>
