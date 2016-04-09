@@ -62,3 +62,11 @@
     margin-right: 10px;
 }
 
+/**
+    Form validation
+*/
+
+.validation-error-message {
+    color: #d9534f; /* classic bootstrap red */
+    padding: 6px 12px 0px 12px;
+}

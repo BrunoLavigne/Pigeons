@@ -58,11 +58,13 @@
                     </div>
 
                     <div class="form-group">
-
                         <asp:Image runat="server" ID="userProfilePicture" CssClass="profile-picture" />
+                    </div>
 
+                    <div class="form-group">
                         <asp:Button runat="server" ID="btnEditUser" CssClass="btn btn-danger" Text="Modifier" OnClick="btnEditUser_Click" />
                     </div>
+
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnEditUser" EventName="Click" />     

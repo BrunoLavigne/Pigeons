@@ -35,10 +35,16 @@
                 
                 <div class="form-group">
                     <asp:TextBox ID="connectUserEmail" runat="server" placeholder="Courriel" CssClass="form-control"></asp:TextBox>
+                    <div class="validation-error-message">
+                        <asp:RequiredFieldValidator ID="rfvConnectUserEmail" SetFocusOnError="true"  runat="server" controltovalidate="connectUserEmail" Display="Dynamic" errormessage="Veuillez entrer votre courriel" />
+                    </div>  
                 </div>
                 
                 <div class="form-group">
                     <asp:TextBox ID="connectUserPassword" runat="server" placeholder="Mot de passe" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                    <div class="validation-error-message">
+                        <asp:RequiredFieldValidator ID="rfvConnectUserPassword" SetFocusOnError="true"  runat="server" controltovalidate="connectUserPassword" errormessage="Veuillez entrer votre mot de passe" />  
+                    </div>
                 </div>
 
                 <div class="form-group">
