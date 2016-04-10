@@ -1,8 +1,10 @@
-﻿/*
-    Utility classes
+﻿/**
+    Form validation
 */
-.t-center {
-    text-align: center;
+
+.validation-error-message {
+    color: #d9534f; /* classic bootstrap red */
+    padding: 6px 12px 0px 12px;
 }
 
 .Page-container {
@@ -52,6 +54,15 @@
 	max-width: 200px;
 	border-radius: 50%;
 }
+
+/*
+ * Utility functions
+ */
+
+.t-center {
+    text-align: center;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -62,11 +73,12 @@
     margin-right: 10px;
 }
 
-/**
-    Form validation
-*/
-
-.validation-error-message {
-    color: #d9534f; /* classic bootstrap red */
-    padding: 6px 12px 0px 12px;
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* IE/Edge */
+	user-select: none;           /* non-prefixed version, currently
+			                        not supported by any browser */
 }
