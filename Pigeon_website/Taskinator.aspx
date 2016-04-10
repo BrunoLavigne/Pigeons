@@ -30,7 +30,7 @@
 
 
         <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
-            <ContentTemplate><asp:Label runat="server" ID="testLabel"></asp:Label>
+            <ContentTemplate>
                 
                 <div class="Add-task-container">
 
@@ -50,26 +50,52 @@
                     <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" ValidationGroup="taskValidation" />
                 </div>
 
-                <ul class="Tasks-container">
+                <div class="col-md-6">
+                    <ul class="Tasks-container incompleted">
 
-                    <asp:ListView runat="server" ID="listViewTasks">
-                        <ItemTemplate>
-                            <li class="Task-container">
+                        <asp:ListView runat="server" ID="listViewIncompleted">
+                            <ItemTemplate>
+                                <li class="Task-container">
 
-			                    <label class="checkbox-wrapper">
-                                    <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
-                                    <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                    </label>
+			                        <label class="checkbox-wrapper">
+                                        <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                        <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
+			                        </label>
 
-			                    <div class="content">
-				                    <div class="author">Michael Scott (ajouter champ?)</div> - 
-				                    <div class="due-date"><%# Eval("task_end") %></div>
-			                    </div>
+			                        <div class="content">
+				                        <div class="author">Michael Scott (ajouter champ?)</div> - 
+				                        <div class="due-date"><%# Eval("task_end") %></div>
+			                        </div>
 
-                            </li>
-                        </ItemTemplate>
-                    </asp:ListView>
-                </ul>
+                                </li>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </ul>
+                </div>
+
+                
+                <div class="col-md-6">
+                    <ul class="Tasks-container completed">
+
+                        <asp:ListView runat="server" ID="listViewCompleted">
+                            <ItemTemplate>
+                                <li class="Task-container">
+
+			                        <label class="checkbox-wrapper">
+                                        <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                        <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
+			                        </label>
+
+			                        <div class="content">
+				                        <div class="author">Michael Scott (ajouter champ?)</div> - 
+				                        <div class="due-date"><%# Eval("task_end") %></div>
+			                        </div>
+
+                                </li>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </ul>
+                </div>
 
             </ContentTemplate>
         </asp:UpdatePanel>

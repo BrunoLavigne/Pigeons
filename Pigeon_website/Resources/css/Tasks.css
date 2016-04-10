@@ -4,7 +4,7 @@
 	margin: auto;
     font-family: Montserrat;
 }
-.Tasks-container.complete .checkbox-wrapper {
+.Tasks-container.completed .checkbox-wrapper {
 	text-decoration: line-through;
 }
 .Tasks-container li {

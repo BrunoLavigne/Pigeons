@@ -13,53 +13,52 @@ public partial class Taskinator : System.Web.UI.Page
 
     public GroupFacade groupFacade { get; set; }
 
+    public int? groupId { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
-
-        /*
-         * This page is for testing tasks given to a certain group 
-         */
         if(groupFacade == null)
         {
             groupFacade = new GroupFacade();
         }
 
+        if(groupId == null)
+        {
+            groupId = int.Parse(Request.Params["GroupID"]); // still dirty
+        }
+
         if(!Page.IsPostBack)
         {
-
-            // Get group ID from url parameter
-            Boolean goodGroupId = false;
-            int groupId;
-
-            goodGroupId = int.TryParse(Request.Params["groupID"], out groupId);
-
-            if (goodGroupId)
-            {
-                refreshGroupTasks(groupId);
-            }
+            refreshGroupTasks();
         }
     }
 
+    /// <summary>
+    /// Update a task
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void checkBoxCompleted_CheckedChanged(object sender, EventArgs e)
     {
-        // Connect with groupfacade, update task
+
         CheckBox checkbox = (CheckBox)sender;
         HiddenField lblIdField = (HiddenField) checkbox.Parent.FindControl("TaskIdHolder");
-        int lblId = int.Parse(lblIdField.Value);
-        if (checkbox.Checked)
-        {
-            testLabel.Text = "Checkbox is indeed checked!" + lblId;
-        } else
-        {
-            testLabel.Text = "Checkbox is not checked" + lblId;
-        }
+
+        int taskId = int.Parse(lblIdField.Value);
+
+        groupFacade.UpdateTaskCompleted(taskId, checkbox.Checked);
+
+        refreshGroupTasks();
     }
 
+    /// <summary>
+    /// Add a task
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddTask_Click(object sender, EventArgs e)
     {
-
-        int groupID = int.Parse(Request.Params["groupID"]);
 
         person currentUser = (person) Session["user"];
         int currentUserID = currentUser.Id;
@@ -68,7 +67,7 @@ public partial class Taskinator : System.Web.UI.Page
         task theTask = new task();
 
         theTask.Description = taskDescription.Text;
-        theTask.Group_ID = groupID;
+        theTask.Group_ID = groupId ?? default(int);
         theTask.Is_completed = false;
 
         // See if we add a due date to the task
@@ -79,15 +78,26 @@ public partial class Taskinator : System.Web.UI.Page
             theTask.Task_End = dueDate;
         }
 
-        groupFacade.CreateNewTask(theTask, groupID, currentUserID);
+        groupFacade.CreateNewTask(theTask, groupId, currentUserID);
 
-        refreshGroupTasks(groupID); // dirty
+        refreshGroupTasks(); // dirty
     }
 
-    protected void refreshGroupTasks(int groupId)
+    /// <summary>
+    /// Distribute tasks on the page
+    /// </summary>
+    /// <param name="groupId"></param>
+    protected void refreshGroupTasks()
     {
-        List<task> taskList = groupFacade.GetGroupTasks(groupId);
-        listViewTasks.DataSource = taskList;
-        listViewTasks.DataBind();
+
+        List<task> taskListIncompleted = groupFacade.GetGroupTasks(groupId, false); // get incomplete tasks
+        List<task> taskListCompleted = groupFacade.GetGroupTasks(groupId, true);    // get completed tasks
+
+        // bind to templates
+        listViewIncompleted.DataSource = taskListIncompleted;
+        listViewIncompleted.DataBind();
+
+        listViewCompleted.DataSource = taskListCompleted;
+        listViewCompleted.DataBind();
     }
 }

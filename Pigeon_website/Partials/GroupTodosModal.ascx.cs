@@ -17,7 +17,7 @@ public partial class Partials_GroupTodosModal : System.Web.UI.UserControl
         int groupId = int.Parse(Request.Params["groupID"]);
 
         List<task> taskList = new List<task>();
-        taskList = groupFacade.GetGroupTasks(groupId);
+        taskList = groupFacade.GetGroupTasks(groupId, true);
         todosGridView.DataSource = taskList;
         todosGridView.DataBind();
     }
