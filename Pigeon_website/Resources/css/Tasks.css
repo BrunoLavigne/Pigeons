@@ -1,0 +1,89 @@
+﻿.Tasks-container {
+	padding: 20px;
+	max-width: 420px;
+	margin: auto;
+}
+.Tasks-container.complete .checkbox-wrapper {
+	text-decoration: line-through;
+}
+.Tasks-container li {
+	list-style-type: none;
+}
+.Tasks-container li:not(:last-child) {
+	border-bottom: 1px solid #eee;
+}
+.Task-container {
+	font-family: Montserrat;
+	padding: 12px 0;
+}
+
+.Task-container input[type="checkbox"] {
+	margin-right: 12px;
+
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+	background: #69c;
+	border-radius: 1px;
+	box-sizing: border-box;
+	position: relative;
+	box-sizing: content-box ;
+	width: 30px;
+	height: 30px;
+	border-width: 0;
+	transition: all .3s linear;
+	border-radius: 4px;
+}
+
+.Task-container input[type="checkbox"]:checked{
+	background-color: #2ECC71;
+}
+.Task-container input[type="checkbox"]:focus{
+	outline: 0 none;
+	box-shadow: none;
+}
+.Task-container .content {
+	font-size: 12px;
+	padding-left: 45px;
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all .3s ease .15s;
+}
+
+/* mettre un media query puisqu'il faudrait que l'auteur et la date soient visibles en mobile */
+.Task-container:hover .content, .Task-container:focus .content {
+	opacity: 1;
+	height: 16px;
+}
+	.Task-container .author {
+		font-weight: bold;
+	}
+	.Task-container .author, .Task-container .due-date {
+		display: inline-block;
+	}
+
+.Task-container .checkbox-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+
+/*
+	* Utility functions
+	*/
+.Toggler {
+	border: 2px dashed red;
+}
+.Toggler > * {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all .7s ease-in-out .15s;
+}
+
+.Toggler:hover > *, .Toggler:focus > * {
+	opacity: 1;
+	visibility: visible;
+	height: 400px;
+}

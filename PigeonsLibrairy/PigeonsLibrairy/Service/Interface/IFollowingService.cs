@@ -11,6 +11,6 @@ namespace PigeonsLibrairy.Service.Interface
         void AddPersonToGroup(object adminID, object personId, object groupId);
         bool RemoveTheFollower(object groupID, object followerID);
         bool PersonIsGroupAdmin(object personID, object groupID);
-        IList<following> GetTheFollowers(object groupID);
+        IEnumerable<person> GetTheFollowers(object groupID);
     }
 }

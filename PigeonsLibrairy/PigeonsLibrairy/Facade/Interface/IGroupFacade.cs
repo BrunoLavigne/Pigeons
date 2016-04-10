@@ -16,7 +16,7 @@ namespace PigeonsLibrairy.Facade.Interface
         void AddPersonToGroup(object adminID, object personToAddID, object groupID);
 
         // Following
-        List<following> GetGroupFollowers(object groupID);
+        List<person> GetGroupFollowers(object groupID);
         bool RemoveTheFollower(object groupID, object followerID);
         bool PersonIsGroupAdmin(object activePersonID, object activeGroupID);
 
@@ -28,5 +28,12 @@ namespace PigeonsLibrairy.Facade.Interface
         task CreateNewTask(task newTask, object groupID, object personID);
         List<task> GetGroupTasks(object groupID);
         void TaskIsCompleted(object taskID);
+
+        // Assignation
+        assignation AssignTaskToPerson(assignation newAssignation);
+
+        // Event
+        @event CreateNewEvent(@event newEvent);
+        List<@event> GetGroupEvent(object groupID);
     }
 }

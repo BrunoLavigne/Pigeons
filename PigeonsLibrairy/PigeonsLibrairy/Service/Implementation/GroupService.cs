@@ -5,6 +5,7 @@ using PigeonsLibrairy.DAO.Implementation;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -13,8 +14,8 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>
     public class GroupService : Service<group>, IGroupService
     {
-        private GroupDAO groupDAO { get; set; }
-        private FollowingDAO followingDAO { get; set; }
+        private IGroupDAO groupDAO { get; set; }
+        private IFollowingDAO followingDAO { get; set; }
 
         public GroupService() : base()
         {
@@ -148,14 +149,14 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("This group is already inactive");
                     }
 
-                    List<following> followingValidation = followingDAO.GetByID(context, adminID, groupID).ToList();
+                    following followingValidation = followingDAO.GetByID(context, adminID, groupID);
 
-                    if (followingValidation.Count != 1)
+                    if (followingValidation == null)
                     {
                         throw new ServiceException("This person is not following the group");
                     }
 
-                    if (!followingValidation[0].Is_admin)
+                    if (!followingValidation.Is_admin)
                     {
                         throw new ServiceException("This person is not the admin of the group");
                     }

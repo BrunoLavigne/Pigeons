@@ -16,6 +16,9 @@
     <!-- Google fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|PT+Serif:400,700italic' rel='stylesheet' type='text/css' />
 
+    <!-- Google MD icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
     <!-- Custom css -->
     <link href="Resources/css/global.css" rel="stylesheet" />
 
@@ -42,9 +45,10 @@
     <!-- import global ux -->
     <script type="text/javascript" src="Resources/js/ux/global.js"></script>
 
+    <!-- Page-specific js -->
+    <asp:ContentPlaceHolder ID="ContentPlaceHolderScripts" runat="server">
 
-    <!-- Import page-specific js (Todo: include only in group.aspx, but make sure imported after master page) -->
-    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    </asp:ContentPlaceHolder>
     
 </body>
 </html>

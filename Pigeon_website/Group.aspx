@@ -13,8 +13,10 @@
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
+        <asp:HyperLink runat="server" ID="testTodosLink" Text="Voir la tasklist du group"></asp:HyperLink>
+
         <div class="picture-container">
-            <img src="http://placehold.it/400/400" />
+            <asp:Image runat="server" ID="presentationPicture" />
         </div>
 
         <div class="text">
@@ -193,3 +195,6 @@
 
 </asp:Content>
 
+<asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+</asp:Content>

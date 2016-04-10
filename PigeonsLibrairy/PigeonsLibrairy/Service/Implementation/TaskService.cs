@@ -4,6 +4,7 @@ using PigeonsLibrairy.DAO.Implementation;
 using System;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {   
@@ -12,16 +13,20 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>         
     public class TaskService : Service<task>, ITaskService
     {
-        private TaskDAO taskDAO { get; set; }
-        private GroupDAO groupDAO { get; set; } 
+        private ITaskDAO taskDAO { get; set; }
+        private IGroupDAO groupDAO { get; set; } 
+        private IPersonDAO personDAO { get; set; }
+        private IFollowingDAO followingDAO { get; set; }
 
         /// <summary>
         /// Constructeur
         /// </summary>
         public TaskService() : base()
         {
-            taskDAO = new TaskDAO();
-            groupDAO = new GroupDAO();
+            taskDAO     = new TaskDAO();
+            groupDAO    = new GroupDAO();
+            personDAO   = new PersonDAO();
+            followingDAO = new FollowingDAO();
         }
 
         /// <summary>
@@ -52,6 +57,7 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 using(var context = new pigeonsEntities1())
                 {
+                    /*********** Validation du groupe ***********/
                     group groupValidation = groupDAO.GetByID(context, groupID);
 
                     if(groupValidation == null)
@@ -64,7 +70,29 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException(string.Format("Le groupe {0} n'est pas actif. Impossible d'ajouter une Task", groupID));
                     }
 
-                    if(newTask.Task_End != null && newTask.Task_Start != null)
+                    /*********** Validation de la personne ***********/
+                    person personValidation = personDAO.GetByID(context, personID);
+
+                    if(personValidation == null)
+                    {
+                        throw new ServiceException(string.Format("La person {0} n'existe pas", personID));
+                    }
+
+                    /*********** Validation du following ***********/
+                    following followingValidation = followingDAO.GetByID(context, personID, groupID);
+
+                    if(followingValidation == null)
+                    {
+                        throw new ServiceException(string.Format("Le following [ {0} - {1} ] n'existe pas", personID, groupID));
+                    }
+
+                    if (!followingValidation.Is_active)
+                    {
+                        throw new ServiceException(string.Format("Le person ID : {0} n'est plus active dans le groupe ID : {1}", personID, groupID));
+                    }
+
+                    /************* Validation des dates *************/
+                    if (newTask.Task_End != null && newTask.Task_Start != null)
                     {
                         if(newTask.Task_End < newTask.Task_Start)
                         {

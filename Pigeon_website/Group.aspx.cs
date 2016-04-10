@@ -31,6 +31,10 @@ public partial class Group : System.Web.UI.Page
 
             if(goodGroupId)
             {
+
+                // For todos testing
+                testTodosLink.NavigateUrl = "Taskinator.aspx?groupID=" + groupId;
+
                 // Render group to page
                 renderGroupToPage(groupId);
 
@@ -57,6 +61,8 @@ public partial class Group : System.Web.UI.Page
 
             lblGroupName.Text = theGroup.Name;
             lblGroupDescription.Text = theGroup.Description;
+
+            presentationPicture.ImageUrl = theGroup.Group_picture_link;
 
             CultureInfo frCA = new CultureInfo("fr-CA");
 

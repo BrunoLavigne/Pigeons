@@ -28,6 +28,7 @@ namespace FunctionsTester
             fillTheMessagesDataGrid();
             fillTheType();
 
+            // Vérification si l'utilisateur est administrateur du groupe
             bool isThisPersonTheGroupAdmin = groupFacade.PersonIsGroupAdmin(activePersonID, activeGroupID);
             if (isThisPersonTheGroupAdmin)
             {
@@ -60,15 +61,18 @@ namespace FunctionsTester
             txtUserID.Text      = activePerson.Id.ToString();
             txtUserName.Text    = activePerson.Name;
 
-            // Retreiving the followers
-            List<following> followers = groupFacade.GetGroupFollowers(activeGroupID);
+            // Retreiving the persons following a group
+            List<person> followers = groupFacade.GetGroupFollowers(activeGroupID);
 
-            foreach(following follower in followers)
+            
+            foreach(person follower in followers)
             {
-                cb_followers.Items.Add(follower.Person_Id);
+                cb_followers.Items.Add(follower.Id);
+                cbFollowerAssignation.Items.Add(follower.Name + " - " + follower.Id);
             }
 
             cb_followers.SelectedIndex = 0;
+            cbFollowerAssignation.SelectedIndex = 0;
             followerNb.Text = followers.Count().ToString();
         }
 
@@ -102,6 +106,9 @@ namespace FunctionsTester
             }            
         }
 
+        /// <summary>
+        /// Test - Affichage des messages du groupe
+        /// </summary>
         private void fillTheMessagesDataGrid()
         {
             dataGrid_messages.Rows.Clear();
@@ -172,6 +179,15 @@ namespace FunctionsTester
             {
                 eventtEnd = dateTimePicker_eventEnd.Value;
             }
+
+            @event newEvent = new @event();
+            newEvent.Description = eventDesc;
+            newEvent.Event_Start = eventStart;
+            newEvent.Event_End = eventtEnd;
+            newEvent.Group_ID = activeGroupID;
+
+            groupFacade.CreateNewEvent(newEvent);                    
+
         }
 
         /// <summary>
@@ -197,6 +213,7 @@ namespace FunctionsTester
 
             task newTask = new task();
             newTask.Group_ID = activeGroupID;
+            //newTask.Author_ID = activePersonID;
             newTask.Task_Start = taskStart;
             newTask.Task_End = tasktEnd;
             newTask.Description = taskDesc;
@@ -207,6 +224,8 @@ namespace FunctionsTester
         private void btn_ShowTasks_Click(object sender, EventArgs e)
         {
             IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID);
+
+            dataGridView_Task.Rows.Clear();
 
             foreach (task t in taskList)
             {
@@ -284,6 +303,48 @@ namespace FunctionsTester
             String taskid = selectedRowID.ToString();
 
             txtTaskID.Text = taskid;
+        }
+
+        private void cbFollowerAssignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int personID;
+            string personInfo = cbFollowerAssignation.SelectedItem.ToString();
+            string[] splitPersonInfo = personInfo.Trim().Split('-');
+
+            int.TryParse(splitPersonInfo[1], out personID);
+            followerID.Text = personID.ToString();
+        }
+
+        /// <summary>
+        /// Test - Assignation d'une task à une personne
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int personID = int.Parse(followerID.Text);
+            int taskID = int.Parse(txtTaskID.Text);
+
+            assignation taskAssignation = new assignation();
+            taskAssignation.Person_ID = personID;
+            taskAssignation.Task_ID = taskID;
+
+            groupFacade.AssignTaskToPerson(taskAssignation);
+        }
+
+        /// <summary>
+        /// Test - Affichage des events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ShowEvents_Click(object sender, EventArgs e)
+        {
+            List<@event> eventList = groupFacade.GetGroupEvent(activeGroupID);
+
+            foreach(@event ev in eventList)
+            {
+                dataGridView_events.Rows.Add(ev.Description, ev.Event_Start, ev.Event_End);
+            }
         }
     }
 }

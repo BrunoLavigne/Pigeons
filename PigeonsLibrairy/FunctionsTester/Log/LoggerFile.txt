@@ -8,3 +8,15 @@
 [2016-04-04 04:16:07 PM ] : ERROR : La date de fin : 2016-04-04 04:15:49 PM ne peut pas précéder la date de départ : 
 [2016-04-04 04:16:57 PM ] : ERROR : La date de fin : 2016-04-04 04:16:50 PM ne peut pas précéder la date de départ : 2016-04-21 04:16:50 PM
 [2016-04-04 04:16:59 PM ] : ERROR : La date de fin : 2016-04-04 04:16:50 PM ne peut pas précéder la date de départ : 2016-04-21 04:16:50 PM
+[2016-04-05 03:13:32 PM ] : ERROR : La person ID : 3 est déjà associé à cette tâche (ID : 1)
+[2016-04-05 05:32:20 PM ] : ERROR : Erreur dans le Get du DAO The type 'Edm.SByte' of the member 'Is_Completed' in the conceptual side type 'pigeonsModel.event' does not match with the type 'System.Boolean' of the member 'Is_Completed' on the object side type 'PigeonsLibrairy.Model.event'.
+[2016-04-05 05:32:45 PM ] : ERROR : Erreur dans le Get du DAO The type 'Edm.SByte' of the member 'Is_Completed' in the conceptual side type 'pigeonsModel.event' does not match with the type 'System.Boolean' of the member 'Is_Completed' on the object side type 'PigeonsLibrairy.Model.event'.
+[2016-04-05 06:15:18 PM ] : ERROR : La date de fin : 2016-03-29 06:14:20 PM ne peut pas précéder la date de départ : 2016-04-01 06:14:20 PM
+[2016-04-08 05:53:03 PM ] : ERROR : Erreur dans le Get du DAO Schema specified is not valid. Errors: 
+Model.PigeonsModel.msl(79,12) : error 2019: Member Mapping specified is not valid. The type 'Edm.Boolean[Nullable=False,DefaultValue=]' of member 'Is_Completed' in type 'pigeonsModel.event' is not compatible with 'MySql.tinyint[Nullable=False,DefaultValue=]' of member 'Is_Completed' in type 'pigeonsModel.Store.event'.
+[2016-04-09 04:31:25 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
+[2016-04-09 04:33:40 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
+[2016-04-09 04:33:55 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
+[2016-04-09 04:34:01 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
+[2016-04-09 04:39:24 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
+[2016-04-09 04:39:44 PM ] : ERROR : Il est impossible de retirer l'admin d'un groupe
