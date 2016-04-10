@@ -26,13 +26,13 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// </summary>
         /// <param name="groupID"></param>
         /// <returns></returns>
-        public IEnumerable<task> GetAvailableTask(object groupID)
+        public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {
             try
             {
                 using (var context = new pigeonsEntities1())
                 {
-                    Expression<Func<task, bool>> filter = (t => t.Group_ID == (int)groupID && !t.Is_completed);
+                    Expression<Func<task, bool>> filter = (t => t.Group_ID == (int)groupID && t.Is_completed == completed);
                     return Get(context, filter).OrderBy(t => t.Task_Start);
                 }                
             }

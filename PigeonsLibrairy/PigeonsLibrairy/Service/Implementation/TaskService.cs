@@ -57,6 +57,17 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 using(var context = new pigeonsEntities1())
                 {
+
+                    if (newTask.Task_Start == default(DateTime))
+                    {
+                        newTask.Task_Start = null;
+                    }
+
+                    if (newTask.Task_End == default(DateTime))
+                    {
+                        newTask.Task_End = null;
+                    }
+
                     /*********** Validation du groupe ***********/
                     group groupValidation = groupDAO.GetByID(context, groupID);
 
@@ -100,16 +111,6 @@ namespace PigeonsLibrairy.Service.Implementation
                         }
                     }
 
-                    if(newTask.Task_Start == default(DateTime))
-                    {
-                        newTask.Task_Start = null;
-                    }
-
-                    if(newTask.Task_End == default(DateTime))
-                    {
-                        newTask.Task_End = null;
-                    }
-
                     // Tout est beau. Insertion dans la table Task
                     newTask.Is_completed = false;
                     taskDAO.Insert(context, newTask);
@@ -129,7 +130,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="groupID">Le ID du groupe pour lequel les Task sont recherchées</param>
         /// <returns>Une liste de Task. Une liste vide sinon</returns>
-        public IEnumerable<task> GetAvailableTask(object groupID)
+        public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {
             if (groupID == null)
             {
@@ -138,7 +139,7 @@ namespace PigeonsLibrairy.Service.Implementation
 
             try
             {
-                return taskDAO.GetAvailableTask(groupID);
+                return taskDAO.GetGroupTasks(groupID, completed);
             }
             catch (DAOException daoException)
             {
@@ -147,10 +148,11 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Indique une Task comme complété
+        /// Indique une Task comme complété ou non
         /// </summary>
         /// <param name="taskID">Le ID de la Task à modifier</param>
-        public void TaskIsCompleted(object taskID)
+        /// <param name="completed">True si la task est complété, False si elle ne l'est pas</param>
+        public void UpdateTaskCompleted(object taskID, bool completed)
         {
             if(taskID == null)
             {
@@ -161,14 +163,14 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 task taskValidation = GetByID(taskID);
 
-                if (taskValidation.Is_completed)
+                if (taskValidation.Is_completed == completed)
                 {
-                    throw new ServiceException(string.Format("La Task no.{0} est déjà complétée", taskID));
+                    throw new ServiceException(string.Format("La Task no.{0} est déjà dans l'état désiré ( {1} )", taskID, completed));
                 }
 
                 using (var context = new pigeonsEntities1())
                 {
-                    taskValidation.Is_completed = true;
+                    taskValidation.Is_completed = completed;
                     taskDAO.Update(context, taskValidation);
                     context.SaveChanges();
                 }
