@@ -9,6 +9,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
+    <style>
+        .chat-holder {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 24px;
+            background: red;
+        }
+    </style>
 
     <!-- Page header - main group info -->
     <div class="Group-presentation">
@@ -175,6 +184,10 @@
 
             </div>
 
+        </div><!-- /. row -->
+
+        <div class="chat-holder">
+            Toggle group chat
         </div>
 
 
