@@ -23,6 +23,7 @@
     <div class="Group-presentation">
 
         <asp:HyperLink runat="server" ID="testTodosLink" Text="Voir la tasklist du group"></asp:HyperLink>
+        <asp:HyperLink runat="server" ID="testChatLink" Text="Voir le chat du groupe"></asp:HyperLink>
 
         <div class="picture-container">
             <asp:Image runat="server" ID="presentationPicture" />

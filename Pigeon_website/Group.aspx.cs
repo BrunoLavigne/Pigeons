@@ -35,6 +35,9 @@ public partial class Group : System.Web.UI.Page
                 // For todos testing
                 testTodosLink.NavigateUrl = "Taskinator.aspx?groupID=" + groupId;
 
+                // For chatroom testing
+                testChatLink.NavigateUrl = "Chat.aspx?groupID=" + groupId;
+
                 // Render group to page
                 renderGroupToPage(groupId);
 
