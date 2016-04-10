@@ -36,7 +36,7 @@
 		<h4 class="modal-title">Enlever des utilisateurs du groupe</h4>
 		</div>
 		<div class="modal-body">
-		<div class="row">
+		<div class="container">
 
             <asp:Label runat="server" ID="testLabel">
 
@@ -49,7 +49,7 @@
                     <ItemTemplate>
                         <div class="Person-container">
 
-                            <div class="profile-picture" style='background: url(<%# Eval("profile_picture_link") %>);'></div>
+                            <div class="profile-picture" style='background-image: url(<%# Eval("profile_picture_link") %>);'></div>
 
                             <div class="info">
                                 <div class="name"><%#Eval("name") %></div>
