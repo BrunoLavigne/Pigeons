@@ -2,6 +2,7 @@
 using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -65,11 +66,20 @@ public partial class Taskinator : System.Web.UI.Page
         person currentUser = (person) Session["user"];
         int currentUserID = currentUser.Id;
 
+        // Création du task
         task theTask = new task();
-        theTask.Description = taskDescription.Text;
 
+        theTask.Description = taskDescription.Text;
         theTask.Group_ID = groupID;
         theTask.Is_completed = false;
+
+        // See if we add a due date to the task
+        if (taskDueDate.Text.Length > 0)
+        {
+            DateTime dueDate = new DateTime();
+            dueDate = DateTime.ParseExact(taskDueDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            theTask.Task_End = dueDate;
+        }
 
         groupFacade.CreateNewTask(theTask, groupID, currentUserID);
     }

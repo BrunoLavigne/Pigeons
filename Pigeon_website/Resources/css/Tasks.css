@@ -54,7 +54,7 @@
 /* mettre un media query puisqu'il faudrait que l'auteur et la date soient visibles en mobile */
 .Task-container:hover .content, .Task-container:focus .content {
 	opacity: 1;
-	height: 16px;
+	height: 32px; /* dirty */
 }
 	.Task-container .author {
 		font-weight: bold;

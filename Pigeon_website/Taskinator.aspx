@@ -3,6 +3,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
+    <style>
+        /*
+            Add file for vendor overrides?
+        */
+        .ui-datepicker {
+            background: #eee;
+            padding: 10px;
+        }
+        .ui-datepicker .ui-datepicker-header {
+            padding: 0 10px;
+        }
+        .ui-datepicker th, .ui-datepicker td {
+            padding: 10px;
+        }
+    </style>
 
 </asp:Content>
 
@@ -18,8 +33,15 @@
             <ContentTemplate><asp:Label runat="server" ID="testLabel"></asp:Label>
                 
                 <div class="Add-task-container">
+
+                    <!-- Description de la tâche -->
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <!-- Date de la tâche -->
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="taskDueDate" placeholder="Ajouter une date limite" CssClass="form-control datepicker-holder"></asp:TextBox>
                     </div>
                     
                     <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" />
@@ -54,5 +76,17 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+
+    <!-- Import jQuery Ui for datepicker -->
+    <!-- Todo: import only datepicker widget -->
+    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker-holder").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        });
+    </script>
+
 </asp:Content>
 
