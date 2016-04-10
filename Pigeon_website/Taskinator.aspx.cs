@@ -36,9 +36,7 @@ public partial class Taskinator : System.Web.UI.Page
 
             if (goodGroupId)
             {
-                List<task> taskList = groupFacade.GetGroupTasks(groupId);
-                listViewTasks.DataSource = taskList;
-                listViewTasks.DataBind();
+                refreshGroupTasks(groupId);
             }
         }
     }
@@ -82,5 +80,14 @@ public partial class Taskinator : System.Web.UI.Page
         }
 
         groupFacade.CreateNewTask(theTask, groupID, currentUserID);
+
+        refreshGroupTasks(groupID); // dirty
+    }
+
+    protected void refreshGroupTasks(int groupId)
+    {
+        List<task> taskList = groupFacade.GetGroupTasks(groupId);
+        listViewTasks.DataSource = taskList;
+        listViewTasks.DataBind();
     }
 }
