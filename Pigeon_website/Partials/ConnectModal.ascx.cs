@@ -33,11 +33,11 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
         user.Password = pass1; // lol
 
         // todo: cleanup - this should be set in profile (and set to not null in DB)
-        user.Description = "this dude is the best i met him once";
+        // user.Description = "this dude is the best i met him once";
         user.Birth_date = DateTime.Now;
-        user.Organization = "Big Money Affiliates and Sketchy biz";
-        user.Phone_number = "5144444444";
-        user.Position = "this guy is on top nuff said";
+        // user.Organization = "Big Money Affiliates and Sketchy biz";
+        // user.Phone_number = "5144444444";
+        // user.Position = "this guy is on top nuff said";
 
         // Check if user creation was successful
         if(homeFacade.RegisterUser(user, email, pass1))
