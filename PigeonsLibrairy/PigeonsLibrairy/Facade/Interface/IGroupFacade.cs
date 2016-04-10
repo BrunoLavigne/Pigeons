@@ -25,9 +25,9 @@ namespace PigeonsLibrairy.Facade.Interface
         List<message> GetGroupMessages(object groupID);
 
         // Task
-        task CreateNewTask(task newTask, object groupID, object personID);
-        List<task> GetGroupTasks(object groupID);
-        void TaskIsCompleted(object taskID);
+        task CreateNewTask(task newTask, object groupID, object personID);        
+        List<task> GetGroupTasks(object groupID, bool completed);
+        void UpdateTaskCompleted(object taskID, bool completed);
 
         // Assignation
         assignation AssignTaskToPerson(assignation newAssignation);

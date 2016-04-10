@@ -223,7 +223,7 @@ namespace FunctionsTester
 
         private void btn_ShowTasks_Click(object sender, EventArgs e)
         {
-            IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID);
+            IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID, true);
 
             dataGridView_Task.Rows.Clear();
 
@@ -292,7 +292,7 @@ namespace FunctionsTester
         {
             int taskID = int.Parse(txtTaskID.Text);
 
-            groupFacade.TaskIsCompleted(taskID);
+            groupFacade.UpdateTaskCompleted(taskID, false);
 
         }
 

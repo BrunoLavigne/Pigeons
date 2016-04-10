@@ -165,11 +165,11 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// <summary>
         /// Recherche de toutes les Tasks associées à un groupe
         /// </summary>        
-        public List<task> GetGroupTasks(object groupID)
+        public List<task> GetGroupTasks(object groupID, bool completed)
         {
             try
             {
-                return mainControl.TaskService.GetAvailableTask(groupID).ToList();
+                return mainControl.TaskService.GetGroupTasks(groupID, completed).ToList();
             }
             catch (ServiceException serviceException)
             {
@@ -195,18 +195,23 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         /// <summary>
-        /// Marque une assignation comme étant complétée
+        /// Marque une assignation comme étant complétée ou non
         /// </summary>        
-        public void TaskIsCompleted(object taskID)
+        public void UpdateTaskCompleted(object taskID, bool completed)
         {
             try
             {
-                mainControl.TaskService.TaskIsCompleted(taskID);
+                mainControl.TaskService.UpdateTaskCompleted(taskID, completed);
             }
             catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);                
             }
+        }
+
+        public task UpdateTask(object taskID, task taskToUpdate)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Task

@@ -20,3 +20,6 @@ Model.PigeonsModel.msl(79,12) : error 2019: Member Mapping specified is not vali
 [2016-04-09 04:34:01 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
 [2016-04-09 04:39:24 PM ] : ERROR : Ce follower ne suis déjà plus ce groupe
 [2016-04-09 04:39:44 PM ] : ERROR : Il est impossible de retirer l'admin d'un groupe
+[2016-04-10 12:52:07 PM ] : ERROR : La date de fin : 2016-04-10 12:52:01 PM ne peut pas précéder la date de départ : 2016-04-10 12:52:01 PM
+[2016-04-10 12:54:26 PM ] : ERROR : La date de fin : 0001-01-01 12:00:00 AM ne peut pas précéder la date de départ : 2016-04-10 12:54:07 PM
+[2016-04-10 01:12:47 PM ] : ERROR : La Task no.3 est déjà dans l'état désiré ( True )
