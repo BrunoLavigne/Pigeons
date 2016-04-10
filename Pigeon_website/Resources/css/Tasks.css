@@ -1,7 +1,8 @@
-﻿.Tasks-container {
+﻿.Tasks-container, .Add-task-container {
 	padding: 20px;
 	max-width: 420px;
 	margin: auto;
+    font-family: Montserrat;
 }
 .Tasks-container.complete .checkbox-wrapper {
 	text-decoration: line-through;
@@ -13,7 +14,6 @@
 	border-bottom: 1px solid #eee;
 }
 .Task-container {
-	font-family: Montserrat;
 	padding: 12px 0;
 }
 

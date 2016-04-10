@@ -10,9 +10,21 @@
 
     <div class="container">
 
+        
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+
         <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
             <ContentTemplate><asp:Label runat="server" ID="testLabel"></asp:Label>
+                
+                <div class="Add-task-container">
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
+                    </div>
+                    
+                    <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" />
+                </div>
+
                 <ul class="Tasks-container">
 
                     <asp:ListView runat="server" ID="listViewTasks">
@@ -34,13 +46,6 @@
                     </asp:ListView>
                 </ul>
 
-                <div class="Add-task-container">
-                    <div class="form-group">
-                        <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
-                    </div>
-                    
-                    <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" />
-                </div>
             </ContentTemplate>
         </asp:UpdatePanel>
 
