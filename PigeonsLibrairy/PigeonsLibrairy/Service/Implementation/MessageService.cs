@@ -4,6 +4,7 @@ using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
 using System.Collections.Generic;
 using System;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -12,9 +13,9 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>
     public class MessageService : Service<message>, IMessageService
     {
-        private MessageDAO messageDAO { get; set;  }
-        private GroupDAO groupDAO { get; set; }
-        private PersonDAO personDAO { get; set; }
+        private IMessageDAO messageDAO { get; set;  }
+        private IGroupDAO groupDAO { get; set; }
+        private IPersonDAO personDAO { get; set; }
 
         /// <summary>
         /// Constructeur

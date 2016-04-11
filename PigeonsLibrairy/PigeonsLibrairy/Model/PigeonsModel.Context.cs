@@ -26,12 +26,13 @@ namespace PigeonsLibrairy.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<assignation> assignations { get; set; }
+        public virtual DbSet<chathistory> chathistories { get; set; }
+        public virtual DbSet<@event> events { get; set; }
+        public virtual DbSet<following> followings { get; set; }
         public virtual DbSet<group> groups { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<person> people { get; set; }
         public virtual DbSet<task> tasks { get; set; }
-        public virtual DbSet<following> followings { get; set; }
-        public virtual DbSet<assignation> assignations { get; set; }
-        public virtual DbSet<@event> events { get; set; }
     }
 }

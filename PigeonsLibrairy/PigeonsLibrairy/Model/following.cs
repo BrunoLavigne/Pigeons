@@ -15,7 +15,7 @@ namespace PigeonsLibrairy.Model
     public partial class following
     {
         public const string COLUMN_PERSON_ID = "person_id";
-        public const string COLUMN_GROUP_ID  = "group_id";
+        public const string COLUMN_GROUP_ID = "group_id";
 
         public int Person_Id { get; set; }
         public int Group_id { get; set; }

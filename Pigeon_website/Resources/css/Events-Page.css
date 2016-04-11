@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.myCalendar {  
+    background-color: white;  
+}  
+
+.myCalendar a {  
+    text-decoration: none;
+}
+
+.myCalendarDayHeader {
+    background-color: white;
+}
+
+.calendarOtherMonthDay {
+}   
+
+.Highlight
+{
+    background-color : rgba(22, 71, 94, 0.16);
+}
+.Normal
+{
+    background-color : rgba(255, 255, 255, 0.00);
+}

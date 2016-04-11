@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
+using System.Text.RegularExpressions;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -13,7 +15,7 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>
     public class PersonService : Service<person>, IPersonService
     {
-        private PersonDAO personDAO { get; set; }
+        private IPersonDAO personDAO { get; set; }
 
         /// <summary>
         /// Constructeur
@@ -176,6 +178,23 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("The person you are trying to update is not in the DB");
                     }
 
+                    string phoneNumber = updatedPerson.Phone_number;
+
+                    if (phoneNumber != "")
+                    {
+                        Regex pattern = new Regex("[()-]");
+                        string formatedPhoneNumber = pattern.Replace(phoneNumber.Trim(), "");
+
+                        if(formatedPhoneNumber.Count() <= 10)
+                        {
+                            updatedPerson.Phone_number = formatedPhoneNumber;
+                        }
+                        else
+                        {
+                            throw new ServiceException("Le numéro de téléphone n'est pas valide");
+                        }
+                    }
+
                     validatePerson = updatedPerson;
                     personDAO.Update(context, validatePerson);
                     context.SaveChanges();
@@ -186,6 +205,38 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 throw new ServiceException(daoException.Message);
             }
-        }            
+        }
+        
+        /// <summary>
+        /// Recherche d'une Person qui inclu la person, ses following et ses group
+        /// </summary>
+        /// <param name="personID">Le ID de la personne</param>
+        /// <returns>La person et ses information qui corresponde au ID. Null sinon</returns>
+        public person GetPersonData(object personID)
+        {
+            if (personID == null)
+            {
+                throw new ServiceException("Erreur GetPersonDate : Le ID de la personne est null");
+            }
+
+            try
+            {
+                using(var context = new pigeonsEntities1())
+                {
+                    List<person> personList = personDAO.GetPersonData(context, personID).ToList();
+
+                    if(personList.Count() != 1)
+                    {
+                        throw new ServiceException("Erreur personService GetPersonData : La requête ne retourne pas qu'une personne");
+                    }
+
+                    return personList[0];
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
     }
 }

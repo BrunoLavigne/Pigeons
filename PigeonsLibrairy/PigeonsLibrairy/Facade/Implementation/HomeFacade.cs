@@ -17,6 +17,8 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public HomeFacade() : base() {}
 
+        #region Person
+
         /// <summary>
         /// Enregistrement d'un nouvel utilisateur
         /// </summary>
@@ -50,35 +52,22 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         /// <summary>
-        /// Recherche des groupes actif qu'une person suis
+        /// Recherche des informations (person/following/groups) reliés à une person par son ID
+        /// 
         /// </summary>
-        public List<group> GetPersonGroups(object personID)
+        /// <param name="personID"></param>
+        /// <returns></returns>
+        public person GetPersonData(object personID)
         {
             try
             {
-                return mainControl.GroupService.GetPersonGroups(personID).ToList();
+                return mainControl.PersonService.GetPersonData(personID);
             }
             catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Recherche du nombre de personnes qui suivent un groupe (following)
-        /// </summary>        
-        public int GetGroupFollowers(object groupID)
-        {
-            try
-            {
-                return mainControl.FollowingService.GetTheFollowers(groupID).Count();
-            }
-            catch (ServiceException serviceException)
-            {
-                ExceptionLog.LogTheError(serviceException.Message);
-                return 0;
-            }         
         }
 
         /// <summary>
@@ -94,7 +83,49 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return null;
-            }            
+            }
         }
+
+        #endregion Person
+
+        #region Groups
+
+        /// <summary>
+        /// Recherche des groupes actif qu'une person suis
+        /// </summary>
+        public List<group> GetPersonGroups(object personID)
+        {
+            try
+            {
+                return mainControl.GroupService.GetPersonGroups(personID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        #endregion Groups
+
+        #region Following
+
+        /// <summary>
+        /// Recherche du nombre de personnes qui suivent un groupe (following)
+        /// </summary>        
+        public int GetGroupFollowers(object groupID)
+        {
+            try
+            {
+                return mainControl.FollowingService.GetTheFollowers(groupID).Count();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return 0;
+            }      
+        }
+
+        #endregion Following
     }
 }

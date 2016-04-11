@@ -26,13 +26,14 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <param name="personID">The ID of the person</param>
         /// <param name="groupID">The ID of the group</param>
         /// <returns>A list of following matching the query. An empty list of nothing is found</returns>
-        public IEnumerable<following> GetByID(pigeonsEntities1 context, object personID, object groupID)
+        public following GetByID(pigeonsEntities1 context, object personID, object groupID)
         {
             try
             {
                 Expression<Func<following, bool>> filter = null;
                 filter = (f => f.Person_Id == (int)personID && f.Group_id == (int)groupID);
-                return Get(context, filter);
+                IList<following> followings = Get(context, filter).ToList();
+                return (followings.Count() == 1) ? followings[0] : null;
             }
             catch(Exception ex) when (ex is EntityException || ex is DAOException)
             {
@@ -82,8 +83,8 @@ namespace PigeonsLibrairy.DAO.Implementation
         {
             try
             {
-                Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.group.Is_active == true);
-                string includeProperties = "group";
+                Expression<Func<following, bool>> filter = (f => f.Person_Id == (int)personID && f.Is_active && f.group.Is_active);
+                string includeProperties = "group, person";
                 return Get(context, filter, null, includeProperties).OrderBy(m => m.group.Creation_date);
             }
             catch (Exception ex) when (ex is EntityException || ex is DAOException)
@@ -105,6 +106,26 @@ namespace PigeonsLibrairy.DAO.Implementation
                 IList<following> followersList = new List<following>();
                 followersList = Get(context, f => f.Group_id == (int)groupID && f.Is_active).ToList();
                 return followersList;
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le FollowingDAO GetTheFollowersCount : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get a list of following including the persons and the groups
+        /// </summary>
+        /// <param name="context">The connection</param>
+        /// <param name="groupID">The ID of the group we want the followers</param>
+        /// <returns>A list with the following or an empty list</returns>
+        public IEnumerable<following> GetTheFollowers(pigeonsEntities1 context, object groupID)
+        {
+            try
+            {
+                Expression<Func<following, bool>> filter = (f => f.Group_id == (int)groupID && f.group.Is_active == true);
+                string includeProperties = "group, person";
+                return Get(context, filter, null, includeProperties);
             }
             catch (Exception ex) when (ex is EntityException || ex is DAOException)
             {

@@ -9,12 +9,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
+    <style>
+        .chat-holder {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 24px;
+            background: red;
+        }
+    </style>
 
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
+        <asp:HyperLink runat="server" ID="testTodosLink" Text="Voir la tasklist du group"></asp:HyperLink>
+        <asp:HyperLink runat="server" ID="testChatLink" Text="Voir le chat du groupe"></asp:HyperLink>
+
         <div class="picture-container">
-            <img src="http://placehold.it/400/400" />
+            <asp:Image runat="server" ID="presentationPicture" />
         </div>
 
         <div class="text">
@@ -173,6 +185,10 @@
 
             </div>
 
+        </div><!-- /. row -->
+
+        <div class="chat-holder">
+            Toggle group chat
         </div>
 
 
@@ -193,3 +209,6 @@
 
 </asp:Content>
 
+<asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+    <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+</asp:Content>

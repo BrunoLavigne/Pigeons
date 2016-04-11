@@ -71,13 +71,19 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Controller\FileController.cs" />
     <Compile Include="Controller\MainController.cs" />
+    <Compile Include="DAO\Implementation\AssignationDAO.cs" />
+    <Compile Include="DAO\Implementation\ChatHistoryDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
+    <Compile Include="DAO\Implementation\EventDAO.cs" />
     <Compile Include="DAO\Implementation\FollowingDAO.cs" />
     <Compile Include="DAO\Implementation\GroupDAO.cs" />
     <Compile Include="DAO\Implementation\MessageDAO.cs" />
     <Compile Include="DAO\Implementation\PersonDAO.cs" />
     <Compile Include="DAO\Implementation\TaskDAO.cs" />
+    <Compile Include="DAO\Interface\IAssignationDAO.cs" />
+    <Compile Include="DAO\Interface\IChatHistoryDAO.cs" />
     <Compile Include="DAO\Interface\IDAO.cs" />
+    <Compile Include="DAO\Interface\IEventDAO.cs" />
     <Compile Include="DAO\Interface\IFollowingDAO.cs" />
     <Compile Include="DAO\Interface\IGroupDAO.cs" />
     <Compile Include="DAO\Interface\IMessageDAO.cs" />
@@ -97,6 +103,9 @@
     <Compile Include="Facade\Interface\IHomeFacade.cs" />
     <Compile Include="Log\ExceptionLog.cs" />
     <Compile Include="Model\assignation.cs">
+      <DependentUpon>PigeonsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\chathistory.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\event.cs">
@@ -129,16 +138,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PigeonsModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\task.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Implementation\AssignationService.cs" />
+    <Compile Include="Service\Implementation\ChatHistoryService.cs" />
+    <Compile Include="Service\Implementation\EventService.cs" />
     <Compile Include="Service\Implementation\FollowingService.cs" />
     <Compile Include="Service\Implementation\GroupService.cs" />
     <Compile Include="Service\Implementation\MessageService.cs" />
     <Compile Include="Service\Implementation\PersonService.cs" />
     <Compile Include="Service\Implementation\Service.cs" />
     <Compile Include="Service\Implementation\TaskService.cs" />
+    <Compile Include="Service\Interface\IAssignationService.cs" />
+    <Compile Include="Service\Interface\IChatHistoryService.cs" />
+    <Compile Include="Service\Interface\IEventService.cs" />
     <Compile Include="Service\Interface\IGroupService.cs" />
     <Compile Include="Service\Interface\IMessageService.cs" />
     <Compile Include="Service\Interface\IFollowingService.cs" />
