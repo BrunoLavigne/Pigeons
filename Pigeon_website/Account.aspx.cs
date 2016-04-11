@@ -1,5 +1,4 @@
-﻿using PigeonsLibrairy.Controller;
-using PigeonsLibrairy.Facade.Implementation;
+﻿using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 
@@ -7,8 +6,6 @@ public partial class Account : System.Web.UI.Page
 {
 
     protected HomeFacade homeFacade { get; set; }
-
-    protected GlobalHelpers gh { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,12 +17,6 @@ public partial class Account : System.Web.UI.Page
 
         if(!IsPostBack)
         {
-            
-            // Init helpers si pas fait
-            if(gh == null)
-            {
-                gh = new GlobalHelpers();
-            }
 
             setValuesInPage();
 
@@ -72,6 +63,7 @@ public partial class Account : System.Web.UI.Page
         if (Session["user"] != null)
         {
             person activeP = (person)Session["user"];
+            lblUserName.Text = activeP.Name;
             editUserEmail.Text = activeP.Email;
             editUserDescription.Text = activeP.Description;
             editUserOrganization.Text = activeP.Organization;
