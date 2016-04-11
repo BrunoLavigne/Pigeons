@@ -14,11 +14,25 @@
 }
 
 .calendarOtherMonthDay {
-}   
+}  
+
+.eventDates {
+    background-color : rgba(211, 93, 14, 0.66);
+    color : white;
+} 
+
+.lateDate {
+    background-color : red;
+    color : white;
+    text-align : right;
+    vertical-align : top;
+    border-style : outset;
+    border-color : darkgray;
+}
 
 .Highlight
 {
-    background-color : rgba(22, 71, 94, 0.16);
+    background-color : rgba(22, 71, 94, 0.16);    
 }
 .Normal
 {
