@@ -9,22 +9,22 @@ using System.Web.UI.WebControls;
 public partial class Eventificator : System.Web.UI.Page
 {
     private List<@event> eventsList { get; set; }
-    private GroupFacade facade { get; set; }
+    private GroupFacade groupFacade { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            facade = new GroupFacade();
-            eventsList = facade.GetGroupEvent(16);
+            groupFacade = new GroupFacade();
+            eventsList = groupFacade.GetGroupEvent(16);
 
             Session["events"] = eventsList;
-            Session["facade"] = facade;
+            Session["facade"] = groupFacade;
         }
         else
         {
             eventsList = (List<@event>)Session["events"];
-            facade = (GroupFacade)Session["facade"];
+            groupFacade = (GroupFacade)Session["facade"];
         }
         createEventTable(eventsList);
     }
@@ -46,8 +46,10 @@ public partial class Eventificator : System.Web.UI.Page
         rangeDates.BackColor = Color.LightBlue;
         rangeDates.ForeColor = Color.White;
 
+        // Affichage des events
         foreach (@event ev in eventsList)
         {
+            // Events Start
             if (e.Day.Date == ev.Event_Start.Date)
             {
                 if (ev.Event_Start.Date < DateTime.Now.Date)
@@ -60,8 +62,10 @@ public partial class Eventificator : System.Web.UI.Page
                 }
                 e.Cell.ToolTip = e.Cell.ToolTip + "\n" + "Debut : " + ev.Description;
             }
+            // Event dates between start and end
             if (e.Day.Date > ev.Event_Start && e.Day.Date <= ev.Event_End)
             {
+                // Event end
                 if (e.Day.Date == ev.Event_End.Value.Date)
                 {
                     e.Cell.ToolTip = e.Cell.ToolTip + "\n" + "Fin : " + ev.Description;
@@ -191,16 +195,12 @@ public partial class Eventificator : System.Web.UI.Page
         newEvent.Event_End = eventEnd;
         newEvent.Group_ID = 16; // DIRTY HARDCODAGE
 
-        facade.CreateNewEvent(newEvent);
+        groupFacade.CreateNewEvent(newEvent);
     }
 
     protected void btnNewEvent_Click(object sender, EventArgs e)
     {
         bool visible = newEvent.Visible;
         newEvent.Visible = (visible) ? false : true;
-    }
-
-    protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-    {
     }
 }
