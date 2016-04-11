@@ -1,18 +1,32 @@
-﻿.Tasks-container, .Add-task-container {
+﻿/*
+    Tasks styling
+    Includes the task component and the add task component
+*/
+
+.Tasks-container,
+.Add-task-container {
+
 	padding: 20px;
 	max-width: 420px;
 	margin: auto;
     font-family: Montserrat;
+
 }
+
 .Tasks-container.completed .checkbox-wrapper {
 	text-decoration: line-through;
 }
+
+/* Don't give a li-style to the task container */
 .Tasks-container li {
 	list-style-type: none;
 }
+
+/* Don't give a border for the last tasks container */
 .Tasks-container li:not(:last-child) {
 	border-bottom: 1px solid #eee;
 }
+
 .Task-container {
 	padding: 12px 0;
 }
@@ -38,10 +52,12 @@
 .Task-container input[type="checkbox"]:checked{
 	background-color: #2ECC71;
 }
+
 .Task-container input[type="checkbox"]:focus{
 	outline: 0 none;
 	box-shadow: none;
 }
+
 .Task-container .content {
 	font-size: 12px;
 	padding-left: 45px;
@@ -56,34 +72,17 @@
 	opacity: 1;
 	height: 32px; /* dirty */
 }
-	.Task-container .author {
-		font-weight: bold;
-	}
-	.Task-container .author, .Task-container .due-date {
-		display: inline-block;
-	}
+
+.Task-container .author {
+	font-weight: bold;
+}
+
+.Task-container .author,
+.Task-container .due-date {
+	display: inline-block;
+}
 
 .Task-container .checkbox-wrapper {
 	display: flex;
 	align-items: center;
-}
-
-
-/*
-	* Utility functions
-	*/
-.Toggler {
-	border: 2px dashed red;
-}
-.Toggler > * {
-	opacity: 0;
-	height: 0;
-	overflow: hidden;
-	transition: all .7s ease-in-out .15s;
-}
-
-.Toggler:hover > *, .Toggler:focus > * {
-	opacity: 1;
-	visibility: visible;
-	height: 400px;
 }

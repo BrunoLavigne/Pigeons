@@ -83,3 +83,20 @@
 	user-select: none;           /* non-prefixed version, currently
 			                        not supported by any browser */
 }
+
+.Toggler {
+	border: 2px dashed red;
+}
+
+.Toggler > * {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all .7s ease-in-out .15s;
+}
+
+.Toggler:hover > *, .Toggler:focus > * {
+	opacity: 1;
+	visibility: visible;
+	height: 400px;
+}
