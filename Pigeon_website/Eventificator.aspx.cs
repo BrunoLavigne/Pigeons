@@ -55,6 +55,7 @@ public partial class Eventificator : System.Web.UI.Page
                 if (ev.Event_Start.Date < DateTime.Now.Date)
                 {
                     e.Cell.ApplyStyle(lateDates);
+                    e.Cell.Attributes.Add("test", ev.ID.ToString());
                 }
                 else
                 {
