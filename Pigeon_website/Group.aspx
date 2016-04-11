@@ -85,51 +85,46 @@
         </asp:Panel>
 
 
+
+        <div class="Group-messages-container">
+            <asp:ListView ID="messagesListView" runat="server">
+                <ItemTemplate>
+
+                    <div class="Group-message">
+
+                        <div class="user-info">
+
+                            <!-- User profile picture here -->
+                            <div class="profile-picture-container">
+                                <img class="" src="http://placehold.it/300/300" alt="UserName profile picture">
+                            </div>
+
+                        </div><!-- /.user-info -->
+
+                        <div class="content">
+                            <div class="post-info">
+                                Michael Scott - 99/99/9999
+                            </div>
+
+                            <asp:Label runat="server" Text='<%#Eval("content") %>'></asp:Label>
+
+                        </div><!-- /.content -->
+
+                    </div><!-- /.Group-message -->
+                    
+                </ItemTemplate>
+            </asp:ListView>
+        </div>
+
+
+
+
         <div class="row">
 
             <!-- Messages section -->
             <div class="col-lg-4">
                 
-                <div class="Toggler messages">
-                    <div class="text">Messages</div>
 
-                    <div class="action">
-                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                        </a>
-                    </div>
-
-                    <div class="action">
-                        <a id="Group-messages-toggler">
-                            <i class="glyphicon glyphicon-collapse-down"></i>
-                        </a>
-                    </div>
-
-                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
-                </div>
-
-                <div class="Group-messages-container">
-                    <asp:ListView ID="messagesListView" runat="server">
-                        <ItemTemplate>
-                            <div class="Group-message">
-                                <div class="media">
-                                    <div class="media-left media-middle">
-
-                                        <!-- toggle profile picture, some info (email) -->
-                                        <a href="#">
-                                            <img class="media-object" src="http://placehold.it/300/300" alt="...">
-                                        </a>
-                                    &nbsp;</div>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Media heading</h4>
-                                        <p><asp:Label runat="server" Text='<%#Eval("content") %>'></asp:Label></p>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                        </ItemTemplate>
-                    </asp:ListView>
-                </div>
             </div>
 
             <!-- Files section -->

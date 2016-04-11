@@ -1,4 +1,6 @@
-﻿TweenMax.set($(".Group-message"), { scale: 0, opacity: 0, display: 'none', x: -100, y: -200, skewX: 180 });
+﻿/*
+
+TweenMax.set($(".Group-message"), { scale: 0, opacity: 0, display: 'none', x: -100, y: -200, skewX: 180 });
 
 var revealMessageCards = TweenMax.staggerTo(".Group-message", 0.6, { display: 'block', opacity: 1, scale: 1, y: 0, x: 0, skewX: 0, ease: 'Elastic.easeInOut' }, 0.2);
 var t1 = new TimelineMax({ paused: true });
@@ -23,3 +25,5 @@ messagesToggler.onclick = function (e) {
     }
 
 };
+
+*/
