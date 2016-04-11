@@ -55,13 +55,13 @@ public partial class Eventificator : System.Web.UI.Page
                 if (ev.Event_Start.Date < DateTime.Now.Date)
                 {
                     e.Cell.ApplyStyle(lateDates);
-                    e.Cell.Attributes.Add("test", ev.ID.ToString());
                 }
                 else
                 {
                     e.Cell.ApplyStyle(eventDates);
                 }
                 e.Cell.ToolTip = e.Cell.ToolTip + "\n" + "Debut : " + ev.Description;
+                e.Cell.Attributes.Add("data-id", ev.ID.ToString());
             }
             // Event dates between start and end
             if (e.Day.Date > ev.Event_Start && e.Day.Date <= ev.Event_End)
@@ -76,11 +76,12 @@ public partial class Eventificator : System.Web.UI.Page
                     e.Cell.ToolTip = e.Cell.ToolTip + "\n" + ev.Description;
                 }
                 e.Cell.ApplyStyle(rangeDates);
+                e.Cell.Attributes.Add("data-id", ev.ID.ToString());
             }
         }
 
         e.Cell.Attributes.Add("onmouseover", "this.className='Highlight';");
-        e.Cell.Attributes.Add("onmouseout", "this.className='normal';");
+        e.Cell.Attributes.Add("onmouseout", "this.className='day';");
     }
 
     /// <summary>
@@ -98,27 +99,27 @@ public partial class Eventificator : System.Web.UI.Page
         tableHeader.HorizontalAlign = HorizontalAlign.Center;
         tableHeader.ForeColor = System.Drawing.Color.White;
 
-        TableCell[] hCells = { new TableCell(), new TableCell(), new TableCell() };
-        Label[] hLabels = { new Label(), new Label(), new Label() };
+        TableCell[] headerCells = { new TableCell(), new TableCell(), new TableCell() };
+        Label[] headerLabels = { new Label(), new Label(), new Label() };
 
-        foreach (Label lb in hLabels)
+        foreach (Label lb in headerLabels)
         {
             lb.Style["text-align"] = "center";
             lb.Enabled = false;
             lb.Style["padding"] = "10px";
         }
 
-        hLabels[0].ID = "eventDescription";
-        hLabels[0].Text = "Description";
-        hLabels[1].ID = "eventStart";
-        hLabels[1].Text = "Debut";
-        hLabels[2].ID = "eventEnd";
-        hLabels[2].Text = "Fin";
+        headerLabels[0].ID = "eventDescription";
+        headerLabels[0].Text = "Description";
+        headerLabels[1].ID = "eventStart";
+        headerLabels[1].Text = "Debut";
+        headerLabels[2].ID = "eventEnd";
+        headerLabels[2].Text = "Fin";
 
-        for (int i = 0; i < hCells.Count(); i++)
+        for (int i = 0; i < headerCells.Count(); i++)
         {
-            hCells[i].Controls.Add(hLabels[i]);
-            tableHeader.Cells.Add(hCells[i]);
+            headerCells[i].Controls.Add(headerLabels[i]);
+            tableHeader.Cells.Add(headerCells[i]);
         }
 
         Table1.Rows.Add(tableHeader);
@@ -129,6 +130,8 @@ public partial class Eventificator : System.Web.UI.Page
             tr.Font.Size = 8;
             tr.Height = 20;
             tr.ToolTip = ev.Description;
+            tr.Attributes.Add("data-id", ev.ID.ToString());
+            tr.CssClass = "eventRow";
 
             TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
             Label[] labels = { new Label(), new Label(), new Label() };
