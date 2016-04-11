@@ -84,18 +84,18 @@
 			                        not supported by any browser */
 }
 
-.Toggler {
+.ContentToggler {
 	border: 2px dashed red;
 }
 
-.Toggler > * {
+.ContentToggler > * {
 	opacity: 0;
 	height: 0;
 	overflow: hidden;
 	transition: all .7s ease-in-out .15s;
 }
 
-.Toggler:hover > *, .Toggler:focus > * {
+.ContentToggler:hover > *, .ContentToggler:focus > * {
 	opacity: 1;
 	visibility: visible;
 	height: 400px;

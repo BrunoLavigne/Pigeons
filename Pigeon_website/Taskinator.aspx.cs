@@ -3,8 +3,6 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -71,16 +69,36 @@ public partial class Taskinator : System.Web.UI.Page
         theTask.Is_completed = false;
 
         // See if we add a due date to the task
+        // TODO: Validate if right format
         if (taskDueDate.Text.Length > 0)
         {
+
+            string dateStr = taskDueDate.Text;
+
             DateTime dueDate = new DateTime();
-            dueDate = DateTime.ParseExact(taskDueDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            // See if we also add the time on the due date
+            // TODO: Validate if right format
+            if(taskDueTime.Text.Length > 0)
+            {
+                string timeStr = taskDueTime.Text;
+
+                dueDate = DateTime.ParseExact(dateStr + " " + timeStr, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+
+            } else {
+
+                dueDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            }
+            
             theTask.Task_End = dueDate;
+
         }
 
         groupFacade.CreateNewTask(theTask, groupId, currentUserID);
 
         refreshGroupTasks(); // dirty
+
     }
 
     /// <summary>
@@ -99,5 +117,6 @@ public partial class Taskinator : System.Web.UI.Page
 
         listViewCompleted.DataSource = taskListCompleted;
         listViewCompleted.DataBind();
+
     }
 }

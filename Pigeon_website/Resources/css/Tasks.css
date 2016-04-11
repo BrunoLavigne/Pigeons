@@ -3,14 +3,21 @@
     Includes the task component and the add task component
 */
 
+.Tasks-app {
+    font-family: Montserrat, Arial, sans-serif;
+}
+
+.Tasks-app .title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
 .Tasks-container,
 .Add-task-container {
 
 	padding: 20px;
 	max-width: 420px;
 	margin: auto;
-    font-family: Montserrat;
-
 }
 
 .Tasks-container.completed .checkbox-wrapper {
