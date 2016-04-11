@@ -90,6 +90,8 @@
     <Compile Include="Facade\Implementation\Facade.cs" />
     <Compile Include="Facade\Implementation\GroupFacade.cs" />
     <Compile Include="Facade\Implementation\HomeFacade.cs" />
+    <Compile Include="Facade\Implementation\MessageDetail.cs" />
+    <Compile Include="Facade\Implementation\UserDetail.cs" />
     <Compile Include="Facade\Interface\IFacade.cs" />
     <Compile Include="Facade\Interface\IGroupFacade.cs" />
     <Compile Include="Facade\Interface\IHomeFacade.cs" />
@@ -146,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
     <EntityDeploy Include="Model\PigeonsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PigeonsModel.Designer.cs</LastGenOutput>
@@ -154,6 +155,7 @@
     <None Include="Model\PigeonsModel.edmx.diagram">
       <DependentUpon>PigeonsModel.edmx</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="PigeonsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
