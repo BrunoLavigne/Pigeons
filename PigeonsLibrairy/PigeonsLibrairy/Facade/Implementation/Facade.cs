@@ -27,11 +27,11 @@ namespace PigeonsLibrairy.Facade.Implementation
             fileControl = new FileController();
         }
 
-        #region Person      
+        #region Person
 
         /// <summary>
         /// Recherche d'un utilisateur par ID
-        /// </summary>        
+        /// </summary>
         public person GetPersonByID(object personID)
         {
             try
@@ -47,7 +47,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Recherche d'un utilisateur selon un valeur donnée dans un colonne de la table person
-        /// </summary>        
+        /// </summary>
         public List<person> GetPersonBy(string columnName, object value)
         {
             try
@@ -63,7 +63,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Mise à jour d'un utilisateur
-        /// </summary>        
+        /// </summary>
         public person UpdatePerson(object personID, person personToUpdate)
         {
             try
@@ -99,26 +99,39 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         #endregion Group
 
-        #region FileControl
+        #region File
 
         /// <summary>
         /// Sauvegarde d'un fichiersur le serveur
         /// </summary>
         /// <param name="fileByteArray">Un tableau de byte qui reprérente le fichier à sauvegarder</param>
-        /// <param name="fileExtension">L'extension du fichier</param>        
+        /// <param name="fileExtension">L'extension du fichier</param>
         public FileInfo SaveByteFile(Byte[] fileByteArray, string fileExtension)
         {
             try
             {
-                return fileControl.saveByteFile(null, null);
+                return fileControl.SaveByteFile(null, null);
             }
-            catch(ControllerException controllerException)
+            catch (ControllerException controllerException)
             {
                 ExceptionLog.LogTheError(controllerException.Message);
                 return null;
             }
         }
 
-        #endregion FileControl
+        public file InsertFileInfo()
+        {
+            try
+            {
+                return fileControl.InsertInDataBase();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
+        #endregion File
     }
 }

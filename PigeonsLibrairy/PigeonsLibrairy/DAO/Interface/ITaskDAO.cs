@@ -8,6 +8,6 @@ namespace PigeonsLibrairy.DAO.Interface
     /// </summary>
     interface ITaskDAO : IDAO<task>
     {
-        IEnumerable<task> GetAvailableTask(object groupID);
+        IEnumerable<task> GetGroupTasks(object groupID, bool completed);
     }
 }

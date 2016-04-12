@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="@event"/>
     /// </summary>
-    class EventDAO : DAO<@event>, IEventDAO
+    internal class EventDAO : DAO<@event>, IEventDAO
     {
         /// <summary>
         /// Constructeur
@@ -34,7 +34,29 @@ namespace PigeonsLibrairy.DAO.Implementation
             }
             catch (Exception ex) when (ex is EntityException || ex is DAOException)
             {
-                throw new DAOException("Erreur dans le FollowingDAO GetPersonFollowingGroups : " + ex.Message);
+                throw new DAOException("Erreur dans le EventDAO GetGroupEvent : " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Retourne une liste d'Events non complété d'un Group par mois
+        /// </summary>
+        /// <param name="context">La connection</param>
+        /// <param name="groupID">Le ID du groupe</param>
+        /// <param name="monthID">Le mois à afficher</param>
+        /// <returns></returns>
+        public IEnumerable<@event> GetGroupEventByMonth(pigeonsEntities1 context, object groupID, object monthID)
+        {
+            try
+            {
+                Expression<Func<@event, bool>> filter = (e => e.Group_ID == (int)groupID
+                                                            && !e.Is_Completed
+                                                            && (e.Event_Start.Month == (int)monthID || e.Event_End.Value.Month == (int)monthID));
+                return Get(context, filter).OrderBy(e => e.Event_Start);
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le EventDAO GetGroupEventByMonth : " + ex.Message);
             }
         }
 
@@ -56,18 +78,23 @@ namespace PigeonsLibrairy.DAO.Implementation
                     case @event.COLUMN_GROUP_ID:
                         filter = (e => e.Group_ID == (int)value);
                         break;
+
                     case @event.COLUMN_DESCRIPTION:
                         filter = (e => e.Description.ToLower().Contains(value.ToString().ToLower()));
                         break;
+
                     case @event.COLUMN_EVENTSTART:
                         filter = (e => e.Event_Start.Date == ((DateTime)value).Date);
                         break;
+
                     case @event.COLUMN_EVENTEND:
                         filter = (e => e.Event_End.Value.Date == ((DateTime)value).Date);
                         break;
+
                     case @event.COLUMN_IS_COMPLETED:
                         filter = (e => Convert.ToBoolean(e.Is_Completed) == (bool)value);
                         break;
+
                     default:
                         break;
                 }

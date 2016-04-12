@@ -1,19 +1,40 @@
-﻿.Tasks-container {
+﻿/*
+    Tasks styling
+    Includes the task component and the add task component
+*/
+
+.Tasks-app {
+    font-family: Montserrat, Arial, sans-serif;
+}
+
+.Tasks-app .title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.Tasks-container,
+.Add-task-container {
+
 	padding: 20px;
 	max-width: 420px;
 	margin: auto;
 }
-.Tasks-container.complete .checkbox-wrapper {
+
+.Tasks-container.completed .checkbox-wrapper {
 	text-decoration: line-through;
 }
+
+/* Don't give a li-style to the task container */
 .Tasks-container li {
 	list-style-type: none;
 }
+
+/* Don't give a border for the last tasks container */
 .Tasks-container li:not(:last-child) {
 	border-bottom: 1px solid #eee;
 }
+
 .Task-container {
-	font-family: Montserrat;
 	padding: 12px 0;
 }
 
@@ -38,10 +59,12 @@
 .Task-container input[type="checkbox"]:checked{
 	background-color: #2ECC71;
 }
+
 .Task-container input[type="checkbox"]:focus{
 	outline: 0 none;
 	box-shadow: none;
 }
+
 .Task-container .content {
 	font-size: 12px;
 	padding-left: 45px;
@@ -54,36 +77,19 @@
 /* mettre un media query puisqu'il faudrait que l'auteur et la date soient visibles en mobile */
 .Task-container:hover .content, .Task-container:focus .content {
 	opacity: 1;
-	height: 16px;
+	height: 32px; /* dirty */
 }
-	.Task-container .author {
-		font-weight: bold;
-	}
-	.Task-container .author, .Task-container .due-date {
-		display: inline-block;
-	}
+
+.Task-container .author {
+	font-weight: bold;
+}
+
+.Task-container .author,
+.Task-container .due-date {
+	display: inline-block;
+}
 
 .Task-container .checkbox-wrapper {
 	display: flex;
 	align-items: center;
-}
-
-
-/*
-	* Utility functions
-	*/
-.Toggler {
-	border: 2px dashed red;
-}
-.Toggler > * {
-	opacity: 0;
-	height: 0;
-	overflow: hidden;
-	transition: all .7s ease-in-out .15s;
-}
-
-.Toggler:hover > *, .Toggler:focus > * {
-	opacity: 1;
-	visibility: visible;
-	height: 400px;
 }

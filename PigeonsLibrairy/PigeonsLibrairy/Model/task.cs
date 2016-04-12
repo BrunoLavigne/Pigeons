@@ -20,19 +20,20 @@ namespace PigeonsLibrairy.Model
             this.assignations = new HashSet<assignation>();
         }
 
-        public const string COLUMN_PERSON_ID = "person_id";
-        public const string COLUMN_DESCRIPTION = "description";
-        public const string COLUMN_IS_COMPLETED = "is_completed";
         public const string COLUMN_GROUP_ID = "group_id";
-        public const string COLUMN_TASK_START = "task_start";
-        public const string COLUMN_TASK_END = "task_end";
+        public const string COLUMN_AUTHOR_ID = "author_id";
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_IS_COMPLETED = "is_completed";        
+        public const string COLUMN_TASK_DATETIME = "task_datetime";
+        public const string COLUMN_TASK_ISIMPORTANT = "task_isimportant";        
 
         public int Id { get; set; }
         public string Description { get; set; }
         public int Group_ID { get; set; }
-        public Nullable<System.DateTime> Task_Start { get; set; }
-        public Nullable<System.DateTime> Task_End { get; set; }
         public bool Is_completed { get; set; }
+        public int Author_ID { get; set; }
+        public Nullable<System.DateTime> Task_DateTime { get; set; }
+        public Nullable<bool> Is_important { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<assignation> assignations { get; set; }

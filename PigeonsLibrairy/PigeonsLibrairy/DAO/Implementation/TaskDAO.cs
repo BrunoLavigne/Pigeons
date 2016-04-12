@@ -14,7 +14,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="task"/>
     /// </summary>
-    class TaskDAO : DAO<task>, ITaskDAO
+    internal class TaskDAO : DAO<task>, ITaskDAO
     {
         /// <summary>
         /// Constructeur
@@ -26,15 +26,15 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// </summary>
         /// <param name="groupID"></param>
         /// <returns></returns>
-        public IEnumerable<task> GetAvailableTask(object groupID)
+        public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {
             try
             {
                 using (var context = new pigeonsEntities1())
                 {
-                    Expression<Func<task, bool>> filter = (t => t.Group_ID == (int)groupID && !t.Is_completed);
-                    return Get(context, filter).OrderBy(t => t.Task_Start);
-                }                
+                    Expression<Func<task, bool>> filter = (t => t.Group_ID == (int)groupID && t.Is_completed == completed);
+                    return Get(context, filter).OrderBy(t => t.Is_important).ThenBy(t => t.Task_DateTime);
+                }
             }
             catch (Exception ex) when (ex is EntityException || ex is DAOException)
             {
@@ -60,18 +60,27 @@ namespace PigeonsLibrairy.DAO.Implementation
                     case task.COLUMN_GROUP_ID:
                         filter = (t => t.Group_ID == (int)value);
                         break;
+
+                    case task.COLUMN_AUTHOR_ID:
+                        filter = (t => t.Author_ID == (int)value);
+                        break;
+
                     case task.COLUMN_DESCRIPTION:
                         filter = (t => t.Description.ToLower().Contains(((string)value).ToLower()));
                         break;
-                    case task.COLUMN_TASK_START:
-                        //filter = (t => t.Task_Start.Value.Date == ((DateTime)value).Date);
+
+                    case task.COLUMN_TASK_DATETIME:
+                        //filter = (t => t.Task_DateTime.Value.Date == ((DateTime)value).Date);
                         break;
-                    case task.COLUMN_TASK_END:
-                        //filter = (t => t.Task_End.Value.Date == ((DateTime)value).Date);
-                        break;
+
                     case task.COLUMN_IS_COMPLETED:
                         filter = (t => t.Is_completed == (bool)value);
                         break;
+
+                    case task.COLUMN_TASK_ISIMPORTANT:
+                        filter = (t => t.Is_completed == (bool)value);
+                        break;
+
                     default:
                         break;
                 }

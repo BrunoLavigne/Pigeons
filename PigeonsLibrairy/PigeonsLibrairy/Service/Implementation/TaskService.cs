@@ -1,20 +1,20 @@
-﻿using PigeonsLibrairy.Model;
+﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
-using PigeonsLibrairy.DAO.Implementation;
 using System;
 using System.Collections.Generic;
-using PigeonsLibrairy.Exceptions;
-using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
-{   
+{
     /// <summary>
     /// Service pour la table Task (<see cref="task"/>)
-    /// </summary>         
+    /// </summary>
     public class TaskService : Service<task>, ITaskService
     {
         private ITaskDAO taskDAO { get; set; }
-        private IGroupDAO groupDAO { get; set; } 
+        private IGroupDAO groupDAO { get; set; }
         private IPersonDAO personDAO { get; set; }
         private IFollowingDAO followingDAO { get; set; }
 
@@ -23,9 +23,9 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         public TaskService() : base()
         {
-            taskDAO     = new TaskDAO();
-            groupDAO    = new GroupDAO();
-            personDAO   = new PersonDAO();
+            taskDAO = new TaskDAO();
+            groupDAO = new GroupDAO();
+            personDAO = new PersonDAO();
             followingDAO = new FollowingDAO();
         }
 
@@ -38,29 +38,34 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns></returns>
         public task CreateNewTask(task newTask, object groupID, object personID)
         {
-            if(newTask == null)
+            if (newTask == null)
             {
                 throw new ServiceException("La nouvelle Task est null");
             }
 
-            if(groupID == null)
+            if (groupID == null)
             {
                 throw new ServiceException("Le ID du group est null");
             }
 
-            if(personID == null)
+            if (personID == null)
             {
                 throw new ServiceException("Le ID de la personne est null");
             }
 
             try
             {
-                using(var context = new pigeonsEntities1())
+                using (var context = new pigeonsEntities1())
                 {
+                    if (newTask.Task_DateTime == default(DateTime))
+                    {
+                        newTask.Task_DateTime = null;
+                    }
+
                     /*********** Validation du groupe ***********/
                     group groupValidation = groupDAO.GetByID(context, groupID);
 
-                    if(groupValidation == null)
+                    if (groupValidation == null)
                     {
                         throw new ServiceException(string.Format("Le groupe {0} n'existe pas", groupID));
                     }
@@ -73,7 +78,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     /*********** Validation de la personne ***********/
                     person personValidation = personDAO.GetByID(context, personID);
 
-                    if(personValidation == null)
+                    if (personValidation == null)
                     {
                         throw new ServiceException(string.Format("La person {0} n'existe pas", personID));
                     }
@@ -81,7 +86,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     /*********** Validation du following ***********/
                     following followingValidation = followingDAO.GetByID(context, personID, groupID);
 
-                    if(followingValidation == null)
+                    if (followingValidation == null)
                     {
                         throw new ServiceException(string.Format("Le following [ {0} - {1} ] n'existe pas", personID, groupID));
                     }
@@ -89,25 +94,6 @@ namespace PigeonsLibrairy.Service.Implementation
                     if (!followingValidation.Is_active)
                     {
                         throw new ServiceException(string.Format("Le person ID : {0} n'est plus active dans le groupe ID : {1}", personID, groupID));
-                    }
-
-                    /************* Validation des dates *************/
-                    if (newTask.Task_End != null && newTask.Task_Start != null)
-                    {
-                        if(newTask.Task_End < newTask.Task_Start)
-                        {
-                            throw new ServiceException(string.Format("La date de fin : {0} ne peut pas précéder la date de départ : {1}", newTask.Task_End, newTask.Task_Start));
-                        }
-                    }
-
-                    if(newTask.Task_Start == default(DateTime))
-                    {
-                        newTask.Task_Start = null;
-                    }
-
-                    if(newTask.Task_End == default(DateTime))
-                    {
-                        newTask.Task_End = null;
                     }
 
                     // Tout est beau. Insertion dans la table Task
@@ -129,7 +115,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="groupID">Le ID du groupe pour lequel les Task sont recherchées</param>
         /// <returns>Une liste de Task. Une liste vide sinon</returns>
-        public IEnumerable<task> GetAvailableTask(object groupID)
+        public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {
             if (groupID == null)
             {
@@ -138,7 +124,7 @@ namespace PigeonsLibrairy.Service.Implementation
 
             try
             {
-                return taskDAO.GetAvailableTask(groupID);
+                return taskDAO.GetGroupTasks(groupID, completed);
             }
             catch (DAOException daoException)
             {
@@ -147,12 +133,13 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Indique une Task comme complété
+        /// Indique une Task comme complété ou non
         /// </summary>
         /// <param name="taskID">Le ID de la Task à modifier</param>
-        public void TaskIsCompleted(object taskID)
+        /// <param name="completed">True si la task est complété, False si elle ne l'est pas</param>
+        public void UpdateTaskCompleted(object taskID, bool completed)
         {
-            if(taskID == null)
+            if (taskID == null)
             {
                 throw new ServiceException("Le ID de la Task est null");
             }
@@ -161,14 +148,14 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 task taskValidation = GetByID(taskID);
 
-                if (taskValidation.Is_completed)
+                if (taskValidation.Is_completed == completed)
                 {
-                    throw new ServiceException(string.Format("La Task no.{0} est déjà complétée", taskID));
+                    throw new ServiceException(string.Format("La Task no.{0} est déjà dans l'état désiré ( {1} )", taskID, completed));
                 }
 
                 using (var context = new pigeonsEntities1())
                 {
-                    taskValidation.Is_completed = true;
+                    taskValidation.Is_completed = completed;
                     taskDAO.Update(context, taskValidation);
                     context.SaveChanges();
                 }
@@ -177,7 +164,38 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 throw new ServiceException(daoException.Message);
             }
+        }
 
+        /// <summary>
+        /// Appel le DAO pour effacer une Task de la base de données
+        /// </summary>
+        /// <param name="taskID">Le ID de la Task qui doit être effacé</param>
+        public void DeleteTask(object taskID)
+        {
+            if (taskID == null)
+            {
+                throw new ServiceException("Le ID de la Task est null");
+            }
+
+            try
+            {
+                task taskValidation = GetByID(taskID);
+
+                if (taskValidation == null)
+                {
+                    throw new ServiceException(string.Format("La Task no.{0} n'existe pas", taskID));
+                }
+
+                using (var context = new pigeonsEntities1())
+                {
+                    taskDAO.Delete(context, taskID);
+                    context.SaveChanges();
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
