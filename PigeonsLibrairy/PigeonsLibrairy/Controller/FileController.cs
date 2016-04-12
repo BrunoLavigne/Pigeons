@@ -15,7 +15,7 @@ namespace PigeonsLibrairy.Controller
         // Constructors
         public FileController()
         {
-            //FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("E:/Server_Files");
+            FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("Server_Files");
         }
 
         /// <summary>
