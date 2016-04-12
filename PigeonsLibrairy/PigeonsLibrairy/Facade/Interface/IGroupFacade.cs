@@ -62,7 +62,7 @@ namespace PigeonsLibrairy.Facade.Interface
 
         @event CreateNewEvent(@event newEvent);
 
-        List<@event> GetGroupEvent(object groupID, object monthID = null);
+        List<@event> GetGroupEvent(object groupID, object date = null);
 
         #endregion Event
     }

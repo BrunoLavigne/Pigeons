@@ -272,11 +272,11 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// <summary>
         /// Recherche de tout les Events non complétés d'un groupe
         /// </summary>
-        public List<@event> GetGroupEvent(object groupID, object monthID = null)
+        public List<@event> GetGroupEvent(object groupID, object date = null)
         {
             try
             {
-                return mainControl.EventService.GetGroupEvent(groupID, monthID).ToList();
+                return mainControl.EventService.GetGroupEvent(groupID, date).ToList();
             }
             catch (ServiceException serviceException)
             {

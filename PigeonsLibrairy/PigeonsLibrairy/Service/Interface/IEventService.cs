@@ -14,6 +14,6 @@ namespace PigeonsLibrairy.Service.Interface
     {
         @event CreateNewEvent(@event newEvent);
 
-        IEnumerable<@event> GetGroupEvent(object groupID, object monthID);
+        IEnumerable<@event> GetGroupEvent(object groupID, object date);
     }
 }

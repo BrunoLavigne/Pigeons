@@ -29,7 +29,7 @@
                     <div class="row">
 
                         <div class="col-lg-3">
-                            <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None"></asp:Calendar>
+                            <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None" NextMonthText="&#8674&nbsp;" PrevMonthText="&nbsp;&#8672&nbsp;"></asp:Calendar>
                         </div>
 
                         <div class="col-lg-4">

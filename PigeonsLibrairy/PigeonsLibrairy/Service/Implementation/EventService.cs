@@ -91,7 +91,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// </summary>
         /// <param name="groupID">Le ID du groupe</param>
         /// <returns>Une liste de Events ou une liste vide</returns>
-        public IEnumerable<@event> GetGroupEvent(object groupID, object monthID)
+        public IEnumerable<@event> GetGroupEvent(object groupID, object date)
         {
             if (groupID == null)
             {
@@ -116,13 +116,13 @@ namespace PigeonsLibrairy.Service.Implementation
                     }
 
                     // Recherche des events
-                    if (monthID == null)
+                    if (date == null)
                     {
                         return eventDAO.GetGroupEvent(context, groupID);
                     }
                     else
                     {
-                        return eventDAO.GetGroupEventByMonth(context, groupID, monthID);
+                        return eventDAO.GetGroupEventByMonth(context, groupID, date);
                     }
                 }
             }

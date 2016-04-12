@@ -10,6 +10,7 @@ public partial class Eventificator : System.Web.UI.Page
 {
     private List<@event> eventsList { get; set; }
     private GroupFacade groupFacade { get; set; }
+    private DateTime dateValidation = DateTime.Parse("0001-01-01 12:00:00 AM");
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,15 +23,15 @@ public partial class Eventificator : System.Web.UI.Page
             Session["facade"] = groupFacade;
 
             // Events table avec les Events du mois
-            createEventTable(DateTime.Now.Month);
+            createEventTable(DateTime.Now);
         }
         else
         {
             eventsList = (List<@event>)Session["events"];
             groupFacade = (GroupFacade)Session["facade"];
 
-            // Events table selon le mois visible en ce moment sur la page
-            createEventTable(Calendar1.VisibleDate.Month);
+            // Events table selon le mois visible en ce moment sur la page (au first load la visible date est égale à la date de validation et nous ne voulons pas afficher pour celle-ci)
+            createEventTable((Calendar1.VisibleDate == dateValidation) ? DateTime.Now : Calendar1.VisibleDate);
         }
     }
 
@@ -84,9 +85,9 @@ public partial class Eventificator : System.Web.UI.Page
     /// Affichage des évènements dans le tableau
     /// </summary>
     /// <param name="eventsList"></param>
-    private void createEventTable(int selectedMonth)
+    private void createEventTable(DateTime selectedDate)
     {
-        eventsList = groupFacade.GetGroupEvent(16, selectedMonth); // DIRTY HARCODAGE { must use active group }
+        eventsList = groupFacade.GetGroupEvent(16, selectedDate); // DIRTY HARCODAGE { must use active group }
 
         Table1.Rows.Clear();
 
@@ -122,38 +123,56 @@ public partial class Eventificator : System.Web.UI.Page
 
         Table1.Rows.Add(tableHeader);
 
-        foreach (@event ev in eventsList)
+        TableRow tableRow = new TableRow();
+        tableRow.Font.Size = 8;
+        tableRow.Height = 20;
+
+        if (eventsList.Count == 0)
         {
-            if (ev.Event_Start.Date.Month == selectedMonth || ev.Event_End.Value.Date.Month == selectedMonth)
+            TableCell cell = new TableCell();
+            Label label = new Label();
+            cell.Attributes.Add("colspan", "100%");
+            label.Text = "Aucune évènement pour ce mois";
+            label.Enabled = false;
+            cell.Controls.Add(label);
+            tableRow.Cells.Add(cell);
+            Table1.Rows.Add(tableRow);
+        }
+        else
+        {
+            foreach (@event ev in eventsList)
             {
-                TableRow tr = new TableRow();
-                tr.Font.Size = 8;
-                tr.Height = 20;
-                tr.ToolTip = ev.Description;
-                tr.Attributes.Add("data-id", ev.ID.ToString());
-                tr.CssClass = "eventRow";
-
-                TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
-                Label[] labels = { new Label(), new Label(), new Label() };
-
-                foreach (Label lb in labels)
+                if ((ev.Event_Start.Date.Month == selectedDate.Month && ev.Event_Start.Date.Year == selectedDate.Year) || (ev.Event_End.Value.Date.Month == selectedDate.Month && ev.Event_End.Value.Date.Year == selectedDate.Year))
                 {
-                    lb.Style["text-align"] = "center";
-                    lb.Enabled = false;
-                    lb.Style["padding"] = "5px";
+                    tableRow = new TableRow();
+                    tableRow.Font.Size = 8;
+                    tableRow.Height = 20;
+                    tableRow.ToolTip = ev.Description;
+                    tableRow.Attributes.Add("data-id", ev.ID.ToString());
+                    tableRow.CssClass = "eventRow";
+
+                    TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
+                    Label[] labels = { new Label(), new Label(), new Label() };
+
+                    foreach (Label lb in labels)
+                    {
+                        lb.Style["text-align"] = "center";
+                        lb.Enabled = false;
+                        lb.Style["padding"] = "5px";
+                    }
+
+                    labels[0].Text = ev.Description;
+                    labels[1].Text = (ev.Event_Start != null) ? ev.Event_Start.Date.ToString("d MMM yyyy") : "";
+                    labels[2].Text = (ev.Event_End != null) ? ev.Event_End.Value.ToString("d MMM yyyy") : "";
+
+                    for (int i = 0; i < cells.Count(); i++)
+                    {
+                        cells[i].Controls.Add(labels[i]);
+                        tableRow.Cells.Add(cells[i]);
+                    }
+
+                    Table1.Rows.Add(tableRow);
                 }
-
-                labels[0].Text = ev.Description;
-                labels[1].Text = (ev.Event_Start != null) ? ev.Event_Start.Date.ToString("d MMM yyyy") : "";
-                labels[2].Text = (ev.Event_End != null) ? ev.Event_End.Value.ToString("d MMM yyyy") : "";
-
-                for (int i = 0; i < cells.Count(); i++)
-                {
-                    cells[i].Controls.Add(labels[i]);
-                    tr.Cells.Add(cells[i]);
-                }
-
-                Table1.Rows.Add(tr);
             }
         }
     }
@@ -177,7 +196,7 @@ public partial class Eventificator : System.Web.UI.Page
         newEvent.Group_ID = 16; // DIRTY HARDCODAGE { PLACE ACTIVE GROUP ID }
 
         groupFacade.CreateNewEvent(newEvent);
-        createEventTable(Calendar1.VisibleDate.Month);
+        createEventTable(Calendar1.VisibleDate);
 
         txtEventDescription.Text = "";
         txtEventStart.Text = "";
@@ -191,8 +210,7 @@ public partial class Eventificator : System.Web.UI.Page
     /// <param name="e"></param>
     protected void Calendar1_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
     {
-        int thatmonth = e.NewDate.Month;
-        createEventTable(thatmonth);
+        createEventTable(e.NewDate);
     }
 
     #region BUTTONS

@@ -45,13 +45,17 @@ namespace PigeonsLibrairy.DAO.Implementation
         /// <param name="groupID">Le ID du groupe</param>
         /// <param name="monthID">Le mois à afficher</param>
         /// <returns></returns>
-        public IEnumerable<@event> GetGroupEventByMonth(pigeonsEntities1 context, object groupID, object monthID)
+        public IEnumerable<@event> GetGroupEventByMonth(pigeonsEntities1 context, object groupID, object date)
         {
+            DateTime dateChecker = (DateTime)date;
+
             try
             {
                 Expression<Func<@event, bool>> filter = (e => e.Group_ID == (int)groupID
                                                             && !e.Is_Completed
-                                                            && (e.Event_Start.Month == (int)monthID || e.Event_End.Value.Month == (int)monthID));
+                                                            && (e.Event_Start.Month == dateChecker.Month || e.Event_End.Value.Month == dateChecker.Month)
+                                                            && (e.Event_Start.Year == dateChecker.Year || e.Event_End.Value.Year == dateChecker.Year)
+                                                            );
                 return Get(context, filter).OrderBy(e => e.Event_Start);
             }
             catch (Exception ex) when (ex is EntityException || ex is DAOException)
