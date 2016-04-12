@@ -91,10 +91,12 @@ namespace PigeonsLibrairy.Controller
             {
                 // find all files
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
+                Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
             catch (Exception error)
             {
-                // bla bla bla exception handling...
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
             }
             return fileToGet;
         }
