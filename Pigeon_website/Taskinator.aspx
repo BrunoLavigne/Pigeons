@@ -32,10 +32,10 @@
         <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
             <ContentTemplate>
                 
+                <div class="title">Ajouter une tâche</div>
+
                 <!-- Add a task section -->
                 <div class="Add-task-container">
-
-                    <div class="title">Ajouter une tâche</div>
 
                     <!-- Description de la tâche -->
                     <div class="form-group">

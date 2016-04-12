@@ -99,7 +99,9 @@ public partial class Taskinator : System.Web.UI.Page
 
         groupFacade.CreateNewTask(theTask, groupId, currentUserID);
 
-        refreshGroupTasks(); // dirty
+        refreshGroupTasks();    // dirty
+
+        clearFields();          // also dirty...js?
 
     }
 
@@ -149,5 +151,13 @@ public partial class Taskinator : System.Web.UI.Page
         lblCompletedTasksCount.Text = taskListCompleted.Count.ToString();
         lblFlaggedTasksCount.Text = taskListFlagged.Count.ToString();
 
+    }
+
+    protected void clearFields()
+    {
+        taskDescription.Text = "";
+        taskDueDate.Text = "";
+        taskDueTime.Text = "";
+        taskFlagged.Checked = false;
     }
 }
