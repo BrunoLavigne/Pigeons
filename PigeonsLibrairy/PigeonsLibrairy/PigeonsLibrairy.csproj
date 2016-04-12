@@ -75,6 +75,7 @@
     <Compile Include="DAO\Implementation\ChatHistoryDAO.cs" />
     <Compile Include="DAO\Implementation\DAO.cs" />
     <Compile Include="DAO\Implementation\EventDAO.cs" />
+    <Compile Include="DAO\Implementation\FileDAO.cs" />
     <Compile Include="DAO\Implementation\FollowingDAO.cs" />
     <Compile Include="DAO\Implementation\GroupDAO.cs" />
     <Compile Include="DAO\Implementation\MessageDAO.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="DAO\Interface\IChatHistoryDAO.cs" />
     <Compile Include="DAO\Interface\IDAO.cs" />
     <Compile Include="DAO\Interface\IEventDAO.cs" />
+    <Compile Include="DAO\Interface\IFileDAO.cs" />
     <Compile Include="DAO\Interface\IFollowingDAO.cs" />
     <Compile Include="DAO\Interface\IGroupDAO.cs" />
     <Compile Include="DAO\Interface\IMessageDAO.cs" />
@@ -107,6 +109,9 @@
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\event.cs">
+      <DependentUpon>PigeonsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\file.cs">
       <DependentUpon>PigeonsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\following.cs">
@@ -143,6 +148,7 @@
     <Compile Include="Service\Implementation\AssignationService.cs" />
     <Compile Include="Service\Implementation\ChatHistoryService.cs" />
     <Compile Include="Service\Implementation\EventService.cs" />
+    <Compile Include="Service\Implementation\FileService.cs" />
     <Compile Include="Service\Implementation\FollowingService.cs" />
     <Compile Include="Service\Implementation\GroupService.cs" />
     <Compile Include="Service\Implementation\MessageService.cs" />
@@ -152,6 +158,7 @@
     <Compile Include="Service\Interface\IAssignationService.cs" />
     <Compile Include="Service\Interface\IChatHistoryService.cs" />
     <Compile Include="Service\Interface\IEventService.cs" />
+    <Compile Include="Service\Interface\IFileService.cs" />
     <Compile Include="Service\Interface\IGroupService.cs" />
     <Compile Include="Service\Interface\IMessageService.cs" />
     <Compile Include="Service\Interface\IFollowingService.cs" />

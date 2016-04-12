@@ -8,32 +8,62 @@ namespace PigeonsLibrairy.Facade.Interface
     /// </summary>
     public interface IGroupFacade : IFacade
     {
-        // Group
+        #region Group
+
         group CreateNewGroupAndRegister(group newGroup, object personID);
+
         bool CloseGroup(object adminID, object groupID);
 
-        // Person    
+        #endregion Group
+
+        #region Person
+
         void AddPersonToGroup(object adminID, object personToAddID, object groupID);
 
-        // Following
+        #endregion Person
+
+        #region Following
+
         List<person> GetGroupFollowers(object groupID);
+
         bool RemoveTheFollower(object groupID, object followerID);
+
         bool PersonIsGroupAdmin(object activePersonID, object activeGroupID);
 
-        // Message
+        #endregion Following
+
+        #region Message
+
         bool CreateNewMessage(message messageToCreate);
+
         List<message> GetGroupMessages(object groupID);
 
-        // Task
-        task CreateNewTask(task newTask, object groupID, object personID);        
+        #endregion Message
+
+        #region Task
+
+        task CreateNewTask(task newTask, object groupID, object personID);
+
         List<task> GetGroupTasks(object groupID, bool completed);
+
         void UpdateTaskCompleted(object taskID, bool completed);
 
-        // Assignation
+        void DeleteTask(object taskID);
+
+        #endregion Task
+
+        #region Assignation
+
         assignation AssignTaskToPerson(assignation newAssignation);
 
-        // Event
+        #endregion Assignation
+
+        #region Event
+
         @event CreateNewEvent(@event newEvent);
-        List<@event> GetGroupEvent(object groupID);
+
+        List<@event> GetGroupEvent(object groupID, object monthID = null);
+
+        #endregion Event
     }
 }

@@ -9,7 +9,11 @@ namespace PigeonsLibrairy.Service.Interface
     public interface ITaskService : IService<task>
     {
         IEnumerable<task> GetGroupTasks(object groupID, bool completed);
+
         task CreateNewTask(task newTask, object groupID, object personID);
+
         void UpdateTaskCompleted(object taskID, bool completed);
+
+        void DeleteTask(object taskID);
     }
 }

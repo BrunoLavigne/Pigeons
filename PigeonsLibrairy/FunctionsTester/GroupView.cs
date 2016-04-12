@@ -40,32 +40,30 @@ namespace FunctionsTester
                 btnCloseGroup.Visible = false;
                 btnDeleteFollower.Visible = false;
             }
-
         }
 
         /// <summary>
-        /// Filling 
+        /// Filling
         /// </summary>
         private void fillTheFields()
         {
             // Retreiving the group
             group activeGroup = groupFacade.GetGroupByID(activeGroupID);
 
-            txtGroupID.Text     = activeGroup.Id.ToString();
-            txtgroupName.Text   = activeGroup.Name;
-            txtGroupDesc.Text   = activeGroup.Description;
+            txtGroupID.Text = activeGroup.Id.ToString();
+            txtgroupName.Text = activeGroup.Name;
+            txtGroupDesc.Text = activeGroup.Description;
 
             // Retreiving the person
             person activePerson = groupFacade.GetPersonByID(activePersonID);
 
-            txtUserID.Text      = activePerson.Id.ToString();
-            txtUserName.Text    = activePerson.Name;
+            txtUserID.Text = activePerson.Id.ToString();
+            txtUserName.Text = activePerson.Name;
 
             // Retreiving the persons following a group
             List<person> followers = groupFacade.GetGroupFollowers(activeGroupID);
 
-            
-            foreach(person follower in followers)
+            foreach (person follower in followers)
             {
                 cb_followers.Items.Add(follower.Id);
                 cbFollowerAssignation.Items.Add(follower.Name + " - " + follower.Id);
@@ -83,10 +81,10 @@ namespace FunctionsTester
         /// <param name="e"></param>
         private void btnCreateMessage_Click(object sender, EventArgs e)
         {
-            message messageToCreate     = new message();
-            messageToCreate.Author_Id   = int.Parse( followerID.Text );
-            messageToCreate.Group_Id    = activeGroupID;
-            messageToCreate.Content     = txtMessageContent.Text;
+            message messageToCreate = new message();
+            messageToCreate.Author_Id = int.Parse(followerID.Text);
+            messageToCreate.Group_Id = activeGroupID;
+            messageToCreate.Content = txtMessageContent.Text;
 
             try
             {
@@ -98,12 +96,12 @@ namespace FunctionsTester
                     messageResult.Text = "Message created";
 
                     fillTheMessagesDataGrid();
-                }                 
+                }
             }
-            catch(FacadeException facadeException)
+            catch (FacadeException facadeException)
             {
                 messageResult.Text = facadeException.Message;
-            }            
+            }
         }
 
         /// <summary>
@@ -132,10 +130,10 @@ namespace FunctionsTester
 
             try
             {
-                if(groupFacade.RemoveTheFollower(activeGroupID, theFollowerID))
+                if (groupFacade.RemoveTheFollower(activeGroupID, theFollowerID))
                 {
                     txtRemoveFollowerResult.Text = "Person id :" + theFollowerID + " is removed from the group";
-                }                
+                }
             }
             catch (FacadeException facadeException)
             {
@@ -154,12 +152,11 @@ namespace FunctionsTester
             {
                 groupFacade.CloseGroup(activePersonID, activeGroupID);
             }
-            catch(FacadeException facadeException)
+            catch (FacadeException facadeException)
             {
                 txtGroupCloseResult.Text = facadeException.Message;
             }
         }
-
 
         /// <summary>
         /// Test - Ajouter un Event
@@ -186,8 +183,7 @@ namespace FunctionsTester
             newEvent.Event_End = eventtEnd;
             newEvent.Group_ID = activeGroupID;
 
-            groupFacade.CreateNewEvent(newEvent);                    
-
+            groupFacade.CreateNewEvent(newEvent);
         }
 
         /// <summary>
@@ -214,8 +210,7 @@ namespace FunctionsTester
             task newTask = new task();
             newTask.Group_ID = activeGroupID;
             //newTask.Author_ID = activePersonID;
-            newTask.Task_Start = taskStart;
-            newTask.Task_End = tasktEnd;
+            newTask.Task_DateTime = taskStart;
             newTask.Description = taskDesc;
 
             groupFacade.CreateNewTask(newTask, newTask.Group_ID, activePersonID);
@@ -229,14 +224,14 @@ namespace FunctionsTester
 
             foreach (task t in taskList)
             {
-                dataGridView_Task.Rows.Add(t.Id, t.Description, t.Task_Start, t.Task_End, t.Is_completed);
+                dataGridView_Task.Rows.Add(t.Id, t.Description, t.Task_DateTime, t.Is_completed);
             }
         }
 
         /// <summary>
         /// Selected the ID of a follower
         /// Will be used to select the author of a message
-        /// </summary>        
+        /// </summary>
         private void cb_followers_SelectedIndexChanged(object sender, EventArgs e)
         {
             int personID;
@@ -266,12 +261,11 @@ namespace FunctionsTester
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();            
+            this.Close();
         }
 
         private void btn_pic_Click(object sender, EventArgs e)
         {
-
             openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
             openFileDialog1.FilterIndex = 1;
 
@@ -285,7 +279,6 @@ namespace FunctionsTester
             catch (IOException)
             {
             }
-
         }
 
         private void btnCompletedTask_Click(object sender, EventArgs e)
@@ -293,7 +286,6 @@ namespace FunctionsTester
             int taskID = int.Parse(txtTaskID.Text);
 
             groupFacade.UpdateTaskCompleted(taskID, false);
-
         }
 
         private void dataGridView_Task_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -341,7 +333,7 @@ namespace FunctionsTester
         {
             List<@event> eventList = groupFacade.GetGroupEvent(activeGroupID);
 
-            foreach(@event ev in eventList)
+            foreach (@event ev in eventList)
             {
                 dataGridView_events.Rows.Add(ev.Description, ev.Event_Start, ev.Event_End);
             }
