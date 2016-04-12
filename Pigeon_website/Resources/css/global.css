@@ -100,3 +100,7 @@
 	visibility: visible;
 	height: 400px;
 }
+
+.material-icons.flag {
+    color: #A94442;
+}

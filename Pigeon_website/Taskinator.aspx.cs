@@ -61,12 +61,14 @@ public partial class Taskinator : System.Web.UI.Page
         person currentUser = (person) Session["user"];
         int currentUserID = currentUser.Id;
 
-        // Création du task
+        // Create task
         task theTask = new task();
 
+        // Task properties
         theTask.Description = taskDescription.Text;
         theTask.Group_ID = groupId ?? default(int);
         theTask.Is_completed = false;
+        theTask.Is_important = taskFlagged.Checked;
 
         // See if we add a due date to the task
         // TODO: Validate if right format
@@ -90,7 +92,7 @@ public partial class Taskinator : System.Web.UI.Page
                 dueDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             }
-
+            
             theTask.Task_DateTime = dueDate;
 
         }

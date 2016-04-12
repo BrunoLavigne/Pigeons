@@ -33,45 +33,51 @@
             <ContentTemplate>
                 
                 <!-- Add a task section -->
-                <div class="row">
-                    <div class="Add-task-container">
+                <div class="Add-task-container">
 
-                        <div class="title">Ajouter une tâche</div>
+                    <div class="title">Ajouter une tâche</div>
 
-                        <!-- Description de la tâche -->
-                        <div class="form-group">
-                            <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
-                            <div class="validation-error-message">
-                                <asp:RequiredFieldValidator ID="rfvTaskDescription" SetFocusOnError="true"  runat="server" controltovalidate="taskDescription" errormessage="Vous devez entrer une description" ValidationGroup="taskValidation" Display="Dynamic" />  
-                            </div>
+                    <!-- Description de la tâche -->
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
+                        <div class="validation-error-message">
+                            <asp:RequiredFieldValidator ID="rfvTaskDescription" SetFocusOnError="true"  runat="server" controltovalidate="taskDescription" errormessage="Vous devez entrer une description" ValidationGroup="taskValidation" Display="Dynamic" />  
                         </div>
+                    </div>
 
-                        <!-- Date de la tâche -->
-                        <div class="form-group">
-                            <asp:TextBox runat="server" ID="taskDueDate" placeholder="Ajouter une date limite" CssClass="form-control datepicker-holder"></asp:TextBox>
-                        </div>
+                    <!-- Date de la tâche -->
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="taskDueDate" placeholder="Ajouter une date limite" CssClass="form-control datepicker-holder"></asp:TextBox>
+                    </div>
 
-                        <!-- Heure de la tâche -->
-                        <div class="form-group">
-                            <asp:TextBox runat="server" ID="taskDueTime" placeholder="Heure de la date limite" CssClass="form-control"></asp:TextBox>
-                        </div>
+                    <!-- Heure de la tâche -->
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="taskDueTime" placeholder="Heure de la date limite" CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <!-- Important task? -->
+                    <div class="form-group">
+                        <label class="checkbox-wrapper">
+                            <asp:CheckBox runat="server" ID="taskFlagged" />Marquer comme tâche importante<span class="glyphicon glyphicon-flag"></span>
+                        </label>
+                            
+                    </div>
                     
-                        <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" ValidationGroup="taskValidation" />
-                    </div><!-- /.Add-task-container -->
-                </div><!-- /.row for add task section -->
+                    <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" ValidationGroup="taskValidation" />
+                </div><!-- /.Add-task-container -->
 
                 <!-- Show tasks section -->
                 <div class="row">
 
                     <!-- TODO: flagged tasks -->
                     <div class="col-md-4">
-                        <div class="title">Flagged</div>
+                        <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged</div>
                     </div>
 
                     <!-- Incompleted tasks -->
                     <div class="col-md-4">
 
-                        <div class="title">À faire</div>
+                        <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire</div>
 
                         <ul class="Tasks-container incompleted">
 
@@ -98,7 +104,7 @@
                     <!-- Completed tasks -->
                     <div class="col-md-4">
 
-                        <div class="title">Completé</div>
+                        <div class="title"><span class="glyphicon glyphicon-check"></span>Completé</div>
 
                         <ul class="Tasks-container completed">
 

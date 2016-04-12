@@ -12,5 +12,6 @@ namespace PigeonsLibrairy.DAO.Interface
     /// </summary>
     internal interface IFileDAO : IDAO<file>
     {
+        IEnumerable<file> GetFilesByGroup(pigeonsEntities1 context, object groupID);
     }
 }
