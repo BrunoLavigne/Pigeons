@@ -13,5 +13,7 @@ namespace PigeonsLibrairy.Service.Interface
     public interface IAssignationService : IService<assignation>
     {
         assignation AssignTaskToPerson(assignation newAssignation);
+
+        void RemoveAssignation(object taskID, object personID);
     }
 }

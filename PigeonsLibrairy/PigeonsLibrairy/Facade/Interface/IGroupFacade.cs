@@ -56,13 +56,17 @@ namespace PigeonsLibrairy.Facade.Interface
 
         assignation AssignTaskToPerson(assignation newAssignation);
 
+        void RemoveAssignation(object taskID, object personID);
+
         #endregion Assignation
 
         #region Event
 
         @event CreateNewEvent(@event newEvent);
 
-        List<@event> GetGroupEvent(object groupID, object monthID = null);
+        List<@event> GetGroupEvent(object groupID, object date = null);
+
+        void ChangeEventStatus(object taskID, object taskStatus);
 
         #endregion Event
     }
