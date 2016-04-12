@@ -3,6 +3,7 @@ using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Implementation;
 using PigeonsLibrairy.Service.Interface;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Web;
 
@@ -48,23 +49,31 @@ namespace PigeonsLibrairy.Controller
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.
                 int highestFileID = 0;
-                foreach (string fileName in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
+                Debug.WriteLine("Recherche des fichiers existants...");
+                foreach (string file in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
                 {
+                    Debug.WriteLine("Fichier trouvé: " + file);
+                    string fileName = Path.GetFileName(file);
+                    Debug.WriteLine("Nom du fichier: " + fileName);
                     string[] nameParts = fileName.Split('.');
                     int currentFileID = Int32.Parse(nameParts[0]);
+                    Debug.WriteLine("ID du fichier: " + currentFileID);
                     if (currentFileID > highestFileID)
                     {
                         highestFileID = currentFileID;
                     }
+                    Debug.WriteLine("ID maximale trouvé: " + highestFileID);
                 }
                 // generates the new file path and name.
-                string newFilePath = FILE_DIRECTORY_PATH + "//" + (highestFileID + 1).ToString() + fileExtension; // NOTE: p-e nécessaire de rajouter le point avant extension, ou s'assurer qu'il soit déjà présent dans le strinhg passé en paramètre.
+                string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + fileExtension; // NOTE: p-e nécessaire de rajouter le point avant extension, ou s'assurer qu'il soit déjà présent dans le strinhg passé en paramètre.
+                Debug.WriteLine("chemin de fichier uploadé généré: " + newFilePath);
                 // saves the file itself (Byte Array) at the new path.
                 File.WriteAllBytes(newFilePath, fileByteArray);
                 savedFileInfo = new FileInfo(newFilePath);
             }
             catch (Exception error)
             {
+                Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
             }
             return savedFileInfo;
@@ -82,10 +91,12 @@ namespace PigeonsLibrairy.Controller
             {
                 // find all files
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
+                Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
             catch (Exception error)
             {
-                // bla bla bla exception handling...
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
             }
             return fileToGet;
         }
