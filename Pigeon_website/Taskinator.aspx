@@ -72,6 +72,27 @@
                     <!-- TODO: flagged tasks -->
                     <div class="col-md-4">
                         <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged</div>
+
+                        <ul class="Tasks-container flagged">
+
+                            <asp:ListView runat="server" ID="listViewFlagged">
+                                <ItemTemplate>
+                                    <li class="Task-container">
+
+			                            <label class="checkbox-wrapper">
+                                            <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                            <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
+			                            </label>
+
+			                            <div class="content">
+				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
+				                            <div class="due-date"><%# Eval("task_datetime") %></div>
+			                            </div>
+
+                                    </li>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </ul><!-- /.incompleted -->
                     </div>
 
                     <!-- Incompleted tasks -->

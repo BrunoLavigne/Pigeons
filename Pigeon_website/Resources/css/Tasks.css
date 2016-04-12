@@ -16,8 +16,6 @@
 .Add-task-container {
 
 	padding: 20px 0;
-	/*max-width: 420px;
-	margin: auto;*/
 }
 
 .Tasks-container.completed .checkbox-wrapper {
@@ -56,11 +54,11 @@
 	border-radius: 4px;
 }
 
-.Task-container input[type="checkbox"]:checked{
+.Tasks-app input[type="checkbox"]:checked{
 	background-color: #2ECC71;
 }
 
-.Task-container input[type="checkbox"]:focus{
+.Tasks-app input[type="checkbox"]:focus{
 	outline: 0 none;
 	box-shadow: none;
 }

@@ -110,8 +110,29 @@ public partial class Taskinator : System.Web.UI.Page
     protected void refreshGroupTasks()
     {
 
-        List<task> taskListIncompleted = groupFacade.GetGroupTasks(groupId, false); // get incomplete tasks
+        List<task> taskListIncompleted = new List<task>();
         List<task> taskListCompleted = groupFacade.GetGroupTasks(groupId, true);    // get completed tasks
+        List<task> taskListFlagged = new List<task>();
+
+        // Get all incompleted UNFLAGGED tasks from group
+        foreach (task t in groupFacade.GetGroupTasks(groupId, false))
+        {
+            if( ! t.Is_important ?? false )
+            {
+                taskListIncompleted.Add(t);
+            }
+        }
+
+        // Get all flagged tasks that are not completed
+        foreach (task t in groupFacade.GetGroupTasks(groupId, false))
+        {
+            // ( "??" : If t.Is_Important is null, then assume it is not important)
+            if ( t.Is_important ?? false )
+            {
+                taskListFlagged.Add(t);
+            }
+        }
+
 
         // bind to templates
         listViewIncompleted.DataSource = taskListIncompleted;
@@ -119,6 +140,9 @@ public partial class Taskinator : System.Web.UI.Page
 
         listViewCompleted.DataSource = taskListCompleted;
         listViewCompleted.DataBind();
+
+        listViewFlagged.DataSource = taskListFlagged;
+        listViewFlagged.DataBind();
 
     }
 }
