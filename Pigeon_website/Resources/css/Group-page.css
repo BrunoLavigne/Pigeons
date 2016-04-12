@@ -74,90 +74,89 @@
     box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
 }
 
-.Toggler > div {
-    display: inline-block;
-    height: 100%;
-    padding: 24px;
-}
+    .Toggler > div {
+        display: inline-block;
+        height: 100%;
+        padding: 24px;
+    }
 
-.Toggler a {
-    color: white;
-}
+    .Toggler a {
+        color: white;
+    }
 
-.Toggler .text {
-    border-radius: 16px;
-}
+    .Toggler .text {
+        border-radius: 16px;
+    }
 
-.Toggler .action {
-    float: right;
-}
+    .Toggler .action {
+        float: right;
+    }
 
-.Toggler.messages {
-    background-color: rgb(1, 91, 125);
-}
+    .Toggler.messages {
+        background-color: rgb(1, 91, 125);
+    }
 
-.Toggler.messages .text {
-    background-color: rgb(0, 70, 98);
-}
+    .Toggler.messages .text {
+        background-color: rgb(0, 70, 98);
+    }
 
-.Toggler.files {
-    background-color: rgb(30, 101, 95);
-}
+    .Toggler.files {
+        background-color: rgb(30, 101, 95);
+    }
 
-.Toggler.files .text {
-    background-color: rgb(26, 85, 81);
-}
+    .Toggler.files .text {
+        background-color: rgb(26, 85, 81);
+    }
 
-.Toggler.tasks {
-    background-color: rgb(201, 115, 4);
-}
+    .Toggler.tasks {
+        background-color: rgb(201, 115, 4);
+    }
 
-.Toggler.tasks .text {
-    background-color: rgb(151, 88, 9);
-}
+    .Toggler.tasks .text {
+        background-color: rgb(151, 88, 9);
+    }
 
 /* The group message container component */
-
 .Group-message {
 
     font-family: Montserrat, Arial, sans-serif;
 
     margin: 5px 0;
-    padding: 10px 20px;
+    padding: 20px;
     background: #f8f8f8;
 
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     border-radius: 12px;
-
-    /*
-        -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-        -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-        box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    */
 
 }
 
-    .Group-message > div {
-        display: inline-block;
-        vertical-align: middle;
-    }
     .Group-message .user-info {
         text-align: center;
     }
-    .Group-message .profile-picture-container {
-        padding: 10px;
-    }
+
     .Group-message .profile-picture-container img {
-        width: 75px;
-        height: 75px;
+        width: 100%;
+        height: auto;
         border-radius: 50%;
     }
+
     .Group-message .post-info {
         font-weight: bold;
     }
 
+    .Group-message .content {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
 @media screen and (max-width: 768px) {
+
     .Group-message .profile-picture-container {
         display: none;
     }
+
+    .Group-message .content {
+        max-height: none;
+    }
+
 }

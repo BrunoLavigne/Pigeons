@@ -90,9 +90,9 @@
             <asp:ListView ID="messagesListView" runat="server">
                 <ItemTemplate>
 
-                    <div class="Group-message">
+                    <div class="Group-message row">
 
-                        <div class="user-info">
+                        <div class="user-info col-sm-1">
 
                             <!-- User profile picture here -->
                             <div class="profile-picture-container">
@@ -101,7 +101,7 @@
 
                         </div><!-- /.user-info -->
 
-                        <div class="content">
+                        <div class="content col-sm-11">
                             <div class="post-info">
                                 Michael Scott - 99/99/9999
                             </div>
