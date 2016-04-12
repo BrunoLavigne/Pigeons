@@ -75,30 +75,47 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="Server">
     <script>
 
-        $('.eventCalendar .day').hover(function () {
-            var idString = $(this).data('id');
-            var formatedString = idString.substring(0, idString.length - 1);
-            var id = formatedString.split(',');
+        $('.eventCalendar td').mouseenter(function () {
 
-            jQuery.each(id, function (i) {
+            if ($(this).data("id") != undefined) {
+                var idString = $(this).data('id');
 
-                $(".eventRow").filter(function () {
-                    return $(this).data('id') == id[i];
-                }).css('background-color', '#FFFFFF');
+                var formatedString = idString.substring(0, idString.length - 1);
+                var id = formatedString.split(',');
+
+                jQuery.each(id, function (i) {
+
+                    $(".eventRow").filter(function () {
+                        return $(this).data('id') == id[i];
+                    }).css('background-color', '#FFFFFF');
+                });
+
+            } else {
+                return false;
+            }
+
+        });
+
+        $(".eventCalendar td").mouseleave(function () {
+            $(".eventRow").each(function () {
+                $(this).css({ "background": "none" });
             });
 
         });
 
         var calendarEventDays;
+        var style;
 
         $('.eventRow').hover(function () {
             var eventID = $(this).data('id');
 
             calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
+            style = calendarEventDays.attr('style');
             calendarEventDays.css('background-color', '#737373');
 
         }, function () {
             calendarEventDays.css('background-color', '');
+            calendarEventDays.attr('style', style);
         });
     </script>
 </asp:Content>

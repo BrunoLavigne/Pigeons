@@ -34,6 +34,10 @@ public partial class Eventificator : System.Web.UI.Page
     /// </summary>
     protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
     {
+        Style eventDayStyle = new Style();
+        eventDayStyle.BackColor = System.Drawing.Color.LightSlateGray;
+        eventDayStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
+
         foreach (@event ev in eventsList)
         {
             if (ev.Event_End != null)
@@ -42,6 +46,7 @@ public partial class Eventificator : System.Web.UI.Page
                 {
                     string actualID = e.Cell.Attributes["data-id"];
                     e.Cell.Attributes.Add("data-id", actualID + ev.ID.ToString() + ",");
+                    e.Cell.ApplyStyle(eventDayStyle);
                 }
             }
             else
@@ -50,6 +55,7 @@ public partial class Eventificator : System.Web.UI.Page
                 {
                     string actualID = e.Cell.Attributes["data-id"];
                     e.Cell.Attributes.Add("data-id", actualID + ev.ID.ToString() + ",");
+                    e.Cell.ApplyStyle(eventDayStyle);
                 }
             }
         }
