@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 namespace PigeonsLibrairy.DAO.Interface
 {
     /// <summary>
-    /// Interface de la classe <see cref="Implementation.AssignationDAO"/>
+    /// Interface de la classe <see cref="Implementation.FileDAO"/>
     /// </summary>
-    internal interface IAssignationDAO : IDAO<assignation>
+    internal interface IFileDAO : IDAO<file>
     {
-        assignation GetByID(pigeonsEntities1 context, object personID, object taskID);
     }
 }

@@ -8,20 +8,17 @@ public partial class Group : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
         // Also check if the group actually exists and if the user is following it
-        if(Session["user"] == null || Request.Params["groupID"] == null)
+        if (Session["user"] == null || Request.Params["groupID"] == null)
         {
             Response.Redirect("Index.aspx");
-        } else
+        }
+        else
         {
-
-            person currentUser = (person) Session["user"];
+            person currentUser = (person)Session["user"];
 
             // Check if user is admin of the group
             GroupFacade gf = new GroupFacade();
-
 
             // Get group ID from url parameter
             Boolean goodGroupId = false;
@@ -29,14 +26,13 @@ public partial class Group : System.Web.UI.Page
 
             goodGroupId = int.TryParse(Request.Params["groupID"], out groupId);
 
-            if(goodGroupId)
+            if (goodGroupId)
             {
                 // Render group to page
                 renderGroupToPage(groupId);
 
-                if(!gf.PersonIsGroupAdmin(currentUser.Id, groupId))
+                if (!gf.PersonIsGroupAdmin(currentUser.Id, groupId))
                 {
-
                 }
             }
         }
@@ -45,7 +41,6 @@ public partial class Group : System.Web.UI.Page
     // On devrait plus passer un groupe
     protected void renderGroupToPage(int groupId)
     {
-
         GroupFacade gf = new GroupFacade();
 
         group theGroup;
@@ -76,7 +71,7 @@ public partial class Group : System.Web.UI.Page
             task task1 = new task();
 
             task1.Description = "Finir le frontend";
-            task1.Task_End = DateTime.Now;
+            task1.Task_DateTime = DateTime.Now;
 
             task1.Is_completed = false;
             // ...
@@ -84,17 +79,15 @@ public partial class Group : System.Web.UI.Page
             taskList.Add(task1);
             //todosListView.DataSource = taskList;
             //todosListView.DataBind();
-
-        } catch(Exception e)
+        }
+        catch (Exception e)
         {
             Console.WriteLine("Group not found: " + e.Message);
         }
-        
     }
 
     protected void BtnTest_Click(object sender, EventArgs e)
     {
         // fun
     }
-
 }

@@ -48,6 +48,8 @@ namespace PigeonsLibrairy.Facade.Interface
 
         void UpdateTaskCompleted(object taskID, bool completed);
 
+        void DeleteTask(object taskID);
+
         #endregion Task
 
         #region Assignation

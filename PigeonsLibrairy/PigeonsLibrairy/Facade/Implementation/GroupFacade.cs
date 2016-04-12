@@ -179,6 +179,21 @@ namespace PigeonsLibrairy.Facade.Implementation
         }
 
         /// <summary>
+        /// Efface une Task
+        /// </summary>
+        public void DeleteTask(object taskID)
+        {
+            try
+            {
+                mainControl.TaskService.DeleteTask(taskID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+            }
+        }
+
+        /// <summary>
         /// Création d'une nouvelle Task dans un groupe
         /// </summary>
         public task CreateNewTask(task newTask, object groupID, object personID)
