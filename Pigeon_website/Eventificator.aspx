@@ -18,6 +18,7 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnNewEvent" />
+            <asp:AsyncPostBackTrigger ControlID="btnCreateEvent" />
             <asp:AsyncPostBackTrigger ControlID="Calendar1" />
         </Triggers>
 
@@ -28,12 +29,11 @@
                     <div class="row">
 
                         <div class="col-lg-3">
-                            <%--<asp:Calendar ID="Calendar1" runat="server" BackColor="White" DayHeaderStyle-BackColor="White" TodayDayStyle-BackColor="#339966" TitleStyle-BackColor="#333333" ShowGridLines="False" SelectedDayStyle-BackColor="White" OtherMonthDayStyle-ForeColor="#CCCCCC" TitleStyle-ForeColor="White" TitleStyle-HorizontalAlign="Center" TitleStyle-VerticalAlign="Middle" CellPadding="5" DayHeaderStyle-HorizontalAlign="Center" DayHeaderStyle-VerticalAlign="Middle" SelectionMode="Day" WeekendDayStyle-BackColor="#F4F4F4" OnDayRender="Calendar1_DayRender" BorderColor="WhiteSmoke" BorderStyle="Solid" BorderWidth="1" DayStyle-Width="30" DayStyle-Height="30" DayHeaderStyle-Height="10" TitleStyle-Height="30" TodayDayStyle-BorderStyle="None" Enabled="True" SelectedDayStyle-ForeColor="Black" CssClass="eventCalendar"></asp:Calendar>--%>
-                            <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged"></asp:Calendar>
+                            <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None"></asp:Calendar>
                         </div>
 
                         <div class="col-lg-4">
-                            <asp:Table ID="Table1" runat="server" CssClass="table-hover">
+                            <asp:Table ID="Table1" runat="server" CssClass="table table-hover">
                             </asp:Table>
                         </div>
 
@@ -73,49 +73,53 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="Server">
-    <script>
+    <script type="text/javascript">
 
-        $('.eventCalendar td').mouseenter(function () {
+        function pageLoad() {
 
-            if ($(this).data("id") != undefined) {
-                var idString = $(this).data('id');
+            $('.eventCalendar td').mouseenter(function () {
 
-                var formatedString = idString.substring(0, idString.length - 1);
-                var id = formatedString.split(',');
+                if ($(this).data("id") != undefined) {
+                    var idString = $(this).data('id');
 
-                jQuery.each(id, function (i) {
+                    var formatedString = idString.substring(0, idString.length - 1);
+                    var id = formatedString.split(',');
 
-                    $(".eventRow").filter(function () {
-                        return $(this).data('id') == id[i];
-                    }).css('background-color', '#FFFFFF');
-                });
+                    jQuery.each(id, function (i) {
 
-            } else {
-                return false;
-            }
+                        $(".eventRow").filter(function () {
+                            return $(this).data('id') == id[i];
+                        }).css('background-color', '#FFFFFF');
+                    });
 
-        });
+                } else {
+                    return false;
+                }
 
-        $(".eventCalendar td").mouseleave(function () {
-            $(".eventRow").each(function () {
-                $(this).css({ "background": "none" });
             });
 
-        });
+            $(".eventCalendar td").mouseleave(function () {
+                $(".eventRow").each(function () {
+                    $(this).css({ "background": "none" });
+                });
 
-        var calendarEventDays;
-        var style;
+            });
 
-        $('.eventRow').hover(function () {
-            var eventID = $(this).data('id');
+            var calendarEventDays;
+            var style;
 
-            calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
-            style = calendarEventDays.attr('style');
-            calendarEventDays.css('background-color', '#737373');
+            $('.eventRow').hover(function () {
+                var eventID = $(this).data('id');
 
-        }, function () {
-            calendarEventDays.css('background-color', '');
-            calendarEventDays.attr('style', style);
-        });
+                calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
+                style = calendarEventDays.attr('style');
+                calendarEventDays.css('background-color', '#737373');
+
+            }, function () {
+                calendarEventDays.css('background-color', '');
+                calendarEventDays.attr('style', style);
+            });
+
+        }
     </script>
 </asp:Content>
