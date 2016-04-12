@@ -23,17 +23,20 @@ public partial class FileUploadTest : System.Web.UI.Page
             try
             {
                 Byte[] fileBytes = FileUpload1.FileBytes;
+                System.Diagnostics.Debug.WriteLine("File Byte Array: "+fileBytes.ToString());
                 string[] parts = FileUpload1.FileName.Split('.');
                 string extension = "." + parts[parts.Length - 1];
+                System.Diagnostics.Debug.WriteLine("File extension: " + extension);
                 string filename = parts[0];
-                FileInfo savedFileInfo = homeFacade.fileControl.saveByteFile(fileBytes, extension);
+                System.Diagnostics.Debug.WriteLine("File Name: " + filename);
+                FileInfo savedFileInfo = homeFacade.fileControl.SaveByteFile(fileBytes, extension);
                 // shit d'affichage / modification à partir du FileInfo
                 // Accessible: FileInfo.FileName (mon du fichier sauvegardé i.e. son integer code)
                 // etc...
             }
             catch (Exception error)
             {
-                // yadda yadda error handling
+                System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
             }
         }
     }

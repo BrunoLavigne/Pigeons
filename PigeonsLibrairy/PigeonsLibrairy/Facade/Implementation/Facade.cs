@@ -24,7 +24,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         public Facade()
         {
             mainControl = new MainController();
-            fileControl = new FileController();
+            fileControl = new FileController("Server_Files");
         }
 
         #region Person
