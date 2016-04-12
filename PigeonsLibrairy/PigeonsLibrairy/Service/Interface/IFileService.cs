@@ -12,5 +12,8 @@ namespace PigeonsLibrairy.Service.Interface
     /// </summary>
     internal interface IFileService : IService<file>
     {
+        IEnumerable<file> GetFilesByGroup(object groupID);
+
+        file InsertFileInformations(file newFile);
     }
 }
