@@ -90,8 +90,8 @@ public partial class Taskinator : System.Web.UI.Page
                 dueDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             }
-            
-            theTask.Task_End = dueDate;
+
+            theTask.Task_DateTime = dueDate;
 
         }
 

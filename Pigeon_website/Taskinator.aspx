@@ -86,7 +86,7 @@
 
 			                            <div class="content">
 				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
-				                            <div class="due-date"><%# Eval("task_end") %></div>
+				                            <div class="due-date"><%# Eval("task_datetime") %></div>
 			                            </div>
 
                                     </li>
@@ -113,7 +113,7 @@
 
 			                            <div class="content">
 				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
-				                            <div class="due-date"><%# Eval("task_end") %></div>
+				                            <div class="due-date"><%# Eval("task_datetime") %></div>
 			                            </div>
 
                                     </li>
