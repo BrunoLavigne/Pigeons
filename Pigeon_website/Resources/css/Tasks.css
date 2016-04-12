@@ -15,9 +15,9 @@
 .Tasks-container,
 .Add-task-container {
 
-	padding: 20px;
-	max-width: 420px;
-	margin: auto;
+	padding: 20px 0;
+	/*max-width: 420px;
+	margin: auto;*/
 }
 
 .Tasks-container.completed .checkbox-wrapper {
@@ -38,7 +38,7 @@
 	padding: 12px 0;
 }
 
-.Task-container input[type="checkbox"] {
+.Tasks-app input[type="checkbox"] {
 	margin-right: 12px;
 
 	cursor: pointer;
@@ -89,7 +89,19 @@
 	display: inline-block;
 }
 
-.Task-container .checkbox-wrapper {
+.Tasks-app .checkbox-wrapper {
 	display: flex;
 	align-items: center;
+}
+
+.Tasks-app .title .glyphicon {
+    margin-right: 12px;
+}
+
+.Tasks-app .checkbox-wrapper .glyphicon {
+    margin-left: 8px;
+}
+
+.Tasks-app .glyphicon-flag {
+    color: #A94442;
 }
