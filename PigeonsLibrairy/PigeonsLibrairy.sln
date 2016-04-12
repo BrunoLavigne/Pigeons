@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25029.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonsLibrairy", "PigeonsLibrairy\PigeonsLibrairy.csproj", "{EF5C1197-F700-4EFD-9875-40785785BE16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsTester", "FunctionsTester\FunctionsTester.csproj", "{A93536F1-62DE-443E-83FE-02E6A8EFAA70}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website(2)", "..\Pigeon_website\", "{E0E6FA2A-9B8D-4927-B390-FD69191526E1}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website", "..\Pigeon_website\", "{E0E6FA2A-9B8D-4927-B390-FD69191526E1}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		ProjectReferences = "{ef5c1197-f700-4efd-9875-40785785be16}|PigeonsLibrairy.dll;"

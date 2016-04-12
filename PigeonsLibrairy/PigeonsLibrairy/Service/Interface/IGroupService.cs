@@ -10,6 +10,6 @@ namespace PigeonsLibrairy.Service.Interface
     {
         group CreateNewGroupAndRegister(group newGroup, object personId);
         bool CloseGroup(object adminID, object groupID);
-        IList<group> GetPersonGroups(object personID);
+        IList<group> GetPersonGroups(object personID);        
     }
 }

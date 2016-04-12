@@ -10,6 +10,7 @@ public partial class Eventificator : System.Web.UI.Page
 {
     private List<@event> eventsList { get; set; }
     private GroupFacade groupFacade { get; set; }
+    private DateTime dateValidation = DateTime.Parse("0001-01-01 12:00:00 AM");
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,13 +21,18 @@ public partial class Eventificator : System.Web.UI.Page
 
             Session["events"] = eventsList;
             Session["facade"] = groupFacade;
+
+            // Events table avec les Events du mois
+            createEventTable(DateTime.Now);
         }
         else
         {
             eventsList = (List<@event>)Session["events"];
             groupFacade = (GroupFacade)Session["facade"];
+
+            // Events table selon le mois visible en ce moment sur la page (au first load la visible date est égale à la date de validation et nous ne voulons pas afficher pour celle-ci)
+            createEventTable((Calendar1.VisibleDate == dateValidation) ? DateTime.Now : Calendar1.VisibleDate);
         }
-        createEventTable(eventsList);
     }
 
     /// <summary>
@@ -34,60 +40,55 @@ public partial class Eventificator : System.Web.UI.Page
     /// </summary>
     protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
     {
-        Style eventDates = new Style();
-        eventDates.BackColor = System.Drawing.Color.DarkOrange;
-        eventDates.ForeColor = Color.White;
+        Style eventDayStyle = new Style();
+        eventDayStyle.BackColor = System.Drawing.Color.LightSlateGray;
+        eventDayStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
 
-        Style lateDates = new Style();
-        lateDates.BackColor = Color.Red;
-        lateDates.ForeColor = Color.White;
+        Style lateEventDayStyle = new Style();
+        lateEventDayStyle.BackColor = System.Drawing.Color.Red;
+        lateEventDayStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
 
-        Style rangeDates = new Style();
-        rangeDates.BackColor = Color.LightBlue;
-        rangeDates.ForeColor = Color.White;
-
-        // Affichage des events
+        // Loops sur les évènement à chaque jour pour voir s'il-y-a quelquechose
         foreach (@event ev in eventsList)
         {
-            // Events Start
-            if (e.Day.Date == ev.Event_Start.Date)
+            // Évènement de plus d'une journée
+            if (ev.Event_End != null)
             {
-                if (ev.Event_Start.Date < DateTime.Now.Date)
+                if (e.Day.Date >= ev.Event_Start.Date && e.Day.Date <= ev.Event_End.Value.Date)
                 {
-                    e.Cell.ApplyStyle(lateDates);
+                    string actualID = e.Cell.Attributes["data-id"];
+                    e.Cell.Attributes.Add("data-id", actualID + ev.ID.ToString() + ",");
+
+                    // Si la date précède la date d'aujourd'hui, la cellule est en rouge. Sinon regular style
+                    e.Cell.ApplyStyle((e.Day.Date < DateTime.Now) ? lateEventDayStyle : eventDayStyle);
                 }
-                else
-                {
-                    e.Cell.ApplyStyle(eventDates);
-                }
-                e.Cell.ToolTip = e.Cell.ToolTip + "\n" + "Debut : " + ev.Description;
             }
-            // Event dates between start and end
-            if (e.Day.Date > ev.Event_Start && e.Day.Date <= ev.Event_End)
+            // Évènement d'une journée
+            else
             {
-                // Event end
-                if (e.Day.Date == ev.Event_End.Value.Date)
+                if (e.Day.Date == ev.Event_Start.Date)
                 {
-                    e.Cell.ToolTip = e.Cell.ToolTip + "\n" + "Fin : " + ev.Description;
+                    string actualID = e.Cell.Attributes["data-id"];
+                    e.Cell.Attributes.Add("data-id", actualID + ev.ID.ToString() + ",");
+
+                    // Si la date précède la date d'aujourd'hui, la cellule est en rouge. Sinon regular style
+                    e.Cell.ApplyStyle((e.Day.Date < DateTime.Now) ? lateEventDayStyle : eventDayStyle);
                 }
-                else
-                {
-                    e.Cell.ToolTip = e.Cell.ToolTip + "\n" + ev.Description;
-                }
-                e.Cell.ApplyStyle(rangeDates);
             }
         }
 
         e.Cell.Attributes.Add("onmouseover", "this.className='Highlight';");
-        e.Cell.Attributes.Add("onmouseout", "this.className='normal';");
+        e.Cell.Attributes.Add("onmouseout", "this.className='day';");
     }
 
     /// <summary>
     /// Affichage des évènements dans le tableau
     /// </summary>
     /// <param name="eventsList"></param>
-    private void createEventTable(List<@event> eventsList)
+    private void createEventTable(DateTime selectedDate)
     {
+        eventsList = groupFacade.GetGroupEvent(16, selectedDate); // DIRTY HARCODAGE { must use active group }
+
         Table1.Rows.Clear();
 
         TableHeaderRow tableHeader = new TableHeaderRow();
@@ -97,84 +98,83 @@ public partial class Eventificator : System.Web.UI.Page
         tableHeader.HorizontalAlign = HorizontalAlign.Center;
         tableHeader.ForeColor = System.Drawing.Color.White;
 
-        TableCell[] hCells = { new TableCell(), new TableCell(), new TableCell() };
-        Label[] hLabels = { new Label(), new Label(), new Label() };
+        TableCell[] headerCells = { new TableCell(), new TableCell(), new TableCell() };
+        Label[] headerLabels = { new Label(), new Label(), new Label() };
 
-        foreach (Label lb in hLabels)
+        foreach (Label lb in headerLabels)
         {
             lb.Style["text-align"] = "center";
             lb.Enabled = false;
             lb.Style["padding"] = "10px";
         }
 
-        hLabels[0].ID = "eventDescription";
-        hLabels[0].Text = "Description";
-        hLabels[1].ID = "eventStart";
-        hLabels[1].Text = "Debut";
-        hLabels[2].ID = "eventEnd";
-        hLabels[2].Text = "Fin";
+        headerLabels[0].ID = "eventDescription";
+        headerLabels[0].Text = "Description";
+        headerLabels[1].ID = "eventStart";
+        headerLabels[1].Text = "Debut";
+        headerLabels[2].ID = "eventEnd";
+        headerLabels[2].Text = "Fin";
 
-        for (int i = 0; i < hCells.Count(); i++)
+        for (int i = 0; i < headerCells.Count(); i++)
         {
-            hCells[i].Controls.Add(hLabels[i]);
-            tableHeader.Cells.Add(hCells[i]);
+            headerCells[i].Controls.Add(headerLabels[i]);
+            tableHeader.Cells.Add(headerCells[i]);
         }
 
         Table1.Rows.Add(tableHeader);
 
-        foreach (@event ev in eventsList)
+        TableRow tableRow = new TableRow();
+        tableRow.Font.Size = 8;
+        tableRow.Height = 20;
+
+        if (eventsList.Count == 0)
         {
-            TableRow tr = new TableRow();
-            tr.Font.Size = 8;
-            tr.Height = 20;
-            tr.ToolTip = ev.Description;
-
-            TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
-            Label[] labels = { new Label(), new Label(), new Label() };
-
-            foreach (Label lb in labels)
-            {
-                lb.Style["text-align"] = "center";
-                lb.Enabled = false;
-                lb.Style["padding"] = "5px";
-            }
-
-            labels[0].Text = ev.Description;
-            labels[1].Text = (ev.Event_Start != null) ? ev.Event_Start.Date.ToString("d MMM yyyy") : "";
-            labels[2].Text = (ev.Event_End != null) ? ev.Event_End.Value.ToString("d MMM yyyy") : "";
-
-            for (int i = 0; i < cells.Count(); i++)
-            {
-                cells[i].Controls.Add(labels[i]);
-                tr.Cells.Add(cells[i]);
-            }
-
-            Table1.Rows.Add(tr);
+            TableCell cell = new TableCell();
+            Label label = new Label();
+            cell.Attributes.Add("colspan", "100%");
+            label.Text = "Aucune évènement pour ce mois";
+            label.Enabled = false;
+            cell.Controls.Add(label);
+            tableRow.Cells.Add(cell);
+            Table1.Rows.Add(tableRow);
         }
-    }
+        else
+        {
+            foreach (@event ev in eventsList)
+            {
+                if ((ev.Event_Start.Date.Month == selectedDate.Month && ev.Event_Start.Date.Year == selectedDate.Year) || (ev.Event_End.Value.Date.Month == selectedDate.Month && ev.Event_End.Value.Date.Year == selectedDate.Year))
+                {
+                    tableRow = new TableRow();
+                    tableRow.Font.Size = 8;
+                    tableRow.Height = 20;
+                    tableRow.ToolTip = ev.Description;
+                    tableRow.Attributes.Add("data-id", ev.ID.ToString());
+                    tableRow.CssClass = "eventRow";
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        bool visible = Calendar2.Visible;
-        Calendar2.Visible = (visible) ? false : true;
-    }
+                    TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
+                    Label[] labels = { new Label(), new Label(), new Label() };
 
-    protected void Calendar2_SelectionChanged(object sender, EventArgs e)
-    {
-        txtEventStart.Text = Calendar2.SelectedDate.Date.ToString("d MMMM yyyy");
-        Calendar2.Visible = false;
-    }
+                    foreach (Label lb in labels)
+                    {
+                        lb.Style["text-align"] = "center";
+                        lb.Enabled = false;
+                        lb.Style["padding"] = "5px";
+                    }
 
-    protected void Calendar3_SelectionChanged(object sender, EventArgs e)
-    {
-        txtEventEnd.Text = Calendar3.SelectedDate.Date.ToString("d MMMM yyyy");
-        Calendar3.Visible = false;
-    }
+                    labels[0].Text = ev.Description;
+                    labels[1].Text = (ev.Event_Start != null) ? ev.Event_Start.Date.ToString("d MMM yyyy") : "";
+                    labels[2].Text = (ev.Event_End != null) ? ev.Event_End.Value.ToString("d MMM yyyy") : "";
 
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        bool visible = Calendar3.Visible;
-        Calendar3.Visible = (visible) ? false : true;
+                    for (int i = 0; i < cells.Count(); i++)
+                    {
+                        cells[i].Controls.Add(labels[i]);
+                        tableRow.Cells.Add(cells[i]);
+                    }
+
+                    Table1.Rows.Add(tableRow);
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -193,14 +193,74 @@ public partial class Eventificator : System.Web.UI.Page
         newEvent.Description = eventDesc;
         newEvent.Event_Start = eventStart;
         newEvent.Event_End = eventEnd;
-        newEvent.Group_ID = 16; // DIRTY HARDCODAGE
+        newEvent.Group_ID = 16; // DIRTY HARDCODAGE { PLACE ACTIVE GROUP ID }
 
         groupFacade.CreateNewEvent(newEvent);
+        createEventTable(Calendar1.VisibleDate);
+
+        txtEventDescription.Text = "";
+        txtEventStart.Text = "";
+        txtEventEnd.Text = "";
     }
 
+    /// <summary>
+    /// Réaffichage du table d'évènements selon le mois visible sur le calendrier
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void Calendar1_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
+    {
+        createEventTable(e.NewDate);
+    }
+
+    #region BUTTONS
+
+    /// <summary>
+    /// Affichage du formulaire de création d'un Event
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnNewEvent_Click(object sender, EventArgs e)
     {
         bool visible = newEvent.Visible;
         newEvent.Visible = (visible) ? false : true;
     }
+
+    /// <summary>
+    /// Affichage Calendar2 pour choisir date départ de l'Event
+    /// </summary>
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        bool visible = Calendar2.Visible;
+        Calendar2.Visible = (visible) ? false : true;
+    }
+
+    /// <summary>
+    /// Affichage Calendar3 pour choisir date de fin de l'Event
+    /// </summary>
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        bool visible = Calendar3.Visible;
+        Calendar3.Visible = (visible) ? false : true;
+    }
+
+    /// <summary>
+    /// Affichage de la sélection de la date de départ dans un TextBox
+    /// </summary>
+    protected void Calendar2_SelectionChanged(object sender, EventArgs e)
+    {
+        txtEventStart.Text = Calendar2.SelectedDate.Date.ToString("d MMMM yyyy");
+        Calendar2.Visible = false;
+    }
+
+    /// <summary>
+    /// Affichage de la sélection de la date de fin dans un TextBox
+    /// </summary>
+    protected void Calendar3_SelectionChanged(object sender, EventArgs e)
+    {
+        txtEventEnd.Text = Calendar3.SelectedDate.Date.ToString("d MMMM yyyy");
+        Calendar3.Visible = false;
+    }
+
+    #endregion BUTTONS
 }

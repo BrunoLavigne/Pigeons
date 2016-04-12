@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6a4253138f8e4417a4859c45240815bd" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="6a4253138f8e4417a4859c45240815bd" Name="Diagram1" ZoomLevel="81">
         <AssociationConnector Association="pigeonsModel.FK_event_group" ManuallyRouted="false" />
         <AssociationConnector Association="pigeonsModel.FK_event_task" ManuallyRouted="false" />
         <AssociationConnector Association="pigeonsModel.FK_event_type" ManuallyRouted="false" />
         <AssociationConnector Association="pigeonsModel.FK_task_group" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="pigeonsModel.assignation" Width="1.5" PointX="5.25" PointY="12.75" />
-        <EntityTypeShape EntityType="pigeonsModel.chathistory" Width="1.5" PointX="3" PointY="7.875" />
-        <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="3" PointY="18.875" />
-        <EntityTypeShape EntityType="pigeonsModel.following" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="pigeonsModel.group" Width="1.5" PointX="0.75" PointY="7.5" />
-        <EntityTypeShape EntityType="pigeonsModel.message" Width="1.5" PointX="6" PointY="7.875" />
-        <EntityTypeShape EntityType="pigeonsModel.person" Width="1.5" PointX="0.75" PointY="2.125" />
-        <EntityTypeShape EntityType="pigeonsModel.task" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="pigeonsModel.assignation" Width="1.5" PointX="10.625" PointY="9.875" />
+        <EntityTypeShape EntityType="pigeonsModel.chathistory" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="pigeonsModel.event" Width="1.5" PointX="9" PointY="7" />
+        <EntityTypeShape EntityType="pigeonsModel.following" Width="1.5" PointX="4.25" PointY="0.5" />
+        <EntityTypeShape EntityType="pigeonsModel.group" Width="1.5" PointX="8" PointY="3.25" />
+        <EntityTypeShape EntityType="pigeonsModel.message" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="pigeonsModel.person" Width="1.5" PointX="0.75" PointY="0.5" />
+        <EntityTypeShape EntityType="pigeonsModel.task" Width="1.5" PointX="10.625" PointY="6.625" />
         <AssociationConnector Association="pigeonsModel.FK_Assignation_Person" />
         <AssociationConnector Association="pigeonsModel.FK_Assignation_Task" />
         <AssociationConnector Association="pigeonsModel.FK_ChatMessage_Group" />
@@ -27,6 +27,8 @@
         <AssociationConnector Association="pigeonsModel.FK_message_group" />
         <AssociationConnector Association="pigeonsModel.FK_Task_Group" />
         <AssociationConnector Association="pigeonsModel.FK_message_person" />
+        <EntityTypeShape EntityType="pigeonsModel.file" Width="1.5" PointX="8" PointY="0.5" />
+        <AssociationConnector Association="pigeonsModel.FK_Files_Grouup" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
