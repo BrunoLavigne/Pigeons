@@ -71,7 +71,7 @@
 
                     <!-- TODO: flagged tasks -->
                     <div class="col-md-4">
-                        <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged</div>
+                        <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged (<asp:Label runat="server" ID="lblFlaggedTasksCount"></asp:Label>)</div>
 
                         <ul class="Tasks-container flagged">
 
@@ -98,7 +98,7 @@
                     <!-- Incompleted tasks -->
                     <div class="col-md-4">
 
-                        <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire</div>
+                        <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire (<asp:Label runat="server" ID="lblIncompletedTasksCount"></asp:Label>)</div>
 
                         <ul class="Tasks-container incompleted">
 
@@ -125,7 +125,7 @@
                     <!-- Completed tasks -->
                     <div class="col-md-4">
 
-                        <div class="title"><span class="glyphicon glyphicon-check"></span>Completé</div>
+                        <div class="title"><span class="glyphicon glyphicon-check"></span>Completé (<asp:Label runat="server" ID="lblCompletedTasksCount"></asp:Label>)</div>
 
                         <ul class="Tasks-container completed">
 

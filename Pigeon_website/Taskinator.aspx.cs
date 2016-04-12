@@ -144,5 +144,10 @@ public partial class Taskinator : System.Web.UI.Page
         listViewFlagged.DataSource = taskListFlagged;
         listViewFlagged.DataBind();
 
+        // bind count labels
+        lblIncompletedTasksCount.Text = taskListIncompleted.Count.ToString();
+        lblCompletedTasksCount.Text = taskListCompleted.Count.ToString();
+        lblFlaggedTasksCount.Text = taskListFlagged.Count.ToString();
+
     }
 }
