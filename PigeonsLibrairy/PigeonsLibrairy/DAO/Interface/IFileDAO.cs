@@ -1,9 +1,5 @@
 ﻿using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
@@ -13,5 +9,7 @@ namespace PigeonsLibrairy.DAO.Interface
     internal interface IFileDAO : IDAO<file>
     {
         IEnumerable<file> GetFilesByGroup(pigeonsEntities1 context, object groupID);
+
+        IEnumerable<file> GetByFilePath(pigeonsEntities1 context, object filePath);
     }
 }
