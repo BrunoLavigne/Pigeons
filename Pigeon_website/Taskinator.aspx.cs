@@ -160,4 +160,11 @@ public partial class Taskinator : System.Web.UI.Page
         taskDueTime.Text = "";
         taskFlagged.Checked = false;
     }
+
+
+    protected void btnDeleteTask_Click(object sender, EventArgs e)
+    {
+        CheckBox checkbox = (CheckBox)sender;
+        HiddenField lblIdField = (HiddenField)checkbox.Parent.FindControl("TaskIdHolder");
+    }
 }

@@ -138,7 +138,12 @@
                                             <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
 			                            </label>
 
-			                            <div class="content">
+                                        <asp:CheckBox runat="server" ID="checkBox1" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" />
+			                            
+                                        <asp:Button runat="server" ID="btnDeleteTask" AutoPostBack="true" Text="Supprimer" OnClick="btnDeleteTask_Click" />
+
+
+                                        <div class="content">
 				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
 				                            <div class="due-date"><%# Eval("task_datetime") %></div>
 			                            </div>
