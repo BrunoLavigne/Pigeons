@@ -119,7 +119,7 @@ public partial class Taskinator : System.Web.UI.Page
         // Get all incompleted UNFLAGGED tasks from group
         foreach (task t in groupFacade.GetGroupTasks(groupId, false))
         {
-            if( ! t.Is_important ?? false )
+            if( ! t.Is_important ?? true )
             {
                 taskListIncompleted.Add(t);
             }
@@ -164,7 +164,12 @@ public partial class Taskinator : System.Web.UI.Page
 
     protected void btnDeleteTask_Click(object sender, EventArgs e)
     {
-        CheckBox checkbox = (CheckBox)sender;
-        HiddenField lblIdField = (HiddenField)checkbox.Parent.FindControl("TaskIdHolder");
+        Button btn = (Button) sender;
+        HiddenField hiddenIdField = (HiddenField) btn.Parent.FindControl("TaskIdHolder");
+
+        groupFacade.DeleteTask(int.Parse(hiddenIdField.Value));
+
+        refreshGroupTasks();
+
     }
 }

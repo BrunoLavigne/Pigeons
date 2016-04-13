@@ -136,11 +136,13 @@
 			                            <label class="checkbox-wrapper">
                                             <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
                                             <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                            </label>
-
-                                        <asp:CheckBox runat="server" ID="checkBox1" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" />
 			                            
-                                        <asp:Button runat="server" ID="btnDeleteTask" AutoPostBack="true" Text="Supprimer" OnClick="btnDeleteTask_Click" />
+                                        
+                                        </label>
+
+                                        <!-- we shouldn't have two hiddenfields... -->
+			                            <%--<asp:HiddenField ID="TaskIdHolder2" runat="server" Value='<%#Eval("id") %>' />--%>
+                                        <asp:Button CssClass="btn-delete-task" runat="server" ID="btnDeleteTask" AutoPostBack="true" Text="X" OnClick="btnDeleteTask_Click" />
 
 
                                         <div class="content">

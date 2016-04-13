@@ -7,6 +7,23 @@
     font-family: Montserrat, Arial, sans-serif;
 }
 
+.Tasks-app .Task-container {
+	padding: 12px 0;
+    position: relative;
+}
+
+.Tasks-app .btn-delete-task {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    background: #A94442;
+    color: white;
+    border: 1px solid #750000;
+}
+
 .Tasks-app .title {
     font-size: 22px;
     margin: 8px 0;
@@ -32,10 +49,6 @@
 /* Don't give a border for the last tasks container */
 .Tasks-container li:not(:last-child) {
 	border-bottom: 1px solid #eee;
-}
-
-.Task-container {
-	padding: 12px 0;
 }
 
 .Tasks-app input[type="checkbox"] {
