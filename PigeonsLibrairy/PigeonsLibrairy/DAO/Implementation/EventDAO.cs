@@ -39,11 +39,11 @@ namespace PigeonsLibrairy.DAO.Implementation
         }
 
         /// <summary>
-        /// Retourne une liste d'Events non complété d'un Group par mois
+        /// Retourne une liste d'Events non complété d'un Group par mois/année
         /// </summary>
         /// <param name="context">La connection</param>
         /// <param name="groupID">Le ID du groupe</param>
-        /// <param name="monthID">Le mois à afficher</param>
+        /// <param name="date">La date à afficher afficher</param>
         /// <returns></returns>
         public IEnumerable<@event> GetGroupEventByMonth(pigeonsEntities1 context, object groupID, object date)
         {

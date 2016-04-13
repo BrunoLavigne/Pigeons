@@ -22,9 +22,10 @@ namespace PigeonsLibrairy.DAO.Implementation
         public TaskDAO() : base() { }
 
         /// <summary>
-        /// Recherche des Task qui ne sont pas compétés
+        /// Recherche des Task d'un group
         /// </summary>
-        /// <param name="groupID"></param>
+        /// <param name="groupID">Le ID du group pour lequel nous voulons les tasks</param>
+        /// <param name="completed">True si nous cherchons les task complété, False pour les non complété</param>
         /// <returns></returns>
         public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {
@@ -43,12 +44,12 @@ namespace PigeonsLibrairy.DAO.Implementation
         }
 
         /// <summary>
-        /// Get a task by searching a value in a column
+        /// Recherche d'un task en recherchant une valeur dans une colonne donnée
         /// </summary>
-        /// <param name="context">The connection</param>
-        /// <param name="columnName">The name of the column in the table</param>
-        /// <param name="value">The value to search</param>
-        /// <returns>A list of task that match the query</returns>
+        /// <param name="context">La connection à la base de données</param>
+        /// <param name="columnName">Le nom de la colonne</param>
+        /// <param name="value">La valeur à rechercher</param>
+        /// <returns>Une liste de task qui correspondes à la recherche, une liste vide sinon</returns>
         public new IEnumerable<task> GetBy(pigeonsEntities1 context, string columnName, object value)
         {
             Expression<Func<task, bool>> filter = null;

@@ -12,15 +12,44 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table ChatHistory
+    /// </summary>
     public partial class chathistory
     {
+        /// <summary>
+        /// Clé primaire de la table chatHistory
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// ID du group auquel le message appartient (Clé étrangère)
+        /// </summary>
         public int Group_ID { get; set; }
+
+        /// <summary>
+        /// Id de la person qui a écrit le message (Clé étrangère)
+        /// </summary>
         public int Author_ID { get; set; }
+
+        /// <summary>
+        /// Le message
+        /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Date d'envoi du message
+        /// </summary>
         public System.DateTime CreationDate { get; set; }
     
+        /// <summary>
+        /// Information sur le group
+        /// </summary>
         public virtual group group { get; set; }
+
+        /// <summary>
+        /// Information sur la person
+        /// </summary>
         public virtual person person { get; set; }
     }
 }

@@ -12,16 +12,44 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table Assignation dans la base de données
+    /// </summary>
     public partial class assignation
     {
+        /// <summary>
+        /// Colonne Person_ID
+        /// </summary>
         public const string COLUMN_PERSON_ID = "person_id";
+
+        /// <summary>
+        /// Colonne Task_ID
+        /// </summary>
         public const string COLUMN_TASK_ID = "task_id";
 
+        /// <summary>
+        /// ID de l'assignation (clé primaire)
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// ID de la task assignée (Clé étrangère)
+        /// </summary>
         public int Task_ID { get; set; }
+
+        /// <summary>
+        /// ID de la personne assigné (clé étrangère)
+        /// </summary>
         public int Person_ID { get; set; }
     
+        /// <summary>
+        /// Informations sur la person assignée
+        /// </summary>
         public virtual person person { get; set; }
+
+        /// <summary>
+        /// Information sur la task assignée
+        /// </summary>
         public virtual task task { get; set; }
     }
 }

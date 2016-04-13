@@ -16,7 +16,9 @@ namespace PigeonsLibrairy.Controller
         private readonly string FILE_DIRECTORY_PATH;
         private IFileService fileService { get; set; }
 
-        // Constructors
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public FileController()
         {
             //FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("E:/Server_Files");
@@ -34,9 +36,9 @@ namespace PigeonsLibrairy.Controller
         }
 
         /// <summary>
-        // Function to upload a file on the server.
-        // Files are saved with a generated name being an incremental integer.
-        // Examples: 1.jpg, 2.jpg, 3.pdf, 4.png ...
+        /// Function to upload a file on the server.
+        /// Files are saved with a generated name being an incremental integer.
+        /// Examples: 1.jpg, 2.jpg, 3.pdf, 4.png ...
         /// </summary>
         /// <param name="fileByteArray">a Byte array of the file itself</param>
         /// <param name="fileExtension">a string of the original file's extension</param>
@@ -83,7 +85,7 @@ namespace PigeonsLibrairy.Controller
                 // find all files
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 // bla bla bla exception handling...
             }
