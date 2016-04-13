@@ -17,10 +17,24 @@ namespace PigeonsLibrairy.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public person()
         {
-            this.messages = new HashSet<message>();
+            this.assignations = new HashSet<assignation>();
+            this.chathistories = new HashSet<chathistory>();
             this.followings = new HashSet<following>();
+            this.messages = new HashSet<message>();
         }
-    
+
+        public const string COLUMN_PERSON_ID = "person_id";
+        public const string COLUMN_NAME = "name";
+        public const string COLUMN_EMAIL = "email";
+        public const string COLUMN_PASSWORD = "password";
+        public const string COLUMN_INSCRIPTION_DATE = "inscription_date";
+        public const string COLUMN_BIRTH_DATE = "birth_date";
+        public const string COLUMN_PHONE_NUMBER = "phone_number";
+        public const string COLUMN_ORGANIZATION = "organization";
+        public const string COLUMN_POSITION = "position";
+        public const string COLUMN_DESCRIPTION = "description";
+        public const string COLUMN_ALL = "all";
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -34,8 +48,12 @@ namespace PigeonsLibrairy.Model
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<message> messages { get; set; }
+        public virtual ICollection<assignation> assignations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<chathistory> chathistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<message> messages { get; set; }
     }
 }

@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="PigeonsLibrairy.DAO.GenericDAO&lt;TEntity&gt;" Collapsed="true">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAEAAAAAAAABAAAAAAAAAAAEAAAAACAAAgAAAAAA=</HashCode>
+      <FileName>DAO\GenericDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.PersonDAO_toremove" Collapsed="true">
+    <Position X="23.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\PersonDAO_toremove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.DAO&lt;TEntity&gt;" Collapsed="true">
+    <Position X="12.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAAAAAAAAEIAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\DAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.FollowingDAO" Collapsed="true">
+    <Position X="12.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAoAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\FollowingDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.GroupDAO" Collapsed="true">
+    <Position X="16.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\GroupDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.MessageDAO" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\MessageDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.PersonDAO" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\PersonDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.ProjectDAO" Collapsed="true">
+    <Position X="10" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\ProjectDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.TaskDAO" Collapsed="true">
+    <Position X="14.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\TaskDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.DAO.Implementation.TypeDAO" Collapsed="true">
+    <Position X="19" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Implementation\TypeDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.FollowingService" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAEAAAAAAAAoABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Implementation\FollowingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.GroupService" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAABAAAAAAAAAAIABAAAAAAACAAAAA=</HashCode>
+      <FileName>Service\Implementation\GroupService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.MessageService" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAABAAAAAIAAAAAAEAAAAEAAA=</HashCode>
+      <FileName>Service\Implementation\MessageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.PersonService" Collapsed="true">
+    <Position X="16.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEAAAAEAAAAAAAAAAAAAIAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Service\Implementation\PersonService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.ProjectService" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Implementation\ProjectService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.Service&lt;TEntity&gt;" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAEAAAAAAAABAAAAAAAAAAAEIAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>Service\Implementation\Service.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.TaskService" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Implementation\TaskService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Service.Implementation.TypeService" Collapsed="true">
+    <Position X="19" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Service\Implementation\TypeService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Facade.Implementation.GroupFacade" Collapsed="true">
+    <Position X="25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facade\Implementation\GroupFacade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.Facade.Implementation.HomeFacade" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACAAAQAQAQAAAAAAAAAAAAAAAAAAAAAAAAAQCAAAAA=</HashCode>
+      <FileName>Facade\Implementation\HomeFacade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PigeonsLibrairy.Controller.MainController" Collapsed="true">
+    <Position X="21.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAgAAAIAAAAJAAAAIQAABAMAAAAIAAAAAAAACAAIA=</HashCode>
+      <FileName>Controller\MainController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.Exceptions.ControllerException" Collapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ControllerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PigeonsLibrairy.Exceptions.ServiceException" Collapsed="true">
+    <Position X="25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ServiceException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IDAO&lt;TEntity&gt;" Collapsed="true">
+    <Position X="21.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAAAAAAAAEIAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IFollowingDAO" Collapsed="true">
+    <Position X="23.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IFollowingDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IGroupDAO" Collapsed="true">
+    <Position X="25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IGroupDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IMessageDAO" Collapsed="true">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IMessageDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IPersonDAO" Collapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IPersonDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.IProjectDAO" Collapsed="true">
+    <Position X="26.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\IProjectDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.ITaskDAO" Collapsed="true">
+    <Position X="21.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\ITaskDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.DAO.Interface.ITypeDAO" Collapsed="true">
+    <Position X="23.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\Interface\ITypeDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IFollowingService" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IFollowingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IGroupService" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Service\Interface\IGroupService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IMessageService" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IMessageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IPersonService" Collapsed="true">
+    <Position X="16.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IPersonService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IProjectService" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\IProjectService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.IService&lt;TEntity&gt;" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAAAAAAAAEIAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>Service\Interface\IService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.ITaskService" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\ITaskService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Service.Interface.ITypeService" Collapsed="true">
+    <Position X="19" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Interface\ITypeService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Facade.Interface.IGroupFacade" Collapsed="true">
+    <Position X="26.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facade\Interface\IGroupFacade.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PigeonsLibrairy.Facade.Interface.IHomeFacade" Collapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACAAAQAQAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Facade\Interface\IHomeFacade.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
