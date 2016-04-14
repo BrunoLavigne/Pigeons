@@ -1,97 +1,72 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using PigeonsLibrairy.Facade.Implementation;
+using PigeonsLibrairy.Facade.Interface;
+using PigeonsLibrairy.Model;
 using SignalRChat.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SignalRChat
 {
+    [HubName("chatHub")]
     public class ChatHub : Hub
     {
         #region Data Members
 
-        static List<UserDetail> ConnectedUsers = new List<UserDetail>();
-        static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+        public List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        private IGroupFacade groupFacade = new GroupFacade();
+        private List<MessageDetail> CurrentMessage = new List<MessageDetail>();
 
-        #endregion
+        #endregion Data Members
 
-        #region Methods
-
-        public void Connect(string userName)
+        public void Connect(string userName, int groupID)
         {
             var id = Context.ConnectionId;
-
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName });
+
+                List<chathistory> messagesHistory = groupFacade.GetGroupChatHistory(groupID);
 
                 // send to caller
                 Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
                 // send to all except caller client
                 Clients.AllExcept(id).onNewUserConnected(id, userName);
-
             }
-
         }
 
-        public void SendMessageToAll(string userName, string message)
+        public void SendMessage(SendData data)
         {
-            // store last 100 messages in cache
-            AddMessageinCache(userName, message);
+            Clients.Group(data.roomName, Context.ConnectionId).newMessage(data.name + ": " + data.message);
 
-            // Broad cast message
-            Clients.All.messageReceived(userName, message);
+            chathistory message = new chathistory();
+            message.Author_ID = int.Parse(data.name);
+            message.Group_ID = int.Parse(data.roomName);
+            message.Message = data.message;
+
+            groupFacade.InsertChatMessage(message);
         }
 
-        public void SendPrivateMessage(string toUserId, string message)
+        public void JoinRoom(string roomName)
         {
-
-            string fromUserId = Context.ConnectionId;
-
-            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
-
-            if (toUser != null && fromUser != null)
-            {
-                // send to 
-                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message);
-
-                // send to caller user
-                Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message);
-            }
-
+            Groups.Add(Context.ConnectionId, roomName);
+            ConnectedUsers.Add(new UserDetail { ConnectionId = Context.ConnectionId });
         }
 
-        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        public void LeaveRoom(string roomName)
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
-            {
-                ConnectedUsers.Remove(item);
-
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
-
-            }
-
-            return base.OnDisconnected(true);
+            Groups.Remove(Context.ConnectionId, roomName);
         }
-
-
-        #endregion
-
-        #region private Messages
-
-        private void AddMessageinCache(string userName, string message)
-        {
-            CurrentMessage.Add(new MessageDetail { UserName = userName, Message = message });
-
-            if (CurrentMessage.Count > 100)
-                CurrentMessage.RemoveAt(0);
-        }
-
-        #endregion
     }
 
+    public class SendData
+    {
+        public string message { get; set; }
+        public string roomName { get; set; }
+        public string name { get; set; }
+    }
 }

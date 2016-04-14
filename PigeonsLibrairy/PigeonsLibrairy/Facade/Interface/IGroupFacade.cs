@@ -10,23 +10,29 @@ namespace PigeonsLibrairy.Facade.Interface
     {
         // Group
         group CreateNewGroupAndRegister(group newGroup, object personID);
+
         bool CloseGroup(object adminID, object groupID);
 
-        // Person    
+        // Person
         void AddPersonToGroup(object adminID, object personToAddID, object groupID);
 
         // Following
         List<person> GetGroupFollowers(object groupID);
+
         bool RemoveTheFollower(object groupID, object followerID);
+
         bool PersonIsGroupAdmin(object activePersonID, object activeGroupID);
 
         // Message
         bool CreateNewMessage(message messageToCreate);
+
         List<message> GetGroupMessages(object groupID);
 
         // Task
         task CreateNewTask(task newTask, object groupID, object personID);
+
         List<task> GetGroupTasks(object groupID);
+
         void TaskIsCompleted(object taskID);
 
         // Assignation
@@ -34,6 +40,12 @@ namespace PigeonsLibrairy.Facade.Interface
 
         // Event
         @event CreateNewEvent(@event newEvent);
+
         List<@event> GetGroupEvent(object groupID);
+
+        // ChatHistory
+        void InsertChatMessage(chathistory chatMessage);
+
+        List<chathistory> GetGroupChatHistory(object groupID);
     }
 }

@@ -12,5 +12,8 @@ namespace PigeonsLibrairy.Service.Interface
     /// </summary>
     public interface IChatHistoryService : IService<chathistory>
     {
+        void InsertChatMessage(chathistory chatMessage);
+
+        IEnumerable<chathistory> GetAllMessagesFromGroup(object groupID);
     }
 }

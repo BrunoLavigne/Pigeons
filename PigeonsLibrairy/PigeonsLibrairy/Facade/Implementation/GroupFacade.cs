@@ -1,10 +1,10 @@
-﻿using PigeonsLibrairy.Facade.Interface;
+﻿using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Facade.Interface;
+using PigeonsLibrairy.Log;
+using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PigeonsLibrairy.Model;
-using PigeonsLibrairy.Exceptions;
-using PigeonsLibrairy.Log;
-using System;
 
 namespace PigeonsLibrairy.Facade.Implementation
 {
@@ -16,7 +16,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// <summary>
         /// Constructeur
         /// </summary>
-        public GroupFacade() : base() {}
+        public GroupFacade() : base() { }
 
         #region Group
 
@@ -73,11 +73,11 @@ namespace PigeonsLibrairy.Facade.Implementation
                 ExceptionLog.LogTheError(serviceException.Message);
                 return false;
             }
-        }     
+        }
 
         /// <summary>
         /// Ajouter une personne à son groupe
-        /// </summary>        
+        /// </summary>
         public void AddPersonToGroup(object adminID, object personToAddID, object groupID)
         {
             try
@@ -92,7 +92,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Recherche des personnes qui suivent un groupe (following)
-        /// </summary>        
+        /// </summary>
         public List<person> GetGroupFollowers(object groupID)
         {
             try
@@ -108,7 +108,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Vérification si la personne est l'administrateur du groupe
-        /// </summary>        
+        /// </summary>
         public bool PersonIsGroupAdmin(object activePersonID, object activeGroupID)
         {
             try
@@ -141,7 +141,7 @@ namespace PigeonsLibrairy.Facade.Implementation
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Recherche des message d'un groupe
         /// </summary>
@@ -164,7 +164,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Recherche de toutes les Tasks associées à un groupe
-        /// </summary>        
+        /// </summary>
         public List<task> GetGroupTasks(object groupID)
         {
             try
@@ -196,7 +196,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Marque une assignation comme étant complétée
-        /// </summary>        
+        /// </summary>
         public void TaskIsCompleted(object taskID)
         {
             try
@@ -205,7 +205,7 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
             catch (ServiceException serviceException)
             {
-                ExceptionLog.LogTheError(serviceException.Message);                
+                ExceptionLog.LogTheError(serviceException.Message);
             }
         }
 
@@ -274,15 +274,30 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public List<chathistory> GetGroupChatHistory(object groupID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return mainControl.ChatHistoryService.GetAllMessagesFromGroup(groupID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
         /// Insertion du message dans la base de données
-        /// </summary>        
+        /// </summary>
         public void InsertChatMessage(chathistory chatMessage)
         {
-            throw new NotImplementedException();
+            try
+            {
+                mainControl.ChatHistoryService.InsertChatMessage(chatMessage);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+            }
         }
 
         #endregion ChatHistory
