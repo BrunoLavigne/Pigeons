@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="uc" TagName="TodosGroupModal" Src="~/Partials/GroupTodosModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -92,7 +93,7 @@
                 <ContentTemplate>
 
                     <div class="form-group"">
-                        <asp:TextBox runat="server" TextMode="MultiLine" ID="txtNewMessage" CssClass="form-control" placeholder="Composer un message..."></asp:TextBox>
+                        <asp:TextBox runat="server" TextMode="MultiLine" ID="txtNewMessage" CssClass="form-control summernote" placeholder="Composer un message..."></asp:TextBox>
                     </div>
 
                     <div class="form-group">
@@ -209,4 +210,13 @@
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    <script src="Resources/Vendor/summernote/summernote.min.js"></script>
+    <script>
+
+        // Start summernote plugin on textbox
+        $(document).ready(function () {
+            $(".summernote").summernote();
+        });
+
+    </script>
 </asp:Content>
