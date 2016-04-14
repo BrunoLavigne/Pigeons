@@ -135,8 +135,8 @@
     }
 
     .Group-message .profile-picture-container img {
-        width: 100%;
-        height: auto;
+        width: 50px;        /* revoir */
+        height: 50px;
         border-radius: 50%;
     }
 

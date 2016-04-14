@@ -119,6 +119,8 @@ public partial class Taskinator : System.Web.UI.Page
         // Get all incompleted UNFLAGGED tasks from group
         foreach (task t in groupFacade.GetGroupTasks(groupId, false))
         {
+
+            // Get all unimportant/null ones
             if( ! t.Is_important ?? true )
             {
                 taskListIncompleted.Add(t);
@@ -128,6 +130,7 @@ public partial class Taskinator : System.Web.UI.Page
         // Get all flagged tasks that are not completed
         foreach (task t in groupFacade.GetGroupTasks(groupId, false))
         {
+
             // ( "??" : If t.Is_Important is null, then assume it is not important)
             if ( t.Is_important ?? false )
             {

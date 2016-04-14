@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" ValidateRequest="false" %>
 <%@ Register TagPrefix="uc" TagName="NewGroupMessageModal" Src="~/Partials/NewGroupMessageModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
@@ -85,33 +85,52 @@
 
 
         <div class="Group-messages-container">
-            <asp:ListView ID="messagesListView" runat="server">
-                <ItemTemplate>
 
-                    <div class="Group-message row">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
 
-                        <div class="user-info col-sm-1">
+                <ContentTemplate>
 
-                            <!-- User profile picture here -->
-                            <div class="profile-picture-container">
-                                <img class="" src="http://placehold.it/300/300" alt="UserName profile picture">
-                            </div>
+                    <div class="form-group"">
+                        <asp:TextBox runat="server" TextMode="MultiLine" ID="txtNewMessage" CssClass="form-control" placeholder="Composer un message..."></asp:TextBox>
+                    </div>
 
-                        </div><!-- /.user-info -->
+                    <div class="form-group">
+                        <asp:Button runat="server" ID="btnNewMessage" CssClass="btn btn-success" OnClick="btnNewMessage_Click" Text="Envoyer" />
+                    </div>
 
-                        <div class="content col-sm-11">
-                            <div class="post-info">
-                                Michael Scott - 99/99/9999
-                            </div>
+                    <asp:ListView ID="messagesListView" runat="server">
+                        <ItemTemplate>
 
-                            <asp:Label runat="server" Text='<%#Eval("content") %>'></asp:Label>
+                            <div class="Group-message row">
 
-                        </div><!-- /.content -->
+                                <div class="user-info col-sm-1">
 
-                    </div><!-- /.Group-message -->
+                                    <!-- User profile picture here -->
+                                    <div class="profile-picture-container">
+                                        <img class="" src='<%# Eval("profile_picture_link") %>' alt="UserName profile picture">
+                                    </div>
+
+                                </div><!-- /.user-info -->
+
+                                <div class="content col-sm-11">
+                                    <div class="post-info">
+                                        <%# Eval("author") %> - <%# Eval("date_created") %>
+                                    </div>
+
+                                    <asp:Label runat="server" Text='<%#Server.HtmlDecode(Eval("content").ToString()) %>'></asp:Label>
+
+                                </div><!-- /.content -->
+
+                            </div><!-- /.Group-message -->
                     
-                </ItemTemplate>
-            </asp:ListView>
+                        </ItemTemplate>
+                    </asp:ListView>
+
+                </ContentTemplate>
+
+            </asp:UpdatePanel>
+
         </div>
 
 
