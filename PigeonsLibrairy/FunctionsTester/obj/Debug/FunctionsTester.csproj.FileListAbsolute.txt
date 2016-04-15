@@ -1,0 +1,6 @@
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.csprojResolveAssemblyReference.cache
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.Form1.resources
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.Form2.resources
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.GroupView.resources
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.Properties.Resources.resources
+C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.csproj.GenerateResource.Cache

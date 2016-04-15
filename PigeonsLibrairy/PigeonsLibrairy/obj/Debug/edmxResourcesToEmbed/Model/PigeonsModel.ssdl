@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pigeonsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="assignation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Task_ID" Type="int" Nullable="false" />
+    <Property Name="Person_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="event">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="Group_ID" Type="int" Nullable="false" />
+    <Property Name="Event_Start" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Event_End" Type="datetime" Precision="0" />
+    <Property Name="Is_Completed" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="following">
+    <Key>
+      <PropertyRef Name="Person_Id" />
+      <PropertyRef Name="Group_id" />
+    </Key>
+    <Property Name="Person_Id" Type="int" Nullable="false" />
+    <Property Name="Group_id" Type="int" Nullable="false" />
+    <Property Name="Is_admin" Type="bool" Nullable="false" />
+    <Property Name="Last_checkin" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Is_active" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Creation_date" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Group_picture_link" Type="text" />
+    <Property Name="Is_active" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author_Id" Type="int" Nullable="false" />
+    <Property Name="Group_Id" Type="int" Nullable="false" />
+    <Property Name="Content" Type="text" Nullable="false" />
+    <Property Name="Date_created" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="text" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Inscription_date" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Profile_picture_link" Type="text" />
+    <Property Name="Birth_date" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Phone_number" Type="varchar" MaxLength="10" />
+    <Property Name="Organization" Type="varchar" MaxLength="100" />
+    <Property Name="Position" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="text" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="Author_ID" Type="int" Nullable="false" />
+    <Property Name="Group_ID" Type="int" Nullable="false" />
+    <Property Name="Task_Start" Type="datetime" Precision="0" />
+    <Property Name="Task_End" Type="datetime" Precision="0" />
+    <Property Name="Is_completed" Type="bool" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Assignation_Person">
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="assignation" Type="Self.assignation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="assignation">
+        <PropertyRef Name="Person_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignation_Task">
+    <End Role="task" Type="Self.task" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="assignation" Type="Self.assignation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="assignation">
+        <PropertyRef Name="Task_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Group">
+    <End Role="group" Type="Self.group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="event" Type="Self.event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="event">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_following_group">
+    <End Role="group" Type="Self.group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="following" Type="Self.following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="following">
+        <PropertyRef Name="Group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_following_person">
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="following" Type="Self.following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="following">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_message_group">
+    <End Role="group" Type="Self.group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="messages" Type="Self.messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="Group_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_message_person">
+    <End Role="person" Type="Self.person" Multiplicity="1" />
+    <End Role="messages" Type="Self.messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="messages">
+        <PropertyRef Name="Author_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Group">
+    <End Role="group" Type="Self.group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_Person">
+    <End Role="person" Type="Self.person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="task" Type="Self.task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="task">
+        <PropertyRef Name="Author_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="pigeonsModelStoreContainer">
+    <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="messages" EntityType="Self.messages" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="person" EntityType="Self.person" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="task" EntityType="Self.task" Schema="pigeons" store:Type="Tables" />
+    <AssociationSet Name="FK_Assignation_Person" Association="Self.FK_Assignation_Person">
+      <End Role="person" EntitySet="person" />
+      <End Role="assignation" EntitySet="assignation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignation_Task" Association="Self.FK_Assignation_Task">
+      <End Role="task" EntitySet="task" />
+      <End Role="assignation" EntitySet="assignation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Group" Association="Self.FK_Event_Group">
+      <End Role="group" EntitySet="group" />
+      <End Role="event" EntitySet="event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
+      <End Role="group" EntitySet="group" />
+      <End Role="following" EntitySet="following" />
+    </AssociationSet>
+    <AssociationSet Name="FK_following_person" Association="Self.FK_following_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="following" EntitySet="following" />
+    </AssociationSet>
+    <AssociationSet Name="FK_message_group" Association="Self.FK_message_group">
+      <End Role="group" EntitySet="group" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_message_person" Association="Self.FK_message_person">
+      <End Role="person" EntitySet="person" />
+      <End Role="messages" EntitySet="messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Group" Association="Self.FK_Task_Group">
+      <End Role="group" EntitySet="group" />
+      <End Role="task" EntitySet="task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_Person" Association="Self.FK_Task_Person">
+      <End Role="person" EntitySet="person" />
+      <End Role="task" EntitySet="task" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
