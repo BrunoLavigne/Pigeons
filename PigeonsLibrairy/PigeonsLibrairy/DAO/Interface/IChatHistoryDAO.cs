@@ -10,7 +10,8 @@ namespace PigeonsLibrairy.DAO.Interface
     /// <summary>
     /// Interface pour la classe <see cref="chathistory"/>
     /// </summary>
-    interface IChatHistoryDAO : IDAO<chathistory>
+    internal interface IChatHistoryDAO : IDAO<chathistory>
     {
+        IEnumerable<chathistory> GetAllMessagesByGroup(pigeonsEntities1 context, object groupID);
     }
 }
