@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Implementation;
 using System;
@@ -15,10 +16,14 @@ namespace UnitTesting.TestService
     [TestClass]
     public class personService_Test
     {
+        /// <summary>
+        /// Le service à tester
+        /// </summary>
         private PersonService personService { get; set; }
 
-        private TestContext testContextInstance;
-
+        /// <summary>
+        /// Création du service pour les tests
+        /// </summary>
         [TestInitialize()]
         public void MyTestInitialize()
         {
@@ -26,7 +31,7 @@ namespace UnitTesting.TestService
         }
 
         /// <summary>
-        /// Création du service pour les tests
+        /// Remise des variables è null
         /// </summary>
         [TestCleanup()]
         public void MyTestCleanup()
@@ -35,23 +40,74 @@ namespace UnitTesting.TestService
         }
 
         /// <summary>
-        /// Remise du service è null à la fin de chaque test
+        /// Test de la méthode <see cref="PersonService.RegisterNewUser(person, string, string)"/>
+        /// La person à ajouter est null. Une ServiceException devrait être lancée
         /// </summary>
         [TestMethod]
-        public void RegisterNewUserTest()
+        [ExpectedException(typeof(ServiceException), "Une nouvelle personne null devrait lancer une ServiceException")]
+        public void RegisterNewUserTest_nullPerson()
         {
-            var mockSet = new Mock<DbSet<person>>();
+            personService.RegisterNewUser(null, null, null);
+        }
 
-            var mockContext = new Mock<pigeonsEntities1>();
-            mockContext.Setup(p => p.people).Returns(mockSet.Object);
+        /// <summary>
+        /// Test de la méthode <see cref="PersonService.RegisterNewUser(person, string, string)"/>
+        /// Le email n'est pas le même que celui de la confirmation. Une ServiceException devrait être lancée
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException), "Le email n'est pas le même que celui de la confirmation. Devrait lancer une ServiceException")]
+        public void RegisterNewUserTest_DifferentEmail()
+        {
+            person person = new person();
+            person.Email = "unittester@gmail.com";
+            const string wrongEmailValidation = "gmail@unittester.com";
 
-            //var service = new BlogService(mockContext.Object);
-            //service.AddBlog("ADO.NET Blog", "http://blogs.msdn.com/adonet");
+            personService.RegisterNewUser(person, wrongEmailValidation, null);
+        }
 
-            //mockSet.Verify(m => m.Add(It.IsAny<Blog>()), Times.Once());
-            //mockContext.Verify(m => m.SaveChanges(), Times.Once());
+        /// <summary>
+        /// Test de la méthode <see cref="PersonService.RegisterNewUser(person, string, string)"/>
+        /// La validation du mot de passe n'est pas bonne. Une ServiceException devrait être lancée
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException), "La validation du mot de passe n'est pas bonne. Devrait lancer une ServiceException")]
+        public void RegisterNewUserTest_DifferentPassword()
+        {
+            person person = new person();
+            person.Email = "unittester@gmail.com";
+            person.Password = "1234";
 
-            //personService.RegisterNewUser()
+            const string emailValidtion = "unittester@gmail.com";
+            const string wrongPwValidation = "4321";
+
+            personService.RegisterNewUser(person, emailValidtion, wrongPwValidation);
+        }
+
+        /// <summary>
+        /// Test de la méthode <see cref="PersonService.RegisterNewUser(person, string, string)"/>
+        /// La personne existe déjà. Une ServiceException devrait être lancée
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException), "La personne existe déjà. Devrait lancer une ServiceException")]
+        public void RegisterNewUserTest_ExistingUser()
+        {
+            person person = personService.GetByID(3);
+            personService.RegisterNewUser(person, person.Email, person.Password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ServiceException), "Le username est null. Devrait lancer une ServiceException")]
+        public void LoginValidationTest_NullUsername()
+        {
+            personService.LoginValidation(null, "1234");
+        }
+
+        [TestMethod]
+        public void LoginValidationTest_NullPassword()
+        {
+            person person = personService.GetByID(3);
+            person validation = personService.LoginValidation(person.Email, person.Password);
+            Assert.AreEqual(person, validation);
         }
     }
 }
