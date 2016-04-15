@@ -157,6 +157,28 @@
         max-width: 100%;
     }
 
+
+.Sidebar {
+    position: fixed;
+    right: 0;
+    padding: 12px;
+    background: #337ab7;
+    border-radius: 13px 0 0 13px;
+    z-index: 2;
+}
+    .Sidebar ul {
+        padding: 0;
+        margin-bottom: 0;
+    }
+    .Sidebar li {
+        list-style-type: none;
+        padding: 16px;
+    }
+    .Sidebar a {
+        font-size: 20px;
+        color: #fff;
+    }
+
 @media screen and (max-width: 768px) {
 
     .Group-message .profile-picture-container {

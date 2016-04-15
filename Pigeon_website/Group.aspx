@@ -12,6 +12,33 @@
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
 
+    <!-- The sidebar to navigate to the different sections -->
+    <div class="Sidebar">
+        <ul>
+            <li>
+                <a href="#messages-section">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#events-section">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#tasks-section">
+                    <span class="glyphicon glyphicon-check"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#files-section">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
@@ -89,7 +116,7 @@
         <!-------------->
         <!-- MESSAGES -->
         <!-------------->
-        <div class="Group-messages-container">
+        <div class="Group-messages-container" id="messages-section">
 
             
             <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
@@ -150,7 +177,7 @@
         <!------------>
         <!-- EVENTS -->
         <!------------>
-        <div class="Group-events-container">
+        <div class="Group-events-container" id="events-section">
 
             <div class="container Events-app">
 
@@ -228,7 +255,7 @@
         <!----------->
         <!-- TASKS -->
         <!----------->
-        <div class="Group-tasks-container">
+        <div class="Group-tasks-container" id="tasks-section">
                 
             <div class="container Tasks-app">
 
@@ -378,7 +405,7 @@
         <!----------->
         <!-- FILES -->
         <!----------->
-        <div class="Group-files-container">
+        <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
         </div>
         <!------------->
