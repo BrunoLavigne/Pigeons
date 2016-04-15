@@ -320,6 +320,11 @@
     <!-- Delete group modal -->
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
+
+
+    <!-- To avoid conflict with summernote js (bug with tooltip not positioned correctly on summernote buttons) -->
+    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
+
 </asp:Content>
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
@@ -327,11 +332,6 @@
 
 
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
-
-    <!-- Import jQuery Ui for datepicker -->
-    <!-- Todo: import only datepicker widget -->
-    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
-
 
     <script src="Resources/Vendor/summernote/summernote.min.js"></script>
     <script>
