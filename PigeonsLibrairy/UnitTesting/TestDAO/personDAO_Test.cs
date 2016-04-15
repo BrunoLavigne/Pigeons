@@ -9,7 +9,7 @@ using System.Text;
 namespace UnitTesting.TestDAO
 {
     /// <summary>
-    /// Summary description for personDAO_Test
+    /// Test des opération CRUD de la classe <see cref="PersonDAO"/> pour la table <see cref="person"/>
     /// </summary>
     [TestClass]
     public class personDAO_Test
