@@ -63,7 +63,7 @@ public partial class Group : System.Web.UI.Page
                 {
                     renderGroupToPage();
 
-                    eventsList = groupFacade.GetGroupEvent(16);
+                    eventsList = groupFacade.GetGroupEvent(groupId);
 
                     Session["events"] = eventsList;
                     Session["facade"] = groupFacade;
@@ -121,7 +121,6 @@ public partial class Group : System.Web.UI.Page
 
             lblGroupDateCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.LongDatePattern, frCA);
             lblGroupTimeCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.ShortDatePattern, frCA);
-            messagesListView.DataSource = groupFacade.GetGroupMessages(int.Parse(Request.Params["groupID"]));
             renderMessagesToPage();
             refreshGroupTasks();
 
@@ -132,6 +131,11 @@ public partial class Group : System.Web.UI.Page
         
     }
 
+    # region MESSAGES
+
+    /// <summary>
+    /// Display the group messages on the page
+    /// </summary>
     protected void renderMessagesToPage()
     {
 
@@ -157,6 +161,12 @@ public partial class Group : System.Web.UI.Page
         messagesListView.DataBind();
     }
 
+    /// <summary>
+    /// Create a new message
+    /// Encode it first to support html tags
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnNewMessage_Click(object sender, EventArgs e)
     {
 
@@ -179,15 +189,14 @@ public partial class Group : System.Web.UI.Page
         txtNewMessage.Text = "";
     }
 
+    #endregion MESSAGES
 
 
+    # region TASKS
 
-
-
-
-
-
-
+    /// <summary>
+    /// Clear the fields on the create a new task form
+    /// </summary>
     protected void clearFields()
     {
         taskDescription.Text = "";
@@ -198,6 +207,10 @@ public partial class Group : System.Web.UI.Page
 
     /// <summary>
     /// Distribute tasks on the page
+    /// 3 groups of tasks:
+    /// - A group of tasks is incompleted (not completed AND not flagged)
+    /// - A group of tasks is flagged (not completed AND flagged)
+    /// - A group of tasks is completed (doesn't matter if flagged or not)
     /// </summary>
     /// <param name="groupId"></param>
     protected void refreshGroupTasks()
@@ -246,7 +259,6 @@ public partial class Group : System.Web.UI.Page
         lblFlaggedTasksCount.Text = taskListFlagged.Count.ToString();
 
     }
-
 
 
     /// <summary>
@@ -307,7 +319,11 @@ public partial class Group : System.Web.UI.Page
 
 
 
-
+    /// <summary>
+    /// Delete a task
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeleteTask_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
@@ -320,7 +336,7 @@ public partial class Group : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Update a task
+    /// Toggle task completion
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -335,35 +351,13 @@ public partial class Group : System.Web.UI.Page
         groupFacade.UpdateTaskCompleted(taskId, checkbox.Checked);
 
         refreshGroupTasks();
+
     }
 
+    # endregion TASKS
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # region EVENTS
 
     /// <summary>
     /// Affichage des événements
@@ -417,7 +411,7 @@ public partial class Group : System.Web.UI.Page
     /// <param name="eventsList"></param>
     private void createEventTable(DateTime selectedDate)
     {
-        eventsList = groupFacade.GetGroupEvent(16, selectedDate); // DIRTY HARCODAGE { must use active group }
+        eventsList = groupFacade.GetGroupEvent(groupId, selectedDate); // DIRTY HARCODAGE { must use active group }
 
         Table1.Rows.Clear();
 
@@ -523,7 +517,7 @@ public partial class Group : System.Web.UI.Page
         newEvent.Description = eventDesc;
         newEvent.Event_Start = eventStart;
         newEvent.Event_End = eventEnd;
-        newEvent.Group_ID = 16; // DIRTY HARDCODAGE { PLACE ACTIVE GROUP ID }
+        newEvent.Group_ID = (int) groupId;
 
         groupFacade.CreateNewEvent(newEvent);
         createEventTable(Calendar1.VisibleDate);
@@ -543,7 +537,6 @@ public partial class Group : System.Web.UI.Page
         createEventTable(e.NewDate);
     }
 
-    #region BUTTONS
 
     /// <summary>
     /// Affichage du formulaire de création d'un Event
@@ -556,15 +549,7 @@ public partial class Group : System.Web.UI.Page
         newEvent.Visible = (visible) ? false : true;
     }
 
-    #endregion BUTTONS
-
-
-
-
-
-
-
-
+    #endregion EVENTS
 
 
 }
