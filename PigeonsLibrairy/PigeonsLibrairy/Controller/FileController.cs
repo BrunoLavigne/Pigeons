@@ -6,6 +6,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Web;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PigeonsLibrairy.Controller
 {
@@ -17,26 +19,157 @@ namespace PigeonsLibrairy.Controller
         private readonly string FILE_DIRECTORY_PATH;
         private IFileService fileService { get; set; }
         private DirectoryInfo directoryInfo { get; set; }
+        private IGroupService groupService { get; set; }
+        private IPersonService personService { get; set; }
+
+        #region Constructeurs
 
         /// <summary>
         /// Constructeur
         /// </summary>
         public FileController()
         {
-            //FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("E:/Server_Files");
+            FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("Server_Files");
             fileService = new FileService();
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="fileDirectoryPath">The path to the file directory to specify for the controller.</param>
+        /// <param name="fileDirectoryPath">The full path to the file directory to specify for the controller.</param>
         public FileController(string fileDirectoryPath)
         {
             FILE_DIRECTORY_PATH = fileDirectoryPath;
             fileService = new FileService();
             directoryInfo = new DirectoryInfo(fileDirectoryPath);
         }
+
+        #endregion Constructeurs
+
+
+        #region AspCalledMethods
+
+
+        /// <summary>
+        /// Method to add a person-associated picture file both physically on the server and in the database.
+        /// The file must be passed as a Byte array parameter.
+        /// </summary>
+        /// <param name="fileByteArray">The Byte array of the picture file itself.</param>
+        /// <param name="personID">The person ID (Int32) of the person the picture is associated to.</param>
+        /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
+        public void AddPictureToUser(Byte[] fileByteArray, int personID, string originalFileName)
+        {
+            person personne = personService.GetByID(personID);
+            personne.Profile_picture_link = SaveByteFile(fileByteArray, originalFileName);
+            personService.Update(personne);
+            file Fichier = new file();
+            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+            Fichier.FileName = originalFileName;
+            fileService.InsertFileInformations(Fichier);
+        }
+
+        /// <summary>
+        /// Method to add a group-associated picture file both physically on the server and in the database.
+        /// The file must be passed as a Byte array parameter.
+        /// </summary>
+        /// <param name="fileByteArray">The Byte array of the picture file itself.</param>
+        /// <param name="groupID">The group ID (Int32) of the group the picture is associated to.</param>
+        /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
+        public void AddPictureToGroup(Byte[] fileByteArray, int groupID, string originalFileName)
+        {
+            group groupe = groupService.GetByID(groupID);
+            groupe.Group_picture_link = SaveByteFile(fileByteArray, originalFileName);
+            groupService.Update(groupe);
+            file Fichier = new file();
+            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+            Fichier.FileName = originalFileName;
+            fileService.InsertFileInformations(Fichier);
+
+        }
+
+        /// <summary>
+        /// Method to add both physically on the server and in the database a file associated to a group.
+        /// The file must be passed as a Byte array parameter.
+        /// </summary>
+        /// <param name="fileByteArray">The Byte array of the file itself.</param>
+        /// <param name="groupID">The group ID (Int32) of the group the file is associated to.</param>
+        /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
+        public void AddAssociatedFileToGroup(Byte[] fileByteArray, int groupID, string originalFileName)
+        {
+            file Fichier = new file();
+            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+            Fichier.Group_ID = groupID;
+            Fichier.FileName = originalFileName;
+            fileService.InsertFileInformations(Fichier);
+        }
+
+        /// <summary>
+        /// Method to download a requested file.
+        /// Also sets the response's MIME type so the browser has an idea what to do with it.
+        /// </summary>
+        /// <param name="FilePath">The file path of the requested file.</param>
+        public void DownloadAFile(string FilePath)
+        {
+            FileInfo fileInfo = new FileInfo(FilePath);
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ClearHeaders();
+            HttpContext.Current.Response.ClearContent();
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileInfo.Name);
+            HttpContext.Current.Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+            HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.Name);
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.TransmitFile(fileInfo.FullName);
+            HttpContext.Current.Response.End();
+        }
+
+
+        /// <summary>
+        /// Suppression physique d'un fichier sur le serveur par son chemin d'accès.
+        /// </summary>
+        /// <param name="filePath">Le chemin d'accès du fichier à supprimer.</param>
+        public void DeleteFileByPath(string filePath)
+        {
+            try
+            {
+                // Efface le fichier sur le serveur
+                File.Delete(filePath);
+                fileService.DeleteFileByFilePath(filePath);
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Supprime sur le serveur et dans la base de données tous les fichiers associés à un groupe.
+        /// </summary>
+        /// <param name="groupID">L'ID du groupe dont les fichiers sont à supprimer</param>
+        public void DeleteAllGroupAssociatedFiles(int groupID)
+        {
+            try
+            {
+                List<file> listeEntreesFichiers = (List<file>)fileService.GetFilesByGroup(groupID);
+                foreach (file entreeFichier in listeEntreesFichiers)
+                {
+                    DeleteFileByPath(entreeFichier.FileURL);
+                }
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
+        }
+
+
+        #endregion AspCalledMethods
+
+
+        #region LocalMethods
+
 
         /// <summary>
         /// Function to upload a file on the server.
@@ -45,10 +178,9 @@ namespace PigeonsLibrairy.Controller
         /// </summary>
         /// <param name="fileByteArray">a Byte array of the file itself</param>
         /// <param name="originalFileName">a string of the original file's full name (name + extension)</param>
-        /// <returns>a FileInfo Object of the saved file, null if exception.</returns>
-        public FileInfo SaveByteFile(Byte[] fileByteArray, string originalFileName)
+        /// <returns>A string of the file path on the server</returns>
+        private string SaveByteFile(Byte[] fileByteArray, string originalFileName)
         {
-            FileInfo savedFileInfo = null;
             try
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.
@@ -68,49 +200,47 @@ namespace PigeonsLibrairy.Controller
                 string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + originalFileExtension;
                 // saves the file itself (Byte Array) at the new path.
                 File.WriteAllBytes(newFilePath, fileByteArray);
-                file Fichier = new file();
-                Fichier.ID = highestFileID + 1;
-                Fichier.FileURL = newFilePath;
-                Fichier.FileName = originalFileName;
-                Fichier.Creation_Date = DateTime.Now;
-
-
-
-                foreach (string file in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
-                {
-                    FileInfo foundFileInfo = new FileInfo(file);
-                    string fileFullName = foundFileInfo.Name;
-                    Debug.WriteLine("Nom du fichier: " + fileFullName);
-                    string[] nameParts = fileFullName.Split('.');
-                    int currentFileID = Int32.Parse(nameParts[0]);
-                    Debug.WriteLine("ID du fichier: " + currentFileID);
-                    if (currentFileID > highestFileID)
-                    {
-                        highestFileID = currentFileID;
-                    }
-                    Debug.WriteLine("ID maximale trouvé: " + highestFileID);
-                }
-                // generates the new file path and name.
-                string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + fileExtension; // NOTE: p-e nécessaire de rajouter le point avant extension, ou s'assurer qu'il soit déjà présent dans le strinhg passé en paramètre.
-                Debug.WriteLine("chemin de fichier uploadé généré: " + newFilePath);
-                // saves the file itself (Byte Array) at the new path.
-                File.WriteAllBytes(newFilePath, fileByteArray);
-                Debug.WriteLine("FileInfo: \nPath: " + savedFileInfo.ToString() + "\nName: " + savedFileInfo.Name + "\nExtension: " + savedFileInfo.Extension + "\nFullName: " + savedFileInfo.FullName);
+                return newFilePath;
             }
             catch (Exception error)
             {
                 Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
             }
-            return savedFileInfo;
         }
 
+
+        /// <summary>
+        /// Insertion des information d'un fichier dans la base de données
+        /// </summary>
+        /// <returns></returns>
+        private Boolean InsertInDataBase(file File)
+        {
+            Boolean InsertCompleted = false;
+            try
+            {
+                fileService.InsertFileInformations(File);
+                InsertCompleted = true;
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
+            return InsertCompleted;
+        }
+
+
+        #endregion LocalMethods
+
+
+        /*
         /// <summary>
         /// Function to retrieve a file from the server by its file integer code or filename as saved in the database
         /// </summary>
         /// <param name="fileName">The file name / integer code to lookup and retrieve.</param>
         /// <returns>A FileInfo object representing the file information on the server (path and such).</returns>
-        public FileInfo GetFileByName(string fileName)
+        public FileInfo GetFileByName(string filePath)
         {
             FileInfo fileToGet = null;
             try
@@ -119,74 +249,14 @@ namespace PigeonsLibrairy.Controller
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
                 Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
-            catch (Exception)
+            catch (Exception error)
             {
                 Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
             }
             return fileToGet;
         }
-
-        /// <summary>
-        /// Insertion des information d'un fichier dans la base de données
-        /// </summary>
-        /// <returns></returns>
-        public file InsertInDataBase(file File)
-        {
-            //fileService.
-            return null;
-        }
-
-        /******************************************************************************************
-
-        //###############################################
-
-                // Functions under this
-                // are for aspx.cs files
-                // and not for the controller
-                // snipp'd for easy copy
-
-        //###############################################
-
-                // for upload: required in the aspx page:
-                // FileUpload control which ID is represented here with <fileUpload>
-                // Button or control for starting the upload. the iploadFile method is called on click.
-                protected void uploadFile()
-                {
-                    if (<fileUpload>.HasFile){
-                        try {
-                            Byte[] fileBytes = <fileUpload>.FileBytes;
-                            string[] parts = <fileUpload>.FileName.Split(".");
-                            string extension = "."+ parts[parts.Length -1];
-                            FileInfo savedFileInfo = saveByteFile(fileBytes, extension);
-                            // shit d'affichage / modification à partir du FileInfo
-                            // Accessible: FileInfo.FileName (mon du fichier sauvegardé i.e. son integer code)
-                            // etc...
-                        }
-                        catch(Exception error)
-                        {
-                            // yadda yadda error handling
-                        }
-                    }
-                }
-
-                // Function fired when a webcontrol offering a download is activated
-                // {param} fileName (String) : the file name to download.
-                protected void fileDownloader(string fileName)
-                {
-                    try
-                    {
-                        HttpContext.Current.Response.ContentType = "application/octet-stream";
-                        HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
-                        HttpContext.Current.Response.TransmitFile(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH + fileName));
-                        HttpContext.Current.Response.End();
-                    }
-                    catch (Exception error)
-                    {
-                        // yadda yadda error handling
-                    }
-                }
-
-        *******************************************************************************************/
+        */
+        
     }
 }

@@ -11,35 +11,14 @@ using System.Web.UI.WebControls;
 public partial class FileUploadTest : System.Web.UI.Page
 {
     HomeFacade homeFacade = new HomeFacade();
+    private enum ActionType { NONE, SAVE_PERSON_PICTURE, SAVE_GROUP_PICTURE, SAVE_GROUP_FILE };
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        // something to retrieve the ID of the GROUP
     }
 
-    // Function fired when a webcontrol offering a download is activated
-    // {param} fileName (String) : the file name to download.
-    protected void fileDownloader(FileInfo file)
-    {
-        try
-        {
-
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.ClearHeaders();
-            HttpContext.Current.Response.ClearContent();
-            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name);
-            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
-            HttpContext.Current.Response.ContentType = "text/plain";
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.TransmitFile(file.FullName);
-            HttpContext.Current.Response.End();
-        }
-        catch (Exception error)
-        {
-            // yadda yadda error handling
-        }
-    }
-
-    protected void fileUploader()
+    private void fileUploader(int optionnalID = -1, ActionType optionnalActionType = ActionType.NONE)
     {
         if (FileUpload1.HasFile)
         {
@@ -50,31 +29,64 @@ public partial class FileUploadTest : System.Web.UI.Page
                 string[] parts = FileUpload1.FileName.Split('.');
                 string extension = "." + parts[parts.Length - 1];
                 System.Diagnostics.Debug.WriteLine("File extension: " + extension);
-                string filename = parts[0];
+                string filename = null;
+                for (int i=0; i<(parts.Length - 1); i++)
+                {
+                    if (i == 0)
+                    {
+                        filename += parts[i];
+                    }
+                    else
+                    {
+                        filename += "." + parts[i];
+                    }
+                }
                 System.Diagnostics.Debug.WriteLine("File Name: " + filename);
-                FileInfo savedFileInfo = homeFacade.fileControl.SaveByteFile(fileBytes, filename);
+                switch (optionnalActionType)
+                {
+                    case ActionType.NONE:
+                        break;
+                    case ActionType.SAVE_PERSON_PICTURE:
+                        homeFacade.fileControl.AddPictureToUser(fileBytes, optionnalID, filename);
+                        break;
+                    case ActionType.SAVE_GROUP_PICTURE:
+                        homeFacade.fileControl.AddPictureToGroup(fileBytes, optionnalID, filename);
+                        break;
+                    case ActionType.SAVE_GROUP_FILE:
+                        homeFacade.fileControl.AddAssociatedFileToGroup(fileBytes, optionnalID, filename);
+                        break;
+                }
             }
             catch (Exception error)
             {
                 System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
+                return;
             }
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void SaveUserPicture(object sender, EventArgs e)
     {
-        fileUploader();
+        // something to get the person ID (session attribute?)
+        int personID = 0;
+        fileUploader(personID, ActionType.SAVE_PERSON_PICTURE);
+    }
+    protected void SaveGroupPicture(object sender, EventArgs e)
+    {
+        // something to get the group ID (request parameter, ex &groupID=######## ?)
+        int personID = 0;
+        fileUploader(personID, ActionType.SAVE_GROUP_PICTURE);
+    }
+    protected void SaveGroupFile(object sender, EventArgs e)
+    {
+        // something to get the group ID (request parameter, ex &groupID=######## ?)
+        int personID = 0;
+        fileUploader(personID, ActionType.SAVE_GROUP_FILE);
     }
 
-    protected void ButtonGetFile1_Click(object sender, EventArgs e)
+    protected void DownloadButtonClick(Object sender, EventArgs e)
     {
-        FileInfo fileInfo = homeFacade.fileControl.GetFileByName("1.*");
-        fileDownloader(fileInfo);
-    }
-
-    protected void ButtonGetFile2_Click(object sender, EventArgs e)
-    {
-        FileInfo fileInfo = homeFacade.fileControl.GetFileByName("2.*");
-        fileDownloader(fileInfo);
+        Button button = (Button)sender;
+        homeFacade.fileControl.DownloadAFile(button.CommandArgument);
     }
 }

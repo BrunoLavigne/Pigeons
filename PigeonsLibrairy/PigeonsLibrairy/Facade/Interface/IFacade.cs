@@ -26,7 +26,7 @@ namespace PigeonsLibrairy.Facade.Interface
 
         #region File
 
-        file InsertFileInfo();
+        file InsertFileInfo(file fichier);
 
         #endregion File
     }

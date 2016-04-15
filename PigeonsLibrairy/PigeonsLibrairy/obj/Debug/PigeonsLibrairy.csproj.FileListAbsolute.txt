@@ -1,1 +1,5 @@
 C:\Users\Franz\Documents\GitHub\Pigeons\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache
+C:\Users\Marc-Éric Boury\Source\Repos\Pigeons2\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\PigeonsLibrairy.XML
+C:\Users\Marc-Éric Boury\Source\Repos\Pigeons2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache
+C:\Users\Marc-Éric Boury\Source\Repos\Pigeons2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.dll
+C:\Users\Marc-Éric Boury\Source\Repos\Pigeons2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.pdb

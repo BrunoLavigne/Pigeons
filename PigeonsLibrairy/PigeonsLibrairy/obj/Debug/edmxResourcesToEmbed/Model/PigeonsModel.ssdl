@@ -8,6 +8,16 @@
     <Property Name="Task_ID" Type="int" Nullable="false" />
     <Property Name="Person_ID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="chathistory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Group_ID" Type="int" Nullable="false" />
+    <Property Name="Author_ID" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
   <EntityType Name="event">
     <Key>
       <PropertyRef Name="ID" />
@@ -18,6 +28,16 @@
     <Property Name="Event_Start" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="Event_End" Type="datetime" Precision="0" />
     <Property Name="Is_Completed" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="files">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Group_ID" Type="int" />
+    <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FileURL" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Creation_Date" Type="datetime" Precision="0" Nullable="false" />
   </EntityType>
   <EntityType Name="following">
     <Key>
@@ -75,9 +95,9 @@
     <Property Name="Description" Type="text" Nullable="false" />
     <Property Name="Author_ID" Type="int" Nullable="false" />
     <Property Name="Group_ID" Type="int" Nullable="false" />
-    <Property Name="Task_Start" Type="datetime" Precision="0" />
-    <Property Name="Task_End" Type="datetime" Precision="0" />
+    <Property Name="Task_DateTime" Type="datetime" Precision="0" />
     <Property Name="Is_completed" Type="bool" Nullable="false" />
+    <Property Name="Is_important" Type="bool" />
   </EntityType>
   <Association Name="FK_Assignation_Person">
     <End Role="person" Type="Self.person" Multiplicity="1" />
@@ -105,6 +125,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ChatMessage_Group">
+    <End Role="group" Type="Self.group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chathistory">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_Person">
+    <End Role="person" Type="Self.person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chathistory">
+        <PropertyRef Name="Author_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Event_Group">
     <End Role="group" Type="Self.group" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -115,6 +163,20 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="event">
+        <PropertyRef Name="Group_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Files_Grouup">
+    <End Role="group" Type="Self.group" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="files" Type="Self.files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="files">
         <PropertyRef Name="Group_ID" />
       </Dependent>
     </ReferentialConstraint>
@@ -185,23 +247,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Task_Person">
-    <End Role="person" Type="Self.person" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="task" Type="Self.task" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="task">
-        <PropertyRef Name="Author_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="pigeonsModelStoreContainer">
     <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="chathistory" EntityType="Self.chathistory" Schema="pigeons" store:Type="Tables" />
     <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
+    <EntitySet Name="files" EntityType="Self.files" Schema="pigeons" store:Type="Tables" />
     <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
     <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
     <EntitySet Name="messages" EntityType="Self.messages" Schema="pigeons" store:Type="Tables" />
@@ -215,9 +265,21 @@
       <End Role="task" EntitySet="task" />
       <End Role="assignation" EntitySet="assignation" />
     </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_Group" Association="Self.FK_ChatMessage_Group">
+      <End Role="group" EntitySet="group" />
+      <End Role="chathistory" EntitySet="chathistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_Person" Association="Self.FK_ChatMessage_Person">
+      <End Role="person" EntitySet="person" />
+      <End Role="chathistory" EntitySet="chathistory" />
+    </AssociationSet>
     <AssociationSet Name="FK_Event_Group" Association="Self.FK_Event_Group">
       <End Role="group" EntitySet="group" />
       <End Role="event" EntitySet="event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Files_Grouup" Association="Self.FK_Files_Grouup">
+      <End Role="group" EntitySet="group" />
+      <End Role="files" EntitySet="files" />
     </AssociationSet>
     <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
       <End Role="group" EntitySet="group" />
@@ -237,10 +299,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_Task_Group" Association="Self.FK_Task_Group">
       <End Role="group" EntitySet="group" />
-      <End Role="task" EntitySet="task" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Task_Person" Association="Self.FK_Task_Person">
-      <End Role="person" EntitySet="person" />
       <End Role="task" EntitySet="task" />
     </AssociationSet>
   </EntityContainer>

@@ -105,7 +105,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// Sauvegarde d'un fichiersur le serveur
         /// </summary>
         /// <param name="fileByteArray">Un tableau de byte qui reprérente le fichier à sauvegarder</param>
-        /// <param name="fileExtension">L'extension du fichier</param>
+        /// <param name="filename">Le nom complet du fichier</param>
         public FileInfo SaveByteFile(Byte[] fileByteArray, string filename)
         {
             try
@@ -123,16 +123,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// Insertion des valeurs d'un ficher dans la base de données
         /// </summary>
         /// <returns></returns>
-        public file InsertFileInfo()
+        public void InsertFileInfo(file fichier)
         {
             try
             {
-                return fileControl.InsertInDataBase();
+                fileControl.InsertInDataBase(fichier);
             }
             catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);
-                return null;
             }
         }
 
