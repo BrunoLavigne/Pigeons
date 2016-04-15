@@ -3,21 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
-    <style>
-        /*
-            Add file for vendor overrides?
-        */
-        .ui-datepicker {
-            background: #eee;
-            padding: 10px;
-        }
-        .ui-datepicker .ui-datepicker-header {
-            padding: 0 10px;
-        }
-        .ui-datepicker th, .ui-datepicker td {
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 
 </asp:Content>
 
@@ -32,10 +18,10 @@
         <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
             <ContentTemplate>
                 
+                <div class="title">Ajouter une tâche</div>
+
                 <!-- Add a task section -->
                 <div class="Add-task-container">
-
-                    <div class="title">Ajouter une tâche</div>
 
                     <!-- Description de la tâche -->
                     <div class="form-group">
@@ -71,13 +57,34 @@
 
                     <!-- TODO: flagged tasks -->
                     <div class="col-md-4">
-                        <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged</div>
+                        <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged (<asp:Label runat="server" ID="lblFlaggedTasksCount"></asp:Label>)</div>
+
+                        <ul class="Tasks-container flagged">
+
+                            <asp:ListView runat="server" ID="listViewFlagged">
+                                <ItemTemplate>
+                                    <li class="Task-container">
+
+			                            <label class="checkbox-wrapper">
+                                            <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                            <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
+			                            </label>
+
+			                            <div class="content">
+				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
+				                            <div class="due-date"><%# Eval("task_datetime") %></div>
+			                            </div>
+
+                                    </li>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </ul><!-- /.incompleted -->
                     </div>
 
                     <!-- Incompleted tasks -->
                     <div class="col-md-4">
 
-                        <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire</div>
+                        <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire (<asp:Label runat="server" ID="lblIncompletedTasksCount"></asp:Label>)</div>
 
                         <ul class="Tasks-container incompleted">
 
@@ -104,7 +111,7 @@
                     <!-- Completed tasks -->
                     <div class="col-md-4">
 
-                        <div class="title"><span class="glyphicon glyphicon-check"></span>Completé</div>
+                        <div class="title"><span class="glyphicon glyphicon-check"></span>Completé (<asp:Label runat="server" ID="lblCompletedTasksCount"></asp:Label>)</div>
 
                         <ul class="Tasks-container completed">
 
@@ -115,9 +122,16 @@
 			                            <label class="checkbox-wrapper">
                                             <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
                                             <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                            </label>
+			                            
+                                        
+                                        </label>
 
-			                            <div class="content">
+                                        <!-- we shouldn't have two hiddenfields... -->
+			                            <%--<asp:HiddenField ID="TaskIdHolder2" runat="server" Value='<%#Eval("id") %>' />--%>
+                                        <asp:Button CssClass="btn-delete-task" runat="server" ID="btnDeleteTask" AutoPostBack="true" Text="X" OnClick="btnDeleteTask_Click" />
+
+
+                                        <div class="content">
 				                            <div class="author">Michael Scott (ajouter champ?)</div> - 
 				                            <div class="due-date"><%# Eval("task_datetime") %></div>
 			                            </div>

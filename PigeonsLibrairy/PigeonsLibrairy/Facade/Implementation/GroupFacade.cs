@@ -319,7 +319,15 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public List<chathistory> GetGroupChatHistory(object groupID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return mainControl.ChatHistoryService.GetAllMessagesFromGroup(groupID).ToList();
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -327,7 +335,14 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         public void InsertChatMessage(chathistory chatMessage)
         {
-            throw new NotImplementedException();
+            try
+            {
+                mainControl.ChatHistoryService.InsertChatMessage(chatMessage);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+            }
         }
 
         #endregion ChatHistory
