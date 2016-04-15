@@ -16,7 +16,7 @@ namespace PigeonsLibrairy.Facade.Implementation
     public class Facade : IFacade
     {
         protected MainController mainControl { get; set; }
-        protected FileController fileControl { get; set; }
+        public FileController fileControl { get; set; }
 
         /// <summary>
         /// Constructeur
@@ -24,7 +24,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         public Facade()
         {
             mainControl = new MainController();
-            fileControl = new FileController();
+            fileControl = new FileController("Server_Files");
         }
 
         #region Person
