@@ -14,7 +14,6 @@ namespace PigeonsLibrairy.Model
     
     public partial class message
     {
-
         public const string COLUMN_AUTHOR_ID = "person_id";
         public const string COLUMN_GROUP_ID = "group_id";
         public const string COLUMN_CONTENT = "content";

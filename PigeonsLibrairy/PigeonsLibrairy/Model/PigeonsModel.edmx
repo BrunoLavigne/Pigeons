@@ -34,6 +34,16 @@
           <Property Name="Event_End" Type="datetime" Precision="0" />
           <Property Name="Is_Completed" Type="bool" Nullable="false" />
         </EntityType>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_ID" Type="int" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileURL" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Creation_Date" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="following">
           <Key>
             <PropertyRef Name="Person_Id" />
@@ -88,10 +98,11 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
           <Property Name="Group_ID" Type="int" Nullable="false" />
-          <Property Name="Task_Start" Type="datetime" Precision="0" />
-          <Property Name="Task_End" Type="datetime" Precision="0" />
+          <Property Name="Task_DateTime" Type="datetime" Precision="0" />
           <Property Name="Is_completed" Type="bool" Nullable="false" />
+          <Property Name="Is_important" Type="bool" />
         </EntityType>
         <Association Name="FK_Assignation_Person">
           <End Role="person" Type="Self.person" Multiplicity="1" />
@@ -157,6 +168,20 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="event">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Files_Grouup">
+          <End Role="group" Type="Self.group" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="files">
               <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -231,6 +256,7 @@
           <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="chathistory" EntityType="Self.chathistory" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="files" EntityType="Self.files" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="messages" EntityType="Self.messages" Schema="pigeons" store:Type="Tables" />
@@ -255,6 +281,10 @@
           <AssociationSet Name="FK_Event_Group" Association="Self.FK_Event_Group">
             <End Role="group" EntitySet="group" />
             <End Role="event" EntitySet="event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Files_Grouup" Association="Self.FK_Files_Grouup">
+            <End Role="group" EntitySet="group" />
+            <End Role="files" EntitySet="files" />
           </AssociationSet>
           <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
             <End Role="group" EntitySet="group" />
@@ -330,6 +360,11 @@
             <End Role="person" EntitySet="people" />
             <End Role="message" EntitySet="messages" />
           </AssociationSet>
+          <EntitySet Name="files" EntityType="pigeonsModel.file" />
+          <AssociationSet Name="FK_Files_Grouup" Association="pigeonsModel.FK_Files_Grouup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="assignation">
           <Key>
@@ -393,6 +428,7 @@
           <NavigationProperty Name="followings" Relationship="pigeonsModel.FK_following_group" FromRole="group" ToRole="following" />
           <NavigationProperty Name="messages" Relationship="pigeonsModel.FK_message_group" FromRole="group" ToRole="message" />
           <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Task_Group" FromRole="group" ToRole="task" />
+          <NavigationProperty Name="files" Relationship="pigeonsModel.FK_Files_Grouup" FromRole="group" ToRole="file" />
         </EntityType>
         <EntityType Name="message">
           <Key>
@@ -433,11 +469,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Group_ID" Type="Int32" Nullable="false" />
-          <Property Name="Task_Start" Type="DateTime" />
-          <Property Name="Task_End" Type="DateTime" />
           <Property Name="Is_completed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Task" FromRole="task" ToRole="assignation" />
           <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Task_Group" FromRole="task" ToRole="group" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_DateTime" Type="DateTime" />
+          <Property Name="Is_important" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Assignation_Person">
           <End Type="pigeonsModel.person" Role="person" Multiplicity="1" />
@@ -573,6 +610,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_ID" Type="Int32" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileURL" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Files_Grouup" FromRole="file" ToRole="group" />
+        </EntityType>
+        <Association Name="FK_Files_Grouup">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -665,12 +727,24 @@
           <EntitySetMapping Name="tasks">
             <EntityTypeMapping TypeName="pigeonsModel.task">
               <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="Is_important" ColumnName="Is_important" />
+                <ScalarProperty Name="Task_DateTime" ColumnName="Task_DateTime" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
                 <ScalarProperty Name="Is_completed" ColumnName="Is_completed" />
-                <ScalarProperty Name="Task_End" ColumnName="Task_End" />
-                <ScalarProperty Name="Task_Start" ColumnName="Task_Start" />
                 <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="pigeonsModel.file">
+              <MappingFragment StoreEntitySet="files">
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+                <ScalarProperty Name="FileURL" ColumnName="FileURL" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

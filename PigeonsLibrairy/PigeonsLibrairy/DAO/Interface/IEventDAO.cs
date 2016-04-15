@@ -10,8 +10,10 @@ namespace PigeonsLibrairy.DAO.Interface
     /// <summary>
     /// Interface de la classe <see cref="Implementation.EventDAO"/>
     /// </summary>
-    interface IEventDAO : IDAO<@event>
+    internal interface IEventDAO : IDAO<@event>
     {
         IEnumerable<@event> GetGroupEvent(pigeonsEntities1 context, object groupID);
+
+        IEnumerable<@event> GetGroupEventByMonth(pigeonsEntities1 context, object groupID, object date);
     }
 }

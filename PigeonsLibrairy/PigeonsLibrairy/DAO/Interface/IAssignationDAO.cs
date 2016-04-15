@@ -10,7 +10,7 @@ namespace PigeonsLibrairy.DAO.Interface
     /// <summary>
     /// Interface de la classe <see cref="Implementation.AssignationDAO"/>
     /// </summary>
-    interface IAssignationDAO : IDAO<assignation>
+    internal interface IAssignationDAO : IDAO<assignation>
     {
         assignation GetByID(pigeonsEntities1 context, object personID, object taskID);
     }

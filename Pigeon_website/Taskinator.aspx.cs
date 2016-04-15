@@ -3,8 +3,6 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -63,24 +61,48 @@ public partial class Taskinator : System.Web.UI.Page
         person currentUser = (person) Session["user"];
         int currentUserID = currentUser.Id;
 
-        // Création du task
+        // Create task
         task theTask = new task();
 
+        // Task properties
         theTask.Description = taskDescription.Text;
         theTask.Group_ID = groupId ?? default(int);
         theTask.Is_completed = false;
+        theTask.Is_important = taskFlagged.Checked;
 
         // See if we add a due date to the task
+        // TODO: Validate if right format
         if (taskDueDate.Text.Length > 0)
         {
+
+            string dateStr = taskDueDate.Text;
+
             DateTime dueDate = new DateTime();
-            dueDate = DateTime.ParseExact(taskDueDate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            theTask.Task_End = dueDate;
+
+            // See if we also add the time on the due date
+            // TODO: Validate if right format
+            if(taskDueTime.Text.Length > 0)
+            {
+                string timeStr = taskDueTime.Text;
+
+                dueDate = DateTime.ParseExact(dateStr + " " + timeStr, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+
+            } else {
+
+                dueDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            }
+            
+            theTask.Task_DateTime = dueDate;
+
         }
 
         groupFacade.CreateNewTask(theTask, groupId, currentUserID);
 
-        refreshGroupTasks(); // dirty
+        refreshGroupTasks();    // dirty
+
+        clearFields();          // also dirty...js?
+
     }
 
     /// <summary>
@@ -90,8 +112,32 @@ public partial class Taskinator : System.Web.UI.Page
     protected void refreshGroupTasks()
     {
 
-        List<task> taskListIncompleted = groupFacade.GetGroupTasks(groupId, false); // get incomplete tasks
+        List<task> taskListIncompleted = new List<task>();
         List<task> taskListCompleted = groupFacade.GetGroupTasks(groupId, true);    // get completed tasks
+        List<task> taskListFlagged = new List<task>();
+
+        // Get all incompleted UNFLAGGED tasks from group
+        foreach (task t in groupFacade.GetGroupTasks(groupId, false))
+        {
+
+            // Get all unimportant/null ones
+            if( ! t.Is_important ?? true )
+            {
+                taskListIncompleted.Add(t);
+            }
+        }
+
+        // Get all flagged tasks that are not completed
+        foreach (task t in groupFacade.GetGroupTasks(groupId, false))
+        {
+
+            // ( "??" : If t.Is_Important is null, then assume it is not important)
+            if ( t.Is_important ?? false )
+            {
+                taskListFlagged.Add(t);
+            }
+        }
+
 
         // bind to templates
         listViewIncompleted.DataSource = taskListIncompleted;
@@ -99,5 +145,34 @@ public partial class Taskinator : System.Web.UI.Page
 
         listViewCompleted.DataSource = taskListCompleted;
         listViewCompleted.DataBind();
+
+        listViewFlagged.DataSource = taskListFlagged;
+        listViewFlagged.DataBind();
+
+        // bind count labels
+        lblIncompletedTasksCount.Text = taskListIncompleted.Count.ToString();
+        lblCompletedTasksCount.Text = taskListCompleted.Count.ToString();
+        lblFlaggedTasksCount.Text = taskListFlagged.Count.ToString();
+
+    }
+
+    protected void clearFields()
+    {
+        taskDescription.Text = "";
+        taskDueDate.Text = "";
+        taskDueTime.Text = "";
+        taskFlagged.Checked = false;
+    }
+
+
+    protected void btnDeleteTask_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button) sender;
+        HiddenField hiddenIdField = (HiddenField) btn.Parent.FindControl("TaskIdHolder");
+
+        groupFacade.DeleteTask(int.Parse(hiddenIdField.Value));
+
+        refreshGroupTasks();
+
     }
 }

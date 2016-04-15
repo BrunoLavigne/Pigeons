@@ -16,7 +16,6 @@ namespace PigeonsLibrairy.Service.Implementation
     /// </summary>
     public class AssignationService : Service<assignation>, IAssignationService
     {
-
         private IAssignationDAO assignationDAO { get; set; }
         private ITaskDAO taskDAO { get; set; }
 
@@ -28,7 +27,6 @@ namespace PigeonsLibrairy.Service.Implementation
             assignationDAO = new AssignationDAO();
             taskDAO = new TaskDAO();
         }
-        
 
         /// <summary>
         /// Assignation d'un Task à une personne
@@ -37,24 +35,24 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns></returns>
         public assignation AssignTaskToPerson(assignation newAssignation)
         {
-            if(newAssignation == null)
+            if (newAssignation == null)
             {
                 throw new ServiceException("L'assignation à créer est null");
             }
 
-            if(newAssignation.Person_ID == 0)
+            if (newAssignation.Person_ID == 0)
             {
                 throw new ServiceException("Vous devez fournir le ID de la personne à qui assigner la Task");
             }
 
-            if(newAssignation.Task_ID == 0)
+            if (newAssignation.Task_ID == 0)
             {
                 throw new ServiceException("Vous devez fournir le ID de la Task qui doit être assigné");
             }
 
             try
             {
-                using(var context = new pigeonsEntities1())
+                using (var context = new pigeonsEntities1())
                 {
                     // Validation de l'assignation
                     assignation assignationValidation = assignationDAO.GetByID(context, newAssignation.Person_ID, newAssignation.Task_ID);
@@ -67,7 +65,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     // Validation de la task
                     task taskValidation = taskDAO.GetByID(context, newAssignation.Task_ID);
 
-                    if(taskValidation == null)
+                    if (taskValidation == null)
                     {
                         throw new ServiceException("Cette Task n'existe pas");
                     }
@@ -90,6 +88,44 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
+        /// Appel du DAO afin de retirer une assignation à une Person
+        /// </summary>
+        /// <param name="taskID">Le ID de la la task assignée</param>
+        /// <param name="personID">Le ID de la personne à qui la Task est assigné</param>
+        public void RemoveAssignation(object taskID, object personID)
+        {
+            if (taskID == null)
+            {
+                throw new ServiceException("Le ID de la Task est null");
+            }
+
+            if (personID == null)
+            {
+                throw new ServiceException("Le ID de la Personne est null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    assignation assignationValidation = assignationDAO.GetByID(context, personID, taskID);
+
+                    if (assignationValidation == null)
+                    {
+                        throw new ServiceException(string.Format("L'assignation (personID : {0}, taskID : {1}) n'existe pas", personID, taskID));
+                    }
+
+                    assignationDAO.Delete(context, assignationValidation);
+                    context.SaveChanges();
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+
+        /// <summary>
         /// Appel le DAO pour trouver une assignation dans la base de données
         /// </summary>
         /// <param name="personID">Le ID de la personne</param>
@@ -97,12 +133,12 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>Une assignation ou null</returns>
         public assignation GetByID(object personID, object taskID)
         {
-            if(personID == null)
+            if (personID == null)
             {
                 throw new ServiceException("Le ID de la personne ne doit pas être null");
             }
 
-            if(taskID == null)
+            if (taskID == null)
             {
                 throw new ServiceException("Le ID de la task ne doit pas être null");
             }

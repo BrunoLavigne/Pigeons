@@ -1,18 +1,19 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
-<%@ Register TagPrefix="uc" TagName="Header" 
+
+<%@ Register TagPrefix="uc" TagName="Header"
     Src="~/Partials/Header.ascx" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="Scripts/jquery-2.2.2.min.js"></script>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <script src="Scripts/jquery-2.2.3.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    
+
     <!-- Google fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|PT+Serif:400,700italic' rel='stylesheet' type='text/css' />
 
@@ -21,19 +22,17 @@
 
     <!-- Custom css -->
     <link href="Resources/css/global.css" rel="stylesheet" />
-
 </head>
 <body>
     <form id="form1" runat="server">
 
         <div class="Page-container">
-            <uc:Header id="Header" runat="server" />
+            <uc:Header ID="Header" runat="server" />
 
-            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-        </div><!-- /page-container -->
-
+        </div>
+        <!-- /page-container -->
     </form>
 
     <script src="Scripts/bootstrap.min.js"></script>
@@ -47,8 +46,6 @@
 
     <!-- Page-specific js -->
     <asp:ContentPlaceHolder ID="ContentPlaceHolderScripts" runat="server">
-
     </asp:ContentPlaceHolder>
-    
 </body>
 </html>

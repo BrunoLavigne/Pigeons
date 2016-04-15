@@ -1,5 +1,9 @@
 ﻿using PigeonsLibrairy.Exceptions;
+using PigeonsLibrairy.Model;
+using PigeonsLibrairy.Service.Implementation;
+using PigeonsLibrairy.Service.Interface;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Web;
 
@@ -11,11 +15,13 @@ namespace PigeonsLibrairy.Controller
     public class FileController
     {
         private readonly string FILE_DIRECTORY_PATH;
+        private IFileService fileService { get; set; }
 
         // Constructors
         public FileController()
         {
             //FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("E:/Server_Files");
+            fileService = new FileService();
         }
 
         /// <summary>
@@ -25,6 +31,7 @@ namespace PigeonsLibrairy.Controller
         public FileController(string fileDirectoryPath)
         {
             FILE_DIRECTORY_PATH = fileDirectoryPath;
+            fileService = new FileService();
         }
 
         /// <summary>
@@ -35,30 +42,38 @@ namespace PigeonsLibrairy.Controller
         /// <param name="fileByteArray">a Byte array of the file itself</param>
         /// <param name="fileExtension">a string of the original file's extension</param>
         /// <returns>a FileInfo Object of the saved file, null if exception.</returns>
-        public FileInfo saveByteFile(Byte[] fileByteArray, string fileExtension)
+        public FileInfo SaveByteFile(Byte[] fileByteArray, string fileExtension)
         {
             FileInfo savedFileInfo = null;
             try
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.
                 int highestFileID = 0;
-                foreach (string fileName in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
+                Debug.WriteLine("Recherche des fichiers existants...");
+                foreach (string file in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
                 {
+                    Debug.WriteLine("Fichier trouvé: " + file);
+                    string fileName = Path.GetFileName(file);
+                    Debug.WriteLine("Nom du fichier: " + fileName);
                     string[] nameParts = fileName.Split('.');
                     int currentFileID = Int32.Parse(nameParts[0]);
+                    Debug.WriteLine("ID du fichier: " + currentFileID);
                     if (currentFileID > highestFileID)
                     {
                         highestFileID = currentFileID;
                     }
+                    Debug.WriteLine("ID maximale trouvé: " + highestFileID);
                 }
                 // generates the new file path and name.
-                string newFilePath = FILE_DIRECTORY_PATH + "//" + (highestFileID + 1).ToString() + fileExtension; // NOTE: p-e nécessaire de rajouter le point avant extension, ou s'assurer qu'il soit déjà présent dans le strinhg passé en paramètre.
+                string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + fileExtension; // NOTE: p-e nécessaire de rajouter le point avant extension, ou s'assurer qu'il soit déjà présent dans le strinhg passé en paramètre.
+                Debug.WriteLine("chemin de fichier uploadé généré: " + newFilePath);
                 // saves the file itself (Byte Array) at the new path.
                 File.WriteAllBytes(newFilePath, fileByteArray);
                 savedFileInfo = new FileInfo(newFilePath);
             }
             catch (Exception error)
             {
+                Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
             }
             return savedFileInfo;
@@ -69,23 +84,34 @@ namespace PigeonsLibrairy.Controller
         /// </summary>
         /// <param name="fileName">The file name / integer code to lookup and retrieve.</param>
         /// <returns>A FileInfo object representing the file information on the server (path and such).</returns>
-        public FileInfo getFileByName(string fileName)
+        public FileInfo GetFileByName(string fileName)
         {
             FileInfo fileToGet = null;
             try
             {
                 // find all files
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
+                Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
             catch (Exception error)
             {
-                // bla bla bla exception handling...
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
             }
             return fileToGet;
         }
 
-        /******************************************************************************************
+        /// <summary>
+        /// Insertion des information d'un fichier dans la base de données
+        /// </summary>
+        /// <returns></returns>
+        public file InsertInDataBase()
+        {
+            //fileService.
+            return null;
+        }
 
+        /******************************************************************************************
 
         //###############################################
 
@@ -96,7 +122,7 @@ namespace PigeonsLibrairy.Controller
 
         //###############################################
 
-                // for upload: required in the aspx page: 
+                // for upload: required in the aspx page:
                 // FileUpload control which ID is represented here with <fileUpload>
                 // Button or control for starting the upload. the iploadFile method is called on click.
                 protected void uploadFile()
@@ -118,7 +144,6 @@ namespace PigeonsLibrairy.Controller
                     }
                 }
 
-
                 // Function fired when a webcontrol offering a download is activated
                 // {param} fileName (String) : the file name to download.
                 protected void fileDownloader(string fileName)
@@ -137,6 +162,5 @@ namespace PigeonsLibrairy.Controller
                 }
 
         *******************************************************************************************/
-
     }
 }

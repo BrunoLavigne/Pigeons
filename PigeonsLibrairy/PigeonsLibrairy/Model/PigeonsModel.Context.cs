@@ -34,5 +34,6 @@ namespace PigeonsLibrairy.Model
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<person> people { get; set; }
         public virtual DbSet<task> tasks { get; set; }
+        public virtual DbSet<file> files { get; set; }
     }
 }
