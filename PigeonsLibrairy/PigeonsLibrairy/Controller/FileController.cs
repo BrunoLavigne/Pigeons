@@ -95,7 +95,7 @@ namespace PigeonsLibrairy.Controller
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
                 Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
-            catch (Exception)
+            catch (Exception error)
             {
                 Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
