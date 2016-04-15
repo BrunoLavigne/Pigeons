@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<OrderedTest name="OrderedTaskTests" storage="c:\users\franz\documents\github\pigeons\pigeonslibrairy\unittesting\orderedtasktests.orderedtest" id="b89957c5-e1a3-4d63-8612-bf3212bc2899" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <TestLinks>
-    <TestLink id="98014af9-372f-c7cd-e840-3d0bcf361fc2" name="InsertTaskTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <TestLink id="230208f8-afd3-4b16-ef02-0fb3590d9aac" name="GetByIdTaskTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <TestLink id="46515ae7-923f-8134-0abc-4c43d3b816d3" name="UpdateTaskTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <TestLink id="b51c3e76-9324-a79e-d054-6b56d02752a4" name="DeleteTaskTest" storage="bin\debug\unittesting.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  </TestLinks>
-</OrderedTest>

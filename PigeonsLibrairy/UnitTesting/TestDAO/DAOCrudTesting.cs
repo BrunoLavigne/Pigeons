@@ -10,13 +10,13 @@ namespace UnitTesting
     {
         private const string PERSON_NAME = "Toto";
         private const string GROUP_NAME = "Rookies";
-        private const string TASK_DESC = "Rock";
-        private const string TYPE_NAME = "HEHEHE";
 
         private int PERSON_ID { get; set; }
         private int GROUP_ID { get; set; }
-        private int TASK_ID { get; set; }
-        private int TYPE_ID { get; set; }
+        private int ASSIGNATION_ID { get; set; }
+        private int CHAT_ID { get; set; }
+        private int FILE_ID { get; set; }
+
 
         #region CRUDPerson
         [TestMethod]
@@ -105,6 +105,7 @@ namespace UnitTesting
                 groupToTest.Name = GROUP_NAME;
                 groupToTest.Creation_date = DateTime.Now;
                 groupToTest.Description = "WE ROCK";
+                groupToTest.Group_picture_link = "www.flickr.com";
                 groupToTest.Is_active = true;
 
                 GroupDAO groupDAO = new GroupDAO();
@@ -163,142 +164,210 @@ namespace UnitTesting
         }
         #endregion CRUDGroup
 
-        #region CRUDTask
+        #region CRUDAssignation
         [TestMethod]
-        public void InsertTaskTest()
+        public void InsertAssignationTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                task taskToTest = new task();
+                assignation assignToTest = new assignation();
 
-                taskToTest.Project_ID = 1;
-                taskToTest.Description = "Coder";
-                taskToTest.Date_due = DateTime.Now;
-                taskToTest.Is_completed = false;
+                assignToTest.Task_ID = 6;
+                assignToTest.Person_ID = 3;
 
-                TaskDAO taskDAO = new TaskDAO();
+                AssignationDAO assignDAO = new AssignationDAO();
 
-                taskDAO.Insert(context, taskToTest);
+                assignDAO.Insert(context, assignToTest);
                 context.SaveChanges();
-                TASK_ID = taskToTest.Id;
+                ASSIGNATION_ID = assignToTest.ID;
 
-                Assert.AreEqual(taskToTest.Id, TASK_ID);
+                Assert.AreEqual(assignToTest.ID, ASSIGNATION_ID);
             }
         }
 
         [TestMethod]
-        public void GetByIdTaskTest()
+        public void GetByIdAssignationTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                TaskDAO taskDAO = new TaskDAO();
+                AssignationDAO assignDAO = new AssignationDAO();
 
-                task taskCheck = taskDAO.GetByID(context,TASK_ID);
+                assignation assignCheck = assignDAO.GetByID(context, ASSIGNATION_ID);
 
-                Assert.AreEqual(taskCheck.Description, TASK_DESC);
+                Assert.AreEqual(assignCheck.ID, ASSIGNATION_ID);
             }
         }
 
         [TestMethod]
-        public void UpdateTaskTest()
+        public void UpdateAssignationTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                TaskDAO taskDAO = new TaskDAO();
-                task taskToTest = taskDAO.GetByID(context, TASK_ID);
+                AssignationDAO assignDAO = new AssignationDAO();
+                assignation assignToTest = assignDAO.GetByID(context, ASSIGNATION_ID);
 
-                String modif = "TesaTesa";
-                taskToTest.Description = modif;
+                int modif = 16;
+                assignToTest.Person_ID = modif;
 
-                taskDAO.Update(context, taskToTest);
+                assignDAO.Update(context, assignToTest);
                 context.SaveChanges();
 
-                Assert.AreEqual(taskToTest.Description, modif);
+                Assert.AreEqual(assignToTest.Person_ID, modif);
             }
         }
 
         [TestMethod]
-        public void DeleteTaskTest()
+        public void DeleteAssignationTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                TaskDAO taskDAO = new TaskDAO();
+                AssignationDAO assignDAO = new AssignationDAO();
 
-                taskDAO.Delete(context, TASK_ID);
+                assignDAO.Delete(context, ASSIGNATION_ID);
                 context.SaveChanges();
 
-                Assert.AreEqual(null, TASK_ID);
+                Assert.AreEqual(null, ASSIGNATION_ID);
             }
         }
-        #endregion CRUDTask
+        #endregion CRUDAssignation
 
-        #region CRUDType
+        #region CRUDChatHistory
         [TestMethod]
-        public void InsertTypeTest()
+        public void InsertChatHistoryTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                task taskToTest = new task();
+                chathistory chatToTest = new chathistory();
 
-                taskToTest.Project_ID = 1;
-                taskToTest.Description = "Coder";
-                taskToTest.Date_due = DateTime.Now;
-                taskToTest.Is_completed = false;
+                chatToTest.Author_ID = 3;
+                chatToTest.Group_ID = 15;
+                chatToTest.Message = "yup yup";
+                chatToTest.CreationDate = DateTime.Now;
 
-                TaskDAO taskDAO = new TaskDAO();
+                ChatHistoryDAO chatDAO = new ChatHistoryDAO();
 
-                taskDAO.Insert(context, taskToTest);
+                chatDAO.Insert(context, chatToTest);
                 context.SaveChanges();
-                TASK_ID = taskToTest.Id;
+                CHAT_ID = chatToTest.ID;
 
-                Assert.AreEqual(taskToTest.Id, TASK_ID);
+                Assert.AreEqual(chatToTest.ID, CHAT_ID);
             }
         }
 
         [TestMethod]
-        public void GetByIdTypeTest()
+        public void GetByIdChatHistoryTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                TaskDAO taskDAO = new TaskDAO();
+                ChatHistoryDAO chatDAO = new ChatHistoryDAO();
 
-                task taskCheck = taskDAO.GetByID(context, TASK_ID);
+                chathistory chatCheck = chatDAO.GetByID(context, CHAT_ID);
 
-                Assert.AreEqual(taskCheck.Description, TASK_DESC);
+                Assert.AreEqual(chatCheck.ID, CHAT_ID);
             }
         }
 
         [TestMethod]
-        public void UpdateTypeTest()
+        public void UpdateChatHistoryTest()
         {
             using (var context = new pigeonsEntities1())
             {
-                TaskDAO taskDAO = new TaskDAO();
-                task taskToTest = taskDAO.GetByID(context, TASK_ID);
+                ChatHistoryDAO chatDAO = new ChatHistoryDAO();
+                chathistory chatToTest = chatDAO.GetByID(context, CHAT_ID);
 
-                String modif = "TesaTesa";
-                taskToTest.Description = modif;
+                string modif = "Hapo";
+                chatToTest.Message = modif;
 
-                taskDAO.Update(context, taskToTest);
-                context.SaveChanges();
-
-                Assert.AreEqual(taskToTest.Description, modif);
-            }
-        }
-
-        [TestMethod]
-        public void DeleteTypeTest()
-        {
-            using (var context = new pigeonsEntities1())
-            {
-                TaskDAO taskDAO = new TaskDAO();
-
-                taskDAO.Delete(context, TASK_ID);
+                chatDAO.Update(context, chatToTest);
                 context.SaveChanges();
 
-                Assert.AreEqual(null, TASK_ID);
+                Assert.AreEqual(chatToTest.Message, modif);
             }
         }
-        #endregion CRUDType
+
+        [TestMethod]
+        public void DeleteChatHistoryTest()
+        {
+            using (var context = new pigeonsEntities1())
+            {
+                ChatHistoryDAO chatDAO = new ChatHistoryDAO();
+
+                chatDAO.Delete(context, CHAT_ID);
+                context.SaveChanges();
+
+                Assert.AreEqual(null, CHAT_ID);
+            }
+        }
+        #endregion CRUDChatHistory
+
+        #region CRUDFile
+        [TestMethod]
+        public void InsertFiletTest()
+        {
+            using (var context = new pigeonsEntities1())
+            {
+                file fileToTest = new file();
+
+                fileToTest.Group_ID = 15;
+                fileToTest.FileName = "PdfChat";
+                fileToTest.FileURL = "work/files";
+                fileToTest.Creation_Date = DateTime.Now;
+
+                FileDAO fileDAO = new FileDAO();
+
+                fileDAO.Insert(context, fileToTest);
+                context.SaveChanges();
+                FILE_ID = fileToTest.ID;
+
+                Assert.AreEqual(fileToTest.ID, FILE_ID);
+            }
+        }
+
+        [TestMethod]
+        public void GetByIdFileTest()
+        {
+            using (var context = new pigeonsEntities1())
+            {
+                FileDAO fileDAO = new FileDAO();
+
+                file fileCheck = fileDAO.GetByID(context, FILE_ID);
+
+                Assert.AreEqual(fileCheck.ID, FILE_ID);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateFileTest()
+        {
+            using (var context = new pigeonsEntities1())
+            {
+                FileDAO fileDAO = new FileDAO();
+                file fileToTest = fileDAO.GetByID(context, FILE_ID);
+
+                string modif = "fichier";
+                fileToTest.FileName = modif;
+
+                fileDAO.Update(context, fileToTest);
+                context.SaveChanges();
+
+                Assert.AreEqual(fileToTest.FileName, modif);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteFileTest()
+        {
+            using (var context = new pigeonsEntities1())
+            {
+                FileDAO fileDAO = new FileDAO();
+
+                fileDAO.Delete(context, FILE_ID);
+                context.SaveChanges();
+
+                Assert.AreEqual(null, FILE_ID);
+            }
+        }
+        #endregion CRUDFile
+        
     }
 }
