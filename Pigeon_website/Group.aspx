@@ -214,9 +214,9 @@
     <script>
 
         // Start summernote plugin on textbox
-        $(document).ready(function () {
+        function pageLoad () {
             $(".summernote").summernote();
-        });
+        }
 
     </script>
 </asp:Content>

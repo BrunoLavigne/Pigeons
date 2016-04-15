@@ -144,9 +144,17 @@
         font-weight: bold;
     }
 
+    /* Some degree of responsiveness to the posts */
     .Group-message .content {
         max-height: 250px;
         overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* TODO: Make responsive iframe cleaner, with minimum height */
+    .Group-message .content img,
+    .Group-message .content iframe  {
+        max-width: 100%;
     }
 
 @media screen and (max-width: 768px) {
