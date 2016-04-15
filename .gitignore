@@ -210,3 +210,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Pigeon_website/App_Data/PublishProfiles/Local_deploy_IIS.pubxml
