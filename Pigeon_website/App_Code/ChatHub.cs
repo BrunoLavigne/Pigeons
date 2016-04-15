@@ -18,6 +18,7 @@ namespace SignalRChat
         public List<UserDetail> ConnectedUsers = new List<UserDetail>();
         private IGroupFacade groupFacade = new GroupFacade();
         private List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+        List<chathistory> messagesHistory;
 
         #endregion Data Members
 
@@ -29,13 +30,22 @@ namespace SignalRChat
             {
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName });
 
-                List<chathistory> messagesHistory = groupFacade.GetGroupChatHistory(groupID);
+               
 
                 // send to caller
                 Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
                 // send to all except caller client
                 Clients.AllExcept(id).onNewUserConnected(id, userName);
+            }
+        }
+
+        public void GetAllMessage() {
+            messagesHistory = groupFacade.GetGroupChatHistory(16);
+
+            for (int i = 0; i < messagesHistory.Count; i++)
+            {
+                Clients.Group("16").newMessage(messagesHistory[i].Message);
             }
         }
 
@@ -55,6 +65,7 @@ namespace SignalRChat
         {
             Groups.Add(Context.ConnectionId, roomName);
             ConnectedUsers.Add(new UserDetail { ConnectionId = Context.ConnectionId });
+            
         }
 
         public void LeaveRoom(string roomName)
