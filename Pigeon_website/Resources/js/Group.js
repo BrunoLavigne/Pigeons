@@ -55,6 +55,17 @@ function pageLoad() {
     });
 
 
+    /*
+     Smooth scroll on sidebar links
+     */
+    var $sideBarLinks = $(".Sidebar a");
+    var $htmlBody = $("html, body");
 
+    $sideBarLinks.click(function () {
+        $htmlBody   .animate({
+            scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
+        return false;
+    });
 
 }
