@@ -5,6 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
+    <link rel="stylesheet" href="Resources/css/Events-Page.css" />
     <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -141,15 +142,87 @@
         <!---------------->
 
 
+
+
+
+
+
         <!------------>
         <!-- EVENTS -->
         <!------------>
         <div class="Group-events-container">
-            <h2>The events!</h2>
+
+            <div class="container Events-app">
+
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnNewEvent" />
+                        <asp:AsyncPostBackTrigger ControlID="btnCreateEvent" />
+                        <asp:AsyncPostBackTrigger ControlID="Calendar1" />
+                    </Triggers>
+
+                    <ContentTemplate>
+
+                        <fieldset>
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None" NextMonthText="&#8674&nbsp;" PrevMonthText="&nbsp;&#8672&nbsp;"></asp:Calendar>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <asp:Table ID="Table1" runat="server" CssClass="table table-hover">
+                                        </asp:Table>
+                                    </div>
+
+                                    <div class="container">
+
+                                        <div class="col-lg-2">
+
+                                            <div class="row">
+                                                <asp:Button ID="btnNewEvent" runat="server" CssClass="btn btn-default btn-block" Text="+" OnClick="btnNewEvent_Click" />
+                                            </div>
+
+                                            <div id="newEvent" visible="false" runat="server">
+                                                <div class="row">
+                                                    <asp:TextBox ID="txtEventDescription" runat="server" CssClass="form-control" placeHolde="Description"></asp:TextBox>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:TextBox ID="txtEventStart" runat="server" CssClass="form-control input-sm datepicker-holder"></asp:TextBox>
+                                                    <%--<asp:Button ID="Button1" runat="server" Text="Button" CssClass="btn btn-default btn-sm" OnClick="Button1_Click" />--%>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:TextBox ID="txtEventEnd" runat="server" CssClass="form-control input-sm datepicker-holder"></asp:TextBox>
+                                                    <%--<asp:Button ID="Button2" runat="server" Text="Button" CssClass="btn btn-default btn-sm" OnClick="Button2_Click" />   --%>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:Button ID="btnCreateEvent" runat="server" Text="Créer l'évènement" CssClass="btn btn-primary btn-sm" OnClick="btnCreateEvent_Click" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+
+
+            </div>
+
         </div>
         <!-------------->
         <!-- ./EVENTS -->
         <!-------------->
+
+
+
+
+
+
+
 
 
         <!----------->
@@ -339,11 +412,59 @@
         // Start js plugins on every page load
         function pageLoad() {
 
+            // Init the datepicker
             $(".datepicker-holder").datepicker({
                 dateFormat: "dd/mm/yy"
             });
 
+
+            // Init the text editor
             $(".summernote").summernote();
+
+
+            $('.eventCalendar td').mouseenter(function () {
+
+                if ($(this).data("id") != undefined) {
+                    var idString = $(this).data('id');
+
+                    var formatedString = idString.substring(0, idString.length - 1);
+                    var id = formatedString.split(',');
+
+                    jQuery.each(id, function (i) {
+
+                        $(".eventRow").filter(function () {
+                            return $(this).data('id') == id[i];
+                        }).css('background-color', '#FFFFFF');
+                    });
+
+                } else {
+                    return false;
+                }
+
+            });
+
+            $(".eventCalendar td").mouseleave(function () {
+                $(".eventRow").each(function () {
+                    $(this).css({ "background": "none" });
+                });
+
+            });
+
+            var calendarEventDays;
+            var style;
+
+            $('.eventRow').hover(function () {
+                var eventID = $(this).data('id');
+
+                calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
+                style = calendarEventDays.attr('style');
+                calendarEventDays.css('background-color', '#737373');
+
+            }, function () {
+                calendarEventDays.css('background-color', '');
+                calendarEventDays.attr('style', style);
+            });
+
 
 
 
