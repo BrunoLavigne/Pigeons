@@ -1,19 +1,26 @@
-﻿/*
-    Utility classes
+﻿/**
+    Form validation
 */
-.t-center {
-    text-align: center;
+
+.validation-error-message {
+    color: #d9534f; /* classic bootstrap red */
+    padding: 6px 12px 0px 12px;
 }
 
 .Page-container {
 	
 	min-height: 100vh;
-	
-	background: #6db3f2; /* Old browsers */
+}
+.Page-container.Old {
+    background: #6db3f2; /* Old browsers */
 	background: -moz-linear-gradient(top,  #6db3f2 0%, #54a3ee 50%, #3690f0 51%, #1e69de 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(top,  #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom,  #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
+}
+
+.header {
+    font-family: Montserrat, Arial, sans-serif;
 }
 
 .header img {
@@ -48,6 +55,15 @@
 	max-width: 200px;
 	border-radius: 50%;
 }
+
+/*
+ * Utility functions
+ */
+
+.t-center {
+    text-align: center;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -58,3 +74,33 @@
     margin-right: 10px;
 }
 
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* IE/Edge */
+	user-select: none;           /* non-prefixed version, currently
+			                        not supported by any browser */
+}
+
+.ContentToggler {
+	border: 2px dashed red;
+}
+
+.ContentToggler > * {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all .7s ease-in-out .15s;
+}
+
+.ContentToggler:hover > *, .ContentToggler:focus > * {
+	opacity: 1;
+	visibility: visible;
+	height: 400px;
+}
+
+.material-icons.flag {
+    color: #A94442;
+}

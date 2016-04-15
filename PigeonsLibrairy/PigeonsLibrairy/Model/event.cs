@@ -12,21 +12,69 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table event
+    /// </summary>
     public partial class @event
     {
+        /// <summary>
+        /// Colonne group_id
+        /// </summary>
         public const string COLUMN_GROUP_ID = "group_id";
+
+        /// <summary>
+        /// Colonne description
+        /// </summary>
         public const string COLUMN_DESCRIPTION = "description";
+
+        /// <summary>
+        /// Colonne event start
+        /// </summary>
         public const string COLUMN_EVENTSTART = "event_start";
+
+        /// <summary>
+        /// Colonne event end
+        /// </summary>
         public const string COLUMN_EVENTEND = "event_end";
+
+        /// <summary>
+        /// Colonne is_completed
+        /// </summary>
         public const string COLUMN_IS_COMPLETED = "is_completed";
 
+        /// <summary>
+        /// Clé primaire de la table event
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// Description de l'event
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// ID du group pour lequel le event est associée
+        /// </summary>
         public int Group_ID { get; set; }
+
+        /// <summary>
+        /// Datetime du moment où le event débute
+        /// </summary>
         public System.DateTime Event_Start { get; set; }
+
+        /// <summary>
+        /// Datetime du moment où le event fini (peu être null)
+        /// </summary>
         public Nullable<System.DateTime> Event_End { get; set; }
+
+        /// <summary>
+        /// True si le event est complété, False sinon
+        /// </summary>
         public bool Is_Completed { get; set; }
     
+        /// <summary>
+        /// Informations sur le group
+        /// </summary>
         public virtual group group { get; set; }
     }
 }

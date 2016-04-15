@@ -119,6 +119,10 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
+        /// <summary>
+        /// Insertion des valeurs d'un ficher dans la base de données
+        /// </summary>
+        /// <returns></returns>
         public file InsertFileInfo()
         {
             try

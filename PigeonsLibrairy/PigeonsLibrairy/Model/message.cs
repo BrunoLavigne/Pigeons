@@ -12,20 +12,64 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table message
+    /// </summary>
     public partial class message
     {
+        /// <summary>
+        /// Colonne author_id
+        /// </summary>
         public const string COLUMN_AUTHOR_ID = "person_id";
+
+        /// <summary>
+        /// Colonne group_id
+        /// </summary>
         public const string COLUMN_GROUP_ID = "group_id";
+
+        /// <summary>
+        /// Colonne content
+        /// </summary>
         public const string COLUMN_CONTENT = "content";
+
+        /// <summary>
+        /// Colonne date_created
+        /// </summary>
         public const string COLUMN_DATE_CREATED = "date_created";
 
+        /// <summary>
+        /// Clé primaire de la table message
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Id de la person qui a créée le message (clé étrangère)
+        /// </summary>
         public int Author_Id { get; set; }
+
+        /// <summary>
+        /// Id du group pour lequel le message a été créée (clé étrangère)
+        /// </summary>
         public int Group_Id { get; set; }
+
+        /// <summary>
+        /// Contenu du message
+        /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// Date de création du message
+        /// </summary>
         public System.DateTime Date_created { get; set; }
     
+        /// <summary>
+        /// Information sur le group
+        /// </summary>
         public virtual group group { get; set; }
+
+        /// <summary>
+        /// Information sur la person
+        /// </summary>
         public virtual person person { get; set; }
     }
 }

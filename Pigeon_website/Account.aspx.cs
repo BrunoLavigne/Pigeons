@@ -1,5 +1,4 @@
-﻿using PigeonsLibrairy.Controller;
-using PigeonsLibrairy.Facade.Implementation;
+﻿using PigeonsLibrairy.Facade.Implementation;
 using PigeonsLibrairy.Model;
 using System;
 
@@ -7,8 +6,6 @@ public partial class Account : System.Web.UI.Page
 {
 
     protected HomeFacade homeFacade { get; set; }
-
-    protected GlobalHelpers gh { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,40 +17,10 @@ public partial class Account : System.Web.UI.Page
 
         if(!IsPostBack)
         {
-            
-            // Init helpers si pas fait
-            if(gh == null)
-            {
-                gh = new GlobalHelpers();
-            }
 
-
-
-            // Get current user
-            if(Session["user"] != null)
-            {
-
-                person p = (person)Session["user"];
-
-            } else {
-                Response.Redirect("Index.aspx");
-            }
-
-            person personToUpdateSession = (person)Session["user"];
+            setValuesInPage();
 
         }
-
-        if(Session["user"] != null )
-        {
-            person activeP = (person)Session["user"];
-            editUserEmail.Text = activeP.Email;
-            editUserDescription.Text = activeP.Description;
-            userProfilePicture.ImageUrl = activeP.Profile_picture_link;
-        } else {
-            Response.Redirect("Index.aspx");
-        }
-
-
 
     }
 
@@ -85,5 +52,28 @@ public partial class Account : System.Web.UI.Page
         // update in session (override previous)
         Session["user"] = personToUpdate;
 
+        // set values in page (refresh) DIRTY
+        setValuesInPage();
+
+    }
+
+    protected void setValuesInPage()
+    {
+        // Get current user
+        if (Session["user"] != null)
+        {
+            person activeP = (person)Session["user"];
+            lblUserName.Text = activeP.Name;
+            editUserEmail.Text = activeP.Email;
+            editUserDescription.Text = activeP.Description;
+            editUserOrganization.Text = activeP.Organization;
+            editUserPosition.Text = activeP.Position;
+            editUserPhoneNumber.Text = activeP.Phone_number;
+            editUserProfilePicture.Text = activeP.Profile_picture_link;
+            userProfilePicture.ImageUrl = activeP.Profile_picture_link;
+
+        } else {
+            Response.Redirect("Index.aspx");
+        }
     }
 }

@@ -90,6 +90,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// Appel le DAO pour trouver les Events d'un groupe qui ne sont pas complétés
         /// </summary>
         /// <param name="groupID">Le ID du groupe</param>
+        /// <param name="date">La date visible du calendrier pour laquel nous voulons les events</param>
         /// <returns>Une liste de Events ou une liste vide</returns>
         public IEnumerable<@event> GetGroupEvent(object groupID, object date)
         {
@@ -124,6 +125,50 @@ namespace PigeonsLibrairy.Service.Implementation
                     {
                         return eventDAO.GetGroupEventByMonth(context, groupID, date);
                     }
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Changement du status (is_completed) de l'Event (true ou false)
+        /// </summary>
+        /// <param name="taskID">Le ID de la Task à modifier</param>
+        /// <param name="taskStatus">Le status désiré pour cette Task</param>
+        public void ChangeEventStatus(object taskID, object taskStatus)
+        {
+            if (taskID == null)
+            {
+                throw new ServiceException("Le ID de la Task est null");
+            }
+
+            if (taskStatus == null)
+            {
+                throw new ServiceException("L'object taskStatus est null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    @event eventValidation = eventDAO.GetByID(context, taskID);
+
+                    if (eventValidation == null)
+                    {
+                        throw new ServiceException(string.Format("L'évènement no.{0} n'existe pas", taskID));
+                    }
+
+                    if (eventValidation.Is_Completed == (bool)taskStatus)
+                    {
+                        throw new ServiceException(string.Format("L'évènement no.{0} est déjà dans l'état sélectionné ( {1} )", taskID, (bool)taskStatus));
+                    }
+
+                    eventValidation.Is_Completed = (bool)taskStatus;
+                    eventDAO.Update(context, eventValidation);
+                    context.SaveChanges();
                 }
             }
             catch (DAOException daoException)

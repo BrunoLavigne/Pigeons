@@ -224,11 +224,6 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
-        public task UpdateTask(object taskID, task taskToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion Task
 
         #region Assignation
@@ -246,6 +241,21 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Retire une assignation faite à une personne
+        /// </summary>
+        public void RemoveAssignation(object taskID, object personID)
+        {
+            try
+            {
+                mainControl.AssignationService.RemoveAssignation(taskID, personID);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
             }
         }
 
@@ -282,6 +292,21 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Changement du status d'un Event
+        /// </summary>
+        public void ChangeEventStatus(object taskID, object taskStatus)
+        {
+            try
+            {
+                mainControl.EventService.ChangeEventStatus(taskID, taskStatus);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
             }
         }
 
