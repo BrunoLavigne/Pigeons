@@ -394,7 +394,6 @@
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
 
-
     <!-- To avoid conflict with summernote js (bug with tooltip not positioned correctly on summernote buttons) -->
     <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
 
@@ -402,73 +401,8 @@
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
 
-
-
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    <script type="text/javascript" src="Resources/Vendor/summernote/summernote.min.js"></script>
+    <script type="text/javascript" src="Resources/js/Group.js"></script>
 
-    <script src="Resources/Vendor/summernote/summernote.min.js"></script>
-    <script>
-
-        // Start js plugins on every page load
-        function pageLoad() {
-
-            // Init the datepicker
-            $(".datepicker-holder").datepicker({
-                dateFormat: "dd/mm/yy"
-            });
-
-
-            // Init the text editor
-            $(".summernote").summernote();
-
-
-            $('.eventCalendar td').mouseenter(function () {
-
-                if ($(this).data("id") != undefined) {
-                    var idString = $(this).data('id');
-
-                    var formatedString = idString.substring(0, idString.length - 1);
-                    var id = formatedString.split(',');
-
-                    jQuery.each(id, function (i) {
-
-                        $(".eventRow").filter(function () {
-                            return $(this).data('id') == id[i];
-                        }).css('background-color', '#FFFFFF');
-                    });
-
-                } else {
-                    return false;
-                }
-
-            });
-
-            $(".eventCalendar td").mouseleave(function () {
-                $(".eventRow").each(function () {
-                    $(this).css({ "background": "none" });
-                });
-
-            });
-
-            var calendarEventDays;
-            var style;
-
-            $('.eventRow').hover(function () {
-                var eventID = $(this).data('id');
-
-                calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
-                style = calendarEventDays.attr('style');
-                calendarEventDays.css('background-color', '#737373');
-
-            }, function () {
-                calendarEventDays.css('background-color', '');
-                calendarEventDays.attr('style', style);
-            });
-
-
-
-
-        }
-
-    </script>
 </asp:Content>
