@@ -42,6 +42,11 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("Le ID du groupe pour créer l'évènement est null");
             }
 
+            if (string.IsNullOrEmpty(newEvent.Description))
+            {
+                throw new ServiceException("Le nouvel évènement doit avoir une description");
+            }
+
             try
             {
                 using (var context = new pigeonsEntities1())
@@ -59,6 +64,11 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException(string.Format("Le groupe no.{0} n'est pas actif. Impossible de créer un évènement", newEvent.Group_ID));
                     }
 
+                    if (newEvent.Event_End == default(DateTime))
+                    {
+                        newEvent.Event_End = null;
+                    }
+
                     // Validation des dates
                     if (newEvent.Event_End != null && newEvent.Event_Start != null)
                     {
@@ -66,11 +76,6 @@ namespace PigeonsLibrairy.Service.Implementation
                         {
                             throw new ServiceException(string.Format("La date de fin : {0} ne peut pas précéder la date de départ : {1}", newEvent.Event_End, newEvent.Event_Start));
                         }
-                    }
-
-                    if (newEvent.Event_End == default(DateTime))
-                    {
-                        newEvent.Event_End = null;
                     }
 
                     // Insertion de l'event

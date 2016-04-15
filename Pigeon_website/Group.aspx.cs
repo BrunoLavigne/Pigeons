@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 
 public partial class Group : System.Web.UI.Page
 {
-
     protected GroupFacade groupFacade { get; set; }
 
     protected HomeFacade homeFacade { get; set; }
@@ -22,28 +21,24 @@ public partial class Group : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if(groupFacade == null)
+        if (groupFacade == null)
         {
             groupFacade = new GroupFacade();
         }
 
-        if(homeFacade == null)
+        if (homeFacade == null)
         {
             homeFacade = new HomeFacade();
         }
 
-
         // Also check if the group actually exists and if the user is following it
-        if(!IsValidated())
+        if (!IsValidated())
         {
-
             Response.Redirect("Index.aspx");
-
-        } else {
-
-            person currentUser = (person) Session["user"];
-
+        }
+        else
+        {
+            person currentUser = (person)Session["user"];
 
             // Get group ID from url parameter
             Boolean goodGroupId = false;
@@ -51,15 +46,14 @@ public partial class Group : System.Web.UI.Page
 
             goodGroupId = int.TryParse(Request.Params["groupID"], out maybeGroupId);
 
-            if(goodGroupId)
+            if (goodGroupId)
             {
-
                 groupId = maybeGroupId;     // definitely
 
                 // For todos testing
                 testTodosLink.NavigateUrl = "Taskinator.aspx?groupID=" + groupId;
 
-                if(!Page.IsPostBack)
+                if (!Page.IsPostBack)
                 {
                     renderGroupToPage();
 
@@ -70,9 +64,8 @@ public partial class Group : System.Web.UI.Page
 
                     // Events table avec les Events du mois
                     createEventTable(DateTime.Now);
-
-
-                } else
+                }
+                else
                 {
                     eventsList = (List<@event>)Session["events"];
                     groupFacade = (GroupFacade)Session["facade"];
@@ -80,9 +73,8 @@ public partial class Group : System.Web.UI.Page
                     // Events table selon le mois visible en ce moment sur la page (au first load la visible date est égale à la date de validation et nous ne voulons pas afficher pour celle-ci)
                     createEventTable((Calendar1.VisibleDate == dateValidation) ? DateTime.Now : Calendar1.VisibleDate);
                 }
-                
 
-                if(!groupFacade.PersonIsGroupAdmin(currentUser.Id, groupId))
+                if (!groupFacade.PersonIsGroupAdmin(currentUser.Id, groupId))
                 {
                     panelAdminButtons.Visible = false;
                 }
@@ -90,12 +82,10 @@ public partial class Group : System.Web.UI.Page
         }
     }
 
-
     protected bool IsValidated()
     {
-        
         // Also, if group exists, if user is in group, etc.
-        bool isFine =   Session["user"] != null ||
+        bool isFine = Session["user"] != null ||
                         Request.Params["groupID"] != null;
 
         return isFine;
@@ -104,7 +94,6 @@ public partial class Group : System.Web.UI.Page
     // On devrait plus passer un groupe
     protected void renderGroupToPage()
     {
-
         group theGroup;
 
         // TODO: Faire une méthode bool groupExists(int groupId)
@@ -124,17 +113,17 @@ public partial class Group : System.Web.UI.Page
             messagesListView.DataSource = groupFacade.GetGroupMessages(int.Parse(Request.Params["groupID"]));
             renderMessagesToPage();
             refreshGroupTasks();
-
-        } catch(Exception e)
+        }
+        catch (Exception e)
         {
             Console.WriteLine("Group not found: " + e.Message);
         }
-        
     }
+
+    #region MESSAGIFICATION
 
     protected void renderMessagesToPage()
     {
-
         DataTable table = new DataTable();
         table.Columns.Add("date_created");
         table.Columns.Add("content");
@@ -143,7 +132,6 @@ public partial class Group : System.Web.UI.Page
 
         foreach (message m in groupFacade.GetGroupMessages(int.Parse(Request.Params["groupID"])))
         {
-
             DataRow dr = table.NewRow();
             dr["date_created"] = m.Date_created;
             dr["content"] = m.Content;
@@ -159,7 +147,6 @@ public partial class Group : System.Web.UI.Page
 
     protected void btnNewMessage_Click(object sender, EventArgs e)
     {
-
         person user = (person)Session["user"];
 
         // Create the message
@@ -179,14 +166,9 @@ public partial class Group : System.Web.UI.Page
         txtNewMessage.Text = "";
     }
 
+    #endregion MESSAGIFICATION
 
-
-
-
-
-
-
-
+    #region TASKIFICATOR
 
     protected void clearFields()
     {
@@ -202,7 +184,6 @@ public partial class Group : System.Web.UI.Page
     /// <param name="groupId"></param>
     protected void refreshGroupTasks()
     {
-
         List<task> taskListIncompleted = new List<task>();
         List<task> taskListCompleted = groupFacade.GetGroupTasks(groupId, true);    // get completed tasks
         List<task> taskListFlagged = new List<task>();
@@ -210,7 +191,6 @@ public partial class Group : System.Web.UI.Page
         // Get all incompleted UNFLAGGED tasks from group
         foreach (task t in groupFacade.GetGroupTasks(groupId, false))
         {
-
             // Get all unimportant/null ones
             if (!t.Is_important ?? true)
             {
@@ -221,14 +201,12 @@ public partial class Group : System.Web.UI.Page
         // Get all flagged tasks that are not completed
         foreach (task t in groupFacade.GetGroupTasks(groupId, false))
         {
-
             // ( "??" : If t.Is_Important is null, then assume it is not important)
             if (t.Is_important ?? false)
             {
                 taskListFlagged.Add(t);
             }
         }
-
 
         // bind to templates
         listViewIncompleted.DataSource = taskListIncompleted;
@@ -244,10 +222,7 @@ public partial class Group : System.Web.UI.Page
         lblIncompletedTasksCount.Text = taskListIncompleted.Count.ToString();
         lblCompletedTasksCount.Text = taskListCompleted.Count.ToString();
         lblFlaggedTasksCount.Text = taskListFlagged.Count.ToString();
-
     }
-
-
 
     /// <summary>
     /// Add a task
@@ -256,7 +231,6 @@ public partial class Group : System.Web.UI.Page
     /// <param name="e"></param>
     protected void btnAddTask_Click(object sender, EventArgs e)
     {
-
         person currentUser = (person)Session["user"];
         int currentUserID = currentUser.Id;
 
@@ -273,7 +247,6 @@ public partial class Group : System.Web.UI.Page
         // TODO: Validate if right format
         if (taskDueDate.Text.Length > 0)
         {
-
             string dateStr = taskDueDate.Text;
 
             DateTime dueDate = new DateTime();
@@ -285,16 +258,13 @@ public partial class Group : System.Web.UI.Page
                 string timeStr = taskDueTime.Text;
 
                 dueDate = DateTime.ParseExact(dateStr + " " + timeStr, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-
             }
-            else {
-
+            else
+            {
                 dueDate = DateTime.ParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
             }
 
             theTask.Task_DateTime = dueDate;
-
         }
 
         groupFacade.CreateNewTask(theTask, groupId, currentUserID);
@@ -302,11 +272,7 @@ public partial class Group : System.Web.UI.Page
         refreshGroupTasks();    // dirty
 
         clearFields();          // also dirty...js?
-
     }
-
-
-
 
     protected void btnDeleteTask_Click(object sender, EventArgs e)
     {
@@ -316,7 +282,6 @@ public partial class Group : System.Web.UI.Page
         groupFacade.DeleteTask(int.Parse(hiddenIdField.Value));
 
         refreshGroupTasks();
-
     }
 
     /// <summary>
@@ -326,7 +291,6 @@ public partial class Group : System.Web.UI.Page
     /// <param name="e"></param>
     protected void checkBoxCompleted_CheckedChanged(object sender, EventArgs e)
     {
-
         CheckBox checkbox = (CheckBox)sender;
         HiddenField lblIdField = (HiddenField)checkbox.Parent.FindControl("TaskIdHolder");
 
@@ -337,33 +301,9 @@ public partial class Group : System.Web.UI.Page
         refreshGroupTasks();
     }
 
+    #endregion TASKIFICATOR
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #region EVENTIFICATOR
 
     /// <summary>
     /// Affichage des événements
@@ -417,7 +357,7 @@ public partial class Group : System.Web.UI.Page
     /// <param name="eventsList"></param>
     private void createEventTable(DateTime selectedDate)
     {
-        eventsList = groupFacade.GetGroupEvent(16, selectedDate); // DIRTY HARCODAGE { must use active group }
+        eventsList = groupFacade.GetGroupEvent((int)groupId, selectedDate);
 
         Table1.Rows.Clear();
 
@@ -515,15 +455,14 @@ public partial class Group : System.Web.UI.Page
         string eventDesc = txtEventDescription.Text;
         string sStart = txtEventStart.Text;
         string sEnd = txtEventEnd.Text;
-
-        DateTime eventStart = DateTime.Parse(sStart);
-        DateTime eventEnd = DateTime.Parse(sEnd);
+        string format = "dd/MM/yyyy";
 
         @event newEvent = new @event();
+
+        newEvent.Event_Start = string.IsNullOrWhiteSpace(sStart) ? new DateTime() : DateTime.ParseExact(sStart, format, CultureInfo.InvariantCulture);
+        newEvent.Event_End = string.IsNullOrWhiteSpace(sEnd) ? new DateTime() : DateTime.ParseExact(sEnd, format, CultureInfo.InvariantCulture); ;
         newEvent.Description = eventDesc;
-        newEvent.Event_Start = eventStart;
-        newEvent.Event_End = eventEnd;
-        newEvent.Group_ID = 16; // DIRTY HARDCODAGE { PLACE ACTIVE GROUP ID }
+        newEvent.Group_ID = (int)groupId;
 
         groupFacade.CreateNewEvent(newEvent);
         createEventTable(Calendar1.VisibleDate);
@@ -543,6 +482,8 @@ public partial class Group : System.Web.UI.Page
         createEventTable(e.NewDate);
     }
 
+    #endregion EVENTIFICATOR
+
     #region BUTTONS
 
     /// <summary>
@@ -557,14 +498,4 @@ public partial class Group : System.Web.UI.Page
     }
 
     #endregion BUTTONS
-
-
-
-
-
-
-
-
-
-
 }
