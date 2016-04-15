@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="Resources/css/Group-chat.css" />
+    <script type="text/javascript" src="Resources/js/ajax/chat.js">
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -27,7 +29,7 @@
             </div>
         </div>--%>
 
-        <div id="divChat" class="chatRoom">
+        <!--<div id="divChat" class="chatRoom">
             <div class="title">
                 Welcome to Chat Room [<asp:Label runat="server" ID="lblWelcomeUsername" CssClass="user-name"></asp:Label>]
                 <div class="group-toggler">toggle group</div>
@@ -42,7 +44,7 @@
                 <input class="textbox" type="text" id="txtMessage" />
                 <input id="btnSendMsg" type="button" value="Send" class="submitButton" />
             </div>
-        </div>
+        </div>-->
         
         <input id="hdPersondId" type="hidden" runat="server" />
         <input id="hdPersondUserName" type="hidden" runat="server" />
@@ -65,6 +67,78 @@
         /**********************************************************
                         new scripts
         **********************************************************/
+        function ajaxData() {
+            $.ajax({
+
+                type: "POST",
+                url: "Chat.aspx/GetFollowings",
+                //data: 3,
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+                success: OnSuccess,
+                error: function (response) {
+                    alert(response.e);
+                }
+            });
+
+            function OnSuccess(response) {
+                console.log("success i guess " + response.d);
+                
+                /*$.each(JSON.parse(response.d), function (index, value) {
+                    $('.get-message').append('<div>' + index + " : " + value + '</div>');
+                    joinRoom(value);
+                });*/
+
+            }
+        }
+
+        function ajaxMessageData() {
+            $.ajax({
+
+                type: "POST",
+                url: "Chat.aspx/GetGroupMessages",
+                //data: 3,
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+                success: OnSuccess,
+                error: function (response) {
+                    alert(response.e);
+                }
+            });
+
+            function OnSuccess(response) {
+                console.log("success i guess " + response.d);
+                var idToAppend;
+                $.each(JSON.parse(response.d), function (index, value) {
+                    $('#divContainer').append("<div id='divChat' class='chatRoom'>" + 
+                        "<div class='title'>" +
+                            "Welcome to Chat Room " + value.groupId +
+                            "<div class='group-toggler'>toggle group</div>" +
+                        "</div>" + 
+                        "<div class='content'>" + 
+                            "<div id='divChatWindow_" + value.groupId + "' class='chatWindow'>" +
+                            "</div>" +
+                            "<div id='divusers' class='users'>" + 
+                            "</div>" + 
+                        "</div>" + 
+                        "<div class='messageBar'>" + 
+                            "<input class='textbox' type='text' id='txtMessage' />" + 
+                            "<input id='btnSendMsg' type='button' value='Send' class='submitButton' />"+
+                        "</div>" + 
+                    "</div>");
+                    
+                    /*$('#divChatWindow').append('<div class="message">' + value.Message + '</div>');*/
+                    joinRoom(value.groupId);
+                });
+                $.each(JSON.parse(response.d), function (index, value) {
+                    $.each(value.Message, function (numMessage, contentMessage) {
+                        idToAppend = "#divChatWindow_" + value.groupId;
+                        $(idToAppend).append("<div>" + numMessage + " : " + contentMessage + "</div>");
+                    });
+                });
+
+            }
+        }
 
         var chatHub = $.connection.chatHub;
         var messages = new Array();
@@ -73,13 +147,15 @@
         var roomName;
         var newMessage;
 
+        
+
         $(function () {
             $.connection.hub.logging = true;
             $.connection.hub.start();
         });
 
-        function joinRoom() {
-            roomName = <%= hdGroupId.Value%>
+        function joinRoom(roomNameId) {
+            roomName = roomNameId;
             chatHub.server.joinRoom(roomName);
             //console.log(chatHub.server.countUsers());
             console.log('joining room ' + roomName);
@@ -145,6 +221,8 @@
             }
         });
 
+        
+
         $(".get-message").click(function () {
             console.log(getAllMessage());
 
@@ -152,7 +230,8 @@
 
         $(".chat-toggler").click(function () {
             console.log("toggle the group chat!");
-            joinRoom();
+            //ajaxData();
+            ajaxMessageData();
             $(".chatRoom").slideToggle(200);
         });
 
