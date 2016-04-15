@@ -1,13 +1,39 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.Model;
+using PigeonsLibrairy.DAO.Implementation;
 
 namespace UnitTesting.TestDAO
 {
     [TestClass]
     public class groupDAO_Test
     {
-        #region CRUDGroup
+        private GroupDAO groupDAO { get; set; }
+        private group groupTest { get; set; }
+
+        private const string GROUP_NAME = "Rookies";
+        private DateTime GROUP_CREATION_DATE = DateTime.Parse("1993-10-21");
+        private const string GROUP_DESCRIPTION = "We rooooock";
+        private const string GROUP_PICTURE_LINK = "www.rookies.com";
+        private const bool GROUP_IS_ACTIVE = true;
+
+        /// <summary>
+        /// Création du DAO et d'un group pour les tests
+        /// </summary>
+        [TestInitialize()]
+        public void MyTestInitialize()
+        {
+            groupDAO = new GroupDAO();
+
+            groupTest = new group();
+
+            groupTest.Name = GROUP_NAME;
+            groupTest.Creation_date = GROUP_CREATION_DATE;
+            groupTest.Description = GROUP_DESCRIPTION;
+            groupTest.pi
+        }
+
+
         [TestMethod]
         public void InsertGroupTest()
         {
