@@ -1,0 +1,13 @@
+﻿/*
+    Override vendor prefixes
+*/
+.ui-datepicker {
+    background: #eee;
+    padding: 10px;
+}
+.ui-datepicker .ui-datepicker-header {
+    padding: 0 10px;
+}
+.ui-datepicker th, .ui-datepicker td {
+    padding: 10px;
+}

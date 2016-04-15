@@ -83,11 +83,24 @@ namespace FunctionsTester
             {
                 loginResult.Text = "Login Accepted";
                 active_personID.Text = activePerson.Id.ToString();
+
+                fillPersonCombo(activePerson.Id);
             }
             else
             {
                 loginResult.Text = "Login Refused";
             }
+        }
+
+        private void fillPersonCombo(int id)
+        {
+            person activePerson = homeFacade.GetPersonData(id);
+
+            foreach(following f in activePerson.followings)
+            {
+                //cb_LoginFollowings.Items.Add(f.Person_Id + " - " + f.Group_id);
+                //cb_LoginGroups.Items.Add(f.group.Name);
+            }            
         }
 
         /// <summary>
@@ -274,6 +287,11 @@ namespace FunctionsTester
             activePerson.Description = newDescription;
 
             person updateMe = homeFacade.UpdatePerson(personID, activePerson);
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -5,34 +5,55 @@ using System;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
+using System.Text.RegularExpressions;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
+    /// <summary>
+    /// Service pour la table Person (<see cref="person"/>)
+    /// </summary>
     public class PersonService : Service<person>, IPersonService
     {
-        private PersonDAO personDAO { get; set; }
+        private IPersonDAO personDAO { get; set; }
 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public PersonService() : base()
         {
             personDAO = new PersonDAO();
         }
 
+        /// <summary>
+        /// Appel le DAO pour trouver une person dans la table
+        /// </summary>
+        /// <param name="columnName">Le nom de la colonne pour la recherche</param>
+        /// <param name="value">La valeur rechercher</param>
+        /// <returns>Une liste de personne. Une liste vide sinon</returns>
         public new IEnumerable<person> GetBy(string columnName, object value)
         {
-            IEnumerable<person> personsList = new List<person>();
-
-            if (columnName != "" && value != null)
+            if (columnName == "")
             {
-                using(var context = new pigeonsEntities1())
-                {
-                    personsList = personDAO.GetBy(context, columnName, value);
-                    return personsList;
-                }                
+                throw new ServiceException("La valeur de la colonne ne doit pas être null");
             }
-            else
+
+            if (value == null)
             {
-                throw new ServiceException("You must provid the column name and a value");
-            }            
+                throw new ServiceException("La valeur recherchée ne peut pas être null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {                    
+                    return personDAO.GetBy(context, columnName, value);
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }           
         }
 
         /// <summary>
@@ -69,16 +90,22 @@ namespace PigeonsLibrairy.Service.Implementation
                 }
             }
 
-            using(var context = new pigeonsEntities1())
+            try
             {
-                newUser.Inscription_date = DateTime.Now;
-                newUser.Profile_picture_link = "";
-                personDAO.Insert(context, newUser);
-                context.SaveChanges();
-                userIsAdded = true;
-            }            
-        
-            return userIsAdded;
+                using (var context = new pigeonsEntities1())
+                {
+                    newUser.Inscription_date = DateTime.Now;
+                    newUser.Profile_picture_link = "";
+                    personDAO.Insert(context, newUser);
+                    context.SaveChanges();
+                    userIsAdded = true;
+                }
+                return userIsAdded;
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -101,17 +128,24 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The password is null");
             }
 
-            List<person> existingPerson = (GetBy(person.COLUMN_EMAIL, username)).ToList();            
-
-            if(existingPerson.Count() > 0)
+            try
             {
-                if(existingPerson[0].Password == password)
-                {
-                    loginAccepted = existingPerson[0];
-                }
-            }
+                List<person> existingPerson = (GetBy(person.COLUMN_EMAIL, username)).ToList();
 
-            return loginAccepted;
+                if (existingPerson.Count() > 0)
+                {
+                    if (existingPerson[0].Password == password)
+                    {
+                        loginAccepted = existingPerson[0];
+                    }
+                }
+
+                return loginAccepted;
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }                
         }
 
         /// <summary>
@@ -122,7 +156,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>The updated person</returns>
         public person UpdatePerson(object personID, person updatedPerson)
         {
-            if(personID == null)
+            if (personID == null)
             {
                 throw new ServiceException("The person ID is null");
             }
@@ -132,15 +166,33 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The person to update is null");
             }
 
-            using(var context = new pigeonsEntities1())
+            try
             {
-                try
+                using (var context = new pigeonsEntities1())
                 {
+
                     person validatePerson = GetByID(personID);
 
-                    if(validatePerson == null)
+                    if (validatePerson == null)
                     {
                         throw new ServiceException("The person you are trying to update is not in the DB");
+                    }
+
+                    string phoneNumber = updatedPerson.Phone_number;
+
+                    if (phoneNumber != "")
+                    {
+                        Regex pattern = new Regex("[()-]");
+                        string formatedPhoneNumber = pattern.Replace(phoneNumber.Trim(), "");
+
+                        if(formatedPhoneNumber.Count() <= 10)
+                        {
+                            updatedPerson.Phone_number = formatedPhoneNumber;
+                        }
+                        else
+                        {
+                            throw new ServiceException("Le numéro de téléphone n'est pas valide");
+                        }
                     }
 
                     validatePerson = updatedPerson;
@@ -148,10 +200,42 @@ namespace PigeonsLibrairy.Service.Implementation
                     context.SaveChanges();
                     return validatePerson;
                 }
-                catch
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Recherche d'une Person qui inclu la person, ses following et ses group
+        /// </summary>
+        /// <param name="personID">Le ID de la personne</param>
+        /// <returns>La person et ses information qui corresponde au ID. Null sinon</returns>
+        public person GetPersonData(object personID)
+        {
+            if (personID == null)
+            {
+                throw new ServiceException("Erreur GetPersonDate : Le ID de la personne est null");
+            }
+
+            try
+            {
+                using(var context = new pigeonsEntities1())
                 {
-                    throw new ServiceException("Impossible to update");
+                    List<person> personList = personDAO.GetPersonData(context, personID).ToList();
+
+                    if(personList.Count() != 1)
+                    {
+                        throw new ServiceException("Erreur personService GetPersonData : La requête ne retourne pas qu'une personne");
+                    }
+
+                    return personList[0];
                 }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
             }
         }
     }

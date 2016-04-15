@@ -1,0 +1,120 @@
+﻿/*
+    Tasks styling
+    Includes the task component and the add task component
+*/
+
+.Tasks-app {
+    font-family: Montserrat, Arial, sans-serif;
+}
+
+.Tasks-app .Task-container {
+	padding: 12px 0;
+    position: relative;
+}
+
+.Tasks-app .btn-delete-task {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    background: #A94442;
+    color: white;
+    border: 1px solid #750000;
+}
+
+.Tasks-app .title {
+    font-size: 22px;
+    margin: 8px 0;
+    border-bottom: 2px solid #EEE;
+    padding-bottom: 15px;
+}
+
+.Tasks-container,
+.Add-task-container {
+
+	padding: 20px 0;
+}
+
+.Tasks-container.completed .checkbox-wrapper {
+	text-decoration: line-through;
+}
+
+/* Don't give a li-style to the task container */
+.Tasks-container li {
+	list-style-type: none;
+}
+
+/* Don't give a border for the last tasks container */
+.Tasks-container li:not(:last-child) {
+	border-bottom: 1px solid #eee;
+}
+
+.Tasks-app input[type="checkbox"] {
+	margin-right: 12px;
+
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+	background: #69c;
+	border-radius: 1px;
+	box-sizing: border-box;
+	position: relative;
+	box-sizing: content-box ;
+	width: 30px;
+	height: 30px;
+	border-width: 0;
+	transition: all .3s linear;
+	border-radius: 4px;
+}
+
+.Tasks-app input[type="checkbox"]:checked{
+	background-color: #2ECC71;
+}
+
+.Tasks-app input[type="checkbox"]:focus{
+	outline: 0 none;
+	box-shadow: none;
+}
+
+.Task-container .content {
+	font-size: 12px;
+	padding-left: 45px;
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	transition: all .3s ease .15s;
+}
+
+/* mettre un media query puisqu'il faudrait que l'auteur et la date soient visibles en mobile */
+.Task-container:hover .content, .Task-container:focus .content {
+	opacity: 1;
+	height: 32px; /* dirty */
+}
+
+.Task-container .author {
+	font-weight: bold;
+}
+
+.Task-container .author,
+.Task-container .due-date {
+	display: inline-block;
+}
+
+.Tasks-app .checkbox-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.Tasks-app .title .glyphicon {
+    margin-right: 12px;
+}
+
+.Tasks-app .checkbox-wrapper .glyphicon {
+    margin-left: 8px;
+}
+
+.Tasks-app .glyphicon-flag {
+    color: #A94442;
+}

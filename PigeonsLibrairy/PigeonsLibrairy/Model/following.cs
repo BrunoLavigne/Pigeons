@@ -25,6 +25,5 @@ namespace PigeonsLibrairy.Model
     
         public virtual group group { get; set; }
         public virtual person person { get; set; }
-        
     }
 }

@@ -1,12 +1,13 @@
-using System;
+using PigeonsLibrairy.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    interface IPersonDAO
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.PersonDAO"/>
+    /// </summary>
+    interface IPersonDAO : IDAO<person>
     {
+        IEnumerable<person> GetPersonData(pigeonsEntities1 context, object personID);
     }
 }

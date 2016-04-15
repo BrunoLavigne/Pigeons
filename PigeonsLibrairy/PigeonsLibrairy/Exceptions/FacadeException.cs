@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Exceptions
 {
+    /// <summary>
+    /// Exception pour les classe Facade <see cref="Facade"/>
+    /// </summary>
     public class FacadeException : Exception
     {
         public FacadeException() : base() { }

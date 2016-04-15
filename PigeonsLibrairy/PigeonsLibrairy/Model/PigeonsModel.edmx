@@ -5,6 +5,45 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="pigeonsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="assignation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task_ID" Type="int" Nullable="false" />
+          <Property Name="Person_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chathistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
+          <Property Name="Message" Type="text" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="Event_Start" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Event_End" Type="datetime" Precision="0" />
+          <Property Name="Is_Completed" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_ID" Type="int" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileURL" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Creation_Date" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="following">
           <Key>
             <PropertyRef Name="Person_Id" />
@@ -23,7 +62,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Creation_date" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Group_picture_link" Type="text" />
           <Property Name="Is_active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="messages">
@@ -44,71 +84,112 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="text" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
-          <Property Name="Inscription_date" Type="datetime" Precision="0" />
-          <Property Name="Profile_picture_link" Type="text" Nullable="false" />
+          <Property Name="Inscription_date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Profile_picture_link" Type="text" />
           <Property Name="Birth_date" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Phone_number" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Organization" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Position" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="project">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Group_id" Type="int" Nullable="false" />
-          <Property Name="Type_id" Type="int" Nullable="false" />
-          <Property Name="Date_start" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Date_end" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Phone_number" Type="varchar" MaxLength="10" />
+          <Property Name="Organization" Type="varchar" MaxLength="100" />
+          <Property Name="Position" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="text" />
         </EntityType>
         <EntityType Name="task">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Project_ID" Type="int" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="Date_due" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
+          <Property Name="Group_ID" Type="int" Nullable="false" />
+          <Property Name="Task_DateTime" Type="datetime" Precision="0" />
           <Property Name="Is_completed" Type="bool" Nullable="false" />
+          <Property Name="Is_important" Type="bool" />
         </EntityType>
-        <EntityType Name="type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="text" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_event_group">
+        <Association Name="FK_Assignation_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="assignation" Type="Self.assignation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="assignation">
+              <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignation_Task">
+          <End Role="task" Type="Self.task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="assignation" Type="Self.assignation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="assignation">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Group">
           <End Role="group" Type="Self.group" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="project" Type="Self.project" Multiplicity="*" />
+          <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="project">
-              <PropertyRef Name="Group_id" />
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_event_type">
-          <End Role="type" Type="Self.type" Multiplicity="1" />
-          <End Role="project" Type="Self.project" Multiplicity="*" />
+        <Association Name="FK_ChatMessage_Person">
+          <End Role="person" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="chathistory" Type="Self.chathistory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="type">
+            <Principal Role="person">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="project">
-              <PropertyRef Name="Type_id" />
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Group">
+          <End Role="group" Type="Self.group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Files_Grouup">
+          <End Role="group" Type="Self.group" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_following_group">
-          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="following" Type="Self.following" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
@@ -157,33 +238,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Project_Task">
-          <End Role="project" Type="Self.project" Multiplicity="1" />
+        <Association Name="FK_Task_Group">
+          <End Role="group" Type="Self.group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="task" Type="Self.task" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="project">
+            <Principal Role="group">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="task">
-              <PropertyRef Name="Project_ID" />
+              <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="pigeonsModelStoreContainer">
+          <EntitySet Name="assignation" EntityType="Self.assignation" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="chathistory" EntityType="Self.chathistory" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="event" EntityType="Self.event" Schema="pigeons" store:Type="Tables" />
+          <EntitySet Name="files" EntityType="Self.files" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="following" EntityType="Self.following" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="group" EntityType="Self.group" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="messages" EntityType="Self.messages" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="person" EntityType="Self.person" Schema="pigeons" store:Type="Tables" />
-          <EntitySet Name="project" EntityType="Self.project" Schema="pigeons" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" Schema="pigeons" store:Type="Tables" />
-          <EntitySet Name="type" EntityType="Self.type" Schema="pigeons" store:Type="Tables" />
-          <AssociationSet Name="FK_event_group" Association="Self.FK_event_group">
-            <End Role="group" EntitySet="group" />
-            <End Role="project" EntitySet="project" />
+          <AssociationSet Name="FK_Assignation_Person" Association="Self.FK_Assignation_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="assignation" EntitySet="assignation" />
           </AssociationSet>
-          <AssociationSet Name="FK_event_type" Association="Self.FK_event_type">
-            <End Role="type" EntitySet="type" />
-            <End Role="project" EntitySet="project" />
+          <AssociationSet Name="FK_Assignation_Task" Association="Self.FK_Assignation_Task">
+            <End Role="task" EntitySet="task" />
+            <End Role="assignation" EntitySet="assignation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Group" Association="Self.FK_ChatMessage_Group">
+            <End Role="group" EntitySet="group" />
+            <End Role="chathistory" EntitySet="chathistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Person" Association="Self.FK_ChatMessage_Person">
+            <End Role="person" EntitySet="person" />
+            <End Role="chathistory" EntitySet="chathistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Group" Association="Self.FK_Event_Group">
+            <End Role="group" EntitySet="group" />
+            <End Role="event" EntitySet="event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Files_Grouup" Association="Self.FK_Files_Grouup">
+            <End Role="group" EntitySet="group" />
+            <End Role="files" EntitySet="files" />
           </AssociationSet>
           <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
             <End Role="group" EntitySet="group" />
@@ -201,8 +302,8 @@
             <End Role="person" EntitySet="person" />
             <End Role="messages" EntitySet="messages" />
           </AssociationSet>
-          <AssociationSet Name="FK_Project_Task" Association="Self.FK_Project_Task">
-            <End Role="project" EntitySet="project" />
+          <AssociationSet Name="FK_Task_Group" Association="Self.FK_Task_Group">
+            <End Role="group" EntitySet="group" />
             <End Role="task" EntitySet="task" />
           </AssociationSet>
         </EntityContainer>
@@ -210,68 +311,94 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pigeonsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="group">
+        <EntityContainer Name="pigeonsEntities1" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="assignations" EntityType="pigeonsModel.assignation" />
+          <EntitySet Name="chathistories" EntityType="pigeonsModel.chathistory" />
+          <EntitySet Name="events" EntityType="pigeonsModel.event" />
+          <EntitySet Name="followings" EntityType="pigeonsModel.following" />
+          <EntitySet Name="groups" EntityType="pigeonsModel.group" />
+          <EntitySet Name="messages" EntityType="pigeonsModel.message" />
+          <EntitySet Name="people" EntityType="pigeonsModel.person" />
+          <EntitySet Name="tasks" EntityType="pigeonsModel.task" />
+          <AssociationSet Name="FK_Assignation_Person" Association="pigeonsModel.FK_Assignation_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="assignation" EntitySet="assignations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignation_Task" Association="pigeonsModel.FK_Assignation_Task">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="assignation" EntitySet="assignations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Group" Association="pigeonsModel.FK_ChatMessage_Group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="chathistory" EntitySet="chathistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessage_Person" Association="pigeonsModel.FK_ChatMessage_Person">
+            <End Role="person" EntitySet="people" />
+            <End Role="chathistory" EntitySet="chathistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Group" Association="pigeonsModel.FK_Event_Group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="event" EntitySet="events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_following_group" Association="pigeonsModel.FK_following_group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="following" EntitySet="followings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_following_person" Association="pigeonsModel.FK_following_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="following" EntitySet="followings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_group" Association="pigeonsModel.FK_message_group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Group" Association="pigeonsModel.FK_Task_Group">
+            <End Role="group" EntitySet="groups" />
+            <End Role="task" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_person" Association="pigeonsModel.FK_message_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <EntitySet Name="files" EntityType="pigeonsModel.file" />
+          <AssociationSet Name="FK_Files_Grouup" Association="pigeonsModel.FK_Files_Grouup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="assignation">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Creation_date" Type="DateTime" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Is_active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="followings" Relationship="Self.FK_following_group" FromRole="group" ToRole="following" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_message_group" FromRole="group" ToRole="messages" />
-          <NavigationProperty Name="projects" Relationship="pigeonsModel.FK_event_group1" FromRole="group" ToRole="project" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task_ID" Type="Int32" Nullable="false" />
+          <Property Name="Person_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_Assignation_Person" FromRole="assignation" ToRole="person" />
+          <NavigationProperty Name="task" Relationship="pigeonsModel.FK_Assignation_Task" FromRole="assignation" ToRole="task" />
         </EntityType>
-        <EntityType Name="message">
+        <EntityType Name="chathistory">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Author_Id" Type="Int32" Nullable="false" />
-          <Property Name="Group_Id" Type="Int32" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date_created" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="group" Relationship="Self.FK_message_group" FromRole="messages" ToRole="group" />
-          <NavigationProperty Name="person" Relationship="Self.FK_message_person" FromRole="messages" ToRole="person" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_ChatMessage_Group" FromRole="chathistory" ToRole="group" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_ChatMessage_Person" FromRole="chathistory" ToRole="person" />
         </EntityType>
-        <EntityType Name="person">
+        <EntityType Name="event">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Inscription_date" Type="DateTime" Nullable="false" />
-          <Property Name="Profile_picture_link" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Birth_date" Type="DateTime" Nullable="false" />
-          <Property Name="Phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="messages" Relationship="Self.FK_message_person" FromRole="person" ToRole="messages" />
-          <NavigationProperty Name="followings" Relationship="Self.FK_following_person" FromRole="person" ToRole="following" />
-        </EntityType>
-        <EntityType Name="task">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date_due" Type="DateTime" Nullable="false" />
-          <Property Name="Is_completed" Type="Boolean" Nullable="false" />
-          <Property Name="Project_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="project" Relationship="pigeonsModel.FK_Project_Task" FromRole="task" ToRole="project" />
-        </EntityType>
-        <EntityType Name="type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="projects" Relationship="pigeonsModel.FK_event_type1" FromRole="type" ToRole="project" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="Event_Start" Type="DateTime" Nullable="false" />
+          <Property Name="Event_End" Type="DateTime" />
+          <Property Name="Is_Completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Event_Group" FromRole="event" ToRole="group" />
         </EntityType>
         <EntityType Name="following">
           <Key>
@@ -283,12 +410,145 @@
           <Property Name="Is_admin" Type="Boolean" Nullable="false" />
           <Property Name="Last_checkin" Type="DateTime" Nullable="false" />
           <Property Name="Is_active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="group" Relationship="Self.FK_following_group" FromRole="following" ToRole="group" />
-          <NavigationProperty Name="person" Relationship="Self.FK_following_person" FromRole="following" ToRole="person" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_following_group" FromRole="following" ToRole="group" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_following_person" FromRole="following" ToRole="person" />
         </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Creation_date" Type="DateTime" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Group_picture_link" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Is_active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="chathistories" Relationship="pigeonsModel.FK_ChatMessage_Group" FromRole="group" ToRole="chathistory" />
+          <NavigationProperty Name="events" Relationship="pigeonsModel.FK_Event_Group" FromRole="group" ToRole="event" />
+          <NavigationProperty Name="followings" Relationship="pigeonsModel.FK_following_group" FromRole="group" ToRole="following" />
+          <NavigationProperty Name="messages" Relationship="pigeonsModel.FK_message_group" FromRole="group" ToRole="message" />
+          <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Task_Group" FromRole="group" ToRole="task" />
+          <NavigationProperty Name="files" Relationship="pigeonsModel.FK_Files_Grouup" FromRole="group" ToRole="file" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Author_Id" Type="Int32" Nullable="false" />
+          <Property Name="Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Date_created" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_message_group" FromRole="message" ToRole="group" />
+          <NavigationProperty Name="person" Relationship="pigeonsModel.FK_message_person" FromRole="message" ToRole="person" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Inscription_date" Type="DateTime" Nullable="false" />
+          <Property Name="Profile_picture_link" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Birth_date" Type="DateTime" Nullable="false" />
+          <Property Name="Phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Person" FromRole="person" ToRole="assignation" />
+          <NavigationProperty Name="chathistories" Relationship="pigeonsModel.FK_ChatMessage_Person" FromRole="person" ToRole="chathistory" />
+          <NavigationProperty Name="followings" Relationship="pigeonsModel.FK_following_person" FromRole="person" ToRole="following" />
+          <NavigationProperty Name="messages" Relationship="pigeonsModel.FK_message_person" FromRole="person" ToRole="message" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Group_ID" Type="Int32" Nullable="false" />
+          <Property Name="Is_completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="assignations" Relationship="pigeonsModel.FK_Assignation_Task" FromRole="task" ToRole="assignation" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Task_Group" FromRole="task" ToRole="group" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <Property Name="Task_DateTime" Type="DateTime" />
+          <Property Name="Is_important" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Assignation_Person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1" />
+          <End Type="pigeonsModel.assignation" Role="assignation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="assignation">
+              <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignation_Task">
+          <End Type="pigeonsModel.task" Role="task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.assignation" Role="assignation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="assignation">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Group">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.chathistory" Role="chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessage_Person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.chathistory" Role="chathistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="chathistory">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Group">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.event" Role="event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="event">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_following_group">
-          <End Role="group" Type="Self.group" Multiplicity="1" />
-          <End Role="following" Type="Self.following" Multiplicity="*" />
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.following" Role="following" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
               <PropertyRef Name="Id" />
@@ -298,35 +558,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_message_group">
-          <End Role="group" Type="Self.group" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="messages" Type="Self.message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="group">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="Group_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_message_person">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
-          <End Role="messages" Type="Self.message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="messages">
-              <PropertyRef Name="Author_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_following_person">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
-          <End Role="following" Type="Self.following" Multiplicity="*" />
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1" />
+          <End Type="pigeonsModel.following" Role="following" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="person">
               <PropertyRef Name="Id" />
@@ -336,180 +570,181 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="pigeonsEntities1" annotation:LazyLoadingEnabled="false">
-          <EntitySet Name="groups" EntityType="Self.group" />
-          <EntitySet Name="messages" EntityType="Self.message" />
-          <EntitySet Name="people" EntityType="Self.person" />
-          <EntitySet Name="tasks" EntityType="Self.task" />
-          <EntitySet Name="types" EntityType="Self.type" />
-          <EntitySet Name="followings" EntityType="Self.following" />
-          <AssociationSet Name="FK_following_group" Association="Self.FK_following_group">
-            <End Role="group" EntitySet="groups" />
-            <End Role="following" EntitySet="followings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_message_group" Association="Self.FK_message_group">
-            <End Role="group" EntitySet="groups" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_message_person" Association="Self.FK_message_person">
-            <End Role="person" EntitySet="people" />
-            <End Role="messages" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_following_person" Association="Self.FK_following_person">
-            <End Role="person" EntitySet="people" />
-            <End Role="following" EntitySet="followings" />
-          </AssociationSet>
-          <EntitySet Name="projects" EntityType="pigeonsModel.project" />
-          <AssociationSet Name="FK_event_group1" Association="pigeonsModel.FK_event_group1">
-            <End Role="group" EntitySet="groups" />
-            <End Role="project" EntitySet="projects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_event_type1" Association="pigeonsModel.FK_event_type1">
-            <End Role="type" EntitySet="types" />
-            <End Role="project" EntitySet="projects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Project_Task" Association="pigeonsModel.FK_Project_Task">
-            <End Role="project" EntitySet="projects" />
-            <End Role="task" EntitySet="tasks" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="project">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Group_id" Type="Int32" Nullable="false" />
-          <Property Name="Type_id" Type="Int32" Nullable="false" />
-          <Property Name="Date_start" Type="DateTime" Nullable="false" />
-          <Property Name="Date_end" Type="DateTime" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_event_group1" FromRole="project" ToRole="group" />
-          <NavigationProperty Name="type" Relationship="pigeonsModel.FK_event_type1" FromRole="project" ToRole="type" />
-          <NavigationProperty Name="tasks" Relationship="pigeonsModel.FK_Project_Task" FromRole="project" ToRole="task" />
-        </EntityType>
-        <Association Name="FK_event_group1">
+        <Association Name="FK_message_group">
           <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="pigeonsModel.project" Role="project" Multiplicity="*" />
+          <End Type="pigeonsModel.message" Role="message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="project">
-              <PropertyRef Name="Group_id" />
+            <Dependent Role="message">
+              <PropertyRef Name="Group_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_event_type1">
-          <End Type="pigeonsModel.type" Role="type" Multiplicity="1" />
-          <End Type="pigeonsModel.project" Role="project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="type">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="project">
-              <PropertyRef Name="Type_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Project_Task">
-          <End Type="pigeonsModel.project" Role="project" Multiplicity="1" />
+        <Association Name="FK_Task_Group">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="pigeonsModel.task" Role="task" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="project">
+            <Principal Role="group">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="task">
-              <PropertyRef Name="Project_ID" />
+              <PropertyRef Name="Group_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_message_person">
+          <End Type="pigeonsModel.person" Role="person" Multiplicity="1" />
+          <End Type="pigeonsModel.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="Author_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_ID" Type="Int32" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileURL" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="pigeonsModel.FK_Files_Grouup" FromRole="file" ToRole="group" />
+        </EntityType>
+        <Association Name="FK_Files_Grouup">
+          <End Type="pigeonsModel.group" Role="group" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="pigeonsModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="pigeonsModelStoreContainer" CdmEntityContainer="pigeonsEntities1">
-          <EntitySetMapping Name="groups">
-            <EntityTypeMapping TypeName="pigeonsModel.group">
-              <MappingFragment StoreEntitySet="group">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Creation_date" ColumnName="Creation_date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Is_active" ColumnName="Is_active" />
+          <EntitySetMapping Name="assignations">
+            <EntityTypeMapping TypeName="pigeonsModel.assignation">
+              <MappingFragment StoreEntitySet="assignation">
+                <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="messages">
-            <EntityTypeMapping TypeName="pigeonsModel.message">
-              <MappingFragment StoreEntitySet="messages">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Author_Id" ColumnName="Author_Id" />
-                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Date_created" ColumnName="Date_created" />
+          <EntitySetMapping Name="chathistories">
+            <EntityTypeMapping TypeName="pigeonsModel.chathistory">
+              <MappingFragment StoreEntitySet="chathistory">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="people">
-            <EntityTypeMapping TypeName="pigeonsModel.person">
-              <MappingFragment StoreEntitySet="person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Inscription_date" ColumnName="Inscription_date" />
-                <ScalarProperty Name="Profile_picture_link" ColumnName="Profile_picture_link" />
-                <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
-                <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
-                <ScalarProperty Name="Organization" ColumnName="Organization" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="pigeonsModel.event">
+              <MappingFragment StoreEntitySet="event">
+                <ScalarProperty Name="Is_Completed" ColumnName="Is_Completed" />
+                <ScalarProperty Name="Event_End" ColumnName="Event_End" />
+                <ScalarProperty Name="Event_Start" ColumnName="Event_Start" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tasks">
-            <EntityTypeMapping TypeName="pigeonsModel.task">
-              <MappingFragment StoreEntitySet="task">
-                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Date_due" ColumnName="Date_due" />
-                <ScalarProperty Name="Is_completed" ColumnName="Is_completed" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="types">
-            <EntityTypeMapping TypeName="pigeonsModel.type">
-              <MappingFragment StoreEntitySet="type">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="followings">
             <EntityTypeMapping TypeName="pigeonsModel.following">
               <MappingFragment StoreEntitySet="following">
-                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
-                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
-                <ScalarProperty Name="Is_admin" ColumnName="Is_admin" />
-                <ScalarProperty Name="Last_checkin" ColumnName="Last_checkin" />
                 <ScalarProperty Name="Is_active" ColumnName="Is_active" />
+                <ScalarProperty Name="Last_checkin" ColumnName="Last_checkin" />
+                <ScalarProperty Name="Is_admin" ColumnName="Is_admin" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="projects">
-            <EntityTypeMapping TypeName="pigeonsModel.project">
-              <MappingFragment StoreEntitySet="project">
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="pigeonsModel.group">
+              <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="Is_active" ColumnName="Is_active" />
+                <ScalarProperty Name="Group_picture_link" ColumnName="Group_picture_link" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Date_end" ColumnName="Date_end" />
-                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
-                <ScalarProperty Name="Type_id" ColumnName="Type_id" />
-                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="Creation_date" ColumnName="Creation_date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="pigeonsModel.message">
+              <MappingFragment StoreEntitySet="messages">
+                <ScalarProperty Name="Date_created" ColumnName="Date_created" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Author_Id" ColumnName="Author_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="pigeonsModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+                <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
+                <ScalarProperty Name="Profile_picture_link" ColumnName="Profile_picture_link" />
+                <ScalarProperty Name="Inscription_date" ColumnName="Inscription_date" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="pigeonsModel.task">
+              <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="Is_important" ColumnName="Is_important" />
+                <ScalarProperty Name="Task_DateTime" ColumnName="Task_DateTime" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
+                <ScalarProperty Name="Is_completed" ColumnName="Is_completed" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="pigeonsModel.file">
+              <MappingFragment StoreEntitySet="files">
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+                <ScalarProperty Name="FileURL" ColumnName="FileURL" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Group_ID" ColumnName="Group_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

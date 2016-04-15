@@ -1,15 +1,31 @@
 ﻿using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    public interface IFollowingDAO : IDAO<following>
+    /// <summary>
+    /// Interface de la class <see cref="Implementation.FollowingDAO"/>
+    /// </summary>
+    interface IFollowingDAO : IDAO<following>
     {
-        IList<following> GetTheFollowers(pigeonsEntities1 context, object groupID);
-        IEnumerable<following> GetByID(pigeonsEntities1 context, object personID, object groupID);
+        /// <summary>
+        /// <see cref="Implementation.FollowingDAO.GetTheFollowersCount(pigeonsEntities1, object)"/>
+        /// </summary>
+        IList<following> GetTheFollowersCount(pigeonsEntities1 context, object groupID);
+
+        /// <summary>
+        /// <see cref="Implementation.FollowingDAO.GetByID(pigeonsEntities1, object, object)"/>
+        /// </summary>
+        following GetByID(pigeonsEntities1 context, object personID, object groupID);
+
+        /// <summary>
+        /// <see cref="Implementation.FollowingDAO.GetTheFollowersCount(pigeonsEntities1, object)"/>
+        /// </summary>
+        IEnumerable<following> GetTheFollowers(pigeonsEntities1 context, object groupID);
+
+        /// <summary>
+        /// <see cref="Implementation.FollowingDAO.GetPersonFollowingGroups(pigeonsEntities1, object)"/>
+        /// </summary>
+        IEnumerable<following> GetPersonFollowingGroups(pigeonsEntities1 context, object personID);
     }
 }

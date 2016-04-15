@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.DAO.Interface
 {
-    public interface IDAO<TEntity> where TEntity : class
+    /// <summary>
+    /// Interface de la classe <see cref="DAO"/>
+    /// </summary>
+    /// <typeparam name="TEntity">La Classe de l'Entity</typeparam>
+    interface IDAO<TEntity> where TEntity : class
     {
         void Delete(pigeonsEntities1 context, object id);
         void Delete(pigeonsEntities1 context, TEntity entityToDelete);

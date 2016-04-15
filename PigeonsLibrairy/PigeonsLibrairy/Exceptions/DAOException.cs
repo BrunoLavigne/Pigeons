@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Exceptions
 {
+    /// <summary>
+    /// Exception pour les classe DAO <see cref="DAO"/>
+    /// </summary>
     public class DAOException : Exception
     {
         public DAOException() : base() { }

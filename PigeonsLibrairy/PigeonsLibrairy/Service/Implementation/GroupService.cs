@@ -5,13 +5,17 @@ using PigeonsLibrairy.DAO.Implementation;
 using System.Collections.Generic;
 using PigeonsLibrairy.Exceptions;
 using System.Linq;
+using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
+    /// <summary>
+    /// Service pour la table Group (<see cref="group"/>)
+    /// </summary>
     public class GroupService : Service<group>, IGroupService
     {
-        private GroupDAO groupDAO { get; set; }
-        private FollowingDAO followingDAO { get; set; }
+        private IGroupDAO groupDAO { get; set; }
+        private IFollowingDAO followingDAO { get; set; }
 
         public GroupService() : base()
         {
@@ -28,7 +32,6 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="personId">The ID of the person creating the group</param>
         public group CreateNewGroupAndRegister(group newGroup, object personId)
         {
-
             if(newGroup == null)
             {
                 throw new ServiceException("The group is null");
@@ -39,10 +42,10 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException("The personID is null");
             }
 
-            using(var context = new pigeonsEntities1())
-            using(var dbContextTransaction = context.Database.BeginTransaction())
+            try
             {
-                try
+                using (var context = new pigeonsEntities1())
+                using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
                     newGroup.Creation_date = DateTime.Now;
                     newGroup.Is_active = true;
@@ -52,12 +55,12 @@ namespace PigeonsLibrairy.Service.Implementation
                     context.SaveChanges();
 
                     // Creating the following
-                    following personIsFollowing     = new following();
-                    personIsFollowing.Person_Id     = (int) personId;
-                    personIsFollowing.Group_id      = newGroup.Id; // The id of the group can be retreived right away without querying the DB
-                    personIsFollowing.Is_active     = true;
-                    personIsFollowing.Is_admin      = true;
-                    personIsFollowing.Last_checkin  = DateTime.Now;
+                    following personIsFollowing = new following();
+                    personIsFollowing.Person_Id = (int)personId;
+                    personIsFollowing.Group_id = newGroup.Id; // The id of the group can be retreived right away without querying the DB
+                    personIsFollowing.Is_active = true;
+                    personIsFollowing.Is_admin = true;
+                    personIsFollowing.Last_checkin = DateTime.Now;
 
                     // Inserting the following
                     followingDAO.Insert(context, personIsFollowing);
@@ -67,12 +70,10 @@ namespace PigeonsLibrairy.Service.Implementation
                     dbContextTransaction.Commit();
                     return newGroup;
                 }
-                catch(Exception)
-                {
-                    // Something went wrong so we are rollbacking the db
-                    dbContextTransaction.Rollback();
-                }
-                return null;             
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
             }
         }
 
@@ -89,22 +90,29 @@ namespace PigeonsLibrairy.Service.Implementation
             }
 
             IList<group> personGroups = new List<group>();
-            IList<following> personFollowings = new List<following>();           
+            IList<following> personFollowings = new List<following>();
 
-            using(var context = new pigeonsEntities1())
+            try
             {
-                // Getting the list of followings
-                personFollowings = (followingDAO.GetPersonFollowingGroups(context, personID)).ToList();
-
-                if (personFollowings.Count() > 0)
+                using (var context = new pigeonsEntities1())
                 {
-                    foreach (following followingGroup in personFollowings)
+                    // Getting the list of followings
+                    personFollowings = (followingDAO.GetPersonFollowingGroups(context, personID)).ToList();
+
+                    if (personFollowings.Count() > 0)
                     {
-                        personGroups.Add(followingGroup.group);
+                        foreach (following followingGroup in personFollowings)
+                        {
+                            personGroups.Add(followingGroup.group);
+                        }
                     }
                 }
-            }            
-            return personGroups;
+                return personGroups;
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
         }
 
         /// <summary>
@@ -141,14 +149,14 @@ namespace PigeonsLibrairy.Service.Implementation
                         throw new ServiceException("This group is already inactive");
                     }
 
-                    List<following> followingValidation = followingDAO.GetByID(context, adminID, groupID).ToList();
+                    following followingValidation = followingDAO.GetByID(context, adminID, groupID);
 
-                    if (followingValidation.Count != 1)
+                    if (followingValidation == null)
                     {
                         throw new ServiceException("This person is not following the group");
                     }
 
-                    if (!followingValidation[0].Is_admin)
+                    if (!followingValidation.Is_admin)
                     {
                         throw new ServiceException("This person is not the admin of the group");
                     }
@@ -161,7 +169,7 @@ namespace PigeonsLibrairy.Service.Implementation
                             groupValidation.Is_active = false;
                             groupDAO.Update(context, groupValidation);
 
-                            IEnumerable<following> followersList = followingDAO.GetTheFollowers(context, groupValidation.Id);
+                            IEnumerable<following> followersList = followingDAO.GetTheFollowersCount(context, groupValidation.Id);
 
                             // Setting each follower to inactive
                             foreach(following follower in followersList)
@@ -198,17 +206,27 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>The groups we are searching. An empty list of none are found</returns>
         public new IEnumerable<group> GetBy(string columnName, object value)
         {
-            if(columnName != "" && value != null)
+            if (columnName == null || columnName == "")
             {
-                using(var context = new pigeonsEntities1())
-                {                    
+                throw new ServiceException("La valeur de la colonne ne doit pas être null");
+            }
+
+            if (value == null || (string)value == "")
+            {
+                throw new ServiceException("La valeur recherchée ne peut pas être null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
                     return groupDAO.GetBy(context, columnName, value);
                 }
             }
-            else
+            catch (DAOException daoException)
             {
-                throw new ServiceException("You must provid the column name and a value");
-            }                                    
+                throw new ServiceException(daoException.Message);
+            }                                  
         }        
     }
 }

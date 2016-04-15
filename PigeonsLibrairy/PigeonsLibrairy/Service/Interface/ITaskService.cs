@@ -1,13 +1,19 @@
 ﻿using PigeonsLibrairy.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonsLibrairy.Service.Interface
 {
+    /// <summary>
+    /// Interface de la classe <see cref="Implementation.TaskService"/>
+    /// </summary>
     public interface ITaskService : IService<task>
     {
+        IEnumerable<task> GetGroupTasks(object groupID, bool completed);
+
+        task CreateNewTask(task newTask, object groupID, object personID);
+
+        void UpdateTaskCompleted(object taskID, bool completed);
+
+        void DeleteTask(object taskID);
     }
 }
