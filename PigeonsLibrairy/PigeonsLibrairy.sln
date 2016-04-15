@@ -29,7 +29,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Pigeon_website", "..\Pigeon
 		SlnRelativePath = "..\Pigeon_website\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonsTesting", "UnitTesting\PigeonsTesting.csproj", "{EB842F80-FF2B-47E6-B31F-34CDA6B5CB39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{EB842F80-FF2B-47E6-B31F-34CDA6B5CB39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

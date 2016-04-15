@@ -2,21 +2,22 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.DAO.Implementation;
-using UnitTesting.TestDAO;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 
 namespace UnitTesting.TestDAO
 {
+    /// <summary>
+    /// Test des opération CRUD de la classe <see cref="FollowingDAO"/> pour la table <see cref="group"/>
+    /// </summary>
     [TestClass]
     public class groupDAO_Test
     {
-        private GroupDAO groupDAO { get; set; }
+        private FollowingDAO groupDAO { get; set; }
         private group groupTest { get; set; }
 
         private const string GROUP_NAME = "Rookies";
-        private DateTime GROUP_CREATION_DATE = DateTime.Parse("1993-10-21");
+        private DateTime GROUP_CREATION_DATE = DateTime.Parse("1962-07-01");
         private const string GROUP_DESCRIPTION = "We rooooock";
         private const string GROUP_PICTURE_LINK = "www.rookies.com";
         private const bool GROUP_IS_ACTIVE = true;
@@ -27,7 +28,7 @@ namespace UnitTesting.TestDAO
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            groupDAO = new GroupDAO();
+            groupDAO = new FollowingDAO();
 
             groupTest = new group();
 
@@ -49,7 +50,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Insert de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
+        /// Test pour la méthode Insert de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -75,7 +76,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Delete de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
+        /// Test pour la méthode Delete de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -99,7 +100,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Update de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
+        /// Test pour la méthode Update de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -128,7 +129,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
+        /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'une Person et validation de ses propriétés
         /// </summary>
         [TestMethod]
