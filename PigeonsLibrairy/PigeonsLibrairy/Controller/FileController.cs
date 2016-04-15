@@ -16,6 +16,7 @@ namespace PigeonsLibrairy.Controller
     {
         private readonly string FILE_DIRECTORY_PATH;
         private IFileService fileService { get; set; }
+        private DirectoryInfo directoryInfo { get; set; }
 
         // Constructors
         public FileController()
@@ -32,6 +33,7 @@ namespace PigeonsLibrairy.Controller
         {
             FILE_DIRECTORY_PATH = fileDirectoryPath;
             fileService = new FileService();
+            directoryInfo = new DirectoryInfo(fileDirectoryPath);
         }
 
         /// <summary>
@@ -40,22 +42,44 @@ namespace PigeonsLibrairy.Controller
         // Examples: 1.jpg, 2.jpg, 3.pdf, 4.png ...
         /// </summary>
         /// <param name="fileByteArray">a Byte array of the file itself</param>
-        /// <param name="fileExtension">a string of the original file's extension</param>
+        /// <param name="originalFileName">a string of the original file's full name (name + extension)</param>
         /// <returns>a FileInfo Object of the saved file, null if exception.</returns>
-        public FileInfo SaveByteFile(Byte[] fileByteArray, string fileExtension)
+        public FileInfo SaveByteFile(Byte[] fileByteArray, string originalFileName)
         {
             FileInfo savedFileInfo = null;
             try
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.
                 int highestFileID = 0;
-                Debug.WriteLine("Recherche des fichiers existants...");
+                FileInfo[] fileInfoArray = directoryInfo.GetFiles("*.*");
+                foreach (FileInfo fileInfo in fileInfoArray)
+                {
+                    int fileID = Int32.Parse(Path.GetFileNameWithoutExtension(fileInfo.Name));
+                    string fileIDWithExtension = fileInfo.Name;
+                    if (fileID > highestFileID)
+                    {
+                        highestFileID = fileID;
+                    }
+                }
+                string[] originalFileNameParts = originalFileName.Split('.');
+                string originalFileExtension = "." + originalFileNameParts[originalFileNameParts.Length - 1];
+                string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + originalFileExtension;
+                // saves the file itself (Byte Array) at the new path.
+                File.WriteAllBytes(newFilePath, fileByteArray);
+                file Fichier = new file();
+                Fichier.ID = highestFileID + 1;
+                Fichier.FileURL = newFilePath;
+                Fichier.FileName = originalFileName;
+                Fichier.Creation_Date = DateTime.Now;
+
+
+
                 foreach (string file in Directory.GetFiles(FILE_DIRECTORY_PATH, "*.*"))
                 {
-                    Debug.WriteLine("Fichier trouvé: " + file);
-                    string fileName = Path.GetFileName(file);
-                    Debug.WriteLine("Nom du fichier: " + fileName);
-                    string[] nameParts = fileName.Split('.');
+                    FileInfo foundFileInfo = new FileInfo(file);
+                    string fileFullName = foundFileInfo.Name;
+                    Debug.WriteLine("Nom du fichier: " + fileFullName);
+                    string[] nameParts = fileFullName.Split('.');
                     int currentFileID = Int32.Parse(nameParts[0]);
                     Debug.WriteLine("ID du fichier: " + currentFileID);
                     if (currentFileID > highestFileID)
@@ -69,7 +93,7 @@ namespace PigeonsLibrairy.Controller
                 Debug.WriteLine("chemin de fichier uploadé généré: " + newFilePath);
                 // saves the file itself (Byte Array) at the new path.
                 File.WriteAllBytes(newFilePath, fileByteArray);
-                savedFileInfo = new FileInfo(newFilePath);
+                Debug.WriteLine("FileInfo: \nPath: " + savedFileInfo.ToString() + "\nName: " + savedFileInfo.Name + "\nExtension: " + savedFileInfo.Extension + "\nFullName: " + savedFileInfo.FullName);
             }
             catch (Exception error)
             {
@@ -89,7 +113,7 @@ namespace PigeonsLibrairy.Controller
             FileInfo fileToGet = null;
             try
             {
-                // find all files
+                // find file by specified filename
                 fileToGet = new FileInfo(Directory.GetFiles(FILE_DIRECTORY_PATH, fileName)[0]);
                 Debug.WriteLine("Fichier trouvé: " + fileToGet.ToString());
             }
@@ -105,7 +129,7 @@ namespace PigeonsLibrairy.Controller
         /// Insertion des information d'un fichier dans la base de données
         /// </summary>
         /// <returns></returns>
-        public file InsertInDataBase()
+        public file InsertInDataBase(file File)
         {
             //fileService.
             return null;

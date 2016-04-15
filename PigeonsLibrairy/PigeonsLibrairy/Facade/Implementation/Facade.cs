@@ -106,7 +106,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// </summary>
         /// <param name="fileByteArray">Un tableau de byte qui reprérente le fichier à sauvegarder</param>
         /// <param name="fileExtension">L'extension du fichier</param>
-        public FileInfo SaveByteFile(Byte[] fileByteArray, string fileExtension)
+        public FileInfo SaveByteFile(Byte[] fileByteArray, string filename)
         {
             try
             {

@@ -24,21 +24,13 @@ public partial class FileUploadTest : System.Web.UI.Page
         {
 
             HttpContext.Current.Response.Clear();
-
             HttpContext.Current.Response.ClearHeaders();
-
             HttpContext.Current.Response.ClearContent();
-
             HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + file.Name);
-
             HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
-
             HttpContext.Current.Response.ContentType = "text/plain";
-
             HttpContext.Current.Response.Flush();
-            System.Diagnostics.Debug.WriteLine("Transmitting file: " + file.FullName);
             HttpContext.Current.Response.TransmitFile(file.FullName);
-
             HttpContext.Current.Response.End();
         }
         catch (Exception error)
@@ -47,29 +39,31 @@ public partial class FileUploadTest : System.Web.UI.Page
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void fileUploader()
     {
         if (FileUpload1.HasFile)
         {
             try
             {
                 Byte[] fileBytes = FileUpload1.FileBytes;
-                System.Diagnostics.Debug.WriteLine("File Byte Array: "+fileBytes.ToString());
+                System.Diagnostics.Debug.WriteLine("File Byte Array: " + fileBytes.ToString());
                 string[] parts = FileUpload1.FileName.Split('.');
                 string extension = "." + parts[parts.Length - 1];
                 System.Diagnostics.Debug.WriteLine("File extension: " + extension);
                 string filename = parts[0];
                 System.Diagnostics.Debug.WriteLine("File Name: " + filename);
-                FileInfo savedFileInfo = homeFacade.fileControl.SaveByteFile(fileBytes, extension);
-                // shit d'affichage / modification à partir du FileInfo
-                // Accessible: FileInfo.FileName (mon du fichier sauvegardé i.e. son integer code)
-                // etc...
+                FileInfo savedFileInfo = homeFacade.fileControl.SaveByteFile(fileBytes, filename);
             }
             catch (Exception error)
             {
                 System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
             }
         }
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        fileUploader();
     }
 
     protected void ButtonGetFile1_Click(object sender, EventArgs e)
