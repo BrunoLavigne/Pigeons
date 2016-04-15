@@ -3,21 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
-    <style>
-        /*
-            Add file for vendor overrides?
-        */
-        .ui-datepicker {
-            background: #eee;
-            padding: 10px;
-        }
-        .ui-datepicker .ui-datepicker-header {
-            padding: 0 10px;
-        }
-        .ui-datepicker th, .ui-datepicker td {
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 
 </asp:Content>
 

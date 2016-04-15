@@ -5,6 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
+    <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -322,13 +323,30 @@
 </asp:Content>
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+
+
+
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+
+    <!-- Import jQuery Ui for datepicker -->
+    <!-- Todo: import only datepicker widget -->
+    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
+
+
     <script src="Resources/Vendor/summernote/summernote.min.js"></script>
     <script>
 
-        // Start summernote plugin on textbox
-        function pageLoad () {
+        // Start js plugins on every page load
+        function pageLoad() {
+
+            $(".datepicker-holder").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+
             $(".summernote").summernote();
+
+
+
         }
 
     </script>

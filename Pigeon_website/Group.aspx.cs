@@ -30,11 +30,12 @@ public partial class Group : System.Web.UI.Page
 
 
         // Also check if the group actually exists and if the user is following it
-        if(Session["user"] == null || Request.Params["groupID"] == null)
+        if(!IsValidated())
         {
+
             Response.Redirect("Index.aspx");
-        } else
-        {
+
+        } else {
 
             person currentUser = (person) Session["user"];
 
@@ -55,7 +56,7 @@ public partial class Group : System.Web.UI.Page
 
                 if(!Page.IsPostBack)
                 {
-                    renderGroupToPage((int)groupId);
+                    renderGroupToPage();
                 }
                 
 
@@ -67,8 +68,19 @@ public partial class Group : System.Web.UI.Page
         }
     }
 
+
+    protected bool IsValidated()
+    {
+        
+        // Also, if group exists, if user is in group, etc.
+        bool isFine =   Session["user"] != null ||
+                        Request.Params["groupID"] != null;
+
+        return isFine;
+    }
+
     // On devrait plus passer un groupe
-    protected void renderGroupToPage(int groupId)
+    protected void renderGroupToPage()
     {
 
         group theGroup;
@@ -119,7 +131,7 @@ public partial class Group : System.Web.UI.Page
             table.Rows.Add(dr);
         }
 
-        messagesListView.DataSource = table; // old: groupFacade.GetGroupMessages(int.Parse(Request.Params["groupID"]));
+        messagesListView.DataSource = table;
         messagesListView.DataBind();
     }
 
