@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" ValidateRequest="false" %>
-<%@ Register TagPrefix="uc" TagName="NewGroupMessageModal" Src="~/Partials/NewGroupMessageModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
-<%@ Register TagPrefix="uc" TagName="TodosGroupModal" Src="~/Partials/GroupTodosModal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
@@ -84,7 +82,9 @@
         </asp:Panel>
 
 
-
+        <!-------------->
+        <!-- MESSAGES -->
+        <!-------------->
         <div class="Group-messages-container">
 
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -133,78 +133,51 @@
             </asp:UpdatePanel>
 
         </div>
+        <!---------------->
+        <!-- /.MESSAGES -->
+        <!---------------->
 
 
-
-
-        <div class="row">
-
-            <!-- Messages section -->
-            <div class="col-lg-4">
-                
-
-            </div>
-
-            <!-- Files section -->
-            <div class="col-lg-4">
-                <div class="Toggler files">
-                    <div class="text">Files</div>
-
-                    <div class="action">
-                        <a href="#newGroupMessageModal" data-toggle="modal" data-target="#newGroupMessageModal">
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                        </a>
-                    </div>
-
-                    <div class="action">
-                        <a id="Group-files-toggler">
-                            <i class="glyphicon glyphicon-collapse-down"></i>
-                        </a>
-                    </div>
-
-                    <div class="action"><i class="glyphicon glyphicon-search"></i></div>
-                </div>
-            </div>
-
-            <!-- Tasks section -->
-            <div class="col-lg-4">
-
-                <div class="Toggler tasks">
-                    <div class="text">Todos</div>
-
-                    <div class="action">
-                        <a href="#todosModal" data-toggle="modal" data-target="#todosModal">
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                        </a>
-                    </div>
-
-                    <div class="action">
-                        <a id="Group-tasks-toggler">
-                            <i class="glyphicon glyphicon-collapse-down"></i>
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
+        <!------------>
+        <!-- EVENTS -->
+        <!------------>
+        <div class="Group-events-container">
+            <h2>The events!</h2>
         </div>
+        <!-------------->
+        <!-- ./EVENTS -->
+        <!-------------->
 
+
+        <!----------->
+        <!-- TASKS -->
+        <!----------->
+        <div class="Group-tasks-container">
+            <h2>Tasks!</h2>
+        </div>
+        <!------------->
+        <!-- ./TASKS -->
+        <!------------->
+
+
+
+        <!----------->
+        <!-- FILES -->
+        <!----------->
+        <div class="Group-files-container">
+            <h2>Files!</h2>
+        </div>
+        <!------------->
+        <!-- ./FILES -->
+        <!------------->
 
     </div><!-- ./container -->
-
-
-    <!-- Connection modal -->
-    <uc:NewGroupMessageModal runat="server" ID="NewGroupMessageModal"></uc:NewGroupMessageModal>
 
     <!-- Remove user from group modal -->
     <uc:RemoveUserModal runat="server" ID="RemoveUserModal"></uc:RemoveUserModal>
 
-    <!-- Remove group modal -->
+    <!-- Delete group modal -->
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
-
-    <!-- Tasks modal -->
-    <uc:TodosGroupModal runat="server" ID="TodosGroupModal" />
 
 </asp:Content>
 
