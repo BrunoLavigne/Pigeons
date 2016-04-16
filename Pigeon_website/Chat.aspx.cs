@@ -55,13 +55,13 @@ public partial class Chat : System.Web.UI.Page
     public static string GetFollowings()
     {
         JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-        
+
         if (homeFacade == null)
         {
             homeFacade = new HomeFacade();
         }
         following = homeFacade.GetPersonGroups(theUser.Id);
-        groupsId = new List<int>(); 
+        groupsId = new List<int>();
 
         foreach (group followingId in following)
         {
@@ -87,7 +87,6 @@ public partial class Chat : System.Web.UI.Page
     //    following = homeFacade.GetPersonGroups(theUser.Id);
     //    groupsId = new List<int>();
     //    List<MessageDetail> listMessageDetail = new List<MessageDetail>();
-
 
     //    foreach (group followingId in following)
     //    {
@@ -132,9 +131,9 @@ public partial class Chat : System.Web.UI.Page
 
             foreach (chathistory msg in groupMessages)
             {
-
-                listMessage.Add(new Message{
-                    authorName = msg.Author_ID.ToString(),
+                listMessage.Add(new Message
+                {
+                    authorName = msg.person.Name,
                     message = msg.Message
                 });
             }
