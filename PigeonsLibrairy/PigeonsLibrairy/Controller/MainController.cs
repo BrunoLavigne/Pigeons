@@ -7,8 +7,8 @@ namespace PigeonsLibrairy.Controller
     /// Controlleur regroupant tout les services
     /// </summary>
     public class MainController
-    {       
-        private IMessageService messageService;        
+    {
+        private IMessageService messageService;
         private IPersonService personService;
         private IGroupService groupeService;
         private IFollowingService followingService;
@@ -25,7 +25,7 @@ namespace PigeonsLibrairy.Controller
         {
             get
             {
-                if(this.personService == null)
+                if (this.personService == null)
                 {
                     this.personService = new PersonService();
                 }
@@ -136,12 +136,12 @@ namespace PigeonsLibrairy.Controller
         {
             get
             {
-                if(this.chatHistoryService == null)
+                if (this.chatHistoryService == null)
                 {
                     this.chatHistoryService = new ChatHistoryService();
                 }
                 return chatHistoryService;
-            }            
+            }
         }
     }
 }

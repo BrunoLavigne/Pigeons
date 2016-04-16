@@ -95,6 +95,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// Appel le DAO pour trouver les Events d'un groupe qui ne sont pas complétés
         /// </summary>
         /// <param name="groupID">Le ID du groupe</param>
+        /// <param name="date">La date visible du calendrier pour laquel nous voulons les events</param>
         /// <returns>Une liste de Events ou une liste vide</returns>
         public IEnumerable<@event> GetGroupEvent(object groupID, object date)
         {
