@@ -53,7 +53,7 @@
 
             function OnSuccess(response) {
                 console.log("success i guess " + response.d);
-                var idToAppend;
+                /*var idToAppend;
                 $.each(JSON.parse(response.d), function (index, value) {
                     $('#divContainer').append("<div id='divChat_" + value.groupId + "' data-id='" + value.groupId + "' class='chatRoom'>" +
                         "<div class='title'>" +
@@ -79,7 +79,7 @@
                         idToAppend = "#divChatWindow_" + value.groupId;
                         $(idToAppend).append("<div>" + numMessage + " : " + contentMessage + "</div>");
                     });
-                });
+                });*/
             }
         }
 
@@ -147,7 +147,8 @@
         function onNewMessage(message, roomId) {
             console.log(roomId);
             displayMessage(message, roomId);
-            if (!$("#txtMessage").is(":focus")) {
+            var strMatch = "\B\@channel\b";
+            if (message.match(strMatch[1])) {
                toastr.info(message);
             }
         };

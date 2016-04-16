@@ -26,7 +26,8 @@ namespace PigeonsLibrairy.DAO.Implementation
             try
             {
                 Expression<Func<chathistory, bool>> filter = (ch => ch.Group_ID == (int)groupID);
-                return Get(context, filter).OrderBy(ch => ch.CreationDate);
+                string includedProperty = "person";
+                return Get(context, filter, null, includedProperty).OrderBy(ch => ch.CreationDate);
             }
             catch (Exception ex)
             {

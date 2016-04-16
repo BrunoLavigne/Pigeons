@@ -34,7 +34,7 @@ public partial class Chat : System.Web.UI.Page
             // Set username
             theUser = (person)Session["user"];
 
-            // lblWelcomeUsername.Text = theUser.Name;
+            //lblWelcomeUsername.Text = theUser.Name;
             hdPersondId.Value = theUser.Id.ToString();
             hdPersondUserName.Value = theUser.Name;
 
@@ -55,13 +55,13 @@ public partial class Chat : System.Web.UI.Page
     public static string GetFollowings()
     {
         JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-        
+
         if (homeFacade == null)
         {
             homeFacade = new HomeFacade();
         }
         following = homeFacade.GetPersonGroups(theUser.Id);
-        groupsId = new List<int>(); 
+        groupsId = new List<int>();
 
         foreach (group followingId in following)
         {
@@ -71,6 +71,42 @@ public partial class Chat : System.Web.UI.Page
         return TheSerializer.Serialize(groupsId);
     }
 
+    //[WebMethod]
+    //public static string GetGroupMessages()
+    //{
+    //    JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+
+    //    if (groupFacade == null)
+    //    {
+    //        groupFacade = new GroupFacade();
+    //    }
+    //    if (homeFacade == null)
+    //    {
+    //        homeFacade = new HomeFacade();
+    //    }
+    //    following = homeFacade.GetPersonGroups(theUser.Id);
+    //    groupsId = new List<int>();
+    //    List<MessageDetail> listMessageDetail = new List<MessageDetail>();
+
+    //    foreach (group followingId in following)
+    //    {
+    //        List<string> listMessage = new List<string>();
+    //        groupMessages = groupFacade.GetGroupChatHistory(followingId.Id);
+
+    //        foreach (chathistory msg in groupMessages)
+    //        {
+    //            listMessage.Add(msg.Message);
+    //        }
+    //        MessageDetail messageDetail = new MessageDetail
+    //        {
+    //            groupId = followingId.Id,
+    //            Message = listMessage.ToArray()
+    //        };
+    //        listMessageDetail.Add(messageDetail);
+    //    }
+    //    // TheSerializer.Serialize(personId);
+    //    return TheSerializer.Serialize(listMessageDetail);
+    //}
     [WebMethod]
     public static string GetGroupMessages()
     {
@@ -87,21 +123,24 @@ public partial class Chat : System.Web.UI.Page
         following = homeFacade.GetPersonGroups(theUser.Id);
         groupsId = new List<int>();
         List<MessageDetail> listMessageDetail = new List<MessageDetail>();
-        
 
         foreach (group followingId in following)
         {
-            List<string> listMessage = new List<string>();
+            List<Message> listMessage = new List<Message>();
             groupMessages = groupFacade.GetGroupChatHistory(followingId.Id);
 
             foreach (chathistory msg in groupMessages)
             {
-                listMessage.Add(msg.Message);
+                listMessage.Add(new Message
+                {
+                    authorName = msg.person.Name,
+                    message = msg.Message
+                });
             }
             MessageDetail messageDetail = new MessageDetail
             {
                 groupId = followingId.Id,
-                Message = listMessage.ToArray()
+                Message = listMessage
             };
             listMessageDetail.Add(messageDetail);
         }
