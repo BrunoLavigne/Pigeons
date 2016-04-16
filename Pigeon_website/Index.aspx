@@ -25,25 +25,30 @@
 
         </div>
 
-        <div class="features row">
+        <div class="features">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="feature">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <div class="content">Communication amusante</div>
+                    </div>
+                </div>
+            
+                <div class="col-sm-4">
+                    <div class="feature">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        <div class="content">Évènements en un coup d'oeil</div>
+                    </div>
+                </div>
+            
+                <div class="col-sm-4">
+                    <div class="feature">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        <div class="content">Partagez vos fichiers importants</div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-sm-4">
-                <div class="feature">
-                    <span class="glyphicon glyphicon-envelope"></span>
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <div class="feature">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <div class="feature">
-                    <span class="glyphicon glyphicon-paperclip"></span>
-                </div>
-            </div>
 
         </div>
     </div>
