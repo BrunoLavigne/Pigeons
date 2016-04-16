@@ -190,8 +190,7 @@
         .Sidebar a:hover, .Sidebar a:focus {
                 color: #337ab7;
                 background: #fff;
-
-
+                
 
                 /* text color transition on hover */
                 -webkit-transition: background-color 400ms ease-in-out;

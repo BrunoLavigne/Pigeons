@@ -39,15 +39,20 @@ public partial class Groups : System.Web.UI.Page
                 table.Columns.Add("creation_date");
                 table.Columns.Add("description");
                 table.Columns.Add("followers");
+                table.Columns.Add("group_picture_link");
 
                 foreach (group g in homeFacade.GetPersonGroups(currentUser.Id))
                 {
+
                     DataRow dr = table.NewRow();
+
                     dr["id"] = g.Id;
                     dr["name"] = g.Name;
                     dr["creation_date"] = g.Creation_date;
                     dr["description"] = g.Description;
                     dr["followers"] = homeFacade.GetGroupFollowers(g.Id).ToString();
+                    dr["group_picture_link"] = g.Group_picture_link;
+
                     table.Rows.Add(dr);
                 }
 
