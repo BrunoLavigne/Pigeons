@@ -5,11 +5,39 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
+    <link rel="stylesheet" href="Resources/css/Events-Page.css" />
     <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
+
+    <!-- The sidebar to navigate to the different sections -->
+    <div class="Sidebar">
+        <ul>
+            <li>
+                <a href="#messages-section">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#events-section">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#tasks-section">
+                    <span class="glyphicon glyphicon-check"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#files-section">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
 
     <!-- Page header - main group info -->
     <div class="Group-presentation">
@@ -88,7 +116,7 @@
         <!-------------->
         <!-- MESSAGES -->
         <!-------------->
-        <div class="Group-messages-container">
+        <div class="Group-messages-container" id="messages-section">
 
             
             <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
@@ -141,21 +169,93 @@
         <!---------------->
 
 
+
+
+
+
+
         <!------------>
         <!-- EVENTS -->
         <!------------>
-        <div class="Group-events-container">
-            <h2>The events!</h2>
+        <div class="Group-events-container" id="events-section">
+
+            <div class="container Events-app">
+
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnNewEvent" />
+                        <asp:AsyncPostBackTrigger ControlID="btnCreateEvent" />
+                        <asp:AsyncPostBackTrigger ControlID="Calendar1" />
+                    </Triggers>
+
+                    <ContentTemplate>
+
+                        <fieldset>
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None" NextMonthText="&#8674&nbsp;" PrevMonthText="&nbsp;&#8672&nbsp;"></asp:Calendar>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <asp:Table ID="Table1" runat="server" CssClass="table table-hover">
+                                        </asp:Table>
+                                    </div>
+
+                                    <div class="container">
+
+                                        <div class="col-lg-2">
+
+                                            <div class="row">
+                                                <asp:Button ID="btnNewEvent" runat="server" CssClass="btn btn-default btn-block" Text="+" OnClick="btnNewEvent_Click" />
+                                            </div>
+
+                                            <div id="newEvent" visible="false" runat="server">
+                                                <div class="row">
+                                                    <asp:TextBox ID="txtEventDescription" runat="server" CssClass="form-control" placeHolde="Description"></asp:TextBox>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:TextBox ID="txtEventStart" runat="server" CssClass="form-control input-sm datepicker-holder"></asp:TextBox>
+                                                    <%--<asp:Button ID="Button1" runat="server" Text="Button" CssClass="btn btn-default btn-sm" OnClick="Button1_Click" />--%>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:TextBox ID="txtEventEnd" runat="server" CssClass="form-control input-sm datepicker-holder"></asp:TextBox>
+                                                    <%--<asp:Button ID="Button2" runat="server" Text="Button" CssClass="btn btn-default btn-sm" OnClick="Button2_Click" />   --%>
+                                                </div>
+                                                <div class="row" style="padding-top: 10px;">
+                                                    <asp:Button ID="btnCreateEvent" runat="server" Text="Créer l'évènement" CssClass="btn btn-primary btn-sm" OnClick="btnCreateEvent_Click" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+
+
+            </div>
+
         </div>
         <!-------------->
         <!-- ./EVENTS -->
         <!-------------->
 
 
+
+
+
+
+
+
+
         <!----------->
         <!-- TASKS -->
         <!----------->
-        <div class="Group-tasks-container">
+        <div class="Group-tasks-container" id="tasks-section">
                 
             <div class="container Tasks-app">
 
@@ -305,7 +405,7 @@
         <!----------->
         <!-- FILES -->
         <!----------->
-        <div class="Group-files-container">
+        <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
         </div>
         <!------------->
@@ -320,34 +420,16 @@
     <!-- Delete group modal -->
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
+
+    <!-- To avoid conflict with summernote js (bug with tooltip not positioned correctly on summernote buttons) -->
+    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
+
 </asp:Content>
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
 
-
-
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    <script type="text/javascript" src="Resources/Vendor/summernote/summernote.min.js"></script>
+    <script type="text/javascript" src="Resources/js/Group.js"></script>
 
-    <!-- Import jQuery Ui for datepicker -->
-    <!-- Todo: import only datepicker widget -->
-    <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
-
-
-    <script src="Resources/Vendor/summernote/summernote.min.js"></script>
-    <script>
-
-        // Start js plugins on every page load
-        function pageLoad() {
-
-            $(".datepicker-holder").datepicker({
-                dateFormat: "dd/mm/yy"
-            });
-
-            $(".summernote").summernote();
-
-
-
-        }
-
-    </script>
 </asp:Content>

@@ -51,7 +51,7 @@ namespace SignalRChat
 
         public void SendMessage(SendData data)
         {
-            Clients.Group(data.roomName, Context.ConnectionId).newMessage(data.name + ": " + data.message);
+            Clients.Group(data.roomName, Context.ConnectionId).newMessage(data.name + ": " + data.message, data.roomName);
 
             chathistory message = new chathistory();
             message.Author_ID = int.Parse(data.name);

@@ -157,6 +157,50 @@
         max-width: 100%;
     }
 
+
+.Sidebar {
+    position: fixed;
+    right: 0;
+    padding: 12px;
+    background: #337ab7;
+    border-radius: 13px 0 0 13px;
+    z-index: 2;
+}
+    .Sidebar ul {
+        padding: 0;
+        margin-bottom: 0;
+    }
+    .Sidebar li {
+        list-style-type: none;
+        margin: 16px 0;
+    }
+
+    .Sidebar a {
+        font-size: 20px;
+        color: #fff;
+        padding: 8px;
+        width: 42px;
+        height: 42px;
+        border-radius: 4px;
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+        .Sidebar a:hover, .Sidebar a:focus {
+                color: #337ab7;
+                background: #fff;
+                
+
+                /* transition color and background-color on hover */
+                -webkit-transition: all 400ms ease-in-out;
+                -moz-transition: all 400ms ease-in-out;
+                -o-transition: all 400ms ease-in-out;
+                -ms-transition: all 400ms ease-in-out;
+                transition: all 400ms ease-in-out;
+
+            }
+
 @media screen and (max-width: 768px) {
 
     .Group-message .profile-picture-container {
