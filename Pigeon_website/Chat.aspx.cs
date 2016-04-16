@@ -34,7 +34,7 @@ public partial class Chat : System.Web.UI.Page
             // Set username
             theUser = (person)Session["user"];
 
-            lblWelcomeUsername.Text = theUser.Name;
+            // lblWelcomeUsername.Text = theUser.Name;
             hdPersondId.Value = theUser.Id.ToString();
             hdPersondUserName.Value = theUser.Name;
 

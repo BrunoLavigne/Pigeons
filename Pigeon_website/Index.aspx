@@ -4,6 +4,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!-- place homepage animation script here -->
+    <link rel="stylesheet" href="Resources/css/Homepage.css" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -21,6 +22,28 @@
                  <hr />
                 <p>Pigeon est un site pour faciliter la collaboration, l’entraide, whatever pour les projets de petite et grande envergures. Que votre projet dure 1 journée ou s’étende sur un an, Pigeon aide à regrouper toute l’information nécessaire à la réalisation du projet :)</p>
              </div>
+
+        </div>
+
+        <div class="features row">
+
+            <div class="col-sm-4">
+                <div class="feature">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+                <div class="feature">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+                <div class="feature">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                </div>
+            </div>
 
         </div>
     </div>
