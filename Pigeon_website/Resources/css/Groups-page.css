@@ -21,15 +21,15 @@
 }
 
     .Group-item .group-picture {
-       transition: all .45s linear;
-       -o-transition: all .45s linear;
-       -moz-transition: all .45s linear;
-       -webkit-transition: all .45s linear;
+       transition: all .3s linear;
+       -o-transition: all .3s linear;
+       -moz-transition: all .3s linear;
+       -webkit-transition: all .3s linear;
     }
 
     .Group-item:hover .group-picture, .Group-item:focus .group-picture {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
 
     .Group-item a {
