@@ -134,7 +134,8 @@ public partial class Chat : System.Web.UI.Page
                 listMessage.Add(new Message
                 {
                     authorName = msg.person.Name,
-                    message = msg.Message
+                    message = msg.Message,
+                    dateMessage = msg.CreationDate.ToString()
                 });
             }
             MessageDetail messageDetail = new MessageDetail
