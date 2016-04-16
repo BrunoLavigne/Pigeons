@@ -17,7 +17,29 @@
 
     margin-top: 22px;
     padding: 15px 24px;
+
 }
+
+    .Group-item .group-picture {
+       transition: all .45s linear;
+       -o-transition: all .45s linear;
+       -moz-transition: all .45s linear;
+       -webkit-transition: all .45s linear;
+    }
+
+    .Group-item:hover .group-picture, .Group-item:focus .group-picture {
+        width: 150px;
+        height: 150px;
+    }
+
+    .Group-item a {
+        color: #777;
+    }
+    .Group-item a:hover, .Group-item :focus {
+        font-weight: bold;
+        color: #777;
+        text-decoration: none;
+    }
 
     .Group-item .group-picture-wrapper {
         padding: 20px;
@@ -29,6 +51,7 @@
         border-radius: 50%;
         margin: auto;
         background-size: cover;
+        background-position: center center;
     }
 
     .Group-item .group-title {
