@@ -50,15 +50,9 @@
         <input id="hdPersondUserName" type="hidden" runat="server" />
         <input id="hdGroupId" type="hidden" runat="server" />
     </div>
-    <div class="get-message">
-        <a href="#">get message</a>
-    </div>
+
     <div class="chat-toggler">
         <a href="#">Discussion pour le groupe</a>
-    </div>
-
-    <div class="group-joiner">
-        <a href="#">Join the group</a>
     </div>
 
     <!--Add script to update the page and send messages.-->
@@ -67,7 +61,7 @@
         /**********************************************************
                         new scripts
         **********************************************************/
-        function ajaxData() {
+        /*function ajaxData() {
             $.ajax({
 
                 type: "POST",
@@ -84,13 +78,13 @@
             function OnSuccess(response) {
                 console.log("success i guess " + response.d);
                 
-                /*$.each(JSON.parse(response.d), function (index, value) {
+                $.each(JSON.parse(response.d), function (index, value) {
                     $('.get-message').append('<div>' + index + " : " + value + '</div>');
                     joinRoom(value);
-                });*/
+                });
 
             }
-        }
+        }*/
 
         function ajaxMessageData() {
             $.ajax({
@@ -110,7 +104,7 @@
                 console.log("success i guess " + response.d);
                 var idToAppend;
                 $.each(JSON.parse(response.d), function (index, value) {
-                    $('#divContainer').append("<div id='divChat' class='chatRoom'>" + 
+                    $('#divContainer').append("<div id='divChat_" + value.groupId + "' class='chatRoom'>" +
                         "<div class='title'>" +
                             "Welcome to Chat Room " + value.groupId +
                             "<div class='group-toggler'>toggle group</div>" +
@@ -122,8 +116,8 @@
                             "</div>" + 
                         "</div>" + 
                         "<div class='messageBar'>" + 
-                            "<input class='textbox' type='text' id='txtMessage' />" + 
-                            "<input id='btnSendMsg' type='button' value='Send' class='submitButton' />"+
+                            "<input class='textbox txtMessage' type='text' />" +
+                            "<input type='button' value='Send' class='submitButton btnSendMsg' />" +
                         "</div>" + 
                     "</div>");
                     
@@ -147,8 +141,6 @@
         var roomName;
         var newMessage;
 
-        
-
         $(function () {
             $.connection.hub.logging = true;
             $.connection.hub.start();
@@ -165,16 +157,16 @@
             chatHub.server.joinRoom(roomName);
         }
 
-        function getAllMessage() {
+        /*function getAllMessage() {
             chatHub.server.getAllMessage();
             //displayMessage("RESPONSE:");
             
-        }
+        }*/
 
         function sendMessage() {
-            userName = <%= hdPersondId.Value %>
-            newMessage = $('#txtMessage').val();
-            roomName = <%= hdGroupId.Value%>
+            userName = 3; <%//= hdPersondId.Value %>
+            newMessage = "This is my test message";// $('#txtMessage').val();
+            roomName = 15;
 
             chatHub.server.sendMessage({ name: userName, message: newMessage, roomName: roomName });
             displayMessage("You: " + newMessage);
@@ -203,30 +195,25 @@
 
         }
 
-        $("#txtMessage").keypress(function (e) {
+        $(document).on("keypress", ".txtMessage", function (e) {
             if (e.which == 13) {
                 e.preventDefault();
-                $('#btnSendMsg').click();
+                $('.btnSendTest').click();
             }
         });
 
-        $('#btnSendMsg').click(function () {
+        $(document).on("click", ".btnSendTest", function () {
 
-            var msg = $("#txtMessage").val();
+            var msg = $("#divChat_15").find(".txtMessage").val();
             if (msg.length > 0) {
 
-                var userName = $('#hdUserName').val();
+                //var userName = $('#hdUserName').val();
                 sendMessage();
-                $("#txtMessage").val('');
+                $(".txtMessage").text('');
             }
         });
 
         
-
-        $(".get-message").click(function () {
-            console.log(getAllMessage());
-
-        });
 
         $(".chat-toggler").click(function () {
             console.log("toggle the group chat!");
@@ -239,10 +226,6 @@
             $(".users").slideToggle();
         });
 
-        $(".group-joiner").click(function () {
-            console.log('joining group');
-            joinRoom();
-        });
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="Server">
