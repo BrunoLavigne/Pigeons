@@ -84,13 +84,9 @@ namespace PigeonsLibrairy.Controller
             try
             {
                 Debug.WriteLine("FileController AddPictureToUser method called.");
-                Debug.WriteLine("Parameter fileByteArray: " + fileByteArray.ToString());
-                Debug.WriteLine("Parameter personID: " + personID);
-                Debug.WriteLine("Parameter originalFileName: " + originalFileName);
                 person personne = personService.GetByID(personID);
-                Debug.WriteLine("Personne loaded: " + personne.ToString() + " ID: " + personne.Id);
                 string pictureLink = SaveByteFile(fileByteArray, originalFileName);
-                Debug.WriteLine("File saved and ppicture link returned: " + pictureLink);
+                Debug.WriteLine("File saved and picture link returned: " + pictureLink);
                 personne.Profile_picture_link = pictureLink;
                 personService.UpdatePerson(personID, personne);
                 Debug.WriteLine("Personne updated.");
@@ -100,9 +96,7 @@ namespace PigeonsLibrairy.Controller
                 Fichier.FileURL = pictureLink;
                 Debug.WriteLine("file entry fileURL: " + pictureLink);
                 Fichier.FileName = originalFileName;
-                Debug.WriteLine("file entry fileName: " + originalFileName);
                 fileService.InsertFileInformations(Fichier);
-                Debug.WriteLine("File inserted in database.");
             }
             catch (DbEntityValidationException e)
             {
@@ -186,13 +180,13 @@ namespace PigeonsLibrairy.Controller
             Debug.WriteLine("FileController DownloadAFile method called.");
             try
             {
-                FileInfo fileInfo = new FileInfo(FilePath);
+                FileInfo fileInfo = new FileInfo(HttpContext.Current.Server.MapPath(FilePath));
                 HttpContext.Current.Response.Clear();
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.ClearContent();
                 HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileInfo.Name);
                 HttpContext.Current.Response.AddHeader("Content-Length", fileInfo.Length.ToString());
-                HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.Name);
+                HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.FullName);
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.TransmitFile(fileInfo.FullName);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -209,7 +203,7 @@ namespace PigeonsLibrairy.Controller
         /// <summary>
         /// Suppression physique d'un fichier sur le serveur par son chemin d'accès.
         /// </summary>
-        /// <param name="filePath">Le chemin d'accès du fichier à supprimer.</param>
+        /// <param name="filePath">Le chemin d'accès du fichier à supprimer (Ex.: "~/Server_Files/3.jpg" - récupérable dans la base de données).</param>
         public void DeleteFileByPath(string filePath)
         {
             try
@@ -284,15 +278,15 @@ namespace PigeonsLibrairy.Controller
         private string SaveByteFile(Byte[] fileByteArray, string originalFileName)
         {
             Debug.WriteLine("FileController SaveByteFile method called.");
-            Debug.WriteLine("Parameter fileByteArray: " + fileByteArray.ToString());
-            Debug.WriteLine("Parameter originalFileName: " + originalFileName);
             try
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.
                 int highestFileID = 0;
                 FileInfo[] fileInfoArray = directoryInfo.GetFiles("*.*");
+                Debug.WriteLine("Looking for files in: " + directoryInfo.FullName);
                 foreach (FileInfo fileInfo in fileInfoArray)
                 {
+                    Debug.WriteLine("File found: " + fileInfo.FullName);
                     int fileID = Int32.Parse(Path.GetFileNameWithoutExtension(fileInfo.Name));
                     string fileIDWithExtension = fileInfo.Name;
                     if (fileID > highestFileID)
@@ -304,7 +298,9 @@ namespace PigeonsLibrairy.Controller
                 string originalFileExtension = "." + originalFileNameParts[originalFileNameParts.Length - 1];
                 string newFilePath = FILE_DIRECTORY_PATH + "/" + (highestFileID + 1).ToString() + originalFileExtension;
                 // saves the file itself (Byte Array) at the new path.
-                File.WriteAllBytes(newFilePath, fileByteArray);
+                Debug.WriteLine("Next free file ID code found: " + (highestFileID + 1));
+                Debug.WriteLine("Writing file to target directory: " + HttpContext.Current.Server.MapPath(newFilePath));
+                File.WriteAllBytes(HttpContext.Current.Server.MapPath(newFilePath), fileByteArray);
                 return newFilePath;
             }
             catch (Exception error)

@@ -103,10 +103,10 @@ public partial class FileUploadTest : System.Web.UI.Page
         AfficherGroupFiles(50);
     }
 
-    protected void DownloadButtonClick(Object sender, EventArgs e)
+    protected void DownloadButtonClick(Object sender, ImageClickEventArgs e)
     {
-        Button button = (Button)sender;
-        homeFacade.fileControl.DownloadAFile(button.CommandArgument);
+        ImageButton imageButton = (ImageButton)sender;
+        homeFacade.fileControl.DownloadAFile(imageButton.CommandArgument);
     }
 
     protected void AfficherGroupFiles(int groupID)
@@ -135,15 +135,16 @@ public partial class FileUploadTest : System.Web.UI.Page
                     Panel singleFilePanel = new Panel();
                     singleFilePanel.ID = "filePanel" + fichier.ID;
                     singleFilePanel.Attributes.Add("runat", "server");
+                    singleFilePanel.Style.Add("vertical-align", "middle");
 
                     // Create an ImageButton  with a download method as its click command
-                    Button fileImageButton = new Button();
+                    ImageButton fileImageButton = new ImageButton();
                     fileImageButton.ID = "fileImageButton" + fichier.ID;
                     fileImageButton.Attributes.Add("runat", "server");
-                    fileImageButton.Text = "Download!";
-                    // fileImageButton. = "C:\\Users\\Marc - Éric Boury\\Source\\Repos\\Pigeons2\\Pigeon_website\\Resources\\img\\Icon_File_256x256.png";
+                    fileImageButton.CssClass = "ImageButton";
+                    fileImageButton.ImageUrl = "http://localhost:50786/Resources/img/Icon_File_256x256.png";
                     fileImageButton.CommandArgument = fichier.FileURL;
-                    fileImageButton.Click += new EventHandler(DownloadButtonClick);
+                    fileImageButton.Click += new ImageClickEventHandler(DownloadButtonClick);
 
                     // Create a Label with the file name
                     Label fileNameLabel = new Label();
