@@ -31,6 +31,8 @@ namespace PigeonsLibrairy.Controller
         {
             FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("Server_Files");
             fileService = new FileService();
+            groupService = new GroupService();
+            personService = new PersonService();
         }
 
         /// <summary>
@@ -42,6 +44,8 @@ namespace PigeonsLibrairy.Controller
             FILE_DIRECTORY_PATH = fileDirectoryPath;
             fileService = new FileService();
             directoryInfo = new DirectoryInfo(fileDirectoryPath);
+            groupService = new GroupService();
+            personService = new PersonService();
         }
 
         #endregion Constructeurs
@@ -59,13 +63,34 @@ namespace PigeonsLibrairy.Controller
         /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
         public void AddPictureToUser(Byte[] fileByteArray, int personID, string originalFileName)
         {
-            person personne = personService.GetByID(personID);
-            personne.Profile_picture_link = SaveByteFile(fileByteArray, originalFileName);
-            personService.Update(personne);
-            file Fichier = new file();
-            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
-            Fichier.FileName = originalFileName;
-            fileService.InsertFileInformations(Fichier);
+            try
+            {
+                Debug.WriteLine("FileController AddPictureToUser method called.");
+                Debug.WriteLine("Parameter fileByteArray: " + fileByteArray.ToString());
+                Debug.WriteLine("Parameter personID: " + personID);
+                Debug.WriteLine("Parameter originalFileName: " + originalFileName);
+                person personne = personService.GetByID(personID);
+                Debug.WriteLine("Personne loaded: " + personne.ToString() + " ID: " + personne.Id);
+                string pictureLink = SaveByteFile(fileByteArray, originalFileName);
+                Debug.WriteLine("File saved and ppicture link returned: " + pictureLink);
+                personne.Profile_picture_link = pictureLink;
+                personService.Update(personne);
+                Debug.WriteLine("Personne updated.");
+
+                Debug.WriteLine("Creating file entry in database.");
+                file Fichier = new file();
+                Fichier.FileURL = pictureLink;
+                Debug.WriteLine("file entry fileURL: " + pictureLink);
+                Fichier.FileName = originalFileName;
+                Debug.WriteLine("file entry fileName: " + originalFileName);
+                fileService.InsertFileInformations(Fichier);
+                Debug.WriteLine("File inserted in database.");
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
         }
 
         /// <summary>
@@ -77,13 +102,21 @@ namespace PigeonsLibrairy.Controller
         /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
         public void AddPictureToGroup(Byte[] fileByteArray, int groupID, string originalFileName)
         {
-            group groupe = groupService.GetByID(groupID);
-            groupe.Group_picture_link = SaveByteFile(fileByteArray, originalFileName);
-            groupService.Update(groupe);
-            file Fichier = new file();
-            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
-            Fichier.FileName = originalFileName;
-            fileService.InsertFileInformations(Fichier);
+            try
+            {
+                group groupe = groupService.GetByID(groupID);
+                groupe.Group_picture_link = SaveByteFile(fileByteArray, originalFileName);
+                groupService.Update(groupe);
+                file Fichier = new file();
+                Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+                Fichier.FileName = originalFileName;
+                fileService.InsertFileInformations(Fichier);
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
 
         }
 
@@ -96,11 +129,19 @@ namespace PigeonsLibrairy.Controller
         /// <param name="originalFileName">The original file name (String) saved by the database for later user readability</param>
         public void AddAssociatedFileToGroup(Byte[] fileByteArray, int groupID, string originalFileName)
         {
-            file Fichier = new file();
-            Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
-            Fichier.Group_ID = groupID;
-            Fichier.FileName = originalFileName;
-            fileService.InsertFileInformations(Fichier);
+            try
+            {
+                file Fichier = new file();
+                Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+                Fichier.Group_ID = groupID;
+                Fichier.FileName = originalFileName;
+                fileService.InsertFileInformations(Fichier);
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
         }
 
         /// <summary>
@@ -110,16 +151,24 @@ namespace PigeonsLibrairy.Controller
         /// <param name="FilePath">The file path of the requested file.</param>
         public void DownloadAFile(string FilePath)
         {
-            FileInfo fileInfo = new FileInfo(FilePath);
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.ClearHeaders();
-            HttpContext.Current.Response.ClearContent();
-            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileInfo.Name);
-            HttpContext.Current.Response.AddHeader("Content-Length", fileInfo.Length.ToString());
-            HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.Name);
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.TransmitFile(fileInfo.FullName);
-            HttpContext.Current.Response.End();
+            try
+            {
+                FileInfo fileInfo = new FileInfo(FilePath);
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.ClearHeaders();
+                HttpContext.Current.Response.ClearContent();
+                HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileInfo.Name);
+                HttpContext.Current.Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.Name);
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.TransmitFile(fileInfo.FullName);
+                HttpContext.Current.Response.End();
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
         }
 
 
@@ -164,6 +213,25 @@ namespace PigeonsLibrairy.Controller
             }
         }
 
+        /// <summary>
+        /// Méthode retournant une List d'objets file représentant tous les fichiers associés à un groupe dont l'ID est
+        /// passé en paramètre.
+        /// </summary>
+        /// <param name="groupID">Un entier représentant l'ID du groupe</param>
+        /// <returns></returns>
+        public List<file> GetAllGroupFiles(int groupID)
+        {
+            try
+            {
+                return (List<file>)fileService.GetFilesByGroup(groupID);
+            }
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.Message);
+                throw new ControllerException(error.Message);
+            }
+        }
+
 
         #endregion AspCalledMethods
 
@@ -181,6 +249,9 @@ namespace PigeonsLibrairy.Controller
         /// <returns>A string of the file path on the server</returns>
         private string SaveByteFile(Byte[] fileByteArray, string originalFileName)
         {
+            Debug.WriteLine("FileController SaveByteFile method called.");
+            Debug.WriteLine("Parameter fileByteArray: " + fileByteArray.ToString());
+            Debug.WriteLine("Parameter originalFileName: " + originalFileName);
             try
             {
                 // find highest file "name" (integer code) in order to save the file to the next incrementation.

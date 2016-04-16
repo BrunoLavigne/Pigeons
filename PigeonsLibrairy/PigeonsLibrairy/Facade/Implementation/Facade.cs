@@ -15,7 +15,7 @@ namespace PigeonsLibrairy.Facade.Implementation
     /// </summary>
     public class Facade : IFacade
     {
-        protected MainController mainControl { get; set; }
+        public MainController mainControl { get; set; }
         public FileController fileControl { get; set; }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         #endregion Group
 
         #region File
-
+        /*
         /// <summary>
         /// Sauvegarde d'un fichiersur le serveur
         /// </summary>
@@ -118,6 +118,7 @@ namespace PigeonsLibrairy.Facade.Implementation
                 return null;
             }
         }
+        
 
         /// <summary>
         /// Insertion des valeurs d'un ficher dans la base de données
@@ -134,6 +135,7 @@ namespace PigeonsLibrairy.Facade.Implementation
                 ExceptionLog.LogTheError(serviceException.Message);
             }
         }
+        */
 
         #endregion File
     }
