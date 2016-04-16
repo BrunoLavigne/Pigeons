@@ -38,6 +38,10 @@ namespace PigeonsLibrairy.Facade.Interface
 
         List<message> GetGroupMessages(object groupID);
 
+        List<chathistory> GetGroupChatHistory(object groupID);
+
+        void InsertChatMessage(chathistory chatMessage);
+
         #endregion Message
 
         #region Task
