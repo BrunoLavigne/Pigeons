@@ -317,6 +317,8 @@ namespace PigeonsLibrairy.Facade.Implementation
         /// <summary>
         /// Recherche des messages chats pour un Groupe
         /// </summary>
+        /// 
+        ////////////////////////JE DOIS ME SERVIRE DE CELLE CI ////////////////////////
         public List<chathistory> GetGroupChatHistory(object groupID)
         {
             try

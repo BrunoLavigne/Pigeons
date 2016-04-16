@@ -60,13 +60,13 @@ ody
 .chatRoom
 {
 
-    display: none;
+    /*display: none;*/
 
     width: 450px;
     margin-left: auto;
     margin-right: auto;
     border: solid 1px gray;
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
     right: 0;
 
