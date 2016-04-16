@@ -54,7 +54,8 @@
 
 .Home-page .feature {
     text-align: center;
-    background: #ddd;
+    background: #e1e1e1;
     padding: 42px;
     border-radius: 8px;
+    border: 1px solid #bbb;
 }
