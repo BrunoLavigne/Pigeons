@@ -105,10 +105,11 @@ namespace PigeonsLibrairy.Controller
             try
             {
                 group groupe = groupService.GetByID(groupID);
-                groupe.Group_picture_link = SaveByteFile(fileByteArray, originalFileName);
+                string pictureLink = SaveByteFile(fileByteArray, originalFileName);
+                groupe.Group_picture_link = pictureLink;
                 groupService.Update(groupe);
                 file Fichier = new file();
-                Fichier.FileURL = SaveByteFile(fileByteArray, originalFileName);
+                Fichier.FileURL = pictureLink;
                 Fichier.FileName = originalFileName;
                 fileService.InsertFileInformations(Fichier);
             }
@@ -153,7 +154,7 @@ namespace PigeonsLibrairy.Controller
         {
             try
             {
-                FileInfo fileInfo = new FileInfo(FilePath);
+                FileInfo fileInfo = new FileInfo(HttpContext.Current.Server.MapPath(FilePath));
                 HttpContext.Current.Response.Clear();
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.ClearContent();
@@ -181,7 +182,7 @@ namespace PigeonsLibrairy.Controller
             try
             {
                 // Efface le fichier sur le serveur
-                File.Delete(filePath);
+                File.Delete(HttpContext.Current.Server.MapPath(filePath));
                 fileService.DeleteFileByFilePath(filePath);
             }
             catch (Exception error)
