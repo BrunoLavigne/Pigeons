@@ -8,6 +8,7 @@ using System.IO;
 using System.Web;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace PigeonsLibrairy.Controller
 {
@@ -22,6 +23,14 @@ namespace PigeonsLibrairy.Controller
         private IGroupService groupService { get; set; }
         private IPersonService personService { get; set; }
 
+
+        // START TEST ACCESS
+        public file getFileByID(int fileID)
+        {
+            return fileService.GetByID(fileID);
+        }
+        // END TEST ACCESS
+
         #region Constructeurs
 
         /// <summary>
@@ -29,7 +38,12 @@ namespace PigeonsLibrairy.Controller
         /// </summary>
         public FileController()
         {
-            FILE_DIRECTORY_PATH = HttpContext.Current.Server.MapPath("Server_Files");
+            if (!Directory.Exists("~/Server_Files"))
+            {
+                Directory.CreateDirectory("~/Server_Files");
+            }
+            FILE_DIRECTORY_PATH = "~/Server_Files";
+            directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
             fileService = new FileService();
             groupService = new GroupService();
             personService = new PersonService();
@@ -38,12 +52,16 @@ namespace PigeonsLibrairy.Controller
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="fileDirectoryPath">The full path to the file directory to specify for the controller.</param>
-        public FileController(string fileDirectoryPath)
+        /// <param name="PhysicalFileDirectoryPath">The full path to the file directory to specify for the controller.</param>
+        public FileController(string PhysicalFileDirectoryPath)
         {
-            FILE_DIRECTORY_PATH = fileDirectoryPath;
+            if (!Directory.Exists(PhysicalFileDirectoryPath))
+            {
+                Directory.CreateDirectory(PhysicalFileDirectoryPath);
+            }
+            FILE_DIRECTORY_PATH = PhysicalFileDirectoryPath;
             fileService = new FileService();
-            directoryInfo = new DirectoryInfo(fileDirectoryPath);
+            directoryInfo = new DirectoryInfo(FILE_DIRECTORY_PATH);
             groupService = new GroupService();
             personService = new PersonService();
         }
@@ -74,7 +92,7 @@ namespace PigeonsLibrairy.Controller
                 string pictureLink = SaveByteFile(fileByteArray, originalFileName);
                 Debug.WriteLine("File saved and ppicture link returned: " + pictureLink);
                 personne.Profile_picture_link = pictureLink;
-                personService.Update(personne);
+                personService.UpdatePerson(personID, personne);
                 Debug.WriteLine("Personne updated.");
 
                 Debug.WriteLine("Creating file entry in database.");
@@ -86,10 +104,23 @@ namespace PigeonsLibrairy.Controller
                 fileService.InsertFileInformations(Fichier);
                 Debug.WriteLine("File inserted in database.");
             }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
             catch (Exception error)
             {
                 Debug.WriteLine(error.Message);
-                throw new ControllerException(error.Message);
+                // throw new ControllerException(error.Message);
             }
         }
 
@@ -152,9 +183,10 @@ namespace PigeonsLibrairy.Controller
         /// <param name="FilePath">The file path of the requested file.</param>
         public void DownloadAFile(string FilePath)
         {
+            Debug.WriteLine("FileController DownloadAFile method called.");
             try
             {
-                FileInfo fileInfo = new FileInfo(HttpContext.Current.Server.MapPath(FilePath));
+                FileInfo fileInfo = new FileInfo(FilePath);
                 HttpContext.Current.Response.Clear();
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.ClearContent();
@@ -163,12 +195,13 @@ namespace PigeonsLibrairy.Controller
                 HttpContext.Current.Response.ContentType = MimeMapping.GetMimeMapping(fileInfo.Name);
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.TransmitFile(fileInfo.FullName);
-                HttpContext.Current.Response.End();
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                //HttpContext.Current.Response.End();
             }
             catch (Exception error)
             {
                 Debug.WriteLine(error.Message);
-                throw new ControllerException(error.Message);
+                //throw new ControllerException(error.Message);
             }
         }
 

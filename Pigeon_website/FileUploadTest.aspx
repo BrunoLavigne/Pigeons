@@ -20,8 +20,6 @@
         </br>
         Get files:
         </br>
-        <asp:DropDownList ID="ListGroupSelectDownload" runat="server" OnSelectedIndexChanged="ListGroupSelectDownload_SelectedIndexChanged"></asp:DropDownList>
-        </br>
         <asp:Panel ID="PanelGroupFiles" runat="server" ScrollBars="Vertical" Height="70%" Width="80%"></asp:Panel>
     </div>
     </form>

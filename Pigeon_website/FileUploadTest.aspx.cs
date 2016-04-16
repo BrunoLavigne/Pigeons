@@ -21,6 +21,7 @@ public partial class FileUploadTest : System.Web.UI.Page
         homeFacade.m
         ListGroupSelectDownload.Items.Add
         */
+        AfficherGroupFiles(50);
     }
 
     private void fileUploader(int optionnalID = -1, ActionType optionnalActionType = ActionType.NONE)
@@ -77,21 +78,29 @@ public partial class FileUploadTest : System.Web.UI.Page
     {
         // something to get the person ID (session attribute?)
         System.Diagnostics.Debug.WriteLine("FileUploadTest SaveUserPicture method called.");
+        // LA LIGNE CI-DESSOUS N'EST QUE POUR TEST. IL FAUDRA SETTER personID avec le bon ID.
         int personID = 22;
         System.Diagnostics.Debug.WriteLine("Fixed personID set at int = 22");
         fileUploader(personID, ActionType.SAVE_PERSON_PICTURE);
+        AfficherGroupFiles(50);
     }
     protected void SaveGroupPicture(object sender, EventArgs e)
     {
         // something to get the group ID (request parameter, ex &groupID=######## ?)
-        int groupID = 0;
+
+        // LA LIGNE CI-DESSOUS N'EST QUE POUR TEST. IL FAUDRA SETTER groupID avec le bon ID.
+        int groupID = 16;
         fileUploader(groupID, ActionType.SAVE_GROUP_PICTURE);
+        AfficherGroupFiles(50);
     }
     protected void SaveGroupFile(object sender, EventArgs e)
     {
         // something to get the group ID (request parameter, ex &groupID=######## ?)
-        int groupID = 0;
+
+        // LA LIGNE CI-DESSOUS N'EST QUE POUR TEST. IL FAUDRA SETTER groupID avec le bon ID.
+        int groupID = 16;
         fileUploader(groupID, ActionType.SAVE_GROUP_FILE);
+        AfficherGroupFiles(50);
     }
 
     protected void DownloadButtonClick(Object sender, EventArgs e)
@@ -104,37 +113,52 @@ public partial class FileUploadTest : System.Web.UI.Page
     {
         try
         {
-            List<file> listeFichiersGroupe = homeFacade.fileControl.GetAllGroupFiles(groupID);
+            //List<file> listeFichiersGroupe = homeFacade.fileControl.GetAllGroupFiles(groupID);
+
+
+            // TEMPORARY TEST : DÉ-COMMENTER LA LIGNE AU DESSUS ET EFFACER CECI POUR VERSION FINALE.
+            List<file> listeFichiersGroupe = new List<file>();
+            for (int i=0; i<groupID; i++)
+            {
+                listeFichiersGroupe.Add(homeFacade.fileControl.getFileByID(i));
+            }
+            // END TEMPORARY TEST
+
+
             Control allFilesPanel = Page.FindControl(PanelGroupFiles.ID);
             allFilesPanel.Controls.Clear();
             foreach (file fichier in listeFichiersGroupe)
             {
-                // create sub-panel for each file
-                Panel singleFilePanel = new Panel();
-                singleFilePanel.ID = "filePanel" + fichier.ID;
-                singleFilePanel.Attributes.Add("runat", "server");
+                if (!(fichier==null))
+                {
+                    // create sub-panel for each file
+                    Panel singleFilePanel = new Panel();
+                    singleFilePanel.ID = "filePanel" + fichier.ID;
+                    singleFilePanel.Attributes.Add("runat", "server");
 
-                // Create an ImageButton  with a download method as its click command
-                ImageButton fileImageButton = new ImageButton();
-                fileImageButton.ID = "fileImageButton" + fichier.ID;
-                fileImageButton.Attributes.Add("runat", "server");
-                fileImageButton.ImageUrl = Server.MapPath("Resources/img/Icon_File_256x256.png");
-                fileImageButton.CommandArgument = fichier.FileURL;
-                fileImageButton.CommandName = "DownloadButtonClick";
+                    // Create an ImageButton  with a download method as its click command
+                    Button fileImageButton = new Button();
+                    fileImageButton.ID = "fileImageButton" + fichier.ID;
+                    fileImageButton.Attributes.Add("runat", "server");
+                    fileImageButton.Text = "Download!";
+                    // fileImageButton. = "C:\\Users\\Marc - Éric Boury\\Source\\Repos\\Pigeons2\\Pigeon_website\\Resources\\img\\Icon_File_256x256.png";
+                    fileImageButton.CommandArgument = fichier.FileURL;
+                    fileImageButton.Click += new EventHandler(DownloadButtonClick);
 
-                // Create a Label with the file name
-                Label fileNameLabel = new Label();
-                fileNameLabel.ID = "fileNameLabel" + fichier.ID;
-                fileNameLabel.Attributes.Add("runat", "server");
-                fileNameLabel.Text = fichier.FileName;
+                    // Create a Label with the file name
+                    Label fileNameLabel = new Label();
+                    fileNameLabel.ID = "fileNameLabel" + fichier.ID;
+                    fileNameLabel.Attributes.Add("runat", "server");
+                    fileNameLabel.Text = fichier.FileName;
 
-                // Add the ImageButton and Label to the file sub-panel
-                singleFilePanel.Controls.Add(fileImageButton);
-                singleFilePanel.Controls.Add(fileNameLabel);
+                    // Add the ImageButton and Label to the file sub-panel
+                    singleFilePanel.Controls.Add(fileImageButton);
+                    singleFilePanel.Controls.Add(fileNameLabel);
 
-                // Add the sub-panel and a line break to the main group file panel.
-                allFilesPanel.Controls.Add(singleFilePanel);
-                allFilesPanel.Controls.Add(new LiteralControl("<br/>"));
+                    // Add the sub-panel and a line break to the main group file panel.
+                    allFilesPanel.Controls.Add(singleFilePanel);
+                    allFilesPanel.Controls.Add(new LiteralControl("<br/>")); 
+                }
             }
         }
         catch (Exception error)
@@ -142,10 +166,5 @@ public partial class FileUploadTest : System.Web.UI.Page
             System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
             return;
         }
-    }
-
-    protected void ListGroupSelectDownload_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
     }
 }
