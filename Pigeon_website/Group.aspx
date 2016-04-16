@@ -12,6 +12,33 @@
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
 
+    <!-- The sidebar to navigate to the different sections -->
+    <div class="Sidebar">
+        <ul>
+            <li>
+                <a href="#messages-section">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#events-section">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#tasks-section">
+                    <span class="glyphicon glyphicon-check"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#files-section">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
@@ -89,7 +116,7 @@
         <!-------------->
         <!-- MESSAGES -->
         <!-------------->
-        <div class="Group-messages-container">
+        <div class="Group-messages-container" id="messages-section">
 
             
             <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
@@ -150,7 +177,7 @@
         <!------------>
         <!-- EVENTS -->
         <!------------>
-        <div class="Group-events-container">
+        <div class="Group-events-container" id="events-section">
 
             <div class="container Events-app">
 
@@ -228,7 +255,7 @@
         <!----------->
         <!-- TASKS -->
         <!----------->
-        <div class="Group-tasks-container">
+        <div class="Group-tasks-container" id="tasks-section">
                 
             <div class="container Tasks-app">
 
@@ -378,7 +405,7 @@
         <!----------->
         <!-- FILES -->
         <!----------->
-        <div class="Group-files-container">
+        <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
         </div>
         <!------------->
@@ -394,7 +421,6 @@
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
 
-
     <!-- To avoid conflict with summernote js (bug with tooltip not positioned correctly on summernote buttons) -->
     <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
 
@@ -402,73 +428,8 @@
 
 <asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
 
-
-
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
+    <script type="text/javascript" src="Resources/Vendor/summernote/summernote.min.js"></script>
+    <script type="text/javascript" src="Resources/js/Group.js"></script>
 
-    <script src="Resources/Vendor/summernote/summernote.min.js"></script>
-    <script>
-
-        // Start js plugins on every page load
-        function pageLoad() {
-
-            // Init the datepicker
-            $(".datepicker-holder").datepicker({
-                dateFormat: "dd/mm/yy"
-            });
-
-
-            // Init the text editor
-            $(".summernote").summernote();
-
-
-            $('.eventCalendar td').mouseenter(function () {
-
-                if ($(this).data("id") != undefined) {
-                    var idString = $(this).data('id');
-
-                    var formatedString = idString.substring(0, idString.length - 1);
-                    var id = formatedString.split(',');
-
-                    jQuery.each(id, function (i) {
-
-                        $(".eventRow").filter(function () {
-                            return $(this).data('id') == id[i];
-                        }).css('background-color', '#FFFFFF');
-                    });
-
-                } else {
-                    return false;
-                }
-
-            });
-
-            $(".eventCalendar td").mouseleave(function () {
-                $(".eventRow").each(function () {
-                    $(this).css({ "background": "none" });
-                });
-
-            });
-
-            var calendarEventDays;
-            var style;
-
-            $('.eventRow').hover(function () {
-                var eventID = $(this).data('id');
-
-                calendarEventDays = $('.eventCalendar').find("[data-id*='" + eventID + "']");
-                style = calendarEventDays.attr('style');
-                calendarEventDays.css('background-color', '#737373');
-
-            }, function () {
-                calendarEventDays.css('background-color', '');
-                calendarEventDays.attr('style', style);
-            });
-
-
-
-
-        }
-
-    </script>
 </asp:Content>
