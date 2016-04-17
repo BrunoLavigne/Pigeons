@@ -21,6 +21,30 @@
             </a>
         </div>
 
+        <div class="New-group-container">
+
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txtNewGroupName" placeholder="Nom du groupe" CssClass="form-control"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txtNewGroupDescription" placeholder="Description" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <asp:TextBox runat="server" ID="txtNewGroupPicture" placeholder="Url de la photo pour le groupe..." CssClass="form-control"></asp:TextBox>
+            </div>
+
+            <div class="form-group">
+                <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" />
+            </div>
+            
+            
+        </div>
 
 
 
