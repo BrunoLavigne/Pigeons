@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="message"/>
     /// </summary>
-    class MessageDAO : DAO<message>, IMessageDAO
+    public class MessageDAO : DAO<message>, IMessageDAO
     {
         public MessageDAO() : base()
         {            

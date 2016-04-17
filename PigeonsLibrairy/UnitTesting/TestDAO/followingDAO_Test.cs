@@ -11,7 +11,7 @@ namespace UnitTesting
     /// Test des opération CRUD de la classe <see cref="FollowingDAO"/> pour la table <see cref="following"/>
     /// </summary>
     [TestClass]
-    public class FollowingDAOTesting
+    public class followingDAO_Test
     {
         private FollowingDAO followingDAO { get; set; }
         private following followingTest { get; set; }
@@ -40,7 +40,7 @@ namespace UnitTesting
         }
 
         /// <summary>
-        /// Remet le DAO et le group à null
+        /// Remet le DAO et le following à null
         /// </summary>
         [TestCleanup()]
         public void MyTestCleanup()
