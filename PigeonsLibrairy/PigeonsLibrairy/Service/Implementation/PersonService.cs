@@ -1,11 +1,11 @@
-﻿using PigeonsLibrairy.Service.Interface;
+﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
-using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Service.Interface;
 using System;
 using System.Collections.Generic;
-using PigeonsLibrairy.Exceptions;
 using System.Linq;
-using PigeonsLibrairy.DAO.Interface;
 using System.Text.RegularExpressions;
 
 namespace PigeonsLibrairy.Service.Implementation
@@ -46,41 +46,43 @@ namespace PigeonsLibrairy.Service.Implementation
             try
             {
                 using (var context = new pigeonsEntities1())
-                {                    
+                {
                     return personDAO.GetBy(context, columnName, value);
                 }
             }
             catch (DAOException daoException)
             {
                 throw new ServiceException(daoException.Message);
-            }           
+            }
         }
 
         /// <summary>
-        /// Register a new user
+        /// Appel du DAO pour enregistrer une person dans la base de données
         /// </summary>
-        /// <param name="newUser">The user to be added</param>
-        /// <returns>True if the user was added, false if not</returns>
+        /// <param name="newUser">La nouvelle person à ajouter</param>
+        /// <param name="emailConfirmation">Validation du courriel</param>
+        /// <param name="passwordConfirmation">Validation du mot de passe</param>
+        /// <returns></returns>
         public bool RegisterNewUser(person newUser, string emailConfirmation, string passwordConfirmation)
         {
             bool userIsAdded = false;
 
-            if(newUser == null)
+            if (newUser == null)
             {
                 throw new ServiceException("The newUser is null");
             }
 
-            if(newUser.Email != emailConfirmation)
+            if (newUser.Email != emailConfirmation)
             {
                 throw new ServiceException("The email doesnt match");
             }
 
-            if(newUser.Password != passwordConfirmation)
+            if (newUser.Password != passwordConfirmation)
             {
                 throw new ServiceException("The password doesnt match");
             }
 
-            List<person> personAlreadyExist = (GetBy(person.COLUMN_EMAIL, newUser.Email)).ToList();            
+            List<person> personAlreadyExist = (GetBy(person.COLUMN_EMAIL, newUser.Email)).ToList();
 
             if (personAlreadyExist.Count() > 0)
             {
@@ -109,18 +111,18 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Login a user
+        /// Validation des informations de connection d'un personne à la page web
         /// </summary>
-        /// <param name="username">The username of the user that want to log</param>
-        /// <param name="password">The password of the user that want to log</param>
-        /// <returns>True if the username and password match, false if not</returns>
+        /// <param name="username">Le nom d'utilisateur utilisé pour se connecter</param>
+        /// <param name="password">Le mot de passe utilisé pour se connecter</param>
+        /// <returns>Retourne la person si les informations fournies sont bonne, sinon retourne null</returns>
         public person LoginValidation(string username, string password)
         {
             person loginAccepted = null;
 
-            if(username == null)
+            if (username == null)
             {
-                throw new ServiceException("The username is null");                
+                throw new ServiceException("The username is null");
             }
 
             if (password == null)
@@ -145,15 +147,15 @@ namespace PigeonsLibrairy.Service.Implementation
             catch (DAOException daoException)
             {
                 throw new ServiceException(daoException.Message);
-            }                
+            }
         }
 
         /// <summary>
-        /// Updating a person
+        /// Mise à jour des information d'une personne
         /// </summary>
-        /// <param name="personID">The ID of the person we want to update</param>
-        /// <param name="updatedPerson">The person with the updated fields</param>
-        /// <returns>The updated person</returns>
+        /// <param name="personID">Le ID de la person à mettre à jour</param>
+        /// <param name="updatedPerson">La person avec les champ mis à jour</param>
+        /// <returns>Retourrne la personne updater si le update a fonctionné. Retourne null sinon</returns>
         public person UpdatePerson(object personID, person updatedPerson)
         {
             if (personID == null)
@@ -170,7 +172,6 @@ namespace PigeonsLibrairy.Service.Implementation
             {
                 using (var context = new pigeonsEntities1())
                 {
-
                     person validatePerson = GetByID(personID);
 
                     if (validatePerson == null)
@@ -185,7 +186,7 @@ namespace PigeonsLibrairy.Service.Implementation
                         Regex pattern = new Regex("[()-]");
                         string formatedPhoneNumber = pattern.Replace(phoneNumber.Trim(), "");
 
-                        if(formatedPhoneNumber.Count() <= 10)
+                        if (formatedPhoneNumber.Count() <= 10)
                         {
                             updatedPerson.Phone_number = formatedPhoneNumber;
                         }
@@ -206,7 +207,7 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException(daoException.Message);
             }
         }
-        
+
         /// <summary>
         /// Recherche d'une Person qui inclu la person, ses following et ses group
         /// </summary>
@@ -221,11 +222,11 @@ namespace PigeonsLibrairy.Service.Implementation
 
             try
             {
-                using(var context = new pigeonsEntities1())
+                using (var context = new pigeonsEntities1())
                 {
                     List<person> personList = personDAO.GetPersonData(context, personID).ToList();
 
-                    if(personList.Count() != 1)
+                    if (personList.Count() != 1)
                     {
                         throw new ServiceException("Erreur personService GetPersonData : La requête ne retourne pas qu'une personne");
                     }

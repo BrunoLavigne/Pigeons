@@ -12,8 +12,14 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table person
+    /// </summary>
     public partial class person
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public person()
         {
@@ -23,36 +29,137 @@ namespace PigeonsLibrairy.Model
             this.messages = new HashSet<message>();
         }
 
+        /// <summary>
+        /// Colonne person_id
+        /// </summary>
         public const string COLUMN_PERSON_ID = "person_id";
+
+        /// <summary>
+        /// Colonne name
+        /// </summary>
         public const string COLUMN_NAME = "name";
+
+        /// <summary>
+        /// Colonne email
+        /// </summary>
         public const string COLUMN_EMAIL = "email";
+
+        /// <summary>
+        /// Colonne password
+        /// </summary>
         public const string COLUMN_PASSWORD = "password";
+
+        /// <summary>
+        /// Colonne inscription_date
+        /// </summary>
         public const string COLUMN_INSCRIPTION_DATE = "inscription_date";
+
+        /// <summary>
+        /// Colonne birth_date
+        /// </summary>
         public const string COLUMN_BIRTH_DATE = "birth_date";
+
+        /// <summary>
+        /// Colonne phone_number
+        /// </summary>
         public const string COLUMN_PHONE_NUMBER = "phone_number";
+
+        /// <summary>
+        /// Colonne organization
+        /// </summary>
         public const string COLUMN_ORGANIZATION = "organization";
+
+        /// <summary>
+        /// Colonne position
+        /// </summary>
         public const string COLUMN_POSITION = "position";
+
+        /// <summary>
+        /// Colonne description
+        /// </summary>
         public const string COLUMN_DESCRIPTION = "description";
+
+        /// <summary>
+        /// Colonne name et email
+        /// </summary>
         public const string COLUMN_ALL = "all";
 
+        /// <summary>
+        /// Clé primaire de la table person
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Nom de la personne (prénom et nom de famille)
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Courriel de la person
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Mot de passe de la person
+        /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// Date d'inscription de la person
+        /// </summary>
         public System.DateTime Inscription_date { get; set; }
+
+        /// <summary>
+        /// Lien ves la photo de profile
+        /// </summary>
         public string Profile_picture_link { get; set; }
+
+        /// <summary>
+        /// Date de naisance de la person
+        /// </summary>
         public System.DateTime Birth_date { get; set; }
+
+        /// <summary>
+        /// Numéro de téléphone de la person (peut être null)
+        /// </summary>
         public string Phone_number { get; set; }
+
+        /// <summary>
+        /// Organisation de la person (peut être null)
+        /// </summary>
         public string Organization { get; set; }
+
+        /// <summary>
+        /// Position de la personne (peut être null)
+        /// </summary>
         public string Position { get; set; }
+
+        /// <summary>
+        /// Description de la person (peut être null)
+        /// </summary>
         public string Description { get; set; }
     
+        /// <summary>
+        /// Liste des assignations d'une person
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<assignation> assignations { get; set; }
+
+        /// <summary>
+        /// Historique des messages de chat d'une person
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<chathistory> chathistories { get; set; }
+
+        /// <summary>
+        /// Liste des group suivi par une person
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
+        
+        /// <summary>
+        /// Liste des message d'une person
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
     }

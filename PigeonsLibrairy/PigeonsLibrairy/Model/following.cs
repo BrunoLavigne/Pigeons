@@ -12,18 +12,54 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table following
+    /// </summary>
     public partial class following
     {
+        /// <summary>
+        /// Colonne person_id
+        /// </summary>
         public const string COLUMN_PERSON_ID = "person_id";
+
+        /// <summary>
+        /// Colonne group_id
+        /// </summary>
         public const string COLUMN_GROUP_ID = "group_id";
 
+        /// <summary>
+        /// Clé primaire de la table following
+        /// </summary>
         public int Person_Id { get; set; }
+
+        /// <summary>
+        /// Clé primaire de la table following
+        /// </summary>
         public int Group_id { get; set; }
+
+        /// <summary>
+        /// True si la person est admin du group, False sinon
+        /// </summary>
         public bool Is_admin { get; set; }
+
+        /// <summary>
+        /// Dernière date de connection à un group
+        /// </summary>
         public System.DateTime Last_checkin { get; set; }
+
+        /// <summary>
+        /// True si la person suis le group, False sinon
+        /// </summary>
         public bool Is_active { get; set; }
     
+        /// <summary>
+        /// Informations sur le group
+        /// </summary>
         public virtual group group { get; set; }
+
+        /// <summary>
+        /// Informations sur la person
+        /// </summary>
         public virtual person person { get; set; }
     }
 }

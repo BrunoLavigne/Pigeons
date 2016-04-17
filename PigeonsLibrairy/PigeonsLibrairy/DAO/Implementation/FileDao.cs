@@ -32,5 +32,23 @@ namespace PigeonsLibrairy.DAO.Implementation
                 throw new DAOException("Erreur dans le FileDAO GetFilesByGroup : " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Recherche un fichier en fonction de son chemin sur le serveur
+        /// </summary>
+        /// <param name="context">La connection à la base de données</param>
+        /// <param name="filePath">Le chemin vers le fichier sur le serveur</param>
+        public IEnumerable<file> GetByFilePath(pigeonsEntities1 context, object filePath)
+        {
+            try
+            {
+                Expression<Func<file, bool>> filter = (f => f.FileURL == (string)filePath);
+                return Get(context, filter);
+            }
+            catch (Exception ex) when (ex is EntityException || ex is DAOException)
+            {
+                throw new DAOException("Erreur dans le FileDAO GetByFilePath : " + ex.Message);
+            }
+        }
     }
 }

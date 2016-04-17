@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
-using PigeonsLibrairy.DAO.Implementation;
-using PigeonsLibrairy.Exceptions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -17,6 +17,9 @@ namespace PigeonsLibrairy.Service.Implementation
         private IFollowingDAO followingDAO;
         private IGroupDAO groupDAO;
 
+        /// <summary>
+        /// Constructeur de FollowingService
+        /// </summary>
         public FollowingService() : base()
         {
             followingDAO = new FollowingDAO();
@@ -26,21 +29,22 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <summary>
         /// Ajoute une nouvelle personne à un groupe
         /// </summary>
-        /// <param name="personId">Le ID de la personne à ajouter</param>
-        /// <param name="groupeId">Le ID du groupe où la personne dans lequel la personne doit être ajouté</param>
+        /// <param name="adminID">Le ID de la personne qui tente d'ajouter une personne au group</param>
+        /// <param name="personId">Le ID de la person qui doit être ajouté</param>
+        /// <param name="groupId">Le ID du group de lequl ajouter la personne</param>
         public void AddPersonToGroup(object adminID, object personId, object groupId)
         {
-            if(personId == null)
+            if (personId == null)
             {
                 throw new ServiceException("Le ID de la personne est null");
             }
 
-            if(groupId == null)
+            if (groupId == null)
             {
                 throw new ServiceException("Le ID du groupe est null");
             }
 
-            if(adminID == null)
+            if (adminID == null)
             {
                 throw new ServiceException("Le ID de l'administrateur est null");
             }
@@ -105,14 +109,14 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Retire un 'follower' d'un groupe (Set is_active à false)        
+        /// Retire un 'follower' d'un groupe (Set is_active à false)
         /// </summary>
         /// <param name="groupID">Le ID du groupe pour lequel la personne est retirée</param>
         /// <param name="followerID">Le ID du 'follower' à retirer</param>
         /// <returns>Retourne True si la personne est retirer. False sinon</returns>
         public bool RemoveTheFollower(object groupID, object followerID)
         {
-            if(groupID == null)
+            if (groupID == null)
             {
                 throw new ServiceException("Le ID du groupe est null");
             }
@@ -125,7 +129,7 @@ namespace PigeonsLibrairy.Service.Implementation
             try
             {
                 using (var context = new pigeonsEntities1())
-                {             
+                {
                     group groupValidation = groupDAO.GetByID(context, groupID);
 
                     if (groupValidation == null)
@@ -140,7 +144,7 @@ namespace PigeonsLibrairy.Service.Implementation
 
                     following follower = followingDAO.GetByID(context, followerID, groupID);
 
-                    if(follower == null)
+                    if (follower == null)
                     {
                         throw new ServiceException("Ce follower n'existe pas");
                     }
@@ -159,7 +163,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     followingDAO.Update(context, follower);
                     context.SaveChanges();
                     return true;
-                }                
+                }
             }
             catch (DAOException daoException)
             {
@@ -174,7 +178,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>Une liste de follower, une liste vide sinon</returns>
         public IEnumerable<person> GetTheFollowers(object groupID)
         {
-            if(groupID == null)
+            if (groupID == null)
             {
                 throw new ServiceException("Le ID du group est null");
             }
@@ -198,12 +202,12 @@ namespace PigeonsLibrairy.Service.Implementation
                     IEnumerable<following> followingList = followingDAO.GetTheFollowers(context, groupID);
                     IList<person> followers = new List<person>();
 
-                    foreach(following follower in followingList)
+                    foreach (following follower in followingList)
                     {
                         if (follower.Is_active)
                         {
                             followers.Add(follower.person);
-                        }                        
+                        }
                     }
                     return followers;
                 }
@@ -261,22 +265,22 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>Une liste de following qui correspondent à la recherche</returns>
         public new IEnumerable<following> GetBy(string columnName, object value)
         {
-            if(columnName == null || columnName == "")
+            if (columnName == null || columnName == "")
             {
                 throw new ServiceException("La valeur de la colonne ne doit pas être null");
             }
 
-            if(value == null)
+            if (value == null)
             {
                 throw new ServiceException("La valeur recherchée ne peut pas être null");
             }
-            
+
             try
             {
                 using (var context = new pigeonsEntities1())
                 {
                     return followingDAO.GetBy(context, columnName, value);
-                }                    
+                }
             }
             catch (DAOException daoException)
             {

@@ -216,9 +216,12 @@ namespace FunctionsTester
             groupFacade.CreateNewTask(newTask, newTask.Group_ID, activePersonID);
         }
 
+        /// <summary>
+        /// Test - Affichage des Tasks
+        /// </summary>
         private void btn_ShowTasks_Click(object sender, EventArgs e)
         {
-            IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID, true);
+            IEnumerable<task> taskList = groupFacade.GetGroupTasks(activeGroupID, false);
 
             dataGridView_Task.Rows.Clear();
 

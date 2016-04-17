@@ -40,7 +40,6 @@
         var sessionUserName = $("#ContentPlaceHolder1_hdPersondUserName").val();
 
         var chatHub = $.connection.chatHub;
-        var messages = new Array();
 
         var userName;
         var authorId;
@@ -51,7 +50,6 @@
 
         function ajaxMessageData() {
             $.ajax({
-
                 type: "POST",
                 url: "Chat.aspx/GetGroupMessages",
                 contentType: "application/json; charset=UTF-8",
@@ -108,10 +106,11 @@
             $.connection.hub.start();
         });
 
+
+        //Lorsqu'un utilisateur rejoin un group
         function joinRoom(roomNameId) {
             roomName = roomNameId;
             chatHub.server.joinRoom(roomName);
-            console.log('joining room ' + roomName);
         }
         //Lorsqu'un utilisateur quite le group
         function leaveRoom() {
@@ -168,11 +167,12 @@
         }
 
         function displayMessage(userName, message, roomId, isMe) {
-            //messages.push({ message: message });
-            console.log(messages);
+            //Si l'utilisateur est celui qui envoit le message, on lui fais l'affichage suivant
             if (isMe == true) {
                 $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div>" + Date.now() + "<div style='float:right'><b> " + userName + "</b></div><div class='contentMessage' >" + message + "</div>");
-            } else {
+            } 
+            //Si l'utilisateur est celui qui recoit le message, on lui fais l'affichage suivant
+            else {
                 $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div><b>" + userName + "</b><div style='float:right'> " + Date.now() + "</div><div class='contentMessage'>" + message + "</div>");
             }
         }
@@ -180,7 +180,6 @@
         chatHub.client.newMessage = onNewMessage;
 
         function onNewMessage(name, message, roomId) {
-            console.log(roomId);
             isMe = false;
             displayMessage(name, message, roomId, isMe);
             var strMatch = "\B\@channel\b";
