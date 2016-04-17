@@ -11,17 +11,7 @@
 
     <link rel="stylesheet" href="Resources/css/Groups-page.css" />
 
-    <%@ Register TagPrefix="uc" TagName="NewGroupModal" Src="~/Partials/NewGroupModal.ascx" %>
-
     <div class="container">
-
-        <div class="row t-center">
-            <a href="#newGroupModal" data-toggle="modal" data-target="#newGroupModal" class="btn btn-success Btn-new-group">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-        </div>
-
-
 
         <!-- New group (new section) -->
 
@@ -35,6 +25,9 @@
 
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupName" placeholder="Nom du groupe" CssClass="form-control"></asp:TextBox>
+                        <div class="validation-error-message">
+                            <asp:RequiredFieldValidator Display="Dynamic" runat="server" ID="rfvTxtNewGroupName" ControlToValidate="txtNewGroupName" ValidationGroup="createNewGroupValidation" Text="Vous devez entrer un nom de groupe"></asp:RequiredFieldValidator>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -43,6 +36,9 @@
 
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupDescription" placeholder="Description" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+                        <div class="validation-error-message">
+                            <asp:RequiredFieldValidator Display="Dynamic" runat="server" ID="rfvTxtNewGroupDescription" ControlToValidate="txtNewGroupDescription" ValidationGroup="createNewGroupValidation" Text="Vous devez entrer une description"></asp:RequiredFieldValidator>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -50,7 +46,7 @@
                     </div>
 
                     <div class="form-group">
-                        <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" OnClick="btnNewGroup_Click" />
+                        <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" OnClick="btnNewGroup_Click" ValidationGroup="createNewGroupValidation" />
                     </div>
             
                 </div><!-- /.New-group-container -->
@@ -105,9 +101,6 @@
         </asp:Panel>
 
     </div>
-
-    <!-- New group modal -->
-    <uc:NewGroupModal runat="server" ID="newGroupModal"></uc:NewGroupModal>
 
 </asp:Content>
 
