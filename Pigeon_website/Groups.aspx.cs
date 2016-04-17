@@ -3,12 +3,13 @@ using PigeonsLibrairy.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 
 public partial class Groups : System.Web.UI.Page
 {
 
-    protected HomeFacade homeFacade { get; set;  }
+    protected static HomeFacade homeFacade { get; set;  }
 
     protected GroupFacade groupFacade { get; set; }
 
@@ -91,13 +92,14 @@ public partial class Groups : System.Web.UI.Page
     {
 
 
-        //// instantiate a serializer
-        //JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+        // instantiate a serializer
+        JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
 
-        //// Fix this!
-        //return TheSerializer.Serialize(controller.PersonService.GetBy(person.COLUMN_NAME.ALL.ToString(), searchValue));
+        List<person> matchingUsersList = new List<person>();
+        matchingUsersList = homeFacade.GetAllPersons(searchValue);
 
-        return "Alright here are the matching users: (not yet!)";
+        return TheSerializer.Serialize(matchingUsersList);
+
     }
 
     protected void clearNewGroupFormFields()

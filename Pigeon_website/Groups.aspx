@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                        <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control searchBarValue"></asp:TextBox>
                     </div>
 
                     <div class="form-group">
