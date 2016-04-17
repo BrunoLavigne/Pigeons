@@ -15,13 +15,7 @@
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnNewEvent" />
-            <asp:AsyncPostBackTrigger ControlID="btnCreateEvent" />
-            <asp:AsyncPostBackTrigger ControlID="Calendar1" />
-        </Triggers>
-
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
         <ContentTemplate>
 
             <fieldset>
@@ -32,9 +26,33 @@
                             <asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender" CssClass="eventCalendar" OnVisibleMonthChanged="Calendar1_VisibleMonthChanged" SelectionMode="None" NextMonthText="&#8674&nbsp;" PrevMonthText="&nbsp;&#8672&nbsp;"></asp:Calendar>
                         </div>
 
-                        <div class="col-lg-4">
-                            <asp:Table ID="Table1" runat="server" CssClass="table table-hover">
-                            </asp:Table>
+                        <div class="col-md-4">
+
+                            <div class="title">Events</div>
+
+                            <ul class="Events-container">
+
+                                <asp:ListView runat="server" ID="listViewEvents">
+                                    <ItemTemplate>
+                                        <li class="Task-container">
+
+                                            <label class="checkbox-wrapper">
+                                                <asp:HiddenField ID="eventIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                                <p class="eventRow" data-id='<%#Eval("id") %>'><%# Eval("description") %></p>
+                                            </label>
+
+                                            <asp:Button CssClass="btn-delete-task" runat="server" ID="btnDeleteEvent" AutoPostBack="true" Text="X" OnClick="btnDeleteEvent_Click1" />
+
+                                            <div class="content">
+                                                <div class="author"><%# Eval("event_start") %></div>
+                                                -
+				                                <div class="due-date"><%# Eval("event_end") %></div>
+                                            </div>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </ul>
+                            <!-- /.completed -->
                         </div>
 
                         <div class="container">
@@ -89,7 +107,7 @@
 
                         $(".eventRow").filter(function () {
                             return $(this).data('id') == id[i];
-                        }).css('background-color', '#FFFFFF');
+                        }).css('background-color', '#000000');
                     });
 
                 } else {
