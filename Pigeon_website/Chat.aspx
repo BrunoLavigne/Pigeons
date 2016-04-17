@@ -27,10 +27,6 @@
         <input id="hdGroupId" type="hidden" runat="server" />
     </div>
 
-    <div class="chat-toggler">
-        <a href="#">Discussion pour le groupe</a>
-    </div>
-
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
 
@@ -128,7 +124,14 @@
 
         $(function () {
             $.connection.hub.logging = true;
-            $.connection.hub.start();
+            $.connection.hub.start().done(function(){
+                console.log("toggle the group chat!");
+                ajaxMessageData();
+                console.log("Message data done");
+                ajaxGetPeopleData();
+                console.log("Get People Done");
+                $(".chatRoom").slideToggle(200);
+            });
         });
 
 
@@ -221,16 +224,9 @@
 
         $(document).on("click", ".title", function () {
             console.log("toggle the group chat!");
+            $(this).closest(".chatRoom").find(".groupPersons").slideToggle(200);
             $(this).closest(".chatRoom").find(".content").slideToggle(200);
             $(this).closest(".chatRoom").find(".messageBar").slideToggle(200);
-        });
-        
-
-        $(".chat-toggler").click(function () {
-            console.log("toggle the group chat!");
-            ajaxMessageData();
-            ajaxGetPeopleData();
-            $(".chatRoom").slideToggle(200);
         });
 
         $(".group-toggler").click(function () {

@@ -43,7 +43,7 @@ namespace PigeonsLibrairy.Controller
                 // Directory.CreateDirectory("~/Server_Files");
             }
             FILE_DIRECTORY_PATH = "~/Server_Files";
-            directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
+            //directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
             fileService = new FileService();
             groupService = new GroupService();
             personService = new PersonService();
