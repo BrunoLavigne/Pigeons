@@ -40,7 +40,7 @@ namespace PigeonsLibrairy.Controller
         {
             if (!Directory.Exists("~/Server_Files"))
             {
-                Directory.CreateDirectory("~/Server_Files");
+                // Directory.CreateDirectory("~/Server_Files");
             }
             FILE_DIRECTORY_PATH = "~/Server_Files";
             directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
