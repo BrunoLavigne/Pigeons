@@ -22,6 +22,8 @@ namespace PigeonsLibrairy.Facade.Interface
 
         group GetGroupByID(object groupID);
 
+        group UpdateGroup(object groupID, group groupToUpdate);
+
         #endregion Group
 
         #region File

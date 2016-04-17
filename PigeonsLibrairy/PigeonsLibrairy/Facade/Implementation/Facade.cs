@@ -15,7 +15,14 @@ namespace PigeonsLibrairy.Facade.Implementation
     /// </summary>
     public class Facade : IFacade
     {
+        /// <summary>
+        /// Le controlleur principal des services
+        /// </summary>
         public MainController mainControl { get; set; }
+
+        /// <summary>
+        /// Le controlleur des fichiers pour le upload/download
+        /// </summary>
         public FileController fileControl { get; set; }
 
         /// <summary>
@@ -97,9 +104,26 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
+        /// <summary>
+        /// Mise à jour des informations d'un groupe
+        /// </summary>
+        public group UpdateGroup(object groupID, group groupToUpdate)
+        {
+            try
+            {
+                return mainControl.GroupService.UpdateGroup(groupID, groupToUpdate);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
         #endregion Group
 
         #region File
+
         /*
         /// <summary>
         /// Sauvegarde d'un fichiersur le serveur
@@ -118,7 +142,6 @@ namespace PigeonsLibrairy.Facade.Implementation
                 return null;
             }
         }
-        
 
         /// <summary>
         /// Insertion des valeurs d'un ficher dans la base de données
