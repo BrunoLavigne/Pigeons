@@ -29,6 +29,9 @@
 
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control searchBarValue"></asp:TextBox>
+                        <div class="new-group-followers-container" id="new-group-followers">
+
+                        </div>
                     </div>
 
                     <div class="form-group">

@@ -6,6 +6,28 @@
 
 function pageLoad() {
 
+
+    ///////////////// MODIFIER /////////////////
+    // faudrait que ce soit pluggé sur le bouton create new group
+    $.ajax({
+        type: "POST",
+        url: "Groups.aspx/createNewGroup",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        // data: une arraylist d'users qu'on envoie à la méthode createNewGroup
+        success: function (data) {
+            alert("successfully posted data");
+        },
+        error: function (data) {
+            alert("failed posted data");
+            alert(postData);
+        }
+
+    });
+    /////////////////////////////////////////////
+
+
+
     var $groupItem = $(".Group-item");
 
     setElementsToEqualHeight($(".Group-item"));
@@ -35,11 +57,6 @@ function pageLoad() {
 
         $(".New-group-form").slideToggle();
     });
-
-
-
-
-
 
 
     var $searchValue = $(".searchBarValue");
@@ -103,6 +120,7 @@ function pageLoad() {
 
                     var $addUserContainer = $("<i class='material-icons add-user-btn'>person_add</i>");
                     $addUserContainer.data('user-id', user.Id);
+                    $addUserContainer.data('user-name', user.Name);
 
                     var $nameLabel = $("<div></div>");
                     var $emailLabel = $("<div></div>");
@@ -133,71 +151,21 @@ function pageLoad() {
             $usersContainer.append(elements);
 
 
-            // var elements = [];
-
-            // Append new results
-             //if (filteredUsers.length > 0) {
-
-                //for (i = 0; i < filteredUsers.d.length; i++) {
-
-                //    var $personElement = $("<li></li>");
-                //    $personElement.addClass("user-container");
-
-                //    var $profilePicture = $("<div></div>");
-                //    $profilePicture.addClass('profile-picture-container');
-                //    $profilePicture.css({
-                //        "background-image": 'url("' + filteredUsers.d[i].Profile_picture_link + '")',
-                //    });
-
-                //    var $textContainer = $("<div></div>");
-                //    $textContainer.addClass('text-container');
-
-                //    var $addUserContainer = $("<i class='material-icons add-user-btn'>person_add</i>");
-                //    $addUserContainer.data('user-id', filteredUsers.d[i].id);
-
-                //    var $nameLabel = $("<div></div>");
-                //    var $emailLabel = $("<div></div>");
-                //    var $organizationLabel = $("<div></div>");
-
-                //    $nameLabel.addClass('name-label');
-                //    $emailLabel.addClass('email-label');
-                //    $organizationLabel.addClass('organization-label');
-
-                //    $nameLabel.text(filteredUsers.d[i].name);
-                //    $emailLabel.text(filteredUsers.d[i].email);
-                //    $organizationLabel.text(filteredUsers.d[i].organization);
-
-                //    $textContainer.append($nameLabel);
-                //    $textContainer.append($organizationLabel);
-                //    $textContainer.append($emailLabel);
-
-                //    $personElement.append($profilePicture);
-                //    $personElement.append($addUserContainer);
-                //    $personElement.append($textContainer);
-                //    $personElement.append($addUserContainer);
-
-                //    elements.push($personElement);
-
-                //}
-
-                //$usersContainer.append(elements);
-
-            //} else {
-
-             //   $usersContainer.text("No results found");
-
-             //}
-
-
             $("body").prepend($usersContainer);
             $(".user-container").each(function (index, el) {
                 $(this).fadeIn();
             }, 1000);
+
+
+
+
+            // When click on button to add user
             $(".add-user-btn").click(function () {
                 console.log("Add user of id: " + $(this).data("user-id"));
+                $(".new-group-followers-container").append("<div>" + $(this).data("user-name") + "</div>");
             });
-
 
         } // end onsuccess function
     }); // end searchvalue/on input and change function
+
 }

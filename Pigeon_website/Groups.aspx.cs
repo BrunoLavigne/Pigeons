@@ -112,9 +112,14 @@ public partial class Groups : System.Web.UI.Page
 
     protected void btnNewGroup_Click(object sender, EventArgs e)
     {
+        createNewGroup();
+    }
+
+    [WebMethod]
+    protected void createNewGroup()
+    {
         string groupName = txtNewGroupName.Text;
         string groupDescription = txtNewGroupDescription.Text;
-        // also take followers
         string groupPictureLink = txtNewGroupPicture.Text;
 
         group theNewGroup = new group();
