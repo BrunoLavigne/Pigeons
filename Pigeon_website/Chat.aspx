@@ -31,6 +31,10 @@
         <a href="#">Discussion pour le groupe</a>
     </div>
 
+    <div class="chat-rooms-nav">
+
+    </div>
+
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript" src="Resources/js/ajax/chat.js"></script>
 </asp:Content>

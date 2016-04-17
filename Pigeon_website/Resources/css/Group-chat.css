@@ -60,7 +60,7 @@ ody
 .chatRoom
 {
 
-    /*display: none;*/
+    display: none;
 
     width: 450px;
     margin-left: auto;

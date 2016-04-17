@@ -44,6 +44,9 @@ function ajaxMessageData() {
                     "<input type='button' value='Send' class='submitButton btnSendMsg' />" +
                 "</div>" + 
             "</div>");
+
+            $(".chat-rooms-nav").append("<div class='chat-room-link'>" +
+                "<a href='#' data-room-id='" + value.groupId + "'>" + value.groupId + "</a></div>");
                     
             joinRoom(value.groupId);
         });
@@ -62,6 +65,17 @@ function ajaxMessageData() {
 
             });
         });
+
+
+        $(".chat-room-link a").click(function () {
+
+            console.log("herllo" + $(this).data("room-id")) ;
+
+            //$each(".chatRoom", function () {
+            //    console.log("hello a group");
+            //});
+        });
+
     }
 }
 
@@ -109,6 +123,7 @@ $(document).on("click", ".btnSendMsg", function () {
         $(this).closest(".chatRoom").find(".txtMessage").val('');
     }
 });
+
 
 //La fonction sendMessage, qui prend en paramètre le message ainsi que le id du group, nous permet
 //d'envoyer le message desirer au bon group
