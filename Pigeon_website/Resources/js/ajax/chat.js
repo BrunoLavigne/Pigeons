@@ -66,14 +66,19 @@ function ajaxMessageData() {
             });
         });
 
+        // Toggle corresponding chat box from chat nav
+        var $navLinksToChat = $(".chat-room-link a");
+        var $chatBox = $(".chatRoom");
 
-        $(".chat-room-link a").click(function () {
+        $navLinksToChat.click(function () {
 
-            console.log("herllo" + $(this).data("room-id")) ;
+            var roomToToggleID = $(this).data("room-id");
 
-            //$each(".chatRoom", function () {
-            //    console.log("hello a group");
-            //});
+            $.each($chatBox, function (index, value) {
+                if ($(this).data("id") == roomToToggleID) {
+                    $(this).slideToggle();
+                }
+            });
         });
 
     }
