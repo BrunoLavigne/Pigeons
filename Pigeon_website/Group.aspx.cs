@@ -50,9 +50,6 @@ public partial class Group : System.Web.UI.Page
             {
                 groupId = maybeGroupId;     // definitely
 
-                // For todos testing
-                testTodosLink.NavigateUrl = "Taskinator.aspx?groupID=" + groupId;
-
                 if (!Page.IsPostBack)
                 {
                     renderGroupToPage();

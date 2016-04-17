@@ -42,8 +42,6 @@
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
-        <asp:HyperLink runat="server" ID="testTodosLink" Text="Voir la tasklist du group"></asp:HyperLink>
-
         <div class="picture-container">
             <asp:Image runat="server" ID="presentationPicture" />
         </div>
