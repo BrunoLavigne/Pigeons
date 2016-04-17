@@ -52,89 +52,48 @@ public partial class Chat : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static string GetFollowings()
-    {
-        JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-
-        if (homeFacade == null)
-        {
-            homeFacade = new HomeFacade();
-        }
-        following = homeFacade.GetPersonGroups(theUser.Id);
-        groupsId = new List<int>();
-
-        foreach (group followingId in following)
-        {
-            groupsId.Add(followingId.Id);
-        }
-        // TheSerializer.Serialize(personId);
-        return TheSerializer.Serialize(groupsId);
-    }
-
-    //[WebMethod]
-    //public static string GetGroupMessages()
-    //{
-    //    JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-
-    //    if (groupFacade == null)
-    //    {
-    //        groupFacade = new GroupFacade();
-    //    }
-    //    if (homeFacade == null)
-    //    {
-    //        homeFacade = new HomeFacade();
-    //    }
-    //    following = homeFacade.GetPersonGroups(theUser.Id);
-    //    groupsId = new List<int>();
-    //    List<MessageDetail> listMessageDetail = new List<MessageDetail>();
-
-    //    foreach (group followingId in following)
-    //    {
-    //        List<string> listMessage = new List<string>();
-    //        groupMessages = groupFacade.GetGroupChatHistory(followingId.Id);
-
-    //        foreach (chathistory msg in groupMessages)
-    //        {
-    //            listMessage.Add(msg.Message);
-    //        }
-    //        MessageDetail messageDetail = new MessageDetail
-    //        {
-    //            groupId = followingId.Id,
-    //            Message = listMessage.ToArray()
-    //        };
-    //        listMessageDetail.Add(messageDetail);
-    //    }
-    //    // TheSerializer.Serialize(personId);
-    //    return TheSerializer.Serialize(listMessageDetail);
-    //}
-    [WebMethod]
     public static string GetGroupMessages()
     {
         JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-
+        //Si groupFacade est null on l'instancie
         if (groupFacade == null)
         {
             groupFacade = new GroupFacade();
         }
+
+        //Si homeFacade est null on l'instancie
         if (homeFacade == null)
         {
             homeFacade = new HomeFacade();
         }
-        following = homeFacade.GetPersonGroups(theUser.Id);
-        groupsId = new List<int>();
-        List<MessageDetail> listMessageDetail = new List<MessageDetail>();
 
+        //On ajoute a la liste following tous les groups aux quels l'utilisateur participe
+        following = homeFacade.GetPersonGroups(theUser.Id);
+
+        //On instance une nouvelle liste qui contiendera les id des groups aux quels l'utilisateur participe
+        groupsId = new List<int>();
+
+        //On initialise une nouvelle liste, qui contiendera des objets de MessageDetail
+        List<MessageDetail> listMessageDetail = new List<MessageDetail>();
+        
+        //Pour chaque group dans la liste following
         foreach (group followingId in following)
         {
+            //On initialise une nouvelle liste qui contiendera les messages
             List<Message> listMessage = new List<Message>();
+
+            //On ajoute dans la liste groupMessages tous les messages des groups dans lesquels l'utilisateur participe
             groupMessages = groupFacade.GetGroupChatHistory(followingId.Id);
 
+            //Pour chaque message de la liste groupMessages
             foreach (chathistory msg in groupMessages)
             {
+                //..On ajoute dans la liste listMessage les messages qui se trouve dans la liste prit a partir des messages de groupe
                 listMessage.Add(new Message
                 {
                     authorName = msg.person.Name,
-                    message = msg.Message
+                    message = msg.Message,
+                    dateMessage = msg.CreationDate.ToString()
                 });
             }
             MessageDetail messageDetail = new MessageDetail

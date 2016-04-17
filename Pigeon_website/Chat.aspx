@@ -37,10 +37,19 @@
         /**********************************************************
                         new scripts
         **********************************************************/
-        
+        var sessionUserName = $("#ContentPlaceHolder1_hdPersondUserName").val();
+
+        var chatHub = $.connection.chatHub;
+
+        var userName;
+        var authorId;
+        var roomName;
+        var roomId;
+        var newMessage;
+        var isMe;
+
         function ajaxMessageData() {
             $.ajax({
-
                 type: "POST",
                 url: "Chat.aspx/GetGroupMessages",
                 contentType: "application/json; charset=UTF-8",
@@ -53,7 +62,7 @@
 
             function OnSuccess(response) {
                 console.log("success i guess " + response.d);
-                /*var idToAppend;
+                var idToAppend;
                 $.each(JSON.parse(response.d), function (index, value) {
                     $('#divContainer').append("<div id='divChat_" + value.groupId + "' data-id='" + value.groupId + "' class='chatRoom'>" +
                         "<div class='title'>" +
@@ -74,79 +83,105 @@
                     
                     joinRoom(value.groupId);
                 });
+
                 $.each(JSON.parse(response.d), function (index, value) {
                     $.each(value.Message, function (numMessage, contentMessage) {
+
                         idToAppend = "#divChatWindow_" + value.groupId;
-                        $(idToAppend).append("<div>" + numMessage + " : " + contentMessage + "</div>");
+
+                        if (contentMessage.authorName != sessionUserName) {
+                            $(idToAppend).append("<div><b>" + contentMessage.authorName + "</b><div style='float:right'> " + contentMessage.dateMessage + "</div><div class='contentMessage'>" + contentMessage.message + "</div>");
+                        } else {
+                            $(idToAppend).append("<div>" + contentMessage.dateMessage + "<div style='float:right'><b> " + contentMessage.authorName + "</b></div><div class='contentMessage' >" + contentMessage.message + "</div>");
+                        
+                        }
+
                     });
-                });*/
+                });
             }
         }
-
-        var chatHub = $.connection.chatHub;
-        var messages = new Array();
-
-        var userName;
-        var roomName;
-        var roomId;
-        var newMessage;
 
         $(function () {
             $.connection.hub.logging = true;
             $.connection.hub.start();
         });
 
+
+        //Lorsqu'un utilisateur rejoin un group
         function joinRoom(roomNameId) {
             roomName = roomNameId;
             chatHub.server.joinRoom(roomName);
-            console.log('joining room ' + roomName);
         }
-
+        //Lorsqu'un utilisateur quite le group
         function leaveRoom() {
-            chatHub.server.joinRoom(roomName);
+            chatHub.server.leaveRoom(roomName);
         }
 
+        //Lorsqu'on appuis sur notre clavier le bouton Enter en ayant le focus sur le txtMessage
         $(document).on("keypress", ".txtMessage", function (e) {
             if (e.which == 13) {
                 e.preventDefault();
+                //On trouve dans quel chat room l'évenement à été executé, puis on déclenche l'evenement
+                //du bouton btnSendMsg
                 $(this).closest(".chatRoom").find(".btnSendMsg").click();
             }
         });
 
+        //Après avoir appuyer sur le bouton Enter à partir de notre clavier
+        //on execute l'évenement suivant
         $(document).on("click", ".btnSendMsg", function () {
+
+            //Initialisation de la variable messageToSend, qui nous permettera de garder en memoire le message
+            //qu'on devra envoyer aux autres membres du group
             var messageToSend = $(this).closest(".chatRoom").find(".txtMessage").val();
             roomId = $(this).closest(".chatRoom").data("id");
+
+            //Si le message à envoyer contient une taille suppérieur à zero
             if (messageToSend.length > 0) {
+                //...On execute la fonction sendMessage, en lui passant en paramètre le message à envoyer
+                //Ansi que le id du group
                 sendMessage(messageToSend, roomId);
+                //On efface le contenu du champ pour écrire
                 $(this).closest(".chatRoom").find(".txtMessage").val('');
             }
         });
 
+        //La fonction sendMessage, qui prend en paramètre le message ainsi que le id du group, nous permet
+        //d'envoyer le message desirer au bon group
         function sendMessage(message, roomId) {
-            userName =  <%= hdPersondId.Value %>
+
+            //initialisation des varibles suivante, afin d'avoir les informations nécessaire pour les messages envoyé
+            userName = sessionUserName;
             newMessage = message;
             roomName = roomId;
+            isMe = true;
 
-            chatHub.server.sendMessage({ name: userName, message: newMessage, roomName: roomName });
-            displayMessage("You: " + newMessage, roomName);
+            //On appel la methode sendMessage qui est dans la class chathub
+            chatHub.server.sendMessage({authorId: <%= hdPersondId.Value %>, name: sessionUserName, message: newMessage, roomName: roomName });
+
+            //On appel la methode displayMessage, afin d'afficher directement à l'utilisateur le message qu'il vient d'envoyer
+            displayMessage(userName, message, roomName, isMe);
+
+            //On met la variable newMessage pour les messages futures afin qu'il n'y ai pas de conflit avec les anciens messages
             newMessage = "";
- 
         }
 
-        function displayMessage(message, roomId) {
-            messages.push({ message: message });
-            console.log(messages);
-            $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append('<div>' + message + '</div>');
-
-            var height = $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").scrollHeight;
-            $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").scrollTop(height);
+        function displayMessage(userName, message, roomId, isMe) {
+            //Si l'utilisateur est celui qui envoit le message, on lui fais l'affichage suivant
+            if (isMe == true) {
+                $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div>" + Date.now() + "<div style='float:right'><b> " + userName + "</b></div><div class='contentMessage' >" + message + "</div>");
+            } 
+            //Si l'utilisateur est celui qui recoit le message, on lui fais l'affichage suivant
+            else {
+                $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div><b>" + userName + "</b><div style='float:right'> " + Date.now() + "</div><div class='contentMessage'>" + message + "</div>");
+            }
         }
 
         chatHub.client.newMessage = onNewMessage;
 
-        function onNewMessage(message, roomId) {
-            console.log(roomId);
-            displayMessage(message, roomId);
+        function onNewMessage(name, message, roomId) {
+            isMe = false;
+            displayMessage(name, message, roomId, isMe);
             var strMatch = "\B\@channel\b";
             if (message.match(strMatch[1])) {
                toastr.info(message);

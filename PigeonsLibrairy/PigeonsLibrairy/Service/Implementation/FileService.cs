@@ -117,7 +117,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     {
                         throw new ServiceException(string.Format("Le chemin envoyer ( {0} ) retourne plus qu'un ficher, veuillez revérififer votre chemin", filePath.ToString()));
                     }
-
+                    
                     fileDAO.Delete(context, fileValidation[0]);
                     context.SaveChanges();
                 }
