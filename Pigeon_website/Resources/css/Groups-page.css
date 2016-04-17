@@ -2,11 +2,19 @@
 /*    Groups page elements      */
 /********************************/
 
-.Btn-new-group {
-    font-size: 22px;
-    padding: 10px;
-    width: 150px;
-    border-radius: 12px;
+.toggle-new-group-form {
+    text-align: center;
+}
+.toggle-new-group-form .glyphicon {
+    margin-right: 12px;
+}
+
+.New-group-form {
+    display: none;
+    margin-top: 12px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Group component */
@@ -86,9 +94,3 @@
     .Group-item .group-description {
         font-family: 'PT Serif', serif;
     }
-
-
-/*img.media-object {
-    height: 75px;
-    border-radius: 50%;
-}*/

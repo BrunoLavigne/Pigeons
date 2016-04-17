@@ -14,7 +14,7 @@
                 <asp:HyperLink CssClass="navbar-brand" runat="server" NavigateUrl="~/Index.aspx">
 
                     <!-- font in the logo is railway -->
-                    <asp:Image ImageUrl="~/Resources/img/logo_no_txt.png" runat="server" />
+                    <asp:Image ImageUrl="~/Resources/img/logo2.png" runat="server" />
                 </asp:HyperLink>
 			</div>
 

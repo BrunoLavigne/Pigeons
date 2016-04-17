@@ -14,14 +14,19 @@
     <div class="container">
 
         <!-- New group (new section) -->
+        
+        <div class="toggle-new-group-form">
+            <a href="#" id="toggleNewGroupForm" class="btn btn-info btn-lg">
+                <div class="title"><span class="glyphicon glyphicon-plus"></span>Créer un groupe</div>
+            </a>
+        </div>
 
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel runat="server" ID="updatePanelGroups" UpdateMode="Conditional">
 
             <ContentTemplate>
 
-
-                <div class="New-group-container">
+                <div class="New-group-form">
 
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupName" placeholder="Nom du groupe" CssClass="form-control"></asp:TextBox>
@@ -51,9 +56,11 @@
             
                 </div><!-- /.New-group-container -->
 
+                <!-- The user's group(s) -->
                 <div class="row">
                     <asp:ListView ID="groupsListView" runat="server">
                         <ItemTemplate>
+
                             <div class="col-sm-6 col-md-4">
 
                                 <div class="Group-item">
@@ -101,6 +108,17 @@
         </asp:Panel>
 
     </div>
+
+    <script>
+
+        // Toggle the new group creation form on the groups page
+        $("#toggleNewGroupForm").click(function (event) {
+
+            event.preventDefault();
+
+            $(".New-group-form").slideToggle();
+        });
+    </script>
 
 </asp:Content>
 
