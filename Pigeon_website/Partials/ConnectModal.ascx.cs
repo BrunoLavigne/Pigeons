@@ -62,7 +62,7 @@ public partial class Partials_ConnectModal : System.Web.UI.UserControl
             Session["user"] = homeFacade.GetPersonBy("email", userEmail).ToList().ElementAt(0);
 
             // Redirect
-            Response.Redirect("Eventificator.aspx");
+            Response.Redirect("Groups.aspx");
 
         } else {
 

@@ -118,7 +118,6 @@ C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debu
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.xml
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.dll
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.pdb
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\PigeonsLibrairy.dll.config

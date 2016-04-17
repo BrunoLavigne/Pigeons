@@ -76,7 +76,7 @@ function ajaxMessageData() {
 
             $.each($chatBox, function (index, value) {
                 if ($(this).data("id") == roomToToggleID) {
-                    $(this).slideToggle();
+                    $(this).fadeToggle();
                 }
             });
         });
