@@ -13,7 +13,7 @@ namespace UnitTesting.TestDAO
     [TestClass]
     public class groupDAO_Test
     {
-        private FollowingDAO groupDAO { get; set; }
+        private GroupDAO groupDAO { get; set; }
         private group groupTest { get; set; }
 
         private const string GROUP_NAME = "Rookies";
@@ -28,7 +28,7 @@ namespace UnitTesting.TestDAO
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            groupDAO = new FollowingDAO();
+            groupDAO = new GroupDAO();
 
             groupTest = new group();
 
