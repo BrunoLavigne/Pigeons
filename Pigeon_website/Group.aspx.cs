@@ -511,4 +511,42 @@ public partial class Group : System.Web.UI.Page
     }
 
     #endregion EVENTS
+
+    /// <summary>
+    /// Recherche d'une personne afin de l'ajouter au groupe
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnAddUser_Click(object sender, EventArgs e)
+    {
+        string name = personNameSearch.Text;
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            List<person> thosePerson = homeFacade.GetAllPersons(name);
+            listView1.DataSource = thosePerson;
+            listView1.DataBind();
+        }
+        else
+        {
+            // afficher message ?
+        }
+    }
+
+    /// <summary>
+    /// Création du following the la person vers le groupe
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnAddPerson_Click1(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        HiddenField hiddenIdField = (HiddenField)btn.Parent.FindControl("personIdHolder");
+        int personToAddId = (hiddenIdField != null) ? int.Parse(hiddenIdField.Value) : 0;
+
+        if ((person)Session["user"] != null)
+        {
+            groupFacade.AddPersonToGroup(((person)Session["user"]).Id, personToAddId, groupId);
+        }
+    }
 }
