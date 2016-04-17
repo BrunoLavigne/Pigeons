@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO pour la table <see cref="file"/>
     /// </summary>
-    internal class FileDAO : DAO<file>, IFileDAO
+    public class FileDAO : DAO<file>, IFileDAO
     {
         /// <summary>
         /// Recherche des Files d'un Group dans la base de donnée

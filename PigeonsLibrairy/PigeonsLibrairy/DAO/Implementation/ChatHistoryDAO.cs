@@ -13,7 +13,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="chathistory"/>
     /// </summary>
-    internal class ChatHistoryDAO : DAO<chathistory>, IChatHistoryDAO
+    public class ChatHistoryDAO : DAO<chathistory>, IChatHistoryDAO
     {
         /// <summary>
         /// Recherche de tout les message d'un groupe contenu dans la base de données

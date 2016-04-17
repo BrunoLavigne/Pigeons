@@ -79,12 +79,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDAO\assignationDAO_Test.cs" />
     <Compile Include="TestDAO\eventDAO_Test.cs" />
     <Compile Include="TestDAO\followingDAO_Test.cs" />
     <Compile Include="TestDAO\messageDAO_Test.cs" />
     <Compile Include="TestDAO\personDAO_Test.cs" />
     <Compile Include="TestDAO\taskDAO_Test.cs" />
     <Compile Include="TestDAO\groupDAO_Test.cs" />
+    <Compile Include="TestDAO\chatHistoryDAO_Test.cs" />
+    <Compile Include="TestDAO\fileDAO_Test.cs" />
     <Compile Include="TestService\personService_Test.cs" />
   </ItemGroup>
   <ItemGroup>

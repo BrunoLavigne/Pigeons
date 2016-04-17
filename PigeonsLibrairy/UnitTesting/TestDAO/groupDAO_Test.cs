@@ -130,7 +130,7 @@ namespace UnitTesting.TestDAO
 
         /// <summary>
         /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
-        /// Insertion d'une Person et validation de ses propriétés
+        /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
         public void TestGetByPerson()
