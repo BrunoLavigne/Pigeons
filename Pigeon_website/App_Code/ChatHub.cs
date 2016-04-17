@@ -28,6 +28,10 @@ namespace SignalRChat
             ConnectedUsers.Add(new UserDetail { ConnectionId = Context.ConnectionId });
 
         }
+        public int CountUsers()
+        {
+            return ConnectedUsers.Count();
+        }
 
         public void SendMessage(SendData data)
         {
