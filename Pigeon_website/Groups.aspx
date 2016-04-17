@@ -21,67 +21,78 @@
             </a>
         </div>
 
-        <div class="New-group-container">
-
-            <div class="form-group">
-                <asp:TextBox runat="server" ID="txtNewGroupName" placeholder="Nom du groupe" CssClass="form-control"></asp:TextBox>
-            </div>
-
-            <div class="form-group">
-                <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control"></asp:TextBox>
-            </div>
-
-            <div class="form-group">
-                <asp:TextBox runat="server" ID="txtNewGroupDescription" placeholder="Description" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
-            </div>
-
-            <div class="form-group">
-                <asp:TextBox runat="server" ID="txtNewGroupPicture" placeholder="Url de la photo pour le groupe..." CssClass="form-control"></asp:TextBox>
-            </div>
-
-            <div class="form-group">
-                <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" />
-            </div>
-            
-            
-        </div>
 
 
+        <!-- New group (new section) -->
 
-        <div class="row">
-            <asp:ListView ID="groupsListView" runat="server">
-                <ItemTemplate>
-                    <div class="col-sm-6 col-md-4">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel runat="server" ID="updatePanelGroups" UpdateMode="Conditional">
 
-                        <div class="Group-item">
-                            <div class="group-title">
-                                <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
-                                    <div class="group-picture-wrapper">
-                                        <div class="group-picture" style='background-image:url(<%# Eval("group_picture_link") %>);'></div>
-                                    </div>
-                                    <div class="group-name-wrapper">
-                                        <asp:Label ID="lblGroupName" runat="server" Text='<%# Eval("name") %>' />
-                                    </div>
-                                    
-                                </asp:HyperLink>
-                            </div>
-                            <div class="group-info">
-                                <div class="group-since">
-                                    Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
-                                </div>
-                                <div class="group-description">
-                                    <asp:Label ID="lblGroupDescription" runat="Server" Text='<%# Eval("description") %>' />
-                                </div>
-                                <div class="groupFollowers">
-                                    <asp:Label ID="lblGroupFollowrers" runat="server" Text='<%# "Nb followers : " + Eval("followers") %>' />
-                                </div>
-                             </div>
-                        </div><!-- /.Group-item -->
+            <ContentTemplate>
 
+
+                <div class="New-group-container">
+
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="txtNewGroupName" placeholder="Nom du groupe" CssClass="form-control"></asp:TextBox>
                     </div>
-                </ItemTemplate>
-            </asp:ListView>
-        </div>
+
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="txtNewGroupDescription" placeholder="Description" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                        <asp:TextBox runat="server" ID="txtNewGroupPicture" placeholder="Url de la photo pour le groupe..." CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                        <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" OnClick="btnNewGroup_Click" />
+                    </div>
+            
+                </div><!-- /.New-group-container -->
+
+                <div class="row">
+                    <asp:ListView ID="groupsListView" runat="server">
+                        <ItemTemplate>
+                            <div class="col-sm-6 col-md-4">
+
+                                <div class="Group-item">
+                                    <div class="group-title">
+                                        <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
+                                            <div class="group-picture-wrapper">
+                                                <div class="group-picture" style='background-image:url(<%# Eval("group_picture_link") %>);'></div>
+                                            </div>
+                                            <div class="group-name-wrapper">
+                                                <asp:Label ID="lblGroupName" runat="server" Text='<%# Eval("name") %>' />
+                                            </div>
+                                    
+                                        </asp:HyperLink>
+                                    </div>
+                                    <div class="group-info">
+                                        <div class="group-since">
+                                            Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
+                                        </div>
+                                        <div class="group-description">
+                                            <asp:Label ID="lblGroupDescription" runat="Server" Text='<%# Eval("description") %>' />
+                                        </div>
+                                        <div class="groupFollowers">
+                                            <asp:Label ID="lblGroupFollowrers" runat="server" Text='<%# "Nb followers : " + Eval("followers") %>' />
+                                        </div>
+                                     </div>
+                                </div><!-- /.Group-item -->
+
+                            </div>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </div><!-- /.row list groups -->
+
+            </ContentTemplate>
+
+        </asp:UpdatePanel>
 
         
         <asp:Panel runat="server" ID="noGroupsView">
