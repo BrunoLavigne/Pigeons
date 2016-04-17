@@ -3,7 +3,7 @@
 /********************************/
 
 .toggle-new-group-form {
-    text-align: center;
+    display: inline-block;
 }
 .toggle-new-group-form .glyphicon {
     margin-right: 12px;

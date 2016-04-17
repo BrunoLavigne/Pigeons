@@ -57,8 +57,7 @@
 
             <div class="h4">
                     Créé le <asp:Label runat="server" ID="lblGroupDateCreated"></asp:Label> 
-                    à <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label> 
-                    par <asp:Label runat="server" ID="lblGroupAuthor"></asp:Label>      
+                    à <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label>
             </div>
     
         </div>

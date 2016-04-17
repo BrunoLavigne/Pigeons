@@ -4,18 +4,18 @@
 
 /* Groups page header */
 .Group-presentation {
-    background: #f8f8f8;
+    background: #E8BA61;
+    padding: 32px;
 }
 
 .Group-presentation .picture-container {
-    padding: 32px 15px 20px 15px;
     text-align: center;
 }
 
 .Group-presentation .picture-container img {
-    border: 7px solid lightgray;
     border-radius: 50%;
-    max-width: 200px;
+    width: 200px;
+    height: 200px;
 }
 
 .Group-presentation .text {
@@ -40,7 +40,6 @@
     color: white;
     border-radius: 16px;
     background-color: rgb(97, 69, 91);
-    width: 175px;
     display: inline-block;
 }
 
