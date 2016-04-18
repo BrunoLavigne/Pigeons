@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="assignation"/>
     /// </summary>
-    class AssignationDAO : DAO<assignation>, IAssignationDAO
+    public class AssignationDAO : DAO<assignation>, IAssignationDAO
     {
         /// <summary>
         /// Constructeur

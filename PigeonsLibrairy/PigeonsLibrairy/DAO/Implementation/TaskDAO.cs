@@ -14,7 +14,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="task"/>
     /// </summary>
-    internal class TaskDAO : DAO<task>, ITaskDAO
+    public class TaskDAO : DAO<task>, ITaskDAO
     {
         /// <summary>
         /// Constructeur

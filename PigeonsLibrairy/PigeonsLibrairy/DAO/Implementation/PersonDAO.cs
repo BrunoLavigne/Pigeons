@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="person"/>
     /// </summary>
-    class PersonDAO : DAO<person>, IPersonDAO
+    public class PersonDAO : DAO<person>, IPersonDAO
     {
         public PersonDAO() : base() {}
 

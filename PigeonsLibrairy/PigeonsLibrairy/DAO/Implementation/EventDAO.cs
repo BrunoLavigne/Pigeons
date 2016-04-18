@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la table <see cref="@event"/>
     /// </summary>
-    internal class EventDAO : DAO<@event>, IEventDAO
+    public class EventDAO : DAO<@event>, IEventDAO
     {
         /// <summary>
         /// Constructeur

@@ -14,7 +14,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// DAO général pour toute les tables
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    class DAO<TEntity> : IDAO<TEntity> where TEntity : class
+    public class DAO<TEntity> : IDAO<TEntity> where TEntity : class
     {
         /// <summary>
         /// Constructeur

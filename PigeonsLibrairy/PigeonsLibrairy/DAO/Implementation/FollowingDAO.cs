@@ -12,7 +12,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO de la classe <see cref="following"/>
     /// </summary>
-    class FollowingDAO : DAO<following>, IFollowingDAO
+    public class FollowingDAO : DAO<following>, IFollowingDAO
     {
         /// <summary>
         /// Constructeur

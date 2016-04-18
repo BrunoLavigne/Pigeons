@@ -14,7 +14,7 @@ namespace PigeonsLibrairy.DAO.Implementation
     /// <summary>
     /// DAO pour la table <see cref="group"/>
     /// </summary>
-    class GroupDAO : DAO<group>, IGroupDAO
+    public class GroupDAO : DAO<group>, IGroupDAO
     {
         /// <summary>
         /// Constructueur
