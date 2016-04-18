@@ -20,17 +20,30 @@
 /* Group component */
 .Group-item {
 
-    background-color: #e7e7e7;
-    border-radius: 4px;
+    /*display: table;*/
 
     margin-top: 22px;
     padding: 15px 24px;
+
+    max-height: 420px;
+    overflow-y: auto;
+
+    background-color: #e7e7e7;
+    border-radius: 4px;
 
     transition: background-color .3s ease-in-out;
     -o-transition: background-color .3s ease-in-out;
     -moz-transition: background-color .3s ease-in-out;
     -webkit-transition: background-color .3s ease-in-out;
 }
+    .Group-item .group-info {
+        display: none;
+    }
+
+    .Group-item .inner-wrapper {
+        /*display: table-cell;
+        vertical-align: middle;*/
+    }
 
     .Group-item:hover, .Group-item:focus {
         background-color: #ccc;
@@ -40,6 +53,10 @@
        -o-transition: background-color .3s ease-in-out;
        -moz-transition: background-color .3s ease-in-out;
        -webkit-transition: background-color .3s ease-in-out;
+    }
+
+    .Group-item:hover .group-info, .Group-item:focus .group-info {
+        display: block;
     }
 
     .Group-item .group-picture {
@@ -55,11 +72,10 @@
     }
 
     .Group-item a {
-        color: #777;
+        color: #aaa;
     }
-    .Group-item a:hover, .Group-item :focus {
-        font-weight: bold;
-        color: #777;
+
+    .Group-item a:hover, .Group-item a:focus {
         text-decoration: none;
     }
 

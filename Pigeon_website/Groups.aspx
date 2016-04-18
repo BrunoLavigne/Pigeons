@@ -69,28 +69,32 @@
                             <div class="col-sm-6 col-md-4">
 
                                 <div class="Group-item equal">
-                                    <div class="group-title">
-                                        <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
-                                            <div class="group-picture-wrapper">
-                                                <div class="group-picture" style='background-image:url(<%# Eval("group_picture_link") %>);'></div>
-                                            </div>
-                                            <div class="group-name-wrapper">
-                                                <asp:Label ID="lblGroupName" runat="server" Text='<%# Eval("name") %>' />
-                                            </div>
+
+                                    <div class="inner-wrapper">
+                                        <div class="group-title">
+                                            <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
+                                                <div class="group-picture-wrapper">
+                                                    <div class="group-picture" style='background-image:url(<%# Eval("group_picture_link") %>);'></div>
+                                                </div>
+                                                <div class="group-name-wrapper">
+                                                    <asp:Label ID="lblGroupName" runat="server" Text='<%# Eval("name") %>' />
+                                                </div>
+                                                <div class="group-followers-count">
+                                                    <asp:Label ID="lblGroupFollowrers" runat="server" Text='<%# "Nb followers : " + Eval("followers") %>' />
+                                                </div>
                                     
-                                        </asp:HyperLink>
-                                    </div>
-                                    <div class="group-info">
-                                        <div class="group-since">
-                                            Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
+                                            </asp:HyperLink>
                                         </div>
-                                        <div class="group-description">
-                                            <asp:Label ID="lblGroupDescription" runat="Server" Text='<%# Eval("description") %>' />
-                                        </div>
-                                        <div class="groupFollowers">
-                                            <asp:Label ID="lblGroupFollowrers" runat="server" Text='<%# "Nb followers : " + Eval("followers") %>' />
-                                        </div>
-                                     </div>
+                                        <div class="group-info">
+                                            <div class="group-since">
+                                                Créé le <asp:Label ID="lblGroupSince" runat="server" Text='<%# Eval("creation_date") %>' />
+                                            </div>
+                                            <div class="group-description">
+                                                <asp:Label ID="lblGroupDescription" runat="Server" Text='<%# Eval("description") %>' />
+                                            </div>
+                                         </div>
+                                    </div><!-- /.inner-wrapper -->
+
                                 </div><!-- /.Group-item -->
 
                             </div>
