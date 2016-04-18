@@ -12,8 +12,14 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table group
+    /// </summary>
     public partial class group
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group()
         {
@@ -25,29 +31,94 @@ namespace PigeonsLibrairy.Model
             this.files = new HashSet<file>();
         }
 
+        /// <summary>
+        /// Colonne group_id
+        /// </summary>
         public const string COLUMN_GROUP_ID = "group_id";
+
+        /// <summary>
+        /// Colonne  name
+        /// </summary>
         public const string COLUMN_NAME = "name";
+
+        /// <summary>
+        /// Colonne is_active
+        /// </summary>
         public const string COLUMN_IS_ACTIVE = "is_active";
+
+        /// <summary>
+        /// Colonne  description
+        /// </summary>
         public const string COLUMN_DESCRIPTION = "description";
+
+        /// <summary>
+        /// Colonne creation_date
+        /// </summary>
         public const string COLUMN_CREATION_DATE = "creation_date";
 
+        /// <summary>
+        /// Clé primaire de la table group (auto_increment)
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Nom du group
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Date de création du group
+        /// </summary>
         public System.DateTime Creation_date { get; set; }
+
+        /// <summary>
+        /// Description du group
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Lien vers la photo de profile du group
+        /// </summary>
         public string Group_picture_link { get; set; }
+
+        /// <summary>
+        /// True si le group est actif, False sinon
+        /// </summary>
         public bool Is_active { get; set; }
     
+        /// <summary>
+        /// Historique des messages d'un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<chathistory> chathistories { get; set; }
+
+        /// <summary>
+        /// Liste des events associés à un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<@event> events { get; set; }
+
+        /// <summary>
+        /// Liste des followings associés à un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<following> followings { get; set; }
+
+        /// <summary>
+        /// Liste des messages associés à un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
+
+        /// <summary>
+        /// Liste de tasks associées à un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<task> tasks { get; set; }
+
+        /// <summary>
+        /// Liste des fichiers associés à un group
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<file> files { get; set; }
     }

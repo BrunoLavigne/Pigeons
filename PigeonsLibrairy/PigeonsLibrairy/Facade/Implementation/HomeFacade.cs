@@ -8,19 +8,19 @@ using System.Linq;
 namespace PigeonsLibrairy.Facade.Implementation
 {
     /// <summary>
-    /// Facade offrant accès aux services nécessaire à partir de la page Login jusqu'à la page Groups
+    /// Facade offrant accès aux services nécessaires à partir de la page Login jusqu'à la page Groups
     /// </summary>
     public class HomeFacade : Facade, IHomeFacade
-    {   
+    {
         /// <summary>
         /// Constructeur
         /// </summary>
-        public HomeFacade() : base() {}
+        public HomeFacade() : base() { }
 
         #region Person
 
         /// <summary>
-        /// Enregistrement d'un nouvel utilisateur
+        /// Enregistrement d'un nouvel utilisateur (appel du service)
         /// </summary>
         public bool RegisterUser(person newUser, string emailConfirmation, string passwordConfirmation)
         {
@@ -28,15 +28,15 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 return mainControl.PersonService.RegisterNewUser(newUser, emailConfirmation, passwordConfirmation);
             }
-            catch(ServiceException serviceException)
+            catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return false;
-            }            
+            }
         }
 
         /// <summary>
-        /// Validation de l'acces au site
+        /// Validation de l'acces au site (appel du service)
         /// </summary>
         public person LoginValidation(string username, string password)
         {
@@ -53,7 +53,7 @@ namespace PigeonsLibrairy.Facade.Implementation
 
         /// <summary>
         /// Recherche des informations (person/following/groups) reliés à une person par son ID
-        /// 
+        ///
         /// </summary>
         /// <param name="personID"></param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         #region Groups
 
         /// <summary>
-        /// Recherche des groupes actif qu'une person suis
+        /// Recherche des groupes actif qu'une person suis (appel du service)
         /// </summary>
         public List<group> GetPersonGroups(object personID)
         {
@@ -111,8 +111,8 @@ namespace PigeonsLibrairy.Facade.Implementation
         #region Following
 
         /// <summary>
-        /// Recherche du nombre de personnes qui suivent un groupe (following)
-        /// </summary>        
+        /// Recherche du nombre de personnes qui suivent un groupe (following) (appel du service)
+        /// </summary>
         public int GetGroupFollowers(object groupID)
         {
             try
@@ -123,7 +123,7 @@ namespace PigeonsLibrairy.Facade.Implementation
             {
                 ExceptionLog.LogTheError(serviceException.Message);
                 return 0;
-            }      
+            }
         }
 
         #endregion Following

@@ -90,5 +90,42 @@ namespace PigeonsLibrairy.Service.Implementation
                 throw new ServiceException(daoException.Message);
             }
         }
+
+        /// <summary>
+        /// Efface un fichier sur le serveur selon son chemin vers celui-ci
+        /// </summary>
+        /// <param name="filePath">Le chemin sur le serveur du fichier</param>
+        public void DeleteFileByFilePath(object filePath)
+        {
+            if (filePath == null)
+            {
+                throw new ServiceException("Le filePath est null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    List<file> fileValidation = fileDAO.GetByFilePath(context, filePath).ToList();
+
+                    if (fileValidation == null)
+                    {
+                        throw new ServiceException(string.Format("Aucun fichier n'est trouvé avec ce lien : {0}", filePath.ToString()));
+                    }
+
+                    if (fileValidation.Count() != 1)
+                    {
+                        throw new ServiceException(string.Format("Le chemin envoyer ( {0} ) retourne plus qu'un ficher, veuillez revérififer votre chemin", filePath.ToString()));
+                    }
+                    
+                    fileDAO.Delete(context, fileValidation[0]);
+                    context.SaveChanges();
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
     }
 }

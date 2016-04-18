@@ -9,7 +9,11 @@ namespace PigeonsLibrairy.Service.Interface
     public interface IGroupService : IService<group>
     {
         group CreateNewGroupAndRegister(group newGroup, object personId);
+
         bool CloseGroup(object adminID, object groupID);
-        IList<group> GetPersonGroups(object personID);        
+
+        IList<group> GetPersonGroups(object personID);
+
+        group UpdateGroup(object groupID, group groupToUpdate);
     }
 }

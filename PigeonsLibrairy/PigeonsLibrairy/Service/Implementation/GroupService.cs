@@ -1,11 +1,11 @@
-﻿using System;
+﻿using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.DAO.Interface;
+using PigeonsLibrairy.Exceptions;
 using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Interface;
-using PigeonsLibrairy.DAO.Implementation;
+using System;
 using System.Collections.Generic;
-using PigeonsLibrairy.Exceptions;
 using System.Linq;
-using PigeonsLibrairy.DAO.Interface;
 
 namespace PigeonsLibrairy.Service.Implementation
 {
@@ -32,12 +32,12 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <param name="personId">The ID of the person creating the group</param>
         public group CreateNewGroupAndRegister(group newGroup, object personId)
         {
-            if(newGroup == null)
+            if (newGroup == null)
             {
                 throw new ServiceException("The group is null");
             }
 
-            if(personId == null)
+            if (personId == null)
             {
                 throw new ServiceException("The personID is null");
             }
@@ -50,7 +50,7 @@ namespace PigeonsLibrairy.Service.Implementation
                     newGroup.Creation_date = DateTime.Now;
                     newGroup.Is_active = true;
 
-                    // Inserting the group                    
+                    // Inserting the group
                     groupDAO.Insert(context, newGroup);
                     context.SaveChanges();
 
@@ -84,7 +84,7 @@ namespace PigeonsLibrairy.Service.Implementation
         /// <returns>A list of active groups that a person is following or an empty list of he is not following any group</returns>
         public IList<group> GetPersonGroups(object personID)
         {
-            if(personID == null)
+            if (personID == null)
             {
                 throw new ServiceException("The ID of the person is null");
             }
@@ -172,7 +172,7 @@ namespace PigeonsLibrairy.Service.Implementation
                             IEnumerable<following> followersList = followingDAO.GetTheFollowersCount(context, groupValidation.Id);
 
                             // Setting each follower to inactive
-                            foreach(following follower in followersList)
+                            foreach (following follower in followersList)
                             {
                                 follower.Is_active = false;
                                 followingDAO.Update(context, follower);
@@ -190,6 +190,47 @@ namespace PigeonsLibrairy.Service.Implementation
                             throw new ServiceException("Error in the transaction");
                         }
                     }
+                }
+            }
+            catch (DAOException daoException)
+            {
+                throw new ServiceException(daoException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Appel le DAO afin de mettre à jour les informations d'un groupe
+        /// </summary>
+        /// <param name="groupID">Le ID du group à mettre à jour</param>
+        /// <param name="groupToUpdate">Le group avec les nouvelles valeurs</param>
+        /// <returns></returns>
+        public group UpdateGroup(object groupID, group groupToUpdate)
+        {
+            if (groupID == null)
+            {
+                throw new ServiceException("Le ID du groupe ne peut pas être null");
+            }
+
+            if (groupToUpdate == null)
+            {
+                throw new ServiceException("Le groupe à updater est null");
+            }
+
+            try
+            {
+                using (var context = new pigeonsEntities1())
+                {
+                    group groupValidation = groupDAO.GetByID(context, groupID);
+
+                    if (groupValidation == null)
+                    {
+                        throw new ServiceException(string.Format("Le groupe no.{0} n'existe pas. Impossible de le mettre a jour", groupID));
+                    }
+
+                    groupValidation = groupToUpdate;
+                    groupDAO.Update(context, groupValidation);
+                    context.SaveChanges();
+                    return groupValidation;
                 }
             }
             catch (DAOException daoException)
@@ -226,7 +267,7 @@ namespace PigeonsLibrairy.Service.Implementation
             catch (DAOException daoException)
             {
                 throw new ServiceException(daoException.Message);
-            }                                  
-        }        
+            }
+        }
     }
 }

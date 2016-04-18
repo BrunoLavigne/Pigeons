@@ -12,31 +12,94 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table task
+    /// </summary>
     public partial class task
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public task()
         {
             this.assignations = new HashSet<assignation>();
         }
 
+        /// <summary>
+        /// Colonne group_id
+        /// </summary>
         public const string COLUMN_GROUP_ID = "group_id";
+
+        /// <summary>
+        /// Colonne author_id
+        /// </summary>
         public const string COLUMN_AUTHOR_ID = "author_id";
+
+        /// <summary>
+        /// Colonne description
+        /// </summary>
         public const string COLUMN_DESCRIPTION = "description";
-        public const string COLUMN_IS_COMPLETED = "is_completed";        
+
+        /// <summary>
+        /// Colonne is_completed
+        /// </summary>
+        public const string COLUMN_IS_COMPLETED = "is_completed";
+
+        /// <summary>
+        /// Colonne task_datetime
+        /// </summary>
         public const string COLUMN_TASK_DATETIME = "task_datetime";
+
+        /// <summary>
+        /// Colonne is_important
+        /// </summary>
         public const string COLUMN_TASK_ISIMPORTANT = "task_isimportant";        
 
+        /// <summary>
+        /// Clé primaire de la table task
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Description de la task
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Id du group pour la task (Clé étrangère)
+        /// </summary>
         public int Group_ID { get; set; }
+
+        /// <summary>
+        /// True si la task est completed, False sinon
+        /// </summary>
         public bool Is_completed { get; set; }
+
+        /// <summary>
+        /// ID de la person qui a créée la task (Clé étrangère)
+        /// </summary>
         public int Author_ID { get; set; }
+
+        /// <summary>
+        /// Moment auquel la task doit être fait/avoir lieu (peut être null)
+        /// </summary>
         public Nullable<System.DateTime> Task_DateTime { get; set; }
+
+        /// <summary>
+        /// True si la task doit apparaître en priorité sur les autres. False sinon
+        /// </summary>
         public Nullable<bool> Is_important { get; set; }
     
+        /// <summary>
+        /// Liste des assignations associés à cette task
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<assignation> assignations { get; set; }
+
+        /// <summary>
+        /// Information sur le group
+        /// </summary>
         public virtual group group { get; set; }
     }
 }

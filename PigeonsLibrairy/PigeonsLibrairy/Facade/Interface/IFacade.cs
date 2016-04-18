@@ -22,11 +22,15 @@ namespace PigeonsLibrairy.Facade.Interface
 
         group GetGroupByID(object groupID);
 
+        group UpdateGroup(object groupID, group groupToUpdate);
+
         #endregion Group
 
         #region File
 
-        file InsertFileInfo();
+        /*
+        file InsertFileInfo(file fichier);
+        */
 
         #endregion File
     }

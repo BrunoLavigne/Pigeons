@@ -15,7 +15,14 @@ namespace PigeonsLibrairy.Facade.Implementation
     /// </summary>
     public class Facade : IFacade
     {
-        protected MainController mainControl { get; set; }
+        /// <summary>
+        /// Le controlleur principal des services
+        /// </summary>
+        public MainController mainControl { get; set; }
+
+        /// <summary>
+        /// Le controlleur des fichiers pour le upload/download
+        /// </summary>
         public FileController fileControl { get; set; }
 
         /// <summary>
@@ -24,7 +31,7 @@ namespace PigeonsLibrairy.Facade.Implementation
         public Facade()
         {
             mainControl = new MainController();
-            fileControl = new FileController("Server_Files");
+            fileControl = new FileController();
         }
 
         #region Person
@@ -97,16 +104,33 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
+        /// <summary>
+        /// Mise à jour des informations d'un groupe
+        /// </summary>
+        public group UpdateGroup(object groupID, group groupToUpdate)
+        {
+            try
+            {
+                return mainControl.GroupService.UpdateGroup(groupID, groupToUpdate);
+            }
+            catch (ServiceException serviceException)
+            {
+                ExceptionLog.LogTheError(serviceException.Message);
+                return null;
+            }
+        }
+
         #endregion Group
 
         #region File
 
+        /*
         /// <summary>
         /// Sauvegarde d'un fichiersur le serveur
         /// </summary>
         /// <param name="fileByteArray">Un tableau de byte qui reprérente le fichier à sauvegarder</param>
-        /// <param name="fileExtension">L'extension du fichier</param>
-        public FileInfo SaveByteFile(Byte[] fileByteArray, string fileExtension)
+        /// <param name="filename">Le nom complet du fichier</param>
+        public FileInfo SaveByteFile(Byte[] fileByteArray, string filename)
         {
             try
             {
@@ -119,18 +143,22 @@ namespace PigeonsLibrairy.Facade.Implementation
             }
         }
 
-        public file InsertFileInfo()
+        /// <summary>
+        /// Insertion des valeurs d'un ficher dans la base de données
+        /// </summary>
+        /// <returns></returns>
+        public void InsertFileInfo(file fichier)
         {
             try
             {
-                return fileControl.InsertInDataBase();
+                fileControl.InsertInDataBase(fichier);
             }
             catch (ServiceException serviceException)
             {
                 ExceptionLog.LogTheError(serviceException.Message);
-                return null;
             }
         }
+        */
 
         #endregion File
     }

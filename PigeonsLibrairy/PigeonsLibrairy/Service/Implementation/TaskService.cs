@@ -111,9 +111,10 @@ namespace PigeonsLibrairy.Service.Implementation
         }
 
         /// <summary>
-        /// Recherche des Task d'un groupe qui ne sont pas complétées
+        /// Appel du DAO pour rechercher les Task d'un groupe
         /// </summary>
         /// <param name="groupID">Le ID du groupe pour lequel les Task sont recherchées</param>
+        /// <param name="completed">True si nous cherchons les task complété, False pour les non complété</param>
         /// <returns>Une liste de Task. Une liste vide sinon</returns>
         public IEnumerable<task> GetGroupTasks(object groupID, bool completed)
         {

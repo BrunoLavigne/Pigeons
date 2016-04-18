@@ -15,5 +15,7 @@ namespace PigeonsLibrairy.Service.Interface
         IEnumerable<file> GetFilesByGroup(object groupID);
 
         file InsertFileInformations(file newFile);
+
+        void DeleteFileByFilePath(object filePath);
     }
 }

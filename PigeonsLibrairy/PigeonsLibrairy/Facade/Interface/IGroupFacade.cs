@@ -69,5 +69,13 @@ namespace PigeonsLibrairy.Facade.Interface
         void ChangeEventStatus(object taskID, object taskStatus);
 
         #endregion Event
+
+        #region ChatHistory
+
+        List<chathistory> GetGroupChatHistory(object groupID);
+
+        void InsertChatMessage(chathistory chatMessage);
+
+        #endregion ChatHistory
     }
 }

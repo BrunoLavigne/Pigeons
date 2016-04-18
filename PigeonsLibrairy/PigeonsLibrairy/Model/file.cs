@@ -12,14 +12,39 @@ namespace PigeonsLibrairy.Model
     using System;
     using System.Collections.Generic;
     
+    /// <summary>
+    /// Table file
+    /// </summary>
     public partial class file
     {
+        /// <summary>
+        /// Clé primare
+        /// </summary>
         public int ID { get; set; }
+
+        /// <summary>
+        /// ID du group auquel le fichier est associés
+        /// </summary>
         public Nullable<int> Group_ID { get; set; }
+
+        /// <summary>
+        /// Nom du ficher
+        /// </summary>
         public string FileName { get; set; }
+
+        /// <summary>
+        /// Chemin vers le fichier sur le serveur
+        /// </summary>
         public string FileURL { get; set; }
+
+        /// <summary>
+        /// Date de création du fichier
+        /// </summary>
         public System.DateTime Creation_Date { get; set; }
     
+        /// <summary>
+        /// Information sur le group
+        /// </summary>
         public virtual group group { get; set; }
     }
 }

@@ -1,106 +1,44 @@
-﻿/**
+﻿/*
     Form validation
 */
-
 .validation-error-message {
     color: #d9534f; /* classic bootstrap red */
     padding: 6px 12px 0px 12px;
 }
 
+/*
+    Page
+*/
 .Page-container {
-	
+	font-family: Montserrat;
 	min-height: 100vh;
 }
-.Page-container.Old {
-    background: #6db3f2; /* Old browsers */
-	background: -moz-linear-gradient(top,  #6db3f2 0%, #54a3ee 50%, #3690f0 51%, #1e69de 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top,  #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom,  #6db3f2 0%,#54a3ee 50%,#3690f0 51%,#1e69de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
-}
+    .Page-container .title {
+        font-size: 24px;
+    }
 
-.header {
-    font-family: Montserrat, Arial, sans-serif;
-}
-
+/*
+    Header
+*/
 .header img {
     height: 100%;
 }
 
-
-.Home-logo-container {
-	text-align: center;
-	padding: 50px;
-}
-
-.Home-logo-container img {
-	width: 100%;
-	max-width: 400px;
-}
-
-
-.Groups-wrapper {
-
-}
+.header .menu-icon {
+        margin-right: 10px;
+    }
 
 .Group-notification {
 	background-color: #e7e7e7;
 	border-radius: 10px;
 }
-.Group-notification .picture-wrapper {
-	padding: 20px 0 20px 20px;
-}
-.Group-notification img {
-	width: 100%;
-	max-width: 200px;
-	border-radius: 50%;
-}
 
-/*
- * Utility functions
- */
+    .Group-notification .picture-wrapper {
+	    padding: 20px 0 20px 20px;
+    }
 
-.t-center {
-    text-align: center;
-}
-
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
-
-.menu-icon {
-    margin-right: 10px;
-}
-
-.noselect {
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none;   /* Chrome/Safari/Opera */
-	-khtml-user-select: none;    /* Konqueror */
-	-moz-user-select: none;      /* Firefox */
-	-ms-user-select: none;       /* IE/Edge */
-	user-select: none;           /* non-prefixed version, currently
-			                        not supported by any browser */
-}
-
-.ContentToggler {
-	border: 2px dashed red;
-}
-
-.ContentToggler > * {
-	opacity: 0;
-	height: 0;
-	overflow: hidden;
-	transition: all .7s ease-in-out .15s;
-}
-
-.ContentToggler:hover > *, .ContentToggler:focus > * {
-	opacity: 1;
-	visibility: visible;
-	height: 400px;
-}
-
-.material-icons.flag {
-    color: #A94442;
-}
+    .Group-notification img {
+	    width: 100%;
+	    max-width: 200px;
+	    border-radius: 50%;
+    }
