@@ -89,6 +89,14 @@
     <Compile Include="TestDAO\chatHistoryDAO_Test.cs" />
     <Compile Include="TestDAO\fileDAO_Test.cs" />
     <Compile Include="TestService\personService_Test.cs" />
+    <Compile Include="TestService\groupService_Test.cs" />
+    <Compile Include="TestService\followingService_Test.cs" />
+    <Compile Include="TestService\taskService_Test.cs" />
+    <Compile Include="TestService\assignationService_Test.cs" />
+    <Compile Include="TestService\chatHistoryService_Test.cs" />
+    <Compile Include="TestService\eventService_Test.cs" />
+    <Compile Include="TestService\fileService_Test.cs" />
+    <Compile Include="TestService\messageService_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

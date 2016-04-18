@@ -14,7 +14,7 @@ namespace PigeonsLibrairy.Service.Implementation
     /// <summary>
     /// Service pour la table <see cref="file"/>
     /// </summary>
-    internal class FileService : Service<file>, IFileService
+    public class FileService : Service<file>, IFileService
     {
         private IFileDAO fileDAO { get; set; }
         private IGroupDAO groupDAO { get; set; }
