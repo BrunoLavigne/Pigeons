@@ -8,6 +8,18 @@
     padding: 42px 0;
 }
 
+.toggle-new-task-form {
+    display: inline-block;
+}
+    .toggle-new-task-form .glyphicon {
+        margin-right: 12px;
+    }
+
+.Add-task-container {
+    display: none;
+}
+
+
 /* Groups page header */
 .Group-presentation {
     background: #E8BA61;
@@ -158,11 +170,12 @@
 
 .File-container {
     margin-top: 24px;
-    border: 1px solid #eee;
+    border: 1px solid #aaa;
     padding: 20px;
     border-radius: 8px;
     background: #eee;
     text-align: center;
+    overflow: hidden;
 }
 
 .File-container input[type="image"] {

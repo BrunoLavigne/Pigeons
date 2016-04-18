@@ -279,7 +279,14 @@
                 <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
                     <ContentTemplate>
 
-                        <div class="title">Ajouter une tâche</div>
+                        <div class="title">
+                            Tâches
+                            <div class="toggle-new-task-form">
+                                <a href="#" id="toggleNewGroupForm" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-plus"></span>Créer une tâche
+                                </a>
+                            </div>
+                        </div>
 
                         <!-- Add a task section -->
                         <div class="Add-task-container">

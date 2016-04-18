@@ -68,4 +68,13 @@ function pageLoad() {
         return false;
     });
 
+
+
+
+
+    $("#toggleNewGroupForm").click(function (event) {
+        event.preventDefault();
+        $(".Add-task-container").slideToggle();
+    });
+
 }
