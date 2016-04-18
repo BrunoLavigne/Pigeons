@@ -140,3 +140,4 @@ C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\FunctionsTester\obj\Debu
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.csproj.GenerateResource.Cache
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.exe
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.pdb
+C:\Users\mensur\Source\Repos\Pigeons\PigeonsLibrairy\FunctionsTester\obj\Debug\FunctionsTester.csprojResolveAssemblyReference.cache
