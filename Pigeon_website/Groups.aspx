@@ -27,12 +27,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+<%--                    <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupFollowers" placeholder="Inviter des gens au groupe..." CssClass="form-control searchBarValue"></asp:TextBox>
                         <div class="new-group-followers-container" id="new-group-followers">
 
                         </div>
-                    </div>
+                    </div>--%>
 
                     <div class="form-group">
                         <asp:TextBox runat="server" ID="txtNewGroupDescription" placeholder="Description" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="form-group">
-                        <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-success" OnClick="btnNewGroup_Click" ValidationGroup="createNewGroupValidation" />
+                        <asp:Button runat="server" ID="btnNewGroup" Text="Créer le groupe" CssClass="btn btn-primary" OnClick="btnNewGroup_Click" ValidationGroup="createNewGroupValidation" />
                     </div>
             
                 </div><!-- /.New-group-container -->

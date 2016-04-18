@@ -7,26 +7,6 @@
 function pageLoad() {
 
 
-    ///////////////// MODIFIER /////////////////
-    // faudrait que ce soit pluggé sur le bouton create new group
-    $.ajax({
-        type: "POST",
-        url: "Groups.aspx/createNewGroup",
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        // data: une arraylist d'users qu'on envoie à la méthode createNewGroup
-        success: function (data) {
-            alert("successfully posted data");
-        },
-        error: function (data) {
-            alert("failed posted data");
-            alert(postData);
-        }
-
-    });
-    /////////////////////////////////////////////
-
-
     // Toggle the new group creation form on the groups page
     $("#toggleNewGroupForm").click(function (event) {
 
@@ -36,7 +16,32 @@ function pageLoad() {
     });
 
 
-    var $searchValue = $(".searchBarValue");
+
+
+    /*
+        Create groups and add users to it...
+    */
+
+    ///////////////// MODIFIER /////////////////
+    // faudrait que ce soit pluggé sur le bouton create new group
+    //$.ajax({
+    //    type: "POST",
+    //    url: "Groups.aspx/createNewGroup",
+    //    contentType: "application/json; charset=utf-8",
+    //    async: false,
+    //    // data: une arraylist d'users qu'on envoie à la méthode createNewGroup
+    //    success: function (data) {
+    //        alert("successfully posted data");
+    //    },
+    //    error: function (data) {
+    //        alert("failed posted data");
+    //        alert(postData);
+    //    }
+
+    //});
+    /////////////////////////////////////////////
+
+    var $searchValue = $(".nothing");        // .searchBarValue
 
     // When user modifies value in search box
     $searchValue.on('change input', function () {

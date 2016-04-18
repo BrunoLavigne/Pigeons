@@ -105,7 +105,7 @@ public partial class Groups : System.Web.UI.Page
     protected void clearNewGroupFormFields()
     {
         txtNewGroupDescription.Text = "";
-        txtNewGroupFollowers.Text = "";
+        // txtNewGroupFollowers.Text = "";
         txtNewGroupName.Text = "";
         txtNewGroupPicture.Text = "";
     }
