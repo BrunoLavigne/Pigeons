@@ -9,6 +9,7 @@ namespace SignalRChat.Common
     {
 
         public int groupId { get; set; }
+        public string groupName { get; set; }
         public List<Message> Message { get; set; }
 
     }
