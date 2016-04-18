@@ -27,29 +27,6 @@ function pageLoad() {
     /////////////////////////////////////////////
 
 
-
-    var $groupItem = $(".Group-item");
-
-    setElementsToEqualHeight($(".Group-item"));
-
-    // TODO: add on debounce method
-    $(window).resize(function () {
-        setElementsToEqualHeight($groupItem);
-        console.log("Setting elems to equal height");
-    });
-
-    function setElementsToEqualHeight($element) {
-
-        var heights = $element.map(function () {
-            return $(this).height();
-        }).get(),
-
-        maxHeight = Math.max.apply(null, heights);
-
-        $element.height(maxHeight);
-    }
-
-
     // Toggle the new group creation form on the groups page
     $("#toggleNewGroupForm").click(function (event) {
 

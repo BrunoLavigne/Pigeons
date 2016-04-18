@@ -68,7 +68,7 @@
 
                             <div class="col-sm-6 col-md-4">
 
-                                <div class="Group-item">
+                                <div class="Group-item equal">
                                     <div class="group-title">
                                         <asp:HyperLink runat="server" NavigateUrl='<%# "Group.aspx?groupID=" + Eval("id") %>'>
                                             <div class="group-picture-wrapper">

@@ -28,21 +28,21 @@
         <div class="features">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="feature">
+                    <div class="feature equal">
                         <span class="glyphicon glyphicon-envelope"></span>
                         <div class="content">Communication amusante</div>
                     </div>
                 </div>
             
                 <div class="col-sm-4">
-                    <div class="feature">
+                    <div class="feature equal">
                         <span class="glyphicon glyphicon-calendar"></span>
                         <div class="content">Évènements en un coup d'oeil</div>
                     </div>
                 </div>
             
                 <div class="col-sm-4">
-                    <div class="feature">
+                    <div class="feature equal">
                         <span class="glyphicon glyphicon-paperclip"></span>
                         <div class="content">Partagez vos fichiers importants</div>
                     </div>

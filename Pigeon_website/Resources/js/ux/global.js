@@ -9,3 +9,24 @@ $(document).keyup(function (e) {
 
 });
 
+
+
+var $equalHeightElements = $(".equal");
+
+setElementsToEqualHeight($equalHeightElements);
+
+// TODO: add on debounce method
+$(window).resize(function () {
+    setElementsToEqualHeight($equalHeightElements);
+});
+
+function setElementsToEqualHeight($element) {
+
+    var heights = $element.map(function () {
+        return $(this).height();
+    }).get(),
+
+    maxHeight = Math.max.apply(null, heights);
+
+    $element.height(maxHeight);
+}
