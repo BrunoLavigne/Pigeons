@@ -50,9 +50,9 @@
                         </div>
 
                         <div class="form-group">
-                            <asp:TextBox runat="server" ID="editUserProfilePicture" CssClass="form-control" placeholder="Lien vers la photo de profil..." Visible="false"></asp:TextBox>
-                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
-                            <asp:Button ID="Button1" runat="server" Text="Enregistrer une image" CommandArgument="22" CommandName="SaveUserPicture" OnClick="SaveUserPicture" />
+                            <asp:TextBox runat="server" ID="editUserProfilePicture" CssClass="form-control" placeholder="Lien vers la photo de profil..."></asp:TextBox>
+                            <%--                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                            <asp:Button ID="Button1" runat="server" Text="Enregistrer une image" CommandArgument="22" CommandName="SaveUserPicture" OnClick="SaveUserPicture" />--%>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
 
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnEditUser" EventName="Click" />
-                <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click" />
+               <%-- <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click" />--%>
             </Triggers>
         </asp:UpdatePanel>
     </div>

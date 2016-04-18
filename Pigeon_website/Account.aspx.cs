@@ -81,9 +81,10 @@ public partial class Account : System.Web.UI.Page
         System.Diagnostics.Debug.WriteLine("FileUploadTest SaveUserPicture method called.");
 
         int personID = activeP.Id;
-        fileUploader(personID, ActionType.SAVE_PERSON_PICTURE);
+        //fileUploader(personID, ActionType.SAVE_PERSON_PICTURE);
     }
 
+    /*
     private void fileUploader(int optionnalID = -1, ActionType optionnalActionType = ActionType.NONE)
     {
         System.Diagnostics.Debug.WriteLine("FileUploadTest fileUploader method called.");
@@ -121,4 +122,5 @@ public partial class Account : System.Web.UI.Page
             }
         }
     }
+    */
 }

@@ -3,12 +3,12 @@ using PigeonsLibrairy.Model;
 using PigeonsLibrairy.Service.Implementation;
 using PigeonsLibrairy.Service.Interface;
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Web;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Web;
 
 namespace PigeonsLibrairy.Controller
 {
@@ -23,12 +23,12 @@ namespace PigeonsLibrairy.Controller
         private IGroupService groupService { get; set; }
         private IPersonService personService { get; set; }
 
-
         // START TEST ACCESS
         public file getFileByID(int fileID)
         {
             return fileService.GetByID(fileID);
         }
+
         // END TEST ACCESS
 
         #region Constructeurs
@@ -43,7 +43,7 @@ namespace PigeonsLibrairy.Controller
                 // Directory.CreateDirectory("~/Server_Files");
             }
             FILE_DIRECTORY_PATH = "~/Server_Files";
-            directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
+            //directoryInfo = new DirectoryInfo(HttpContext.Current.Server.MapPath(FILE_DIRECTORY_PATH));
             fileService = new FileService();
             groupService = new GroupService();
             personService = new PersonService();
@@ -68,9 +68,7 @@ namespace PigeonsLibrairy.Controller
 
         #endregion Constructeurs
 
-
         #region AspCalledMethods
-
 
         /// <summary>
         /// Method to add a person-associated picture file both physically on the server and in the database.
@@ -143,7 +141,6 @@ namespace PigeonsLibrairy.Controller
                 Debug.WriteLine(error.Message);
                 throw new ControllerException(error.Message);
             }
-
         }
 
         /// <summary>
@@ -199,7 +196,6 @@ namespace PigeonsLibrairy.Controller
             }
         }
 
-
         /// <summary>
         /// Suppression physique d'un fichier sur le serveur par son chemin d'accès.
         /// </summary>
@@ -218,7 +214,6 @@ namespace PigeonsLibrairy.Controller
                 throw new ControllerException(error.Message);
             }
         }
-
 
         /// <summary>
         /// Supprime sur le serveur et dans la base de données tous les fichiers associés à un groupe.
@@ -260,12 +255,9 @@ namespace PigeonsLibrairy.Controller
             }
         }
 
-
         #endregion AspCalledMethods
 
-
         #region LocalMethods
-
 
         /// <summary>
         /// Function to upload a file on the server.
@@ -310,7 +302,6 @@ namespace PigeonsLibrairy.Controller
             }
         }
 
-
         /// <summary>
         /// Insertion des information d'un fichier dans la base de données
         /// </summary>
@@ -331,9 +322,7 @@ namespace PigeonsLibrairy.Controller
             return InsertCompleted;
         }
 
-
         #endregion LocalMethods
-
 
         /*
         /// <summary>
@@ -358,6 +347,5 @@ namespace PigeonsLibrairy.Controller
             return fileToGet;
         }
         */
-        
     }
 }
