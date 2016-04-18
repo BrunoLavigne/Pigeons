@@ -97,6 +97,7 @@
                     });
                 });
             }
+
             // Toggle corresponding chat box from chat nav
             var $navLinksToChat = $(".chat-room-link a");
             var $chatBox = $(".chatRoom");
