@@ -133,7 +133,7 @@ namespace UnitTesting
         /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Following et validation de ses propriétés
         /// </summary>
-        public void TestGetByFollowingTest()
+        public void TestGetByFollowing()
         {
             using (var context = new pigeonsEntities1())
             {

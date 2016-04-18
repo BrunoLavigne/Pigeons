@@ -8,7 +8,7 @@ using System.Linq;
 namespace UnitTesting.TestDAO
 {
     /// <summary>
-    /// Test des opération CRUD de la classe <see cref="FollowingDAO"/> pour la table <see cref="group"/>
+    /// Test des opération CRUD de la classe <see cref="GroupDAO"/> pour la table <see cref="group"/>
     /// </summary>
     [TestClass]
     public class groupDAO_Test
@@ -50,7 +50,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Insert de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
+        /// Test pour la méthode Insert de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -76,7 +76,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Delete de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
+        /// Test pour la méthode Delete de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -100,7 +100,7 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode Update de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
+        /// Test pour la méthode Update de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
@@ -129,11 +129,11 @@ namespace UnitTesting.TestDAO
         }
 
         /// <summary>
-        /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
+        /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.GroupDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
         [TestMethod]
-        public void TestGetByPerson()
+        public void TestGetByGroup()
         {
             using (var context = new pigeonsEntities1())
             {

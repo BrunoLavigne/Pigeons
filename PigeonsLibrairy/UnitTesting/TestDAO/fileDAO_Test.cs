@@ -75,7 +75,7 @@ namespace UnitTesting.TestDAO
         /// Insertion d'une File et validation de ses propriétés
         /// </summary>
         [TestMethod]
-        public void TestDeleteChatHistory()
+        public void TestDeleteFile()
         {
             using (var context = new pigeonsEntities1())
             {
