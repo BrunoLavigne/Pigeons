@@ -29,10 +29,10 @@ function ajaxMessageData() {
         var idToAppend;
         $.each(JSON.parse(response.d), function (index, value) {
             $('#divContainer').append("<div id='divChat_" + value.groupId + "' data-id='" + value.groupId + "' class='chatRoom'>" +
-                "<div class='title'>" +
-                    "Welcome to Chat Room " + value.groupId +
-                    "<div class='group-toggler'>toggle group</div>" +
-                "</div>" + 
+                "<div class='title'>" + value.groupName +
+                "</div>" +
+                "<div class='groupPersons' style='border-style: groove' >" +
+                "</div>" +
                 "<div class='content'>" + 
                     "<div id='divChatWindow_" + value.groupId + "' class='chatWindow'>" +
                     "</div>" +
@@ -46,7 +46,7 @@ function ajaxMessageData() {
             "</div>");
 
             $(".chat-rooms-nav").append("<div class='chat-room-link'>" +
-                "<a href='#' data-room-id='" + value.groupId + "'>" + value.groupId + "</a></div>");
+                "<a href='#' data-room-id='" + value.groupId + "'>" + value.groupName + "</a></div>");
                     
             joinRoom(value.groupId);
         });
@@ -84,9 +84,40 @@ function ajaxMessageData() {
     }
 }
 
+function ajaxGetPeopleData() {
+    $.ajax({
+        type: "POST",
+        url: "Chat.aspx/GetGroupPeople",
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        success: OnSuccessCount,
+        error: function (response) {
+            alert(response.e);
+        }
+    });
+    function OnSuccessCount(response) {
+        //console.log("success i guess " + response.d);
+        $.each(JSON.parse(response.d), function (index, value) {
+            console.log(value);
+            $.each(value.personName, function (ind, val) {
+                console.log(val);
+                //console.log("Le groupId est " + valueGroupId)
+                $("#divContainer").find(".chatRoom[data-id=" + value.groupId + "] .groupPersons").append(val + "</br>")
+            });
+        });
+    }
+}
+
 $(function () {
     $.connection.hub.logging = true;
-    $.connection.hub.start();
+    $.connection.hub.start().done(function () {
+        console.log("toggle the group chat!");
+        ajaxMessageData();
+        console.log("Message data done");
+        ajaxGetPeopleData();
+        console.log("Get People Done");
+        $(".chatRoom").slideToggle(200);
+    });
 });
 
 
@@ -169,12 +200,14 @@ function onNewMessage(name, message, roomId) {
     var strMatch = "\B\@channel\b";
     if (message.match(strMatch[1])) {
         toastr.info(message);
+        $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .title").css("background-color", "yellow");
     }
 };
 
 $(document).on("click", ".title", function () {
     console.log("toggle the group chat!");
     $(this).closest(".chatRoom").find(".content").slideToggle(200);
+    $(this).closest(".chatRoom").find(".messageBar").slideToggle(200);
     $(this).closest(".chatRoom").find(".messageBar").slideToggle(200);
 });
         

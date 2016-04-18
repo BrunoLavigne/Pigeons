@@ -25,6 +25,9 @@ public partial class Chat : System.Web.UI.Page
     private static List<chathistory> groupMessages;
     private static List<string> message;
 
+    private static List<person> groupPerson;
+    private static List<string> listPerson;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -99,11 +102,51 @@ public partial class Chat : System.Web.UI.Page
             MessageDetail messageDetail = new MessageDetail
             {
                 groupId = followingId.Id,
+                groupName = followingId.Name,
                 Message = listMessage
             };
             listMessageDetail.Add(messageDetail);
         }
         // TheSerializer.Serialize(personId);
         return TheSerializer.Serialize(listMessageDetail);
+    }
+    [WebMethod]
+    public static string GetGroupPeople()
+    {
+        JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+
+        //Si groupFacade est null on l'instancie
+        if (groupFacade == null)
+        {
+            groupFacade = new GroupFacade();
+        }
+
+        //Si homeFacade est null on l'instancie
+        if (homeFacade == null)
+        {
+            homeFacade = new HomeFacade();
+        }
+        List<GroupDetail> listeGroupDetail = new List<GroupDetail>();
+
+        //On ajoute a la liste following tous les groups aux quels l'utilisateur participe
+        following = homeFacade.GetPersonGroups(theUser.Id);
+
+        foreach (group followingId in following)
+        {
+            groupPerson = groupFacade.GetGroupFollowers(followingId.Id);
+            listPerson = new List<string>();
+            //Pour chaque group dans la liste following
+            foreach (person personId in groupPerson)
+            {
+                listPerson.Add(personId.Name);
+            }
+            GroupDetail groupDetail = new GroupDetail
+            {
+                groupId = followingId.Id,
+                personName = listPerson
+            };
+            listeGroupDetail.Add(groupDetail);
+        }
+        return TheSerializer.Serialize(listeGroupDetail);
     }
 }
