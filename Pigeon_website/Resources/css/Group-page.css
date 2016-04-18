@@ -16,6 +16,7 @@
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    background-color: #e1e1e1;  /* FALLBACK */
 }
 
 .Group-presentation .text {
