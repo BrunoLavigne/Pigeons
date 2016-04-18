@@ -150,6 +150,25 @@
 
             }
 
+.File-container {
+    margin-top: 24px;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 8px;
+    background: #eee;
+    text-align: center;
+}
+
+.File-container input[type="image"] {
+    width: 100px;
+    height: auto;
+}
+
+.File-container .download-file-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
 @media screen and (max-width: 768px) {
 
     .Group-message .profile-picture-container {

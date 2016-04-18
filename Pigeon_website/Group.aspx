@@ -408,29 +408,35 @@
                 </div>
             </div>
 
-            <div class="row">
+
                 <asp:UpdatePanel ID="updatePanelFiles" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                        <div class="File-message">
-                            <div class="col-md-4">
+
+                        <div class="row">
                                 <asp:ListView ID="test" runat="server">
                                     <ItemTemplate>
-                                        <div class="download-button-wrapper">
-                                            <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
-                                        </div>
-                                        <div class="download-file-name">
-                                           <asp:Label ID="Label1" runat="server" CssClass="form-control" Text='<%# Eval("FileName") %>'></asp:Label>
-                                        </div>
-                                        <div class="download-creation-date">
-                                            <asp:Label ID="Label2" runat="server" CssClass="form-control" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                        <div class="col-sm-6 col-md-4">
+
+                                            <div class="File-container">
+                                                <div class="download-button-wrapper">
+                                                    <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
+                                                </div>
+                                                <div class="download-file-name">
+                                                    <asp:Label ID="Label1" runat="server" CssClass="" Text='<%# Eval("FileName") %>'></asp:Label>
+                                                </div>
+                                                <div class="download-creation-date">
+                                                    <asp:Label ID="Label2" runat="server" CssClass="" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </ItemTemplate>
+
                                 </asp:ListView>
-                            </div>
-                        </div>
+                        </div><!-- /.row -->
+
                     </ContentTemplate>
                 </asp:UpdatePanel>
-            </div>
         </div>
         <!------------->
         <!-- ./FILES -->
