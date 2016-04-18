@@ -1,0 +1,82 @@
+# ChatHistoryDAO Class
+ 
+
+DAO de la table <a href="f6e3b8f2-5289-041c-bfed-7d1e9141308b">chathistory</a>
+
+
+## Inheritance Hierarchy
+<a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">System.Object</a><br />&nbsp;&nbsp;<a href="936963c1-f9f9-454a-06ea-6c5e62510e66">PigeonsLibrairy.DAO.Implementation.DAO</a>(<a href="f6e3b8f2-5289-041c-bfed-7d1e9141308b">chathistory</a>)<br />&nbsp;&nbsp;&nbsp;&nbsp;PigeonsLibrairy.DAO.Implementation.ChatHistoryDAO<br />
+**Namespace:**&nbsp;<a href="2adb8d34-aa58-66ac-cc9e-6d985aed23d8">PigeonsLibrairy.DAO.Implementation</a><br />**Assembly:**&nbsp;PigeonsLibrairy (in PigeonsLibrairy.dll) Version: 1.0.0.0 (1.0.0.0)
+
+## Syntax
+
+**C#**<br />
+``` C#
+public class ChatHistoryDAO : DAO<chathistory>
+```
+
+**VB**<br />
+``` VB
+Public Class ChatHistoryDAO
+	Inherits DAO(Of chathistory)
+```
+
+**C++**<br />
+``` C++
+public ref class ChatHistoryDAO : public DAO<chathistory^>
+```
+
+**F#**<br />
+``` F#
+type ChatHistoryDAO =  
+    class
+        inherit DAO<chathistory>
+    end
+```
+
+The ChatHistoryDAO type exposes the following members.
+
+
+## Constructors
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="ab69d326-0a25-3671-caf4-e8bb995c1c2a">ChatHistoryDAO</a></td><td>
+Initializes a new instance of the ChatHistoryDAO class</td></tr></table>&nbsp;
+<a href="#chathistorydao-class">Back to Top</a>
+
+## Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="9042cb0e-7cc9-d30f-4705-7f50c8f2b3b3">Delete(pigeonsEntities1, Object)</a></td><td>
+Efface un Entity de la base de données par sa clé primaire
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="38ef33d0-9ccb-2e55-30cf-c9f9f9c4538f">Delete(pigeonsEntities1, TEntity)</a></td><td>
+Efface une entity de la base de donnée
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/bsc2ak47" target="_blank">Equals</a></td><td>
+Determines whether the specified object is equal to the current object.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Protected method](media/protmethod.gif "Protected method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/4k87zsw7" target="_blank">Finalize</a></td><td>
+Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="0401a787-fa05-73ca-ebb6-be2451b8a48d">Get</a></td><td>
+Recherche d'une Entity dans la base de donnée à partir d'une requête Linq
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="df0123fc-fba0-67de-5427-348f886f5daf">GetAll</a></td><td>
+Recherche de toute les Entity contenu dans une table
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="da391beb-be8d-cd17-9585-b1faa12f4166">GetAllMessagesByGroup</a></td><td>
+Recherche de tout les message d'un groupe contenu dans la base de données</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="988f777c-7061-6c73-8500-5e7cc2a7f6ae">GetBy</a></td><td>
+Recherche une Entity dans la base de donnée à partir d'une valeur dans une colonne donnée
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="33bca930-5c46-979e-6a6e-cb81436ac704">GetByID</a></td><td>
+Recherche une Entity dans la base de donnée par sa clé primaire
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/zdee4b3y" target="_blank">GetHashCode</a></td><td>
+Serves as the default hash function.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a></td><td>
+Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="05ba5105-2084-e31c-b2b0-070bd3b9ba0f">Insert</a></td><td>
+Insert une Entity dans la base de donnée
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr><tr><td>![Protected method](media/protmethod.gif "Protected method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/57ctke0a" target="_blank">MemberwiseClone</a></td><td>
+Creates a shallow copy of the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/en-us/library/7bxwbwt2" target="_blank">ToString</a></td><td>
+Returns a string that represents the current object.
+ (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="2b5810cf-fbfc-08af-0d0a-55103e30cf98">Update</a></td><td>
+Mise à jour d'une Entity dans la base de donnée
+ (Inherited from <a href="936963c1-f9f9-454a-06ea-6c5e62510e66">DAO(TEntity)</a>.)</td></tr></table>&nbsp;
+<a href="#chathistorydao-class">Back to Top</a>
+
+## See Also
+
+
+#### Reference
+<a href="2adb8d34-aa58-66ac-cc9e-6d985aed23d8">PigeonsLibrairy.DAO.Implementation Namespace</a><br />
