@@ -1,14 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.master" AutoEventWireup="true" CodeFile="Group.aspx.cs" Inherits="Group" ValidateRequest="false" %>
+
 <%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
+<script runat="server">
+</script>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="Resources/Vendor/summernote/summernote.css" />
     <link rel="stylesheet" href="Resources/css/Tasks.css" />
     <link rel="stylesheet" href="Resources/css/Events-Page.css" />
     <link rel="stylesheet" href="Resources/css/Vendor-overrides.css" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <link rel="stylesheet" href="Resources/css/Group-page.css" />
 
@@ -38,7 +41,6 @@
         </ul>
     </div>
 
-
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
@@ -56,71 +58,92 @@
             </p>
 
             <div class="h4">
-                    Créé le <asp:Label runat="server" ID="lblGroupDateCreated"></asp:Label> 
-                    à <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label>
+                Créé le
+                <asp:Label runat="server" ID="lblGroupDateCreated"></asp:Label>
+                à
+                <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label>
             </div>
-    
         </div>
-    
     </div>
+
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
     <!-- temporary -->
     <div class="container">
 
-        <!-- Only show if user is also admin -->
-        <asp:Panel runat="server" ID="panelAdminButtons" CssClass="Admin-buttons">
+        <asp:UpdatePanel runat="server" ID="updatePanelPersonAdd" UpdateMode="Conditional">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="Group-action-btn AddUser">
+            <ContentTemplate>
 
-                        <div class="icon-container">
-                            <i class="glyphicon glyphicon-plus-sign"></i>
+                <!-- Only show if user is also admin -->
+                <asp:Panel runat="server" ID="panelAdminButtons" CssClass="Admin-buttons">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="Group-action-btn AddUser">
+
+                                <div class="icon-container">
+                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                </div>
+                                <asp:TextBox ID="personNameSearch" runat="server" ForeColor="black"></asp:TextBox>
+                                <asp:Button ID="btnAddUser" runat="server" Text="search" OnClick="btnAddUser_Click" />
+                                <div class="text-container">Personne</div>
+                            </div>
+
+                            <a href="#removeUserModal" data-toggle="modal" data-target="#removeUserModal">
+                                <div class="Group-action-btn RemoveUser">
+
+                                    <div class="icon-container">
+                                        <i class="glyphicon glyphicon-minus-sign"></i>
+                                    </div>
+
+                                    <div class="text-container">Personne</div>
+                                </div>
+                            </a>
+
+                            <a href="#deleteGroupModal" data-toggle="modal" data-target="#deleteGroupModal">
+                                <div class="Group-action-btn deleteGroup">
+
+                                    <div class="icon-container">
+                                        <i class="glyphicon glyphicon-remove-sign"></i>
+                                    </div>
+
+                                    <div class="text-container">Groupe</div>
+                                </div>
+                            </a>
                         </div>
-                
-                        <div class="text-container">Personne</div>
                     </div>
-                
-                    <a href="#removeUserModal" data-toggle="modal" data-target="#removeUserModal">
-                        <div class="Group-action-btn RemoveUser">
 
-                            <div class="icon-container">
-                                <i class="glyphicon glyphicon-minus-sign"></i>
-                            </div>
-                
-                            <div class="text-container">Personne</div>
-                        </div>
-                    </a>
+                    <asp:ListView runat="server" ID="listView1">
+                        <ItemTemplate>
+                            <li class="person-container">
 
-                    <a href="#deleteGroupModal" data-toggle="modal" data-target="#deleteGroupModal">
-                        <div class="Group-action-btn deleteGroup">
+                                <label class="checkbox-wrapper">
+                                    <asp:HiddenField ID="personIdHolder" runat="server" Value='<%#Eval("id") %>' />
+                                    <%# Eval("name") %>
+                                </label>
 
-                            <div class="icon-container">
-                                <i class="glyphicon glyphicon-remove-sign"></i>
-                            </div>
-                
-                            <div class="text-container">Groupe</div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-        </asp:Panel>
-
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                                <div class="content-person">
+                                    <div class="due-date"><%# Eval("email") %></div>
+                                    <asp:Button runat="server" ID="btnAddPerson" AutoPostBack="true" Text="+" OnClick="btnAddPerson_Click1" />
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </asp:Panel>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
         <!-------------->
         <!-- MESSAGES -->
         <!-------------->
         <div class="Group-messages-container" id="messages-section">
 
-            
             <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
 
                 <ContentTemplate>
 
-                    <div class="form-group"">
+                    <div class="form-group">
                         <asp:TextBox runat="server" TextMode="MultiLine" ID="txtNewMessage" CssClass="form-control summernote" placeholder="Composer un message..."></asp:TextBox>
                     </div>
 
@@ -139,8 +162,8 @@
                                     <div class="profile-picture-container">
                                         <img class="" src='<%# Eval("profile_picture_link") %>' alt="UserName profile picture">
                                     </div>
-
-                                </div><!-- /.user-info -->
+                                </div>
+                                <!-- /.user-info -->
 
                                 <div class="content col-sm-11">
                                     <div class="post-info">
@@ -148,28 +171,18 @@
                                     </div>
 
                                     <asp:Label runat="server" Text='<%#Server.HtmlDecode(Eval("content").ToString()) %>'></asp:Label>
-
-                                </div><!-- /.content -->
-
-                            </div><!-- /.Group-message -->
-                    
+                                </div>
+                                <!-- /.content -->
+                            </div>
+                            <!-- /.Group-message -->
                         </ItemTemplate>
                     </asp:ListView>
-
                 </ContentTemplate>
-
             </asp:UpdatePanel>
-
         </div>
         <!---------------->
         <!-- /.MESSAGES -->
         <!---------------->
-
-
-
-
-
-
 
         <!------------>
         <!-- EVENTS -->
@@ -231,37 +244,22 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-
-
-
             </div>
-
         </div>
         <!-------------->
         <!-- ./EVENTS -->
         <!-------------->
 
-
-
-
-
-
-
-
-
         <!----------->
         <!-- TASKS -->
         <!----------->
         <div class="Group-tasks-container" id="tasks-section">
-                
+
             <div class="container Tasks-app">
-
-                
-
 
                 <asp:UpdatePanel runat="server" ID="updatePanelTasks" UpdateMode="Conditional">
                     <ContentTemplate>
-                
+
                         <div class="title">Ajouter une tâche</div>
 
                         <!-- Add a task section -->
@@ -271,7 +269,7 @@
                             <div class="form-group">
                                 <asp:TextBox runat="server" ID="taskDescription" placeholder="Description de la tâche..." CssClass="form-control"></asp:TextBox>
                                 <div class="validation-error-message">
-                                    <asp:RequiredFieldValidator ID="rfvTaskDescription" SetFocusOnError="true"  runat="server" controltovalidate="taskDescription" errormessage="Vous devez entrer une description" ValidationGroup="taskValidation" Display="Dynamic" />  
+                                    <asp:RequiredFieldValidator ID="rfvTaskDescription" SetFocusOnError="true" runat="server" ControlToValidate="taskDescription" ErrorMessage="Vous devez entrer une description" ValidationGroup="taskValidation" Display="Dynamic" />
                                 </div>
                             </div>
 
@@ -290,11 +288,11 @@
                                 <label class="checkbox-wrapper">
                                     <asp:CheckBox runat="server" ID="taskFlagged" />Marquer comme tâche importante<span class="glyphicon glyphicon-flag"></span>
                                 </label>
-                            
                             </div>
-                    
+
                             <asp:Button runat="server" ID="btnAddTask" OnClick="btnAddTask_Click" Text="Ajouter" CssClass="btn btn-primary" ValidationGroup="taskValidation" />
-                        </div><!-- /.Add-task-container -->
+                        </div>
+                        <!-- /.Add-task-container -->
 
                         <!-- Show tasks section -->
                         <div class="row">
@@ -309,20 +307,21 @@
                                         <ItemTemplate>
                                             <li class="Task-container">
 
-			                                    <label class="checkbox-wrapper">
+                                                <label class="checkbox-wrapper">
                                                     <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
                                                     <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                                    </label>
+                                                </label>
 
-			                                    <div class="content">
-				                                    <div class="author">Michael Scott (ajouter champ?)</div> - 
+                                                <div class="content">
+                                                    <div class="author">Michael Scott (ajouter champ?)</div>
+                                                    -
 				                                    <div class="due-date"><%# Eval("task_datetime") %></div>
-			                                    </div>
-
+                                                </div>
                                             </li>
                                         </ItemTemplate>
                                     </asp:ListView>
-                                </ul><!-- /.incompleted -->
+                                </ul>
+                                <!-- /.incompleted -->
                             </div>
 
                             <!-- Incompleted tasks -->
@@ -336,20 +335,21 @@
                                         <ItemTemplate>
                                             <li class="Task-container">
 
-			                                    <label class="checkbox-wrapper">
+                                                <label class="checkbox-wrapper">
                                                     <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
                                                     <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                                    </label>
+                                                </label>
 
-			                                    <div class="content">
-				                                    <div class="author">Michael Scott (ajouter champ?)</div> - 
+                                                <div class="content">
+                                                    <div class="author">Michael Scott (ajouter champ?)</div>
+                                                    -
 				                                    <div class="due-date"><%# Eval("task_datetime") %></div>
-			                                    </div>
-
+                                                </div>
                                             </li>
                                         </ItemTemplate>
                                     </asp:ListView>
-                                </ul><!-- /.incompleted -->
+                                </ul>
+                                <!-- /.incompleted -->
                             </div>
 
                             <!-- Completed tasks -->
@@ -363,53 +363,74 @@
                                         <ItemTemplate>
                                             <li class="Task-container">
 
-			                                    <label class="checkbox-wrapper">
+                                                <label class="checkbox-wrapper">
                                                     <asp:HiddenField ID="TaskIdHolder" runat="server" Value='<%#Eval("id") %>' />
                                                     <asp:CheckBox runat="server" ID="checkBoxCompleted" AutoPostBack="true" Checked='<%# Eval("is_completed") %>' OnCheckedChanged="checkBoxCompleted_CheckedChanged" /><%# Eval("description") %>
-			                            
-                                        
                                                 </label>
 
                                                 <!-- we shouldn't have two hiddenfields... -->
-			                                    <%--<asp:HiddenField ID="TaskIdHolder2" runat="server" Value='<%#Eval("id") %>' />--%>
+                                                <%--<asp:HiddenField ID="TaskIdHolder2" runat="server" Value='<%#Eval("id") %>' />--%>
                                                 <asp:Button CssClass="btn-delete-task" runat="server" ID="btnDeleteTask" AutoPostBack="true" Text="X" OnClick="btnDeleteTask_Click" />
 
-
                                                 <div class="content">
-				                                    <div class="author">Michael Scott (ajouter champ?)</div> - 
+                                                    <div class="author">Michael Scott (ajouter champ?)</div>
+                                                    -
 				                                    <div class="due-date"><%# Eval("task_datetime") %></div>
-			                                    </div>
-
+                                                </div>
                                             </li>
                                         </ItemTemplate>
                                     </asp:ListView>
-                                </ul><!-- /.completed -->
+                                </ul>
+                                <!-- /.completed -->
                             </div>
-
-                        </div><!-- /.row for show tasks section -->
-
+                        </div>
+                        <!-- /.row for show tasks section -->
                     </ContentTemplate>
                 </asp:UpdatePanel>
-
-            </div><!-- ./Tasks-app -->
+            </div>
+            <!-- ./Tasks-app -->
         </div>
         <!------------->
         <!-- ./TASKS -->
         <!------------->
-
-
 
         <!----------->
         <!-- FILES -->
         <!----------->
         <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                    <asp:Button ID="btnSaveFile" runat="server" Text="Save File to Group" CommandArgument="<GROUP ID>" CommandName="SaveGroupFile" OnClick="SaveGroupFile" />
+                </div>
+            </div>
+
+            <div class="row">
+                <asp:UpdatePanel ID="updatePanelFiles" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                        <div class="File-message row">
+                            <div class="col-md-4">
+                                <asp:ListView ID="test" runat="server">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
+                                        <asp:Label ID="Label1" runat="server" CssClass="form-control" Text='<%# Eval("FileName") %>'></asp:Label>
+                                        <asp:Label ID="Label2" runat="server" CssClass="form-control" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
         <!------------->
         <!-- ./FILES -->
         <!------------->
-
-    </div><!-- ./container -->
+    </div>
+    <!-- ./container -->
 
     <!-- Remove user from group modal -->
     <uc:RemoveUserModal runat="server" ID="RemoveUserModal"></uc:RemoveUserModal>
@@ -417,16 +438,13 @@
     <!-- Delete group modal -->
     <uc:DeleteGroupModal runat="server" ID="DeleteGroupModal" />
 
-
     <!-- To avoid conflict with summernote js (bug with tooltip not positioned correctly on summernote buttons) -->
     <script type="text/javascript" src="Scripts/jquery-ui-1.11.4.min.js"></script>
-
 </asp:Content>
 
-<asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" Runat="Server">
+<asp:Content ID="contentScripts" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="Server">
 
     <script type="text/javascript" src="Resources/js/animations/Group.js"></script>
     <script type="text/javascript" src="Resources/Vendor/summernote/summernote.min.js"></script>
     <script type="text/javascript" src="Resources/js/Group.js"></script>
-
 </asp:Content>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Group : System.Web.UI.Page
@@ -18,6 +19,8 @@ public partial class Group : System.Web.UI.Page
     private List<@event> eventsList { get; set; }
 
     private DateTime dateValidation = DateTime.Parse("0001-01-01 12:00:00 AM");
+
+    private enum ActionType { NONE, SAVE_PERSON_PICTURE, SAVE_GROUP_PICTURE, SAVE_GROUP_FILE };
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -75,6 +78,8 @@ public partial class Group : System.Web.UI.Page
                 {
                     panelAdminButtons.Visible = false;
                 }
+
+                AfficherGroupFiles((int)groupId);
             }
         }
     }
@@ -511,4 +516,127 @@ public partial class Group : System.Web.UI.Page
     }
 
     #endregion EVENTS
+
+    #region FILES
+
+    /// <summary>
+    /// Affichage des fichiers disponible pour le groupe
+    /// </summary>
+    /// <param name="groupID">Le id du groupe actuel</param>
+    protected void AfficherGroupFiles(int groupID)
+    {
+        try
+        {
+            List<file> listeFichiersGroupe = homeFacade.fileControl.GetAllGroupFiles(groupID);
+
+            foreach (file fichier in listeFichiersGroupe)
+            {
+                if (!(fichier == null))
+                {
+                    if (!Page.IsPostBack)
+                    {
+                        test.DataSource = listeFichiersGroupe;
+                        test.DataBind();
+                    }
+                }
+            }
+        }
+        catch (Exception error)
+        {
+            System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
+            return;
+        }
+    }
+
+    private void fileUploader(int optionnalID = -1, ActionType optionnalActionType = ActionType.NONE)
+    {
+        System.Diagnostics.Debug.WriteLine("FileUploadTest fileUploader method called.");
+        System.Diagnostics.Debug.WriteLine("Parameter optionnalID: " + optionnalID);
+        System.Diagnostics.Debug.WriteLine("Parameter optionnalActionType: " + optionnalActionType);
+        if (FileUpload1.HasFile)
+        {
+            try
+            {
+                Byte[] fileBytes = FileUpload1.FileBytes;
+                System.Diagnostics.Debug.WriteLine("File Byte Array: " + fileBytes.ToString());
+                string[] parts = FileUpload1.FileName.Split('.');
+                string extension = "." + parts[parts.Length - 1];
+                System.Diagnostics.Debug.WriteLine("File extension: " + extension);
+                string filename = null;
+                for (int i = 0; i < (parts.Length); i++)
+                {
+                    if (i == 0)
+                    {
+                        filename += parts[i];
+                    }
+                    else
+                    {
+                        filename += "." + parts[i];
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("File Name: " + filename);
+
+                homeFacade.fileControl.AddAssociatedFileToGroup(fileBytes, optionnalID, filename);
+            }
+            catch (Exception error)
+            {
+                System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
+                return;
+            }
+        }
+    }
+
+    protected void DownloadButtonClick(object sender, EventArgs e)
+    {
+        ImageButton imageButton = (ImageButton)sender;
+        homeFacade.fileControl.DownloadAFile(imageButton.CommandArgument);
+    }
+
+    protected void SaveGroupFile(object sender, EventArgs e)
+    {
+        // something to get the group ID (request parameter, ex &groupID=######## ?)
+
+        fileUploader((int)groupId, ActionType.SAVE_GROUP_FILE);
+        AfficherGroupFiles((int)groupId);
+    }
+
+    #endregion FILES
+
+    /// <summary>
+    /// Recherche d'une personne afin de l'ajouter au groupe
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnAddUser_Click(object sender, EventArgs e)
+    {
+        string name = personNameSearch.Text;
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            List<person> thosePerson = homeFacade.GetAllPersons(name);
+            listView1.DataSource = thosePerson;
+            listView1.DataBind();
+        }
+        else
+        {
+            // afficher message ?
+        }
+    }
+
+    /// <summary>
+    /// Création du following the la person vers le groupe
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnAddPerson_Click1(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        HiddenField hiddenIdField = (HiddenField)btn.Parent.FindControl("personIdHolder");
+        int personToAddId = (hiddenIdField != null) ? int.Parse(hiddenIdField.Value) : 0;
+
+        if ((person)Session["user"] != null)
+        {
+            groupFacade.AddPersonToGroup(((person)Session["user"]).Id, personToAddId, groupId);
+        }
+    }
 }
