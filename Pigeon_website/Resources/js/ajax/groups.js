@@ -61,13 +61,6 @@ function pageLoad() {
 
     var $searchValue = $(".searchBarValue");
 
-
-    // Optimize this in future
-    // link if input empty or if we didn't find any results and search value keeps getting longer
-
-    // Use JSON.NET in backend before using this, otherwise we get a "circular reference exception"
-    // http://stackoverflow.com/questions/16949520/circular-reference-detected-exception-while-serializing-object-to-json
-
     // When user modifies value in search box
     $searchValue.on('change input', function () {
 
