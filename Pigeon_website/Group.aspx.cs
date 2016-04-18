@@ -379,94 +379,10 @@ public partial class Group : System.Web.UI.Page
     /// <param name="eventsList"></param>
     private void createEventTable(DateTime selectedDate)
     {
-        eventsList = groupFacade.GetGroupEvent(groupId, selectedDate); // DIRTY HARCODAGE { must use active group }
+        eventsList = groupFacade.GetGroupEvent(groupId, selectedDate);
 
-        Table1.Rows.Clear();
-
-        TableHeaderRow tableHeader = new TableHeaderRow();
-        tableHeader.Font.Size = 10;
-        tableHeader.Height = 20;
-        tableHeader.BackColor = System.Drawing.Color.Black;
-        tableHeader.HorizontalAlign = HorizontalAlign.Center;
-        tableHeader.ForeColor = System.Drawing.Color.White;
-
-        TableCell[] headerCells = { new TableCell(), new TableCell(), new TableCell() };
-        Label[] headerLabels = { new Label(), new Label(), new Label() };
-
-        foreach (Label lb in headerLabels)
-        {
-            lb.Style["text-align"] = "center";
-            lb.Enabled = false;
-            lb.Style["padding"] = "10px";
-        }
-
-        headerLabels[0].ID = "eventDescription";
-        headerLabels[0].Text = "Description";
-        headerLabels[1].ID = "eventStart";
-        headerLabels[1].Text = "Debut";
-        headerLabels[2].ID = "eventEnd";
-        headerLabels[2].Text = "Fin";
-
-        for (int i = 0; i < headerCells.Count(); i++)
-        {
-            headerCells[i].Controls.Add(headerLabels[i]);
-            tableHeader.Cells.Add(headerCells[i]);
-        }
-
-        Table1.Rows.Add(tableHeader);
-
-        TableRow tableRow = new TableRow();
-        tableRow.Font.Size = 8;
-        tableRow.Height = 20;
-
-        if (eventsList.Count == 0)
-        {
-            TableCell cell = new TableCell();
-            Label label = new Label();
-            cell.Attributes.Add("colspan", "100%");
-            label.Text = "Aucune évènement pour ce mois";
-            label.Enabled = false;
-            cell.Controls.Add(label);
-            tableRow.Cells.Add(cell);
-            Table1.Rows.Add(tableRow);
-        }
-        else
-        {
-            foreach (@event ev in eventsList)
-            {
-                if ((ev.Event_Start.Date.Month == selectedDate.Month && ev.Event_Start.Date.Year == selectedDate.Year) || (ev.Event_End.Value.Date.Month == selectedDate.Month && ev.Event_End.Value.Date.Year == selectedDate.Year))
-                {
-                    tableRow = new TableRow();
-                    tableRow.Font.Size = 8;
-                    tableRow.Height = 20;
-                    tableRow.ToolTip = ev.Description;
-                    tableRow.Attributes.Add("data-id", ev.ID.ToString());
-                    tableRow.CssClass = "eventRow";
-
-                    TableCell[] cells = { new TableCell(), new TableCell(), new TableCell() };
-                    Label[] labels = { new Label(), new Label(), new Label() };
-
-                    foreach (Label lb in labels)
-                    {
-                        lb.Style["text-align"] = "center";
-                        lb.Enabled = false;
-                        lb.Style["padding"] = "5px";
-                    }
-
-                    labels[0].Text = ev.Description;
-                    labels[1].Text = (ev.Event_Start != null) ? ev.Event_Start.Date.ToString("d MMM yyyy") : "";
-                    labels[2].Text = (ev.Event_End != null) ? ev.Event_End.Value.ToString("d MMM yyyy") : "";
-
-                    for (int i = 0; i < cells.Count(); i++)
-                    {
-                        cells[i].Controls.Add(labels[i]);
-                        tableRow.Cells.Add(cells[i]);
-                    }
-
-                    Table1.Rows.Add(tableRow);
-                }
-            }
-        }
+        listViewEvents.DataSource = eventsList;
+        listViewEvents.DataBind();
     }
 
     /// <summary>
@@ -492,6 +408,22 @@ public partial class Group : System.Web.UI.Page
         txtEventDescription.Text = "";
         txtEventStart.Text = "";
         txtEventEnd.Text = "";
+    }
+
+    /// <summary>
+    /// Marque en évènement comme complété
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnDeleteEvent_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        HiddenField hiddenIdField = (HiddenField)btn.Parent.FindControl("eventIDHolder");
+        int eventID = int.Parse(hiddenIdField.Value);
+
+        groupFacade.ChangeEventStatus(eventID, true);
+
+        createEventTable(Calendar1.VisibleDate);
     }
 
     /// <summary>
