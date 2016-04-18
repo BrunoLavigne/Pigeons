@@ -411,13 +411,19 @@
             <div class="row">
                 <asp:UpdatePanel ID="updatePanelFiles" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                        <div class="File-message row">
+                        <div class="File-message">
                             <div class="col-md-4">
                                 <asp:ListView ID="test" runat="server">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
-                                        <asp:Label ID="Label1" runat="server" CssClass="form-control" Text='<%# Eval("FileName") %>'></asp:Label>
-                                        <asp:Label ID="Label2" runat="server" CssClass="form-control" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                        <div class="download-button-wrapper">
+                                            <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
+                                        </div>
+                                        <div class="download-file-name">
+                                           <asp:Label ID="Label1" runat="server" CssClass="form-control" Text='<%# Eval("FileName") %>'></asp:Label>
+                                        </div>
+                                        <div class="download-creation-date">
+                                            <asp:Label ID="Label2" runat="server" CssClass="form-control" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                        </div>
                                     </ItemTemplate>
                                 </asp:ListView>
                             </div>
