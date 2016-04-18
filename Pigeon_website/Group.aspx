@@ -425,7 +425,7 @@
                 <div class="col-sm-6">
 
                     <div class="form-group">
-                        <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                        <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" EnableTheming="true" />
                     </div>
 
                      <div class="form-group">
