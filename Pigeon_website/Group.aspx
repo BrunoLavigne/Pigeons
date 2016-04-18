@@ -137,7 +137,7 @@
         <!-------------->
         <!-- MESSAGES -->
         <!-------------->
-        <div class="Group-messages-container" id="messages-section">
+        <div class="Group-messages-container group-section" id="messages-section">
 
             <asp:UpdatePanel runat="server" ID="updatePanelMessages" UpdateMode="Conditional">
 
@@ -187,7 +187,7 @@
         <!------------>
         <!-- EVENTS -->
         <!------------>
-        <div class="Group-events-container" id="events-section">
+        <div class="Group-events-container group-section" id="events-section">
 
             <div class="container Events-app">
 
@@ -200,8 +200,9 @@
 
                     <ContentTemplate>
 
+                        <div class="title">Évènements</div>
+
                         <fieldset>
-                            <div class="container">
                                 <div class="row">
 
                                     <div class="col-lg-3">
@@ -259,7 +260,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </fieldset>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -272,7 +272,7 @@
         <!----------->
         <!-- TASKS -->
         <!----------->
-        <div class="Group-tasks-container" id="tasks-section">
+        <div class="Group-tasks-container group-section" id="tasks-section">
 
             <div class="container Tasks-app">
 
@@ -318,7 +318,7 @@
 
                             <!-- TODO: flagged tasks -->
                             <div class="col-md-4">
-                                <div class="title"><span class="glyphicon glyphicon-flag"></span>Flagged (<asp:Label runat="server" ID="lblFlaggedTasksCount"></asp:Label>)</div>
+                                <div class="task-category-title"><span class="glyphicon glyphicon-flag"></span>Flagged (<asp:Label runat="server" ID="lblFlaggedTasksCount"></asp:Label>)</div>
 
                                 <ul class="Tasks-container flagged">
 
@@ -346,7 +346,7 @@
                             <!-- Incompleted tasks -->
                             <div class="col-md-4">
 
-                                <div class="title"><span class="glyphicon glyphicon-unchecked"></span>À faire (<asp:Label runat="server" ID="lblIncompletedTasksCount"></asp:Label>)</div>
+                                <div class="task-category-title"><span class="glyphicon glyphicon-unchecked"></span>À faire (<asp:Label runat="server" ID="lblIncompletedTasksCount"></asp:Label>)</div>
 
                                 <ul class="Tasks-container incompleted">
 
@@ -374,7 +374,7 @@
                             <!-- Completed tasks -->
                             <div class="col-md-4">
 
-                                <div class="title"><span class="glyphicon glyphicon-check"></span>Completé (<asp:Label runat="server" ID="lblCompletedTasksCount"></asp:Label>)</div>
+                                <div class="task-category-title"><span class="glyphicon glyphicon-check"></span>Completé (<asp:Label runat="server" ID="lblCompletedTasksCount"></asp:Label>)</div>
 
                                 <ul class="Tasks-container completed">
 
@@ -416,9 +416,8 @@
         <!----------->
         <!-- FILES -->
         <!----------->
-        <div class="Group-files-container" id="files-section">
-            <h2>Files!</h2>
-            <hr />
+        <div class="Group-files-container group-section" id="files-section">
+            <div class="title">Fichiers</div>
 
             <div class="row">
 

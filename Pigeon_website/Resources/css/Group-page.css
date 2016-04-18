@@ -2,6 +2,12 @@
 /*       Group page elements      */
 /***********************************/
 
+.group-section {
+    margin: 24px 0;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 42px 0;
+}
+
 /* Groups page header */
 .Group-presentation {
     background: #E8BA61;
