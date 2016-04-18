@@ -148,7 +148,7 @@
                     </div>
 
                     <div class="form-group">
-                        <asp:Button runat="server" ID="btnNewMessage" CssClass="btn btn-success" OnClick="btnNewMessage_Click" Text="Envoyer" />
+                        <asp:Button runat="server" ID="btnNewMessage" CssClass="btn btn-primary" OnClick="btnNewMessage_Click" Text="Envoyer" />
                     </div>
 
                     <asp:ListView ID="messagesListView" runat="server">
@@ -399,13 +399,21 @@
         <!----------->
         <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
+            <hr />
 
             <div class="row">
 
-                <div class="col-md-6">
-                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
-                    <asp:Button ID="btnSaveFile" runat="server" Text="Save File to Group" CommandArgument="<GROUP ID>" CommandName="SaveGroupFile" OnClick="SaveGroupFile" />
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                    </div>
+
+                     <div class="form-group">
+                        <asp:Button CssClass="btn btn-primary" ID="btnSaveFile" runat="server" Text="Enregistrer le fichier" CommandArgument="<GROUP ID>" CommandName="SaveGroupFile" OnClick="SaveGroupFile" />
+                     </div>
                 </div>
+
             </div>
 
 
