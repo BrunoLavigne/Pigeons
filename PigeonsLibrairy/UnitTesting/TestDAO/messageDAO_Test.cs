@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PigeonsLibrairy.Model;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,7 +92,7 @@ namespace UnitTesting
                 messageDAO.Delete(context, messageTest);
                 context.SaveChanges();
 
-                message DeletedMessage = messageDAO.GetByID(context, messageTest);
+                message DeletedMessage = messageDAO.GetByID(context, insertedMessageID);
                 Assert.AreEqual(null, DeletedMessage);
             }
         }

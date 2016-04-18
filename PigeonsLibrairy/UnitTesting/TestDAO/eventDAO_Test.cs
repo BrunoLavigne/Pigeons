@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PigeonsLibrairy.Model;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +95,7 @@ namespace PigeonsTesting
                 eventDAO.Delete(context, eventTest);
                 context.SaveChanges();
 
-                @event DeletedEvent = eventDAO.GetByID(context, eventTest);
+                @event DeletedEvent = eventDAO.GetByID(context, insertedEventID);
                 Assert.AreEqual(null, DeletedEvent);
             }
         }

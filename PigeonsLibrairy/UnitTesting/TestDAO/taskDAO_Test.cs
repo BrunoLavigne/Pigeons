@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -97,7 +97,7 @@ namespace PigeonsTesting
                 taskDAO.Delete(context, taskTest);
                 context.SaveChanges();
 
-                task DeletedTask = taskDAO.GetByID(context, taskTest);
+                task DeletedTask = taskDAO.GetByID(context, insertedTaskID);
                 Assert.AreEqual(null, DeletedTask);
             }
         }

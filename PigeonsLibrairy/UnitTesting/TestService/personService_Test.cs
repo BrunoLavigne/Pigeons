@@ -107,7 +107,9 @@ namespace UnitTesting.TestService
         {
             person person = personService.GetByID(3);
             person validation = personService.LoginValidation(person.Email, person.Password);
-            Assert.AreEqual(person, validation);
+            Assert.AreEqual(person.Name, validation.Name);
+            Assert.AreEqual(person.Password, validation.Password);
+            Assert.AreEqual(person.Email, validation.Email);
         }
     }
 }

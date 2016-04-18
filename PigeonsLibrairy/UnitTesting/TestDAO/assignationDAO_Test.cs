@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
 using PigeonsLibrairy.Model;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace UnitTesting.TestDAO
 {
@@ -17,7 +17,7 @@ namespace UnitTesting.TestDAO
         private AssignationDAO assignationDAO { get; set; }
         private assignation assignationTest { get; set; }
 
-        private const int ASSIGNATION_TASK_ID = 1;
+        private const int ASSIGNATION_TASK_ID = 4;
         private const int ASSIGNATION_PERSON_ID = 3;
 
         /// <summary>

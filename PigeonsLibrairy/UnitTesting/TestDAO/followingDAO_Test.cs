@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PigeonsLibrairy.Model;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,8 +16,8 @@ namespace UnitTesting
         private FollowingDAO followingDAO { get; set; }
         private following followingTest { get; set; }
 
-        private const int FOLLOWING_PERSON_ID = 3;
-        private const int FOLLOWING_GROUP_ID = 15;
+        private const int FOLLOWING_PERSON_ID = 20;
+        private const int FOLLOWING_GROUP_ID = 22;
         private const bool FOLLOWING_IS_ADMIN = true;
         private DateTime FOLLOWING_LAST_CHECKIN = DateTime.Parse("2016-02-09");
         private const bool FOLLOWING_IS_ACTIVE = true;
@@ -66,7 +66,7 @@ namespace UnitTesting
                 following actualFollowing = followingDAO.GetByID(context, insertedFollowPersonID, insertedFollowGroupID);
 
                 Assert.AreEqual(FOLLOWING_PERSON_ID, actualFollowing.Person_Id);
-                Assert.AreEqual(FOLLOWING_GROUP_ID , actualFollowing.Group_id);
+                Assert.AreEqual(FOLLOWING_GROUP_ID, actualFollowing.Group_id);
                 Assert.AreEqual(FOLLOWING_IS_ADMIN, actualFollowing.Is_admin);
                 Assert.AreEqual(FOLLOWING_LAST_CHECKIN, actualFollowing.Last_checkin);
                 Assert.AreEqual(FOLLOWING_IS_ACTIVE, actualFollowing.Is_active);
@@ -96,7 +96,7 @@ namespace UnitTesting
                 followingDAO.Delete(context, followingTest);
                 context.SaveChanges();
 
-                following DeletedFollowing = followingDAO.GetByID(context, followingTest);
+                following DeletedFollowing = followingDAO.GetByID(context, insertedFollowPersonID, insertedFollowGroupID);
                 Assert.AreEqual(null, DeletedFollowing);
             }
         }
@@ -105,7 +105,7 @@ namespace UnitTesting
         /// Test pour la méthode Update de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
-        [TestMethod]
+
         public void TestUpdateFollowing()
         {
             const bool expected_UpdatedIsActive = false;
