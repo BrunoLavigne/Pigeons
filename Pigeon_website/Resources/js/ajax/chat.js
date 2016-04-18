@@ -33,36 +33,33 @@ function ajaxMessageData() {
                 "</div>" +
                 "<div class='groupPersons' style='border-style: groove' >" +
                 "</div>" +
-                "<div class='content'>" + 
+                "<div class='content'>" +
                     "<div id='divChatWindow_" + value.groupId + "' class='chatWindow'>" +
                     "</div>" +
-                    "<div id='divusers' class='users'>" + 
-                    "</div>" + 
-                "</div>" + 
-                "<div class='messageBar'>" + 
+                    "<div id='divusers' class='users'>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='messageBar'>" +
                     "<input class='textbox txtMessage' type='text' />" +
                     "<input type='button' value='Send' class='submitButton btnSendMsg' />" +
-                "</div>" + 
+                "</div>" +
             "</div>");
 
             $(".chat-rooms-nav").append("<div class='chat-room-link'>" +
                 "<a href='#' data-room-id='" + value.groupId + "'>" + value.groupName + "</a></div>");
-                    
+
             joinRoom(value.groupId);
         });
 
         $.each(JSON.parse(response.d), function (index, value) {
             $.each(value.Message, function (numMessage, contentMessage) {
-
                 idToAppend = "#divChatWindow_" + value.groupId;
 
                 if (contentMessage.authorName != sessionUserName) {
                     $(idToAppend).append("<div><b>" + contentMessage.authorName + "</b><div style='float:right'> " + contentMessage.dateMessage + "</div><div class='contentMessage'>" + contentMessage.message + "</div>");
                 } else {
                     $(idToAppend).append("<div>" + contentMessage.dateMessage + "<div style='float:right'><b> " + contentMessage.authorName + "</b></div><div class='contentMessage' >" + contentMessage.message + "</div>");
-                        
                 }
-
             });
         });
 
@@ -71,7 +68,6 @@ function ajaxMessageData() {
         var $chatBox = $(".chatRoom");
 
         $navLinksToChat.click(function () {
-
             var roomToToggleID = $(this).data("room-id");
 
             $.each($chatBox, function (index, value) {
@@ -80,7 +76,6 @@ function ajaxMessageData() {
                 }
             });
         });
-
     }
 }
 
@@ -120,6 +115,9 @@ $(function () {
     });
 });
 
+$(document).on("click", ".chatRoom", function () {
+    $(this).find(".title").css("background-color", "white");
+});
 
 //Lorsqu'un utilisateur rejoin un group
 function joinRoom(roomNameId) {
@@ -144,7 +142,6 @@ $(document).on("keypress", ".txtMessage", function (e) {
 //Après avoir appuyer sur le bouton Enter à partir de notre clavier
 //on execute l'évenement suivant
 $(document).on("click", ".btnSendMsg", function () {
-
     //Initialisation de la variable messageToSend, qui nous permettera de garder en memoire le message
     //qu'on devra envoyer aux autres membres du group
     var messageToSend = $(this).closest(".chatRoom").find(".txtMessage").val();
@@ -160,11 +157,9 @@ $(document).on("click", ".btnSendMsg", function () {
     }
 });
 
-
 //La fonction sendMessage, qui prend en paramètre le message ainsi que le id du group, nous permet
 //d'envoyer le message desirer au bon group
 function sendMessage(message, roomId) {
-
     //initialisation des varibles suivante, afin d'avoir les informations nécessaire pour les messages envoyé
     userName = sessionUserName;
     newMessage = message;
@@ -172,7 +167,7 @@ function sendMessage(message, roomId) {
     isMe = true;
 
     //On appel la methode sendMessage qui est dans la class chathub
-    chatHub.server.sendMessage({authorId: $("#hdPersondId").val(), name: sessionUserName, message: newMessage, roomName: roomName });
+    chatHub.server.sendMessage({ authorId: $("#hdPersondId").val(), name: sessionUserName, message: newMessage, roomName: roomName });
 
     //On appel la methode displayMessage, afin d'afficher directement à l'utilisateur le message qu'il vient d'envoyer
     displayMessage(userName, message, roomName, isMe);
@@ -182,13 +177,17 @@ function sendMessage(message, roomId) {
 }
 
 function displayMessage(userName, message, roomId, isMe) {
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
     //Si l'utilisateur est celui qui envoit le message, on lui fais l'affichage suivant
     if (isMe == true) {
-        $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div>" + Date.now() + "<div style='float:right'><b> " + userName + "</b></div><div class='contentMessage' >" + message + "</div>");
-    } 
+        $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div>" + year + "-" + month + "-" + day + "<div style='float:right'><b> " + userName + "</b></div><div class='contentMessage' >" + message + "</div>");
+    }
         //Si l'utilisateur est celui qui recoit le message, on lui fais l'affichage suivant
     else {
-        $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div><b>" + userName + "</b><div style='float:right'> " + Date.now() + "</div><div class='contentMessage'>" + message + "</div>");
+        $("#divContainer").find(".chatRoom[data-id=" + roomId + "] .chatWindow").append("<div><b>" + userName + "</b><div style='float:right'> " + year + "-" + month + "-" + day + "</div><div class='contentMessage'>" + message + "</div>");
     }
 }
 
@@ -210,7 +209,6 @@ $(document).on("click", ".title", function () {
     $(this).closest(".chatRoom").find(".messageBar").slideToggle(200);
     $(this).closest(".chatRoom").find(".messageBar").slideToggle(200);
 });
-        
 
 $(".chat-toggler").click(function () {
     console.log("toggle the group chat!");
