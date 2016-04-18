@@ -42,8 +42,6 @@
     <!-- Page header - main group info -->
     <div class="Group-presentation">
 
-        <asp:HyperLink runat="server" ID="testTodosLink" Text="Voir la tasklist du group"></asp:HyperLink>
-
         <div class="picture-container">
             <asp:Image runat="server" ID="presentationPicture" />
         </div>
@@ -59,8 +57,7 @@
 
             <div class="h4">
                     Créé le <asp:Label runat="server" ID="lblGroupDateCreated"></asp:Label> 
-                    à <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label> 
-                    par <asp:Label runat="server" ID="lblGroupAuthor"></asp:Label>      
+                    à <asp:Label runat="server" ID="lblGroupTimeCreated"></asp:Label>
             </div>
     
         </div>

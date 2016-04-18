@@ -60,23 +60,19 @@ ody
 .chatRoom
 {
 
-    /*display: none;*/
+    display: none;
 
     width: 450px;
     margin-left: auto;
     margin-right: auto;
     border: solid 1px gray;
-    /*position: fixed;*/
-    bottom: 0;
-    right: 0;
+    float: left;
 
     border-radius: 6px 6px 0 0;
-    font-family: Montserrat;
 }
 
     .chatRoom .title
     {
-        font-family: Montserrat;
         font-size: 16px;
         font-weight: bold;
         padding: 8px;
@@ -223,3 +219,34 @@ ody
            margin-left:4px;
             width: 55px;
         }
+
+.Chat-sidebar {
+    position: fixed;
+    left: 0;
+    top: 100px;
+    background: #337ab7;
+    border: 2px solid #144773;
+    border-radius: 0 13px 13px 0;
+    padding: 24px;
+    color: white;
+}
+    .Chat-sidebar a {
+        color: white;
+    }
+    .Chat-sidebar a:focus, .Chat-sidebar a:hover {
+        color: white;
+        font-weight: bold;
+    }
+
+.Chatboxes-container {
+    position: fixed;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    padding: 24px;
+    overflow-x: scroll;
+}
+
+    .Chatboxes-container .container-inner {
+        width: 10000px; /* scroll through the chatboxes on x axis */
+    }

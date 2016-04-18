@@ -50,9 +50,6 @@ public partial class Group : System.Web.UI.Page
             {
                 groupId = maybeGroupId;     // definitely
 
-                // For todos testing
-                testTodosLink.NavigateUrl = "Taskinator.aspx?groupID=" + groupId;
-
                 if (!Page.IsPostBack)
                 {
                     renderGroupToPage();
@@ -109,7 +106,7 @@ public partial class Group : System.Web.UI.Page
             CultureInfo frCA = new CultureInfo("fr-CA");
 
             lblGroupDateCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.LongDatePattern, frCA);
-            lblGroupTimeCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.ShortDatePattern, frCA);
+            lblGroupTimeCreated.Text = theGroup.Creation_date.ToString(frCA.DateTimeFormat.ShortTimePattern, frCA);
             renderMessagesToPage();
             refreshGroupTasks();
         }

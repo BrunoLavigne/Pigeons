@@ -2,11 +2,19 @@
 /*    Groups page elements      */
 /********************************/
 
-.Btn-new-group {
-    font-size: 22px;
-    padding: 10px;
-    width: 150px;
-    border-radius: 12px;
+.toggle-new-group-form {
+    display: inline-block;
+}
+.toggle-new-group-form .glyphicon {
+    margin-right: 12px;
+}
+
+.New-group-form {
+    display: none;
+    margin-top: 12px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Group component */
@@ -88,7 +96,67 @@
     }
 
 
-/*img.media-object {
-    height: 75px;
-    border-radius: 50%;
-}*/
+
+
+
+/* Search user to add in group */
+.users-container {
+	border: 1px solid #eee;
+	border-radius: 18px;
+	padding: 24px;
+	max-width: 500px;
+	margin: auto;
+	font-family: Montserrat;
+}
+.users-container li:not(:last-child) {
+	border-bottom: 1px solid #eee;
+}
+
+.user-container {
+	padding: 20px;
+	list-style-type: none;
+	display: none;
+}
+.user-container .text-container {
+	vertical-align: middle;
+	display: inline-block;
+}
+.user-container .profile-picture-container {
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	background-size: cover;
+	background-position: center center;
+	vertical-align: middle;
+	display: none; /* mq togg */
+}
+.user-container .name-label {
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 4px;
+}
+.user-container .organization-label {
+	font-size: 14px;
+}
+.user-container .email-label {
+	color: grey;
+	font-size: 12px;
+}
+
+.user-container .add-user-btn {
+	float: right;
+	padding: 3px;
+	border: 1px solid #aaa; /* test for now */
+}
+.user-container .add-user-btn:hover, .user-container .add-user-btn:focus {
+	cursor: pointer;
+}
+
+@media screen and (min-width: 480px) {
+	.user-container .profile-picture-container {
+		display: inline-block;
+	}
+	.user-container .text-container {
+		margin-left: 25px;
+	}
+}

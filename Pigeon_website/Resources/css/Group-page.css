@@ -4,18 +4,18 @@
 
 /* Groups page header */
 .Group-presentation {
-    background: #f8f8f8;
+    background: #E8BA61;
+    padding: 32px;
 }
 
 .Group-presentation .picture-container {
-    padding: 32px 15px 20px 15px;
     text-align: center;
 }
 
 .Group-presentation .picture-container img {
-    border: 7px solid lightgray;
     border-radius: 50%;
-    max-width: 200px;
+    width: 200px;
+    height: 200px;
 }
 
 .Group-presentation .text {
@@ -40,81 +40,27 @@
     color: white;
     border-radius: 16px;
     background-color: rgb(97, 69, 91);
-    width: 175px;
     display: inline-block;
 }
 
-.Group-action-btn.deleteGroup {
-    background-color: #7d2301;
-}
+    .Group-action-btn.deleteGroup {
+        background-color: #7d2301;
+    }
 
-.Group-action-btn.deleteGroup .icon-container {
-    background-color: rgb(87, 6, 0);
-}
+    .Group-action-btn.deleteGroup .icon-container {
+        background-color: rgb(87, 6, 0);
+    }
 
-.Group-action-btn .icon-container {
-    border-radius: 16px;
-    background-color: rgb(76, 51, 72);
-}
+    .Group-action-btn .icon-container {
+        border-radius: 16px;
+        background-color: rgb(76, 51, 72);
+    }
 
-.Group-action-btn > div {
-    display: inline-block;
-    padding: 24px;
-}
-
-
-/* The toggler components toggles messages/tasks/files */
-.Toggler {
-    text-decoration: none;
-    color: white;
-    border-radius: 16px;
-
-    -webkit-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    -moz-box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-    box-shadow: 10px 10px 28px -6px rgba(105,85,105,1);
-}
-
-    .Toggler > div {
+    .Group-action-btn > div {
         display: inline-block;
-        height: 100%;
         padding: 24px;
     }
 
-    .Toggler a {
-        color: white;
-    }
-
-    .Toggler .text {
-        border-radius: 16px;
-    }
-
-    .Toggler .action {
-        float: right;
-    }
-
-    .Toggler.messages {
-        background-color: rgb(1, 91, 125);
-    }
-
-    .Toggler.messages .text {
-        background-color: rgb(0, 70, 98);
-    }
-
-    .Toggler.files {
-        background-color: rgb(30, 101, 95);
-    }
-
-    .Toggler.files .text {
-        background-color: rgb(26, 85, 81);
-    }
-
-    .Toggler.tasks {
-        background-color: rgb(201, 115, 4);
-    }
-
-    .Toggler.tasks .text {
-        background-color: rgb(151, 88, 9);
-    }
 
 /* The group message container component */
 .Group-message {
@@ -163,6 +109,7 @@
     right: 0;
     padding: 12px;
     background: #337ab7;
+    border: 2px solid #144773;
     border-radius: 13px 0 0 13px;
     z-index: 2;
 }
@@ -170,6 +117,7 @@
         padding: 0;
         margin-bottom: 0;
     }
+
     .Sidebar li {
         list-style-type: none;
         margin: 16px 0;
