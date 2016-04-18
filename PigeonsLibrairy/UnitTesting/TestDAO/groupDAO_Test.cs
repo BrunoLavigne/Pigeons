@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PigeonsLibrairy.Model;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PigeonsLibrairy.DAO.Implementation;
+using PigeonsLibrairy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,7 +63,7 @@ namespace UnitTesting.TestDAO
                 int insertedGroupID = groupTest.Id;
 
                 group actualGroup = groupDAO.GetByID(context, insertedGroupID);
-                
+
                 Assert.AreEqual(GROUP_NAME, actualGroup.Name);
                 Assert.AreEqual(GROUP_CREATION_DATE, actualGroup.Creation_date);
                 Assert.AreEqual(GROUP_DESCRIPTION, actualGroup.Description);
@@ -146,9 +146,6 @@ namespace UnitTesting.TestDAO
 
                 List<group> groupByDescription = groupDAO.GetBy(context, group.COLUMN_DESCRIPTION, GROUP_DESCRIPTION).ToList();
                 Assert.AreEqual(GROUP_DESCRIPTION, groupByDescription[0].Description);
-
-                List<group> groupByCreationDate = groupDAO.GetBy(context, group.COLUMN_CREATION_DATE, GROUP_CREATION_DATE).ToList();
-                Assert.AreEqual(GROUP_CREATION_DATE, groupByCreationDate[0].Creation_date);
 
                 groupDAO.Delete(context, insertedGroupID);
                 context.SaveChanges();

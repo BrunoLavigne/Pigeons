@@ -53,7 +53,6 @@ namespace UnitTesting
         /// Test pour la méthode Insert de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Group et validation de ses propriétés
         /// </summary>
-        [TestMethod]
         public void TestInsertFollowing()
         {
             using (var context = new pigeonsEntities1())
@@ -80,7 +79,6 @@ namespace UnitTesting
         /// Test pour la méthode Delete de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Following et validation de ses propriétés
         /// </summary>
-        [TestMethod]
         public void TestDeleteFollowing()
         {
             using (var context = new pigeonsEntities1())
@@ -135,7 +133,6 @@ namespace UnitTesting
         /// Test pour la méthode GetBy column name de la classes <see cref="PigeonsLibrairy.DAO.Implementation.FollowingDAO"/>
         /// Insertion d'un Following et validation de ses propriétés
         /// </summary>
-        [TestMethod]
         public void TestGetByFollowingTest()
         {
             using (var context = new pigeonsEntities1())
