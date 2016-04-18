@@ -120,6 +120,7 @@ C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debu
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.dll
 C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.pdb
+C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\PigeonsLibrairy.dll.config
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\PigeonsLibrairy.XML
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\PigeonsLibrairy.dll
@@ -175,7 +176,5 @@ C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\Sy
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.xml
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.dll
 C:\Users\bruno\Source\Repos\Pigeons\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.pdb
-C:\Users\Laurent\Source\Repos\Pigeonsv2\PigeonsLibrairy\PigeonsLibrairy\obj\Debug\PigeonsLibrairy.csprojResolveAssemblyReference.cache

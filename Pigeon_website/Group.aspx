@@ -3,11 +3,6 @@
 <%@ Register TagPrefix="uc" TagName="RemoveUserModal" Src="~/Partials/RemoveUserFromGroupModal.ascx" %>
 <%@ Register TagPrefix="uc" TagName="DeleteGroupModal" Src="~/Partials/DeleteGroupModal.ascx" %>
 <script runat="server">
-
-    protected void btnAddPerson_Click(object sender, EventArgs e)
-    {
-
-    }
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -404,6 +399,32 @@
         <!----------->
         <div class="Group-files-container" id="files-section">
             <h2>Files!</h2>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                    <asp:Button ID="btnSaveFile" runat="server" Text="Save File to Group" CommandArgument="<GROUP ID>" CommandName="SaveGroupFile" OnClick="SaveGroupFile" />
+                </div>
+            </div>
+
+            <div class="row">
+                <asp:UpdatePanel ID="updatePanelFiles" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                        <div class="File-message row">
+                            <div class="col-md-4">
+                                <asp:ListView ID="test" runat="server">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="btnDownload" runat="server" CommandArgument='<%# Eval("FileURL") %>' OnClick="DownloadButtonClick" CssClass="ImageButton" ImageUrl="http://localhost:50786/Resources/img/Icon_File_256x256.png" />
+                                        <asp:Label ID="Label1" runat="server" CssClass="form-control" Text='<%# Eval("FileName") %>'></asp:Label>
+                                        <asp:Label ID="Label2" runat="server" CssClass="form-control" Text='<%# Eval("Creation_Date") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
         </div>
         <!------------->
         <!-- ./FILES -->

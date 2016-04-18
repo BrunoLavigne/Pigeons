@@ -4,24 +4,21 @@ using System;
 
 public partial class Account : System.Web.UI.Page
 {
-
     protected HomeFacade homeFacade { get; set; }
+
+    private enum ActionType { NONE, SAVE_PERSON_PICTURE, SAVE_GROUP_PICTURE, SAVE_GROUP_FILE };
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if(homeFacade == null)
+        if (homeFacade == null)
         {
             homeFacade = new HomeFacade();
         }
 
-        if(!IsPostBack)
+        if (!IsPostBack)
         {
-
             setValuesInPage();
-
         }
-
     }
 
     // If no changes have been applied, disable this button anyways
@@ -41,7 +38,7 @@ public partial class Account : System.Web.UI.Page
 
         personToUpdate.Description = editUserDescription.Text;
         personToUpdate.Organization = editUserOrganization.Text;
-        
+
         personToUpdate.Position = editUserPosition.Text;
 
         personToUpdate.Profile_picture_link = editUserProfilePicture.Text;
@@ -54,7 +51,6 @@ public partial class Account : System.Web.UI.Page
 
         // set values in page (refresh) DIRTY
         setValuesInPage();
-
     }
 
     protected void setValuesInPage()
@@ -71,9 +67,58 @@ public partial class Account : System.Web.UI.Page
             editUserPhoneNumber.Text = activeP.Phone_number;
             editUserProfilePicture.Text = activeP.Profile_picture_link;
             userProfilePicture.ImageUrl = activeP.Profile_picture_link;
-
-        } else {
+        }
+        else
+        {
             Response.Redirect("Index.aspx");
+        }
+    }
+
+    protected void SaveUserPicture(object sender, EventArgs e)
+    {
+        person activeP = (person)Session["user"];
+
+        System.Diagnostics.Debug.WriteLine("FileUploadTest SaveUserPicture method called.");
+
+        int personID = activeP.Id;
+        fileUploader(personID, ActionType.SAVE_PERSON_PICTURE);
+    }
+
+    private void fileUploader(int optionnalID = -1, ActionType optionnalActionType = ActionType.NONE)
+    {
+        System.Diagnostics.Debug.WriteLine("FileUploadTest fileUploader method called.");
+        System.Diagnostics.Debug.WriteLine("Parameter optionnalID: " + optionnalID);
+        System.Diagnostics.Debug.WriteLine("Parameter optionnalActionType: " + optionnalActionType);
+        if (FileUpload1.HasFile)
+        {
+            try
+            {
+                Byte[] fileBytes = FileUpload1.FileBytes;
+                System.Diagnostics.Debug.WriteLine("File Byte Array: " + fileBytes.ToString());
+                string[] parts = FileUpload1.FileName.Split('.');
+                string extension = "." + parts[parts.Length - 1];
+                System.Diagnostics.Debug.WriteLine("File extension: " + extension);
+                string filename = null;
+                for (int i = 0; i < (parts.Length); i++)
+                {
+                    if (i == 0)
+                    {
+                        filename += parts[i];
+                    }
+                    else
+                    {
+                        filename += "." + parts[i];
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("File Name: " + filename);
+
+                homeFacade.fileControl.AddPictureToUser(fileBytes, optionnalID, filename);
+            }
+            catch (Exception error)
+            {
+                System.Diagnostics.Debug.WriteLine(error + "\n" + error.Message);
+                return;
+            }
         }
     }
 }
