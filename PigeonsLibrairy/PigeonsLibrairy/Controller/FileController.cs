@@ -6,7 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Web;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 
@@ -251,7 +251,7 @@ namespace PigeonsLibrairy.Controller
         {
             try
             {
-                return (List<file>)fileService.GetFilesByGroup(groupID);
+                return fileService.GetFilesByGroup(groupID).ToList();
             }
             catch (Exception error)
             {
